@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Next.js
+.next
+out
+
+# Build
+dist
+
+# Turbo
+.turbo
+
+# Env
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea
+.vscode
+
+# OS
+.DS_Store
+
+# Logs
+*.log
