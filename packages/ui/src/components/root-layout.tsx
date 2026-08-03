@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { cn } from "../lib/utils";
 import "../globals.css";
 
 export interface SiteConfig {
@@ -16,7 +19,7 @@ const defaultSiteConfig: SiteConfig = {
 
 export function createMetadata(
   config: Partial<SiteConfig> = {},
-  pageMetadata: Partial<Metadata> = {}
+  pageMetadata: Partial<Metadata> = {},
 ): Metadata {
   const site = { ...defaultSiteConfig, ...config };
 
@@ -57,7 +60,19 @@ export function RootLayout({
 }: RootLayoutProps) {
   return (
     <html lang={lang}>
-      <body className={className}>{children}</body>
+      <body className={cn("flex min-h-screen flex-col", className)}>
+        <nav>
+          <Link href="/">
+            <Image src="/logo.png" alt="Basalf" width={100} height={100} />
+          </Link>
+        </nav>
+        <main className="flex-1">{children}</main>
+        {/* <footer className="mt-auto bg-black px-8 py-4 text-white">
+          <div>
+            <p>Copyright {new Date().getFullYear()} Basalf</p>
+          </div>
+        </footer> */}
+      </body>
     </html>
   );
 }
