@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@repo/i18n";
 import { cn } from "../lib/utils";
 import "../globals.css";
 
@@ -47,6 +47,50 @@ export function createMetadata(
   };
 }
 
+export type NavItem = {
+  label: string;
+  href: string;
+  adminOnly?: boolean;
+  subItems?: NavItem[];
+};
+
+export interface NavProps {
+  navItems?: NavItem[];
+  authSlot?: React.ReactNode;
+}
+
+const NavUi = ({ label, href }: { label: string; href: string }) => {
+  return (
+    <Link href={href} className="hover:underline text-gray-700">
+      {label}
+    </Link>
+  );
+};
+
+export function Nav({ navItems, authSlot }: NavProps) {
+  return (
+    <nav className="flex items-center justify-between px-4 py-2 border-b">
+      <div className="flex items-center gap-4 md:gap-10">
+        <Link
+          href={
+            process.env.NEXT_PUBLIC_STAGE === "prod"
+              ? "https://basalf.com"
+              : "http://localhost:3000"
+          }
+        >
+          <Image src="/logo.png" alt="Basalf" width={60} height={60} />
+        </Link>
+        <div className="flex gap-4 pt-2">
+          {navItems?.map((item) => (
+            <NavUi key={item.href} label={item.label} href={item.href} />
+          ))}
+        </div>
+      </div>
+      {authSlot}
+    </nav>
+  );
+}
+
 export interface RootLayoutProps {
   children: React.ReactNode;
   className?: string;
@@ -61,17 +105,7 @@ export function RootLayout({
   return (
     <html lang={lang}>
       <body className={cn("flex min-h-screen flex-col", className)}>
-        <nav>
-          <Link href="/">
-            <Image src="/logo.png" alt="Basalf" width={100} height={100} />
-          </Link>
-        </nav>
-        <main className="flex-1">{children}</main>
-        {/* <footer className="mt-auto bg-black px-8 py-4 text-white">
-          <div>
-            <p>Copyright {new Date().getFullYear()} Basalf</p>
-          </div>
-        </footer> */}
+        {children}
       </body>
     </html>
   );

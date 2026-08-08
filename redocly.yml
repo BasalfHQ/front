@@ -1,0 +1,5 @@
+apis:
+  base-user-mgt-bff:
+    root: https://6l7uwvwff8.execute-api.eu-central-1.amazonaws.com/doc
+    x-openapi-ts:
+      output: ./packages/apis/src/base-user-mgt-bff/types.ts

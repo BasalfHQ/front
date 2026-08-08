@@ -1,0 +1,23 @@
+{
+  "nav": {
+    "users": "Users",
+    "cms": "CMS",
+    "organizations": "Organizations"
+  },
+  "users": {
+    "title": "Users",
+    "addUser": "Add User",
+    "editUser": "Edit User"
+  },
+  "organization": {
+    "title": "Organizations",
+    "members": "Members",
+    "existingOrganizations": "Existing Organizations",
+    "noOrganizations": "No organizations found",
+    "organizationName": "Organization Name",
+    "enterName": "Enter organization name",
+    "creating": "Creating...",
+    "createOrganization": "Create Organization",
+    "createdSuccess": "Organization \"{name}\" created successfully"
+  }
+}

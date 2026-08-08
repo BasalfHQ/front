@@ -1,0 +1,23 @@
+{
+  "nav": {
+    "users": "Utilisateurs",
+    "cms": "CMS",
+    "organizations": "Organisations"
+  },
+  "users": {
+    "title": "Utilisateurs",
+    "addUser": "Ajouter un utilisateur",
+    "editUser": "Modifier l'utilisateur"
+  },
+  "organization": {
+    "title": "Organisations",
+    "members": "Membres",
+    "existingOrganizations": "Vos organisations",
+    "noOrganizations": "Aucune organisation trouvée",
+    "organizationName": "Nom de l'organisation",
+    "enterName": "Entrez le nom de l'organisation",
+    "creating": "Création...",
+    "createOrganization": "Créer une organisation",
+    "createdSuccess": "Organisation \"{name}\" créée avec succès"
+  }
+}

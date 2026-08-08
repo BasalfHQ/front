@@ -11,8 +11,13 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@repo/auth-ui": "workspace:*",
+    "@repo/config": "workspace:*",
+    "@repo/i18n": "workspace:*",
     "@repo/ui": "workspace:*",
+    "next-intl": "^4.13.2",
     "next": "^16.2.0",
+    "next-auth": "^4.24.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

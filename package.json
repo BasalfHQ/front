@@ -6,9 +6,12 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "type-check": "turbo type-check"
+    "type-check": "turbo type-check",
+    "generate:api": "npx @redocly/cli build-docs && npx openapi-typescript"
   },
   "devDependencies": {
+    "@redocly/cli": "^1.25.0",
+    "openapi-typescript": "^7.4.0",
     "turbo": "^2.3.0"
   }
 }
