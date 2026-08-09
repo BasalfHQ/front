@@ -29,10 +29,6 @@ export async function Pages({
     getLocales(session.idToken),
   ]);
 
-  const selectedLocales = ISO_639_1_CODES_WITH_FLAGS.filter((locale) =>
-    locales?.includes(locale.code),
-  );
-
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-between items-center w-full">
@@ -42,13 +38,11 @@ export async function Pages({
             <Button>{t("createPage")}</Button>
           </Link>
         </div>
-        {selectedLocales.length > 0 && (
-          <I18nClientProvider namespace="pages">
-            <LocalesModale locales={locales} />
-          </I18nClientProvider>
-        )}
+        <I18nClientProvider namespace="pages">
+          <LocalesModale locales={locales} />
+        </I18nClientProvider>
       </div>
-      <p className="text-gray-500">{t("noPages")}</p>
+      {pages.length === 0 && <p className="text-gray-500">{t("noPages")}</p>}
     </div>
   );
 }

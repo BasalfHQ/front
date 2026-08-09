@@ -58,11 +58,11 @@ export async function getWebsites(idToken: string): Promise<Website[]> {
 
 export async function getLocales(
   idToken: string,
-): Promise<Locales | undefined> {
+): Promise<Locales> {
   const response = await client.GET("/locales", {
     headers: headers({ idToken }),
   });
-  return response.data;
+  return response.data || [];
 }
 
 export async function updateLocales(locales: Locales, idToken: string) {

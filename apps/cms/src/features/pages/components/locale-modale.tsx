@@ -20,13 +20,14 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { updateLocales } from "../actions";
 
-export function LocalesModale({ locales }: { locales?: Locales }) {
-  const [isOpen, setIsOpen] = useState(
-    locales?.length && locales.length > 0 ? true : false,
-  );
+export function LocalesModale({ locales }: { locales: Locales }) {
+  const [isOpen, setIsOpen] = useState(locales.length > 0 ? false : true);
   const [selectedLocale, setSelectedLocale] = useState<Locales>(locales || []);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  console.log(locales);
+  console.log(locales.length > 0);
 
   const t = useTranslations("pages.LocalesModale");
 
