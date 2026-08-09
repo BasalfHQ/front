@@ -12,6 +12,7 @@ export enum EnvVar {
   NEXTAUTH_URL = "NEXTAUTH_URL",
   AUTH_COOKIE_DOMAIN = "AUTH_COOKIE_DOMAIN",
   USER_MGT_BFF_URL = "USER_MGT_BFF_URL",
+  CMS_MGT_BFF_URL = "CMS_MGT_BFF_URL",
 }
 
 const STAGE = (process.env.NEXT_PUBLIC_STAGE as Stage) || Stage.DEV;
@@ -24,7 +25,7 @@ function requireEnv(name: EnvVar): string {
   const value = getEnv(name);
   if (!value) {
     throw new Error(
-      `BASALF_${STAGE.toUpperCase()}_${name} environment variable is required`
+      `BASALF_${STAGE.toUpperCase()}_${name} environment variable is required`,
     );
   }
   return value;
@@ -45,5 +46,11 @@ export const env = {
   },
   api: {
     userMgtBffUrl: () => getEnv(EnvVar.USER_MGT_BFF_URL),
+    cmsMgtBffUrl: () => getEnv(EnvVar.CMS_MGT_BFF_URL),
   },
 };
+
+export const baseUrl =
+  process.env.NEXT_PUBLIC_STAGE === "prod"
+    ? "https://basalf.com/"
+    : "http://localhost:3000/";

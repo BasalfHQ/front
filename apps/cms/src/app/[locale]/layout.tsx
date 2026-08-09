@@ -3,6 +3,7 @@ import {
   routing,
   setRequestLocale,
   getMessages,
+  getTranslations,
 } from "@repo/i18n";
 import { notFound } from "next/navigation";
 import { RootLayout, createMetadata } from "@repo/auth-ui";
@@ -23,14 +24,21 @@ export function generateStaticParams() {
 }
 
 export default async function LocaleLayout({ children, params }: Props) {
-  const { locale } = await params;
+  const [{ locale }, messages, t] = await Promise.all([
+    params,
+    getMessages(),
+    getTranslations("nav"),
+  ]);
   if (!hasLocale(routing.locales, locale)) notFound();
 
   setRequestLocale(locale);
-  const messages = await getMessages();
-
   return (
-    <RootLayout lang={locale} locale={locale} messages={messages}>
+    <RootLayout
+      lang={locale}
+      locale={locale}
+      messages={messages}
+      navItems={[{ label: t("pages"), href: "/pages", authOnly: true }]}
+    >
       {children}
     </RootLayout>
   );

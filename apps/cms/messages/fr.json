@@ -1,7 +1,31 @@
 {
-  "cms": {
-    "title": "Gestion de contenu",
-    "pages": "Pages",
-    "media": "Médias"
+  "nav": {
+    "pages": "Pages"
+  },
+  "homepage": {
+    "title": "Connectez-vous à votre compte pour accéder au CMS"
+  },
+  "pages": {
+    "title": "Vos Pages",
+    "noPages": "Vous n'avez pas encore créé de pages",
+    "createPage": "Créer une page",
+    "LocalesModale": {
+      "yourLocales": "{count, plural, =0 {Aucune langue} =1 {Votre langue} other {Vos langues}}",
+      "title": "Dans quelle langue sera votre site ?",
+      "description": "Pour commencer à utiliser Basalf CMS vous devez définir au moins une langue pour votre site. Cette liste sera changeable à tout moment.",
+      "addLocale": "Ajouter une langue",
+      "search": "Rechercher une langue",
+      "submit": "Ajouter les langues",
+      "success": "Les langues ont été ajoutées avec succès !",
+      "error": "Une erreur est survenue lors de l'ajout des langues"
+    }
+  },
+  "createPage": {
+    "title": "Créer une page",
+    "url": {
+      "label": "Url",
+      "description": "L'url de cette page. C'est l'endroit d'où la page sera accessible.",
+      "placeholder": "/blog/mon-article"
+    }
   }
 }

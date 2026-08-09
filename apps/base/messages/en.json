@@ -7,7 +7,21 @@
   "users": {
     "title": "Users",
     "addUser": "Add User",
-    "editUser": "Edit User"
+    "editUser": "Edit User",
+    "addNewUser": "Add New User",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "create": "Create",
+    "creating": "Creating...",
+    "createFailed": "Failed to create user",
+    "deleteFailed": "Failed to delete user",
+    "notAuthenticated": "Not authenticated",
+    "allFieldsRequired": "All fields are required",
+    "noUsers": "No users found.",
+    "name": "Name",
+    "actions": "Actions",
+    "delete": "Delete"
   },
   "organization": {
     "title": "Organizations",

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Link } from "@repo/i18n";
 import { cn } from "../lib/utils";
 import "../globals.css";
+import { Toaster } from "sonner";
 
 export interface SiteConfig {
   name: string;
@@ -51,6 +52,7 @@ export type NavItem = {
   label: string;
   href: string;
   adminOnly?: boolean;
+  authOnly?: boolean;
   subItems?: NavItem[];
 };
 
@@ -69,7 +71,7 @@ const NavUi = ({ label, href }: { label: string; href: string }) => {
 
 export function Nav({ navItems, authSlot }: NavProps) {
   return (
-    <nav className="flex items-center justify-between px-4 py-2 border-b">
+    <nav className="flex items-center justify-between px-4 py-2 border-b w-full">
       <div className="flex items-center gap-4 md:gap-10">
         <Link
           href={
@@ -104,8 +106,9 @@ export function RootLayout({
 }: RootLayoutProps) {
   return (
     <html lang={lang}>
-      <body className={cn("flex min-h-screen flex-col", className)}>
+      <body className={cn("flex min-h-screen flex-col w-full", className)}>
         {children}
+        <Toaster />
       </body>
     </html>
   );

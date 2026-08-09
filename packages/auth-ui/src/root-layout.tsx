@@ -29,7 +29,8 @@ export async function RootLayout({
 
   const userIsAdmin = isAdmin(session?.user?.email);
   const filteredNavItems = navItems?.filter(
-    (item) => !item.adminOnly || userIsAdmin
+    (item) =>
+      (!item.adminOnly || userIsAdmin) && (!item.authOnly || !!session)
   );
 
   const organizations = session?.idToken
@@ -43,7 +44,7 @@ export async function RootLayout({
   const content = (
     <AuthProvider>
       <Nav navItems={filteredNavItems} authSlot={authSlot} />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 w-full flex p-8 flex-col">{children}</main>
     </AuthProvider>
   );
 

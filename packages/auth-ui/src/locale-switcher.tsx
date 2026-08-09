@@ -24,7 +24,13 @@ export function LocaleSwitcher({ className = "" }: { className?: string }) {
   const [isPending, startTransition] = useTransition();
 
   function onLocaleChange(newLocale: string) {
+    console.log("before", window.location.href);
+    console.log("locales", currentLocale, newLocale);
+
     if (newLocale === currentLocale) return;
+
+    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; samesite=lax`;
+
     startTransition(() => {
       router.replace(pathname, { locale: newLocale });
     });

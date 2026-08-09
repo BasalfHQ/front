@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { getAuthOptions, getCognito } from "@repo/auth-ui";
+import { getAuthOptions, getCognito, decodeCognitoToken } from "@repo/auth-ui";
 
 export async function POST(request: Request) {
   const session = await getServerSession(getAuthOptions());
@@ -21,16 +21,20 @@ export async function POST(request: Request) {
 
     const cognito = getCognito();
 
-    await cognito.updateUserAttributesAndGetTokens({
+    const { username } = session.idToken
+      ? decodeCognitoToken(session.idToken)
+      : { username: undefined };
+
+    const { tokens } = await cognito.updateUserAttributesAndGetTokens({
       accessToken: session.accessToken,
       refreshToken: session.refreshToken,
-      username: session.user.email,
+      username: username ?? session.user.email,
       userAttributes: {
         "custom:currentOrganization": organizationId,
       },
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, tokens });
   } catch (error) {
     console.error("Error updating organization:", error);
     return NextResponse.json(

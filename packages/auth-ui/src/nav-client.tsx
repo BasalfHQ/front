@@ -5,7 +5,7 @@ import { LoginModal, OrganizationSelect } from "@repo/auth/components";
 import { useTranslations } from "next-intl";
 import { LocaleSwitcher } from "./locale-switcher";
 import { Button } from "@repo/ui/button";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 interface NavAuthSlotProps {
@@ -18,6 +18,7 @@ export function NavAuthSlot({ isLoggedIn, organizations }: NavAuthSlotProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { update } = useSession();
 
   const handleOrganizationChange = async (organizationId: string) => {
     const response = await fetch("/api/auth/organization", {
@@ -27,6 +28,8 @@ export function NavAuthSlot({ isLoggedIn, organizations }: NavAuthSlotProps) {
     });
 
     if (response.ok) {
+      const { tokens } = await response.json();
+      await update(tokens);
       window.location.reload();
     }
   };

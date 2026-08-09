@@ -15,6 +15,7 @@ export {
 
 // Provider
 export { I18nProvider } from "./provider";
+export { I18nClientProvider, type Namespace } from "./client-provider";
 
 // Re-exports from next-intl
 export { useTranslations, useLocale, useMessages } from "next-intl";

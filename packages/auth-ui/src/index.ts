@@ -16,5 +16,6 @@ export {
   isSessionExpired,
   getAuthHeaders,
   isAdmin,
+  decodeCognitoToken,
   type Organization,
 } from "@repo/auth";

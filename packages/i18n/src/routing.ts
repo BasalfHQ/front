@@ -8,6 +8,7 @@ export const routing = defineRouting({
     name: "NEXT_LOCALE",
     domain: process.env.NODE_ENV === "production" ? ".basalf.com" : undefined,
   },
+  // localeDetection: false,
 });
 
 export type Locale = (typeof routing.locales)[number];

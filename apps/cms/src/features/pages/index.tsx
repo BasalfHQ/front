@@ -1,0 +1,54 @@
+import {
+  getTranslations,
+  I18nClientProvider,
+  Link,
+  redirect,
+} from "@repo/i18n";
+import { auth, Button } from "@repo/auth-ui";
+import { baseUrl } from "@repo/config";
+import { getLocales, getPages } from "@repo/apis";
+import { LocalesModale } from "./components/locale-modale";
+import { ISO_639_1_CODES_WITH_FLAGS } from "@repo/apis";
+
+export async function Pages({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const [t, session, { locale }] = await Promise.all([
+    getTranslations("pages"),
+    auth(),
+    params,
+  ]);
+  if (!session || !session.idToken) {
+    return redirect({ href: baseUrl, locale });
+  }
+
+  const [pages, locales] = await Promise.all([
+    getPages(session.idToken),
+    getLocales(session.idToken),
+  ]);
+
+  const selectedLocales = ISO_639_1_CODES_WITH_FLAGS.filter((locale) =>
+    locales?.includes(locale.code),
+  );
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex justify-between items-center w-full">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-2xl font-bold">{t("title")}</h1>
+          <Link href="/create-page">
+            <Button>{t("createPage")}</Button>
+          </Link>
+        </div>
+        {selectedLocales.length > 0 && (
+          <I18nClientProvider namespace="pages">
+            <LocalesModale locales={locales} />
+          </I18nClientProvider>
+        )}
+      </div>
+      <p className="text-gray-500">{t("noPages")}</p>
+    </div>
+  );
+}

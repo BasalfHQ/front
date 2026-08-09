@@ -3,3 +3,8 @@ apis:
     root: https://6l7uwvwff8.execute-api.eu-central-1.amazonaws.com/doc
     x-openapi-ts:
       output: ./packages/apis/src/base-user-mgt-bff/types.ts
+  cms-mgt-bff:
+    root: https://w4mv07ei05.execute-api.eu-central-1.amazonaws.com/doc
+    x-openapi-ts:
+      output: ./packages/apis/src/cms-mgt-bff/types.ts
+

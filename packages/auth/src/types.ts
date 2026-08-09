@@ -11,6 +11,7 @@ declare module "next-auth" {
       email?: string | null;
       image?: string | null;
       currentOrganization?: string;
+      currentWebsite?: string;
       organizations?: string[];
     };
   }
@@ -23,6 +24,7 @@ declare module "next-auth/jwt" {
     refreshToken?: string;
     groups?: string[];
     currentOrganization?: string;
+    currentWebsite?: string;
     email?: string;
   }
 }

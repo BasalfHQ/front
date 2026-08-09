@@ -3,16 +3,13 @@ import { CreateOrgForm } from "./components/create-org-form";
 import { redirect } from "next/navigation";
 import { getOrganizations as apiGetOrganizations } from "@repo/apis";
 import { getTranslations } from "@repo/i18n";
+import { baseUrl } from "@repo/config";
 
 export async function OrganizationPage() {
   const session = await auth();
 
   if (!isAdmin(session?.user?.email) || !session?.idToken) {
-    return redirect(
-      process.env.NEXT_PUBLIC_STAGE === "prod"
-        ? "https://basalf.com/"
-        : "http://localhost:3000/",
-    );
+    return redirect(baseUrl);
   }
 
   const [t, organizations] = await Promise.all([
@@ -21,7 +18,7 @@ export async function OrganizationPage() {
   ]);
 
   return (
-    <div className="p-8 max-w-2xl">
+    <div>
       <CreateOrgForm />
       <h2 className="text-xl font-semibold mb-4">
         {t("existingOrganizations")}

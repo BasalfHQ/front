@@ -9,7 +9,9 @@ export function isAdmin(email: string | null | undefined): boolean {
 export function decodeCognitoToken(idToken: string): {
   groups: string[];
   currentOrganization?: string;
+  currentWebsite?: string;
   email?: string;
+  username?: string;
 } {
   try {
     const parts = idToken.split(".");
@@ -26,12 +28,16 @@ export function decodeCognitoToken(idToken: string): {
     const groupsArray = Array.isArray(groups) ? groups : [];
 
     const currentOrganization = claims["custom:currentOrganization"];
+    const currentWebsite = claims["custom:currentWebsite"];
     const email = claims["email"];
+    const username = claims["cognito:username"] ?? claims["username"];
 
     return {
       groups: groupsArray,
       currentOrganization: currentOrganization || undefined,
+      currentWebsite: currentWebsite || undefined,
       email: email || undefined,
+      username: username || undefined,
     };
   } catch (error) {
     console.error("Error decoding Cognito token:", error);

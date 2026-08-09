@@ -7,7 +7,21 @@
   "users": {
     "title": "Utilisateurs",
     "addUser": "Ajouter un utilisateur",
-    "editUser": "Modifier l'utilisateur"
+    "editUser": "Modifier l'utilisateur",
+    "addNewUser": "Ajouter un nouvel utilisateur",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Email",
+    "create": "Créer",
+    "creating": "Création...",
+    "createFailed": "Échec de la création de l'utilisateur",
+    "deleteFailed": "Échec de la suppression de l'utilisateur",
+    "notAuthenticated": "Non authentifié",
+    "allFieldsRequired": "Tous les champs sont requis",
+    "noUsers": "Aucun utilisateur trouvé.",
+    "name": "Nom",
+    "actions": "Actions",
+    "delete": "Supprimer"
   },
   "organization": {
     "title": "Organisations",
