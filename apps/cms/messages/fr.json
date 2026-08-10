@@ -22,10 +22,65 @@
   },
   "createPage": {
     "title": "Créer une page",
+    "blockTitle": "Créer vos blocs",
+    "blockDescription": "Les blocs sont ce dont votre page est faite. Vous pouvez ajouter des blocs de texte, d'image, de liste, de FAQ, etc. <br></br>Chaque type de bloc nécessite des données différentes pour être affiché. <br></br>Chaque bloc sera affiché dans l'ordre où vous l'ajoutez.",
+    "save": "Enregistrer",
     "url": {
       "label": "Url",
       "description": "L'url de cette page. C'est l'endroit d'où la page sera accessible.",
       "placeholder": "/blog/mon-article"
+    },
+    "locale": {
+      "label": "Langue",
+      "description": "La langue de cette page. C'est la langue dans laquelle la page sera affichée.",
+      "placeholder": "Choisir une langue"
+    }
+  },
+  "BlockForm": {
+    "addNewBlock": "Ajouter un bloc",
+    "cancel": "Annuler",
+    "types": {
+      "description": {
+        "name": "Description",
+        "description": "Un bloc utilisé pour décrire une section de la page."
+      },
+      "text": {
+        "name": "Texte",
+        "description": "Un bloc utilisé pour ajouter un long texte à la page."
+      },
+      "heading": {
+        "name": "Titre",
+        "description": "Un bloc utilisé pour ajouter un titre à la page."
+      },
+      "list": {
+        "name": "Liste",
+        "description": "Un bloc utilisé pour ajouter une liste à la page."
+      },
+      "image": {
+        "name": "Image",
+        "description": "Un bloc utilisé pour ajouter une image à la page."
+      },
+      "faq": {
+        "name": "FAQ",
+        "description": "Un bloc utilisé pour ajouter une FAQ à la page."
+      },
+      "space": {
+        "name": "Espace",
+        "description": "Un bloc utilisé pour ajouter un espace à la page."
+      },
+      "related": {
+        "name": "Pages liées",
+        "description": "Un bloc utilisé pour ajouter des pages liées à la page."
+      }
+    },
+    "attributes": {
+      "content": "Contenu",
+      "level": "Taille",
+      "ordered": "Numéroté",
+      "list": "Liste",
+      "small": "Petit",
+      "medium": "Moyen",
+      "large": "Grand"
     }
   }
 }

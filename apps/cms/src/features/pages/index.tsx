@@ -8,7 +8,6 @@ import { auth, Button } from "@repo/auth-ui";
 import { baseUrl } from "@repo/config";
 import { getLocales, getPages } from "@repo/apis";
 import { LocalesModale } from "./components/locale-modale";
-import { ISO_639_1_CODES_WITH_FLAGS } from "@repo/apis";
 
 export async function Pages({
   params,

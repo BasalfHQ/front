@@ -52,3 +52,5 @@ export {
   PopoverAnchor,
 } from "./components/popover";
 export { toast } from "sonner";
+export { Tiptap, type TiptapProps } from "./components/tiptap";
+export { Switch } from "./components/switch";

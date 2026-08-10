@@ -22,10 +22,66 @@
   },
   "createPage": {
     "title": "Create a page",
+    "blockTitle": "Create your blocks",
+    "blockDescription": "Blocks are what your page is made of. You can add text, image, list, FAQ, etc. <br></br>Each block types will need different data to be displayed. <br></br>Each block will be displayed in the order you add them.",
+    "save": "Save",
     "url": {
       "label": "Url",
       "description": "The url of this page. This is where the page will be accessible from.",
       "placeholder": "/blog/my-first-post"
+    },
+    "locale": {
+      "label": "Language",
+      "description": "The language of this page. This is the language in which the page will be displayed.",
+      "placeholder": "Choose a language"
+    }
+  },
+  "BlockForm": {
+    "addNewBlock": "Add a new block",
+    "cancel": "Cancel",
+    "save": "Save",
+    "types": {
+      "description": {
+        "name": "Description",
+        "description": "This block is used to describe a section of the page."
+      },
+      "text": {
+        "name": "Text",
+        "description": "This block is used to add a long text to the page."
+      },
+      "heading": {
+        "name": "Heading",
+        "description": "This block is used to add a heading to the page."
+      },
+      "list": {
+        "name": "List",
+        "description": "This block is used to add a list to the page."
+      },
+      "image": {
+        "name": "Image",
+        "description": "This block is used to add an image to the page."
+      },
+      "faq": {
+        "name": "FAQ",
+        "description": "This block is used to add a FAQ to the page."
+      },
+      "space": {
+        "name": "Space",
+        "description": "This block is used to add a space to the page."
+      },
+      "related": {
+        "name": "Related",
+        "description": "This block is used to add related pages to the page."
+      }
+    },
+    "attributes": {
+      "content": "Content",
+      "level": "Size",
+      "ordered": "Ordered",
+      "list": "List",
+      "medium": "Medium",
+      "large": "Large",
+      "small": "Small"
     }
   }
 }

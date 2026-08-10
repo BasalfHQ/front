@@ -7,9 +7,9 @@ import { useState } from "react";
 const PAGE_CREATED_KEY = "page-created" as const;
 const PAGE_UPDATED_KEY = "page-updated" as const;
 
-const createEmptyPage = (session: Session): Omit<Page, "pageId"> => ({
-  organizationId: session.user.currentOrganization ?? "",
-  websiteId: session.user.currentWebsite ?? "",
+const createEmptyPage = (session: Session | null): Omit<Page, "pageId"> => ({
+  organizationId: session?.user.currentOrganization ?? "",
+  websiteId: session?.user.currentWebsite ?? "",
   locale: "",
   url: "",
   slices: [],
@@ -17,27 +17,43 @@ const createEmptyPage = (session: Session): Omit<Page, "pageId"> => ({
 });
 
 export function usePageCreated(
-  session: Session,
-): [Omit<Page, "pageId">, (page: Omit<Page, "pageId">) => void] {
-  const [page, setStatePage] = useState<Omit<Page, "pageId">>(
-    getStorage(PAGE_CREATED_KEY) ?? createEmptyPage(session),
+  session: Session | null,
+): [
+  Omit<Page, "pageId"> | null,
+  (page: Omit<Page, "pageId">) => void,
+  "loading" | "loaded",
+] {
+  const [page, setStatePage] = useState<Omit<Page, "pageId"> | null>(
+    typeof window !== "undefined"
+      ? (getStorage(PAGE_CREATED_KEY) ?? createEmptyPage(session))
+      : null,
   );
+
+  if (!page) return [page, setPage, "loading"];
 
   function setPage(page: Omit<Page, "pageId">) {
     setStatePage(page);
     localStorage.setItem(PAGE_CREATED_KEY, JSON.stringify(page));
   }
 
-  return [page, setPage];
+  return [page, setPage, "loaded"];
 }
 
 export function usePageUpdated(
   session: Session,
   initialPage: Page,
-): [Page, (page: Page) => void] | [Page, (page: Page) => void, string] {
-  const [page, setStatePage] = useState<Page>(
-    getStorage(PAGE_UPDATED_KEY) ?? initialPage,
+): [
+  Page | null,
+  (page: Page) => void,
+  "loading" | "loaded" | "wrong-organization-or-website",
+] {
+  const [page, setStatePage] = useState<Page | null>(
+    typeof window !== "undefined"
+      ? (getStorage(PAGE_UPDATED_KEY) ?? initialPage)
+      : null,
   );
+
+  if (!page) return [page, setPage, "loading"];
 
   function setPage(page: Page) {
     setStatePage(page);
@@ -48,10 +64,10 @@ export function usePageUpdated(
     page.organizationId !== session.user.currentOrganization ||
     page.websiteId !== session.user.currentWebsite
   ) {
-    return [page, setPage, "Wrong organization or website"];
+    return [page, setPage, "wrong-organization-or-website"];
   }
 
-  return [page, setPage];
+  return [page, setPage, "loaded"];
 }
 
 function getStorage(key: typeof PAGE_CREATED_KEY): Omit<Page, "pageId"> | null;

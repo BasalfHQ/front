@@ -12,5 +12,13 @@ export {
   updateLocales,
   getLocales,
 } from "./cms-mgt-bff/api";
-export type { Page, Website as CmsWebsite, Locales } from "./cms-mgt-bff";
-export { ISO_639_1_CODES, ISO_639_1_CODES_WITH_FLAGS } from "./cms-mgt-bff/locales";
+export type {
+  Page,
+  Website as CmsWebsite,
+  Locales,
+  Block,
+} from "./cms-mgt-bff";
+export {
+  ISO_639_1_CODES,
+  ISO_639_1_CODES_WITH_FLAGS,
+} from "./cms-mgt-bff/locales";

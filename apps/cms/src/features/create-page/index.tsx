@@ -2,6 +2,7 @@ import { auth } from "@repo/auth-ui";
 import { getTranslations, I18nClientProvider, redirect } from "@repo/i18n";
 import { baseUrl } from "@repo/config";
 import { CreatePageForm } from "./components/form";
+import { getLocales } from "@repo/apis";
 
 export async function CreatePage({
   params,
@@ -16,11 +17,12 @@ export async function CreatePage({
   if (!session || !session.idToken) {
     return redirect({ href: baseUrl, locale });
   }
+  const Locales = await getLocales(session!.idToken);
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-2xl font-bold">{t("title")}</h1>
-      <I18nClientProvider namespace="createPage">
-        <CreatePageForm />
+      <I18nClientProvider namespace={["createPage", "BlockForm"]}>
+        <CreatePageForm locales={Locales} />
       </I18nClientProvider>
     </div>
   );
