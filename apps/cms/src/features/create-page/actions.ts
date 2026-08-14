@@ -1,7 +1,10 @@
+"use server";
+
 import { createPage as createPageApi, Page } from "@repo/apis";
 import { auth } from "@repo/auth-ui";
+import { revalidatePath } from "next/cache";
 
-export async function createPage(page: Page) {
+export async function createPage(page: Omit<Page, "pageId" | "organizationId" | "websiteId">) {
   const session = await auth();
   if (!session || !session.idToken) {
     throw new Error("Unauthorized");
@@ -10,5 +13,7 @@ export async function createPage(page: Page) {
     console.error(error);
     throw new Error("Failed to create page");
   });
+
+  revalidatePath("/pages");
   return newPage;
 }

@@ -21,10 +21,13 @@
     }
   },
   "createPage": {
+    "backToPages": "Retour aux pages",
     "title": "Créer une page",
     "blockTitle": "Créer vos blocs",
     "blockDescription": "Les blocs sont ce dont votre page est faite. Vous pouvez ajouter des blocs de texte, d'image, de liste, de FAQ, etc. <br></br>Chaque type de bloc nécessite des données différentes pour être affiché. <br></br>Chaque bloc sera affiché dans l'ordre où vous l'ajoutez.",
     "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "success": "Page créée avec succès !",
     "url": {
       "label": "Url",
       "description": "L'url de cette page. C'est l'endroit d'où la page sera accessible.",
@@ -34,11 +37,36 @@
       "label": "Langue",
       "description": "La langue de cette page. C'est la langue dans laquelle la page sera affichée.",
       "placeholder": "Choisir une langue"
+    },
+    "errors": {
+      "urlRequired": "L'URL est requise",
+      "localeRequired": "La langue est requise",
+      "seoTitleRequired": "Le titre SEO est requis",
+      "seoDescriptionRequired": "La description SEO est requise",
+      "blocks": {
+        "contentRequired": "Le contenu est requis",
+        "srcRequired": "La source de l'image est requise",
+        "altRequired": "Le texte alternatif est requis",
+        "listItemRequired": "Au moins un élément de liste est requis",
+        "faqFieldsRequired": "Tous les éléments FAQ nécessitent une question et une réponse",
+        "relatedRequired": "Au moins un lien connexe est requis"
+      },
+      "schemas": {
+        "titleRequired": "Le titre est requis",
+        "descriptionRequired": "La description est requise",
+        "dateRequired": "La date est requise",
+        "readingTimeRequired": "Le temps de lecture est requis",
+        "keywordsRequired": "Au moins un mot-clé est requis",
+        "nameRequired": "Le nom est requis"
+      },
+      "createPageFailed": "Une erreur est survenue lors de la création de la page",
+      "pageAlreadyExists": "Une page existe déjà avec cette URL et cette langue"
     }
   },
   "BlockForm": {
     "addNewBlock": "Ajouter un bloc",
     "cancel": "Annuler",
+    "save": "Enregistrer",
     "types": {
       "description": {
         "name": "Description",
@@ -80,7 +108,146 @@
       "list": "Liste",
       "small": "Petit",
       "medium": "Moyen",
-      "large": "Grand"
+      "large": "Grand",
+      "space": {
+        "title": "Espace",
+        "description": "Ce block rajoute un espace vide à la page."
+      },
+      "related": {
+        "title": "Pages liées",
+        "description": "Ce block permet d'ajouter des liens vers des pages liées à la page.",
+        "placeholder": "/blog/mon-article"
+      },
+      "faq": {
+        "title": "FAQ",
+        "question": "Question",
+        "answer": "Réponse",
+        "add": "Ajouter une Question"
+      }
     }
+  },
+  "SeoForm": {
+    "title": "SEO",
+    "description": "Cette interface sert à configurer les méta-données de la page. Cela permet de personnaliser le titre, la description, les mots-clés et l'image de la page. Et donc d'améliorer la visibilité de la page sur les moteurs de recherche. Plus d'informations vous fournissez, meilleure la page sera indexée par les moteurs de recherche.",
+    "fields": {
+      "title": "Titre",
+      "titleDescription": "Le titre affiché dans les résultats des moteurs de recherche.",
+      "titlePlaceholder": "Titre de la page",
+      "description": "Description",
+      "descriptionDescription": "Un court résumé affiché sous le titre dans les résultats de recherche.",
+      "descriptionPlaceholder": "Description de la page",
+      "keywords": "Mots-clés",
+      "keywordsDescription": "Mots-clés séparés par des virgules pour aider les moteurs de recherche à indexer cette page.",
+      "keywordsPlaceholder": "mot-clé1, mot-clé2, mot-clé3"
+    },
+    "schemas": {
+      "title": "Données structurées",
+      "description": "Ajoutez des schémas de données structurées pour améliorer la compréhension de votre page par les moteurs de recherche. Un seul schéma par type.",
+      "add": "Ajouter un schéma",
+      "cancel": "Annuler",
+      "types": {
+        "article": {
+          "name": "Article",
+          "description": "Schéma pour les articles de blog.",
+          "fields": {
+            "title": "Titre",
+            "titlePlaceholder": "Titre de l'article",
+            "description": "Description",
+            "descriptionPlaceholder": "Court résumé de l'article",
+            "date": "Date de publication",
+            "datePlaceholder": "Choisir une date",
+            "readingTime": "Temps de lecture (min)",
+            "readingTimePlaceholder": "5",
+            "keywords": "Mots-clés",
+            "keywordsPlaceholder": "mot-clé1, mot-clé2"
+          }
+        },
+        "person": {
+          "name": "Personne",
+          "description": "Schéma pour une personne ou un auteur.",
+          "fields": {
+            "name": "Nom",
+            "namePlaceholder": "Jean Dupont",
+            "jobTitle": "Poste",
+            "jobTitlePlaceholder": "Développeur",
+            "description": "Description",
+            "descriptionPlaceholder": "Courte biographie",
+            "url": "URL du site",
+            "sameAs": "Profils sociaux",
+            "sameAsPlaceholder": "https://twitter.com/..., https://linkedin.com/..."
+          }
+        },
+        "product": {
+          "name": "Produit",
+          "description": "Schéma pour un produit ou service.",
+          "fields": {
+            "name": "Nom",
+            "namePlaceholder": "Nom du produit",
+            "description": "Description",
+            "descriptionPlaceholder": "Courte description du produit",
+            "brand": "Marque",
+            "brandPlaceholder": "Nom de la marque",
+            "price": "Prix",
+            "pricePlaceholder": "29.99",
+            "currency": "Devise",
+            "availability": "Disponibilité",
+            "selectAvailability": "Sélectionner la disponibilité",
+            "inStock": "En stock",
+            "outOfStock": "Rupture de stock",
+            "preOrder": "Pré-commande"
+          }
+        }
+      }
+    }
+  },
+  "updatePage": {
+    "backToPages": "Retour aux pages",
+    "title": "Modifier la page",
+    "blockTitle": "Modifier vos blocs",
+    "blockDescription": "Les blocs sont ce dont votre page est faite. Vous pouvez ajouter des blocs de texte, d'image, de liste, de FAQ, etc. <br></br>Chaque type de bloc nécessite des données différentes pour être affiché. <br></br>Chaque bloc sera affiché dans l'ordre où vous l'ajoutez.",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "success": "Page modifiée avec succès !",
+    "url": {
+      "label": "Url",
+      "description": "L'url de cette page. C'est l'endroit d'où la page sera accessible.",
+      "placeholder": "/blog/mon-article"
+    },
+    "locale": {
+      "label": "Langue",
+      "description": "La langue de cette page. C'est la langue dans laquelle la page sera affichée.",
+      "placeholder": "Choisir une langue"
+    },
+    "errors": {
+      "urlRequired": "L'URL est requise",
+      "localeRequired": "La langue est requise",
+      "seoTitleRequired": "Le titre SEO est requis",
+      "seoDescriptionRequired": "La description SEO est requise",
+      "blocks": {
+        "contentRequired": "Le contenu est requis",
+        "srcRequired": "La source de l'image est requise",
+        "altRequired": "Le texte alternatif est requis",
+        "listItemRequired": "Au moins un élément de liste est requis",
+        "faqFieldsRequired": "Tous les éléments FAQ nécessitent une question et une réponse",
+        "relatedRequired": "Au moins un lien connexe est requis"
+      },
+      "schemas": {
+        "titleRequired": "Le titre est requis",
+        "descriptionRequired": "La description est requise",
+        "dateRequired": "La date est requise",
+        "readingTimeRequired": "Le temps de lecture est requis",
+        "keywordsRequired": "Au moins un mot-clé est requis",
+        "nameRequired": "Le nom est requis"
+      },
+      "updatePageFailed": "Une erreur est survenue lors de la modification de la page",
+      "deletePageFailed": "Une erreur est survenue lors de la suppression de la page"
+    },
+    "delete": "Supprimer",
+    "deleteSuccess": "Page supprimée avec succès !",
+    "deleteConfirmTitle": "Êtes-vous sûr ?",
+    "deleteConfirmDescription": "Êtes-vous sûr de vouloir supprimer cette page ? Cette action est irréversible.",
+    "deleteCancel": "Annuler",
+    "deleteConfirm": "Supprimer",
+    "deleting": "Suppression..."
   }
 }

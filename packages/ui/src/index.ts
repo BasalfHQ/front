@@ -54,3 +54,7 @@ export {
 export { toast } from "sonner";
 export { Tiptap, type TiptapProps } from "./components/tiptap";
 export { Switch } from "./components/switch";
+export { DatePicker } from "./components/date-picker";
+export { Calendar } from "./components/calendar";
+export { TagInput } from "./components/tag-input";
+export { Badge } from "./components/badge";

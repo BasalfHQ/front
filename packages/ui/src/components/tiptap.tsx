@@ -10,6 +10,7 @@ export type TiptapProps = {
   content?: string;
   onUpdate?: (html: string) => void;
   className?: string;
+  error?: string;
 };
 
 function Toolbar({ editor }: { editor: Editor }) {
@@ -49,7 +50,7 @@ function Toolbar({ editor }: { editor: Editor }) {
   );
 }
 
-export function Tiptap({ content, onUpdate, className }: TiptapProps) {
+export function Tiptap({ content, onUpdate, className, error }: TiptapProps) {
   const editor = useEditor({
     extensions: [StarterKit, Underline],
     content: content ?? "<p></p>",
@@ -62,12 +63,21 @@ export function Tiptap({ content, onUpdate, className }: TiptapProps) {
   if (!editor) return null;
 
   return (
-    <div className={cn("rounded-md border flex flex-col overflow-hidden", className)}>
-      <Toolbar editor={editor} />
-      <EditorContent
-        editor={editor}
-        className="p-2 min-h-[60px] flex-1 overflow-y-auto [&_.tiptap]:outline-none [&_.tiptap]:h-full"
-      />
+    <div className="flex flex-col gap-1">
+      <div
+        className={cn(
+          "rounded-md border flex flex-col overflow-hidden",
+          error && "border-destructive",
+          className,
+        )}
+      >
+        <Toolbar editor={editor} />
+        <EditorContent
+          editor={editor}
+          className="p-2 min-h-[60px] flex-1 overflow-y-auto [&_.tiptap]:outline-none [&_.tiptap]:h-full"
+        />
+      </div>
+      {error && <p className="text-xs text-destructive">{error}</p>}
     </div>
   );
 }

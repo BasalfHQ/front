@@ -2,7 +2,7 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { getCognito } from "./cognito";
 import { env } from "@repo/config";
-import { decodeCognitoToken } from "./utils";
+import { decodeCognitoToken, getTokenExpiry } from "./utils";
 
 interface UserWithTokens {
   id: string;
@@ -15,13 +15,16 @@ interface UserWithTokens {
 
 interface JWTToken {
   accessToken?: string;
+  accessTokenExpires?: number;
   idToken?: string;
   refreshToken?: string;
   sub?: string;
+  username?: string;
   groups?: string[];
   currentOrganization?: string;
   currentWebsite?: string;
   email?: string;
+  error?: string;
   [key: string]: unknown;
 }
 
@@ -29,6 +32,7 @@ interface SessionWithTokens {
   accessToken?: string;
   idToken?: string;
   refreshToken?: string;
+  error?: string;
   user: {
     id: string;
     name?: string | null;
@@ -138,14 +142,18 @@ export function getAuthOptions(): NextAuthOptions {
     ],
     callbacks: {
       async jwt({ token, user, trigger, session }) {
+        const jwtToken = token as JWTToken;
+
         if (trigger === "update" && session) {
           const updated = session as {
             accessToken?: string;
             idToken?: string;
             refreshToken?: string;
           };
-          const jwtToken = token as JWTToken;
-          if (updated.accessToken) jwtToken.accessToken = updated.accessToken;
+          if (updated.accessToken) {
+            jwtToken.accessToken = updated.accessToken;
+            jwtToken.accessTokenExpires = getTokenExpiry(updated.accessToken);
+          }
           if (updated.refreshToken)
             jwtToken.refreshToken = updated.refreshToken;
           if (updated.idToken) {
@@ -159,23 +167,57 @@ export function getAuthOptions(): NextAuthOptions {
           }
           return token;
         }
+
         if (user) {
           const userWithTokens = user as UserWithTokens;
-          const jwtToken = token as JWTToken;
           jwtToken.accessToken = userWithTokens.accessToken;
+          jwtToken.accessTokenExpires = getTokenExpiry(userWithTokens.accessToken);
           jwtToken.idToken = userWithTokens.idToken;
           jwtToken.refreshToken = userWithTokens.refreshToken;
           jwtToken.sub = userWithTokens.id;
 
           if (userWithTokens.idToken) {
-            const { groups, currentOrganization, email, currentWebsite } =
+            const { groups, currentOrganization, email, currentWebsite, username } =
               decodeCognitoToken(userWithTokens.idToken);
             jwtToken.groups = groups;
             jwtToken.currentOrganization = currentOrganization;
             jwtToken.email = email;
             jwtToken.currentWebsite = currentWebsite;
+            jwtToken.username = username;
+          }
+          return token;
+        }
+
+        if (
+          jwtToken.accessTokenExpires &&
+          Date.now() < jwtToken.accessTokenExpires - 60_000
+        ) {
+          return token;
+        }
+
+        if (jwtToken.refreshToken && jwtToken.username) {
+          try {
+            const cognito = getCognito();
+            const refreshed = await cognito.refreshToken({
+              refreshToken: jwtToken.refreshToken,
+              username: jwtToken.username,
+            });
+            jwtToken.accessToken = refreshed.accessToken;
+            jwtToken.accessTokenExpires = getTokenExpiry(refreshed.accessToken);
+            jwtToken.idToken = refreshed.idToken;
+            jwtToken.error = undefined;
+
+            const { groups, currentOrganization, currentWebsite, email } =
+              decodeCognitoToken(refreshed.idToken);
+            jwtToken.groups = groups;
+            jwtToken.currentOrganization = currentOrganization;
+            jwtToken.currentWebsite = currentWebsite;
+            jwtToken.email = email;
+          } catch {
+            jwtToken.error = "RefreshTokenExpired";
           }
         }
+
         return token;
       },
       async session({ session, token }) {
@@ -185,6 +227,7 @@ export function getAuthOptions(): NextAuthOptions {
           sessionWithTokens.accessToken = jwtToken.accessToken;
           sessionWithTokens.idToken = jwtToken.idToken;
           sessionWithTokens.refreshToken = jwtToken.refreshToken;
+          sessionWithTokens.error = jwtToken.error;
           sessionWithTokens.user.currentOrganization =
             jwtToken.currentOrganization ?? jwtToken.groups?.[0];
           sessionWithTokens.user.currentWebsite =
@@ -202,6 +245,7 @@ export function getAuthOptions(): NextAuthOptions {
     },
     session: {
       strategy: "jwt",
+      maxAge: 12 * 60 * 60,
     },
     cookies: env.auth.cookieDomain()
       ? {

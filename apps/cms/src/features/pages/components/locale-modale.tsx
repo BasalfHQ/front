@@ -26,8 +26,6 @@ export function LocalesModale({ locales }: { locales: Locales }) {
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(locales);
-  console.log(locales.length > 0);
 
   const t = useTranslations("pages.LocalesModale");
 

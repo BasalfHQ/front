@@ -1,20 +1,29 @@
 "use client";
 
-import { usePageCreated } from "@/shared/storage-hooks";
+import { usePageUpdated } from "@/shared/storage-hooks";
 import { useSession } from "next-auth/react";
-import { useLocale, useRouter, useTranslations } from "@repo/i18n";
-import { Button, CardInput, toast } from "@repo/ui";
+import { useRouter, useTranslations } from "@repo/i18n";
+import {
+  Button,
+  CardInput,
+  toast,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "@repo/ui";
 import { Locales, Page } from "@repo/apis";
 import { ISO_639_1_CODES_WITH_FLAGS } from "@repo/apis";
 import { BlockForm } from "@/shared/blocks";
 import { baseUrl } from "@repo/config";
 import { SeoForm } from "@/shared/seo";
 import { useState } from "react";
-import type { AllPages, Block, PageSeo } from "@repo/apis";
-import { createPage } from "../actions";
-
-export type BlockErrors = Record<string, string>;
-export type SchemaErrors = Record<string, string>;
+import type { Block, PageSeo } from "@repo/apis";
+import { updatePage, deletePage } from "../actions";
+import type { BlockErrors, SchemaErrors } from "@/features/create-page/components/form";
 
 function isHtmlEmpty(html: string): boolean {
   const text = html.replace(/<[^>]*>/g, "").trim();
@@ -34,7 +43,7 @@ function validateBlock(
   block: Block,
   t: (key: string) => string,
 ): BlockErrors | null {
-  const errors: BlockErrors = {};
+  const errors: Record<string, string> = {};
 
   if (
     block.type === "description" ||
@@ -78,8 +87,8 @@ function validateBlock(
 function validateSchema(
   schema: PageSeo["schemas"][number],
   t: (key: string) => string,
-): SchemaErrors | null {
-  const errors: SchemaErrors = {};
+): Record<string, string> | null {
+  const errors: Record<string, string> = {};
 
   if (schema.type === "article") {
     if (!schema.title.trim()) errors.title = t("errors.schemas.titleRequired");
@@ -103,10 +112,7 @@ function validateSchema(
   return Object.keys(errors).length ? errors : null;
 }
 
-function validatePage(
-  page: Omit<Page, "pageId">,
-  t: (key: string) => string,
-): FormErrors {
+function validatePage(page: Page, t: (key: string) => string): FormErrors {
   const errors: FormErrors = {};
 
   if (!page.url.trim()) errors.url = t("errors.urlRequired");
@@ -126,24 +132,28 @@ function validatePage(
   return errors;
 }
 
-export function CreatePageForm({
+export function UpdatePageForm({
   locales,
-  pages,
+  initialPage,
 }: {
   locales: Locales;
-  pages: AllPages;
+  initialPage: Page;
 }) {
   const { data: session, status } = useSession();
+  const t = useTranslations("updatePage");
+  const [page, setPage, clearPage] = usePageUpdated(
+    session!,
+    initialPage,
+  );
   const router = useRouter();
-  const locale = useLocale();
-  const t = useTranslations("createPage");
-  const [page, setPage, clearPage] = usePageCreated(session);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   if (status === "unauthenticated") {
-    router.push(baseUrl);
+    window.location.href = baseUrl;
     return null;
   }
   if (status === "loading" || !page) return <div>Loading...</div>;
@@ -157,36 +167,44 @@ export function CreatePageForm({
     const validationErrors = validatePage(page!, t);
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length > 0 || !page || pageExist) return;
+    if (Object.keys(validationErrors).length > 0 || !page) return;
 
     setLoading(true);
     try {
-      const newPage = await createPage(page);
-      if (newPage) {
-        toast.success(t("success"));
-        clearPage();
-        router.push(`/pages/${newPage.pageId}`, { locale });
-      } else {
-        toast.error(t("errors.createPageFailed"));
-      }
+      await updatePage(page);
+      toast.success(t("success"));
+      clearPage();
     } catch (error) {
       console.error(error);
-      toast.error(t("errors.createPageFailed"));
+      toast.error(t("errors.updatePageFailed"));
     } finally {
       setLoading(false);
     }
   }
 
-  function updatePage(updated: Omit<Page, "pageId">) {
+  function handleUpdatePage(updated: Page) {
     setPage(updated);
     if (submitted) {
       setErrors(validatePage(updated, t));
     }
   }
 
-  const pageExist = pages.some(
-    (p) => p.url === page.url && p.locale === page.locale,
-  );
+  async function handleDelete() {
+    setDeleting(true);
+    try {
+      await deletePage(initialPage.pageId);
+      toast.success(t("deleteSuccess"));
+      clearPage();
+      router.push("/pages");
+    } catch (error) {
+      console.error(error);
+      toast.error(t("errors.deletePageFailed"));
+    } finally {
+      setDeleting(false);
+      setDeleteOpen(false);
+    }
+  }
+
   return (
     <div className="flex flex-col gap-14">
       <div className="flex flex-wrap gap-2">
@@ -194,7 +212,7 @@ export function CreatePageForm({
           label={t("url.label")}
           description={t("url.description")}
           value={page.url}
-          onChange={(value) => updatePage({ ...page, url: value })}
+          onChange={(value) => handleUpdatePage({ ...page, url: value })}
           className="min-w-[300px] bg-accent/20 flex-1"
           classNameInput="max-w-[300px]"
           placeholder={t("url.placeholder")}
@@ -206,7 +224,7 @@ export function CreatePageForm({
           label={t("locale.label")}
           description={t("locale.description")}
           value={page.locale}
-          onChange={(value) => updatePage({ ...page, locale: value })}
+          onChange={(value) => handleUpdatePage({ ...page, locale: value })}
           className="min-w-[300px] bg-accent/20 flex-1"
           classNameInput="max-w-[200px]"
           placeholder={t("locale.placeholder")}
@@ -223,15 +241,10 @@ export function CreatePageForm({
             value: locale.code,
           }))}
         />
-        {pageExist && (
-          <div className="text-red-500">
-            <p>{t("errors.pageAlreadyExists")}</p>
-          </div>
-        )}
       </div>
       <BlockForm
         value={page.slices}
-        onChange={(s) => updatePage({ ...page, slices: s })}
+        onChange={(s) => handleUpdatePage({ ...page, slices: s })}
         title={t.rich("blockTitle")}
         description={
           <p>
@@ -245,21 +258,49 @@ export function CreatePageForm({
 
       <SeoForm
         value={page.seo}
-        onChange={(seo) => updatePage({ ...page, seo })}
+        onChange={(seo) => handleUpdatePage({ ...page, seo })}
         errors={{ title: errors.seoTitle, description: errors.seoDescription }}
         schemaErrors={errors.schemas}
       />
 
-      <div className="w-full flex justify-end mt-6">
+      <div className="w-full flex justify-between mt-6">
+        <Button
+          variant="destructive"
+          onClick={() => setDeleteOpen(true)}
+          disabled={deleting}
+        >
+          {t("delete")}
+        </Button>
         <Button
           variant="success"
           className="w-full md:w-[200px]"
           onClick={handleSubmit}
-          disabled={loading || pageExist}
+          disabled={loading}
         >
           {loading ? t("saving") : t("save")}
         </Button>
       </div>
+
+      <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t("deleteConfirmTitle")}</DialogTitle>
+            <DialogDescription>{t("deleteConfirmDescription")}</DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">{t("deleteCancel")}</Button>
+            </DialogClose>
+            <Button
+              variant="destructive"
+              onClick={handleDelete}
+              disabled={deleting}
+            >
+              {deleting ? t("deleting") : t("deleteConfirm")}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

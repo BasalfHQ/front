@@ -23,7 +23,7 @@ const baseBlocks: Record<BaseBlockType, Block> = {
   // image: { type: "image", content: { src: "", alt: "" } },
   faq: { type: "faq", content: [{ question: "", answer: "" }] },
   space: { type: "space" },
-  related: { type: "related", content: [] },
+  related: { type: "related", content: [""] },
 };
 
 export function AddNewBlock({

@@ -6,6 +6,7 @@ export {
 } from "./base-user-mgt-bff/api";
 export {
   getPages,
+  getPage,
   createPage,
   updatePage,
   deletePage,
@@ -14,8 +15,10 @@ export {
 } from "./cms-mgt-bff/api";
 export type {
   Page,
+  AllPages,
   Website as CmsWebsite,
   Locales,
+  PageSeo,
   Block,
 } from "./cms-mgt-bff";
 export {

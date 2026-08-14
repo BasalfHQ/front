@@ -21,10 +21,13 @@
     }
   },
   "createPage": {
+    "backToPages": "Back to pages",
     "title": "Create a page",
     "blockTitle": "Create your blocks",
     "blockDescription": "Blocks are what your page is made of. You can add text, image, list, FAQ, etc. <br></br>Each block types will need different data to be displayed. <br></br>Each block will be displayed in the order you add them.",
     "save": "Save",
+    "saving": "Saving...",
+    "success": "Page created successfully!",
     "url": {
       "label": "Url",
       "description": "The url of this page. This is where the page will be accessible from.",
@@ -34,6 +37,30 @@
       "label": "Language",
       "description": "The language of this page. This is the language in which the page will be displayed.",
       "placeholder": "Choose a language"
+    },
+    "errors": {
+      "urlRequired": "URL is required",
+      "localeRequired": "Language is required",
+      "seoTitleRequired": "SEO title is required",
+      "seoDescriptionRequired": "SEO description is required",
+      "blocks": {
+        "contentRequired": "Content is required",
+        "srcRequired": "Image source is required",
+        "altRequired": "Image alt text is required",
+        "listItemRequired": "At least one list item is required",
+        "faqFieldsRequired": "All FAQ items need a question and answer",
+        "relatedRequired": "At least one related link is required"
+      },
+      "schemas": {
+        "titleRequired": "Title is required",
+        "descriptionRequired": "Description is required",
+        "dateRequired": "Date is required",
+        "readingTimeRequired": "Reading time is required",
+        "keywordsRequired": "At least one keyword is required",
+        "nameRequired": "Name is required"
+      },
+      "createPageFailed": "An error occurred while creating the page",
+      "pageAlreadyExists": "A page already exists with this URL and this language"
     }
   },
   "BlockForm": {
@@ -81,7 +108,146 @@
       "list": "List",
       "medium": "Medium",
       "large": "Large",
-      "small": "Small"
+      "small": "Small",
+      "space": {
+        "title": "Space",
+        "description": "This block adds a space to the page."
+      },
+      "related": {
+        "title": "Related pages",
+        "description": "This block adds related pages link to the page.",
+        "placeholder": "/blog/my-article"
+      },
+      "faq": {
+        "title": "FAQ",
+        "question": "Question",
+        "answer": "Answer",
+        "add": "Add a question"
+      }
     }
+  },
+  "SeoForm": {
+    "title": "SEO",
+    "description": "This interface is used to configure the page's metadata. This allows you to personalize the title, description, keywords and image of the page. And therefore improve the page's visibility on search engines. The more information you provide, the better the page will be indexed by search engines.",
+    "fields": {
+      "title": "Title",
+      "titleDescription": "The title displayed in search engine results.",
+      "titlePlaceholder": "Page title",
+      "description": "Description",
+      "descriptionDescription": "A short summary shown below the title in search results.",
+      "descriptionPlaceholder": "Page description",
+      "keywords": "Keywords",
+      "keywordsDescription": "Comma-separated keywords to help search engines index this page.",
+      "keywordsPlaceholder": "keyword1, keyword2, keyword3"
+    },
+    "schemas": {
+      "title": "Structured Data",
+      "description": "Add structured data schemas to improve search engine understanding of your page. One schema per type.",
+      "add": "Add a schema",
+      "cancel": "Cancel",
+      "types": {
+        "article": {
+          "name": "Article",
+          "description": "Schema for blog posts and articles.",
+          "fields": {
+            "title": "Title",
+            "titlePlaceholder": "Article title",
+            "description": "Description",
+            "descriptionPlaceholder": "Short summary of the article",
+            "date": "Publication date",
+            "datePlaceholder": "Pick a date",
+            "readingTime": "Reading time (min)",
+            "readingTimePlaceholder": "5",
+            "keywords": "Keywords",
+            "keywordsPlaceholder": "keyword1, keyword2"
+          }
+        },
+        "person": {
+          "name": "Person",
+          "description": "Schema for a person or author.",
+          "fields": {
+            "name": "Name",
+            "namePlaceholder": "John Doe",
+            "jobTitle": "Job title",
+            "jobTitlePlaceholder": "Software Engineer",
+            "description": "Description",
+            "descriptionPlaceholder": "A short bio",
+            "url": "Website URL",
+            "sameAs": "Social profiles",
+            "sameAsPlaceholder": "https://twitter.com/..., https://linkedin.com/..."
+          }
+        },
+        "product": {
+          "name": "Product",
+          "description": "Schema for a product or service.",
+          "fields": {
+            "name": "Name",
+            "namePlaceholder": "Product name",
+            "description": "Description",
+            "descriptionPlaceholder": "Short product description",
+            "brand": "Brand",
+            "brandPlaceholder": "Brand name",
+            "price": "Price",
+            "pricePlaceholder": "29.99",
+            "currency": "Currency",
+            "availability": "Availability",
+            "selectAvailability": "Select availability",
+            "inStock": "In Stock",
+            "outOfStock": "Out of Stock",
+            "preOrder": "Pre-order"
+          }
+        }
+      }
+    }
+  },
+  "updatePage": {
+    "backToPages": "Back to pages",
+    "title": "Edit page",
+    "blockTitle": "Edit your blocks",
+    "blockDescription": "Blocks are what your page is made of. You can add text, image, list, FAQ, etc. <br></br>Each block types will need different data to be displayed. <br></br>Each block will be displayed in the order you add them.",
+    "save": "Save",
+    "saving": "Saving...",
+    "success": "Page updated successfully!",
+    "url": {
+      "label": "Url",
+      "description": "The url of this page. This is where the page will be accessible from.",
+      "placeholder": "/blog/my-first-post"
+    },
+    "locale": {
+      "label": "Language",
+      "description": "The language of this page. This is the language in which the page will be displayed.",
+      "placeholder": "Choose a language"
+    },
+    "errors": {
+      "urlRequired": "URL is required",
+      "localeRequired": "Language is required",
+      "seoTitleRequired": "SEO title is required",
+      "seoDescriptionRequired": "SEO description is required",
+      "blocks": {
+        "contentRequired": "Content is required",
+        "srcRequired": "Image source is required",
+        "altRequired": "Image alt text is required",
+        "listItemRequired": "At least one list item is required",
+        "faqFieldsRequired": "All FAQ items need a question and answer",
+        "relatedRequired": "At least one related link is required"
+      },
+      "schemas": {
+        "titleRequired": "Title is required",
+        "descriptionRequired": "Description is required",
+        "dateRequired": "Date is required",
+        "readingTimeRequired": "Reading time is required",
+        "keywordsRequired": "At least one keyword is required",
+        "nameRequired": "Name is required"
+      },
+      "updatePageFailed": "An error occurred while updating the page",
+      "deletePageFailed": "An error occurred while deleting the page"
+    },
+    "delete": "Delete",
+    "deleteSuccess": "Page deleted successfully!",
+    "deleteConfirmTitle": "Are you sure?",
+    "deleteConfirmDescription": "Are you sure you want to delete this page? This action cannot be undone.",
+    "deleteCancel": "Cancel",
+    "deleteConfirm": "Delete",
+    "deleting": "Deleting..."
   }
 }

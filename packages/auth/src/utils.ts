@@ -6,6 +6,17 @@ export function isAdmin(email: string | null | undefined): boolean {
   return ADMIN_EMAILS.includes(email) || email.endsWith(ADMIN_DOMAIN);
 }
 
+export function getTokenExpiry(token: string): number {
+  try {
+    const payload = token.split(".")[1];
+    const padded = payload + "=".repeat((4 - (payload.length % 4)) % 4);
+    const claims = JSON.parse(Buffer.from(padded, "base64").toString("utf-8"));
+    return (claims.exp as number) * 1000;
+  } catch {
+    return 0;
+  }
+}
+
 export function decodeCognitoToken(idToken: string): {
   groups: string[];
   currentOrganization?: string;

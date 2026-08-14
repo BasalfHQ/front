@@ -13,7 +13,7 @@ const createEmptyPage = (session: Session | null): Omit<Page, "pageId"> => ({
   locale: "",
   url: "",
   slices: [],
-  seo: [],
+  seo: { title: "", description: "", keywords: [], schemas: [] },
 });
 
 export function usePageCreated(
@@ -21,6 +21,7 @@ export function usePageCreated(
 ): [
   Omit<Page, "pageId"> | null,
   (page: Omit<Page, "pageId">) => void,
+  () => void,
   "loading" | "loaded",
 ] {
   const [page, setStatePage] = useState<Omit<Page, "pageId"> | null>(
@@ -29,14 +30,19 @@ export function usePageCreated(
       : null,
   );
 
-  if (!page) return [page, setPage, "loading"];
+  if (!page) return [page, setPage, clearPage, "loading"];
 
   function setPage(page: Omit<Page, "pageId">) {
     setStatePage(page);
     localStorage.setItem(PAGE_CREATED_KEY, JSON.stringify(page));
   }
 
-  return [page, setPage, "loaded"];
+  function clearPage() {
+    setStatePage(null);
+    localStorage.removeItem(PAGE_CREATED_KEY);
+  }
+
+  return [page, setPage, clearPage, "loaded"];
 }
 
 export function usePageUpdated(
@@ -45,6 +51,7 @@ export function usePageUpdated(
 ): [
   Page | null,
   (page: Page) => void,
+  () => void,
   "loading" | "loaded" | "wrong-organization-or-website",
 ] {
   const [page, setStatePage] = useState<Page | null>(
@@ -53,7 +60,7 @@ export function usePageUpdated(
       : null,
   );
 
-  if (!page) return [page, setPage, "loading"];
+  if (!page) return [page, setPage, clearPage, "loading"];
 
   function setPage(page: Page) {
     setStatePage(page);
@@ -64,10 +71,15 @@ export function usePageUpdated(
     page.organizationId !== session.user.currentOrganization ||
     page.websiteId !== session.user.currentWebsite
   ) {
-    return [page, setPage, "wrong-organization-or-website"];
+    return [page, setPage, clearPage, "wrong-organization-or-website"];
   }
 
-  return [page, setPage, "loaded"];
+  function clearPage() {
+    setStatePage(null);
+    localStorage.removeItem(PAGE_UPDATED_KEY);
+  }
+
+  return [page, setPage, clearPage, "loaded"];
 }
 
 function getStorage(key: typeof PAGE_CREATED_KEY): Omit<Page, "pageId"> | null;

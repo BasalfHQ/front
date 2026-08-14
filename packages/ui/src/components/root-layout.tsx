@@ -108,7 +108,7 @@ export function RootLayout({
     <html lang={lang}>
       <body className={cn("flex min-h-screen flex-col w-full", className)}>
         {children}
-        <Toaster />
+        <Toaster position="top-right" />
       </body>
     </html>
   );

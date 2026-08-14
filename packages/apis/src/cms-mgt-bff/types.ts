@@ -26,7 +26,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["Page"][];
+                        "application/json": components["schemas"]["AllPages"];
                     };
                 };
                 /** @description Bad request */
@@ -99,33 +99,38 @@ export interface paths {
                             type: "related";
                             content: string[];
                         })[];
-                        seo: ({
-                            /** @enum {string} */
-                            type: "article";
+                        seo: {
                             title: string;
                             description: string;
-                            date: string;
-                            readingTime: number;
-                            keywords: string[];
-                        } | {
-                            /** @enum {string} */
-                            type: "person";
-                            name: string;
-                            jobTitle?: string;
-                            description?: string;
-                            url?: string;
-                            sameAs?: string[];
-                        } | {
-                            /** @enum {string} */
-                            type: "product";
-                            name: string;
-                            description?: string;
-                            brand?: string;
-                            price?: number;
-                            priceCurrency?: string;
-                            /** @enum {string} */
-                            availability?: "InStock" | "OutOfStock" | "PreOrder";
-                        })[];
+                            keywords?: string[];
+                            schemas: ({
+                                /** @enum {string} */
+                                type: "article";
+                                title: string;
+                                description: string;
+                                date: string;
+                                readingTime: number;
+                                keywords: string[];
+                            } | {
+                                /** @enum {string} */
+                                type: "person";
+                                name: string;
+                                jobTitle?: string;
+                                description?: string;
+                                url?: string;
+                                sameAs?: string[];
+                            } | {
+                                /** @enum {string} */
+                                type: "product";
+                                name: string;
+                                description?: string;
+                                brand?: string;
+                                price?: number;
+                                priceCurrency?: string;
+                                /** @enum {string} */
+                                availability?: "InStock" | "OutOfStock" | "PreOrder";
+                            })[];
+                        };
                     };
                 };
             };
@@ -306,33 +311,38 @@ export interface paths {
                             type: "related";
                             content: string[];
                         })[];
-                        seo?: ({
-                            /** @enum {string} */
-                            type: "article";
+                        seo?: {
                             title: string;
                             description: string;
-                            date: string;
-                            readingTime: number;
-                            keywords: string[];
-                        } | {
-                            /** @enum {string} */
-                            type: "person";
-                            name: string;
-                            jobTitle?: string;
-                            description?: string;
-                            url?: string;
-                            sameAs?: string[];
-                        } | {
-                            /** @enum {string} */
-                            type: "product";
-                            name: string;
-                            description?: string;
-                            brand?: string;
-                            price?: number;
-                            priceCurrency?: string;
-                            /** @enum {string} */
-                            availability?: "InStock" | "OutOfStock" | "PreOrder";
-                        })[];
+                            keywords?: string[];
+                            schemas: ({
+                                /** @enum {string} */
+                                type: "article";
+                                title: string;
+                                description: string;
+                                date: string;
+                                readingTime: number;
+                                keywords: string[];
+                            } | {
+                                /** @enum {string} */
+                                type: "person";
+                                name: string;
+                                jobTitle?: string;
+                                description?: string;
+                                url?: string;
+                                sameAs?: string[];
+                            } | {
+                                /** @enum {string} */
+                                type: "product";
+                                name: string;
+                                description?: string;
+                                brand?: string;
+                                price?: number;
+                                priceCurrency?: string;
+                                /** @enum {string} */
+                                availability?: "InStock" | "OutOfStock" | "PreOrder";
+                            })[];
+                        };
                     };
                 };
             };
@@ -556,34 +566,78 @@ export interface components {
                 type: "related";
                 content: string[];
             })[];
-            seo: ({
-                /** @enum {string} */
-                type: "article";
+            seo: {
                 title: string;
                 description: string;
-                date: string;
-                readingTime: number;
-                keywords: string[];
-            } | {
-                /** @enum {string} */
-                type: "person";
-                name: string;
-                jobTitle?: string;
-                description?: string;
-                url?: string;
-                sameAs?: string[];
-            } | {
-                /** @enum {string} */
-                type: "product";
-                name: string;
-                description?: string;
-                brand?: string;
-                price?: number;
-                priceCurrency?: string;
-                /** @enum {string} */
-                availability?: "InStock" | "OutOfStock" | "PreOrder";
-            })[];
+                keywords?: string[];
+                schemas: ({
+                    /** @enum {string} */
+                    type: "article";
+                    title: string;
+                    description: string;
+                    date: string;
+                    readingTime: number;
+                    keywords: string[];
+                } | {
+                    /** @enum {string} */
+                    type: "person";
+                    name: string;
+                    jobTitle?: string;
+                    description?: string;
+                    url?: string;
+                    sameAs?: string[];
+                } | {
+                    /** @enum {string} */
+                    type: "product";
+                    name: string;
+                    description?: string;
+                    brand?: string;
+                    price?: number;
+                    priceCurrency?: string;
+                    /** @enum {string} */
+                    availability?: "InStock" | "OutOfStock" | "PreOrder";
+                })[];
+            };
         };
+        AllPages: {
+            organizationId: string;
+            websiteId: string;
+            pageId: string;
+            locale: string;
+            url: string;
+            seo: {
+                title: string;
+                description: string;
+                keywords?: string[];
+                schemas: ({
+                    /** @enum {string} */
+                    type: "article";
+                    title: string;
+                    description: string;
+                    date: string;
+                    readingTime: number;
+                    keywords: string[];
+                } | {
+                    /** @enum {string} */
+                    type: "person";
+                    name: string;
+                    jobTitle?: string;
+                    description?: string;
+                    url?: string;
+                    sameAs?: string[];
+                } | {
+                    /** @enum {string} */
+                    type: "product";
+                    name: string;
+                    description?: string;
+                    brand?: string;
+                    price?: number;
+                    priceCurrency?: string;
+                    /** @enum {string} */
+                    availability?: "InStock" | "OutOfStock" | "PreOrder";
+                })[];
+            };
+        }[];
         Website: {
             organizationId: string;
             websiteId: string;

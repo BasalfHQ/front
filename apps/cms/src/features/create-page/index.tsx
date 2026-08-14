@@ -1,8 +1,8 @@
 import { auth } from "@repo/auth-ui";
-import { getTranslations, I18nClientProvider, redirect } from "@repo/i18n";
+import { getTranslations, I18nClientProvider, Link, redirect } from "@repo/i18n";
 import { baseUrl } from "@repo/config";
 import { CreatePageForm } from "./components/form";
-import { getLocales } from "@repo/apis";
+import { getLocales, getPages } from "@repo/apis";
 
 export async function CreatePage({
   params,
@@ -17,12 +17,18 @@ export async function CreatePage({
   if (!session || !session.idToken) {
     return redirect({ href: baseUrl, locale });
   }
-  const Locales = await getLocales(session!.idToken);
+  const [Locales, pages] = await Promise.all([
+    getLocales(session!.idToken),
+    getPages(session!.idToken),
+  ]);
   return (
     <div className="flex flex-col gap-4">
+      <Link href="/pages" className="text-sm text-gray-500 hover:underline">
+        ← {t("backToPages")}
+      </Link>
       <h1 className="text-2xl font-bold">{t("title")}</h1>
-      <I18nClientProvider namespace={["createPage", "BlockForm"]}>
-        <CreatePageForm locales={Locales} />
+      <I18nClientProvider namespace={["createPage", "BlockForm", "SeoForm"]}>
+        <CreatePageForm locales={Locales} pages={pages} />
       </I18nClientProvider>
     </div>
   );

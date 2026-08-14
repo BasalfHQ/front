@@ -35,6 +35,8 @@ export function CardInput({
   classNameLabel,
   classNameDescription,
   classNameInput,
+  error,
+  required,
   ...inputProps
 }: CardInputProps & {
   label: string;
@@ -43,6 +45,8 @@ export function CardInput({
   classNameLabel?: string;
   classNameDescription?: string;
   classNameInput?: string;
+  error?: string;
+  required?: boolean;
 }) {
   const inputId = label.toLowerCase().replace(/ /g, "-");
 
@@ -54,12 +58,16 @@ export function CardInput({
     <div
       className={cn(
         "flex flex-col gap-1 rounded-md border p-4 w-fit justify-between",
+        error && "border-destructive",
         className,
       )}
       onClick={focusInput}
     >
-      <div className="flex flex-col gap-1"> 
-        <p className={cn("text-sm font-medium", classNameLabel)}>{label}</p>
+      <div className="flex flex-col gap-1">
+        <p className={cn("text-sm font-medium", classNameLabel)}>
+          {label}
+          {required && <span className="text-destructive ml-0.5">*</span>}
+        </p>
         {description && (
           <p
             className={cn(
@@ -76,12 +84,16 @@ export function CardInput({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           id={inputId}
-          className={cn("w-full", classNameInput)}
+          className={cn("w-full", error && "border-destructive", classNameInput)}
           placeholder={placeholder}
+          required={required}
         />
       ) : (
-        <Select value={value} onValueChange={onChange}>
-          <SelectTrigger id={inputId} className={cn("w-full", classNameInput)}>
+        <Select value={value} onValueChange={onChange} required={required}>
+          <SelectTrigger
+            id={inputId}
+            className={cn("w-full", error && "border-destructive", classNameInput)}
+          >
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent>
@@ -92,6 +104,9 @@ export function CardInput({
             ))}
           </SelectContent>
         </Select>
+      )}
+      {error && (
+        <p className="text-xs text-destructive mt-1">{error}</p>
       )}
     </div>
   );

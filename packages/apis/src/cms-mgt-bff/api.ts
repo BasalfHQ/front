@@ -1,15 +1,26 @@
-import { client, Locales, Page, Website } from ".";
+import { AllPages, client, Locales, Page, Website } from ".";
 import { headers } from "../utils";
 
-export async function getPages(idToken: string): Promise<Page[]> {
+export async function getPages(idToken: string): Promise<AllPages> {
   const response = await client.GET("/page", {
     headers: headers({ idToken }),
   });
   return response.data ?? [];
 }
 
+export async function getPage(
+  pageId: string,
+  idToken: string,
+): Promise<Page | null> {
+  const response = await client.GET("/page/{pageId}", {
+    params: { path: { pageId } },
+    headers: headers({ idToken }),
+  });
+  return response.data ?? null;
+}
+
 export async function createPage(
-  page: Page,
+  page: Omit<Page, "pageId" | "organizationId" | "websiteId">,
   idToken: string,
 ): Promise<Page | null> {
   const response = await client.POST("/page", {
@@ -42,6 +53,7 @@ export async function deletePage(pageId: string, idToken: string) {
         pageId,
       },
     },
+    headers: headers({ idToken }),
   });
   if (response.response.status !== 200) {
     throw new Error(response.data?.message ?? "Failed to delete page");
