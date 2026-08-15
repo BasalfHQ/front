@@ -70,6 +70,11 @@ export class Cognito {
   }
 
   async signIn(credentials: { username: string; password: string }) {
+    console.log("[COGNITO] signIn called", {
+      username: credentials.username,
+      region: this.config.region,
+      clientId: this.config.clientId,
+    });
     const secretHash = this.calculateSecretHash(credentials.username);
 
     const { AuthenticationResult, ChallengeName, Session } = await this.client
@@ -85,9 +90,15 @@ export class Cognito {
         })
       )
       .catch((error) => {
-        console.error("Error authenticating user: ", error);
+        console.error("[COGNITO] Error authenticating user:", error.name, error.message);
         throw new Error(error.name);
       });
+
+    console.log("[COGNITO] Auth response received", {
+      hasAuthResult: !!AuthenticationResult,
+      challengeName: ChallengeName || "none",
+      hasSession: !!Session,
+    });
 
     if (ChallengeName === "NEW_PASSWORD_REQUIRED") {
       return {
@@ -108,7 +119,9 @@ export class Cognito {
       tokenType: "Bearer",
     };
 
+    console.log("[COGNITO] Tokens received, fetching user attributes");
     const user = await this.getUserAttributes(token.accessToken);
+    console.log("[COGNITO] User attributes fetched", { sub: user.sub, email: user.email });
 
     return { token, user };
   }
@@ -285,6 +298,10 @@ let cognitoInstance: Cognito | null = null;
 export function getCognito(): Cognito {
   if (!cognitoInstance) {
     const config = getCognitoConfig();
+    console.log("[COGNITO] Creating instance with config:", {
+      region: config.region,
+      clientId: config.clientId ? config.clientId.substring(0, 8) + "..." : "MISSING",
+    });
     cognitoInstance = new Cognito(config);
   }
   return cognitoInstance;

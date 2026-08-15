@@ -57,17 +57,29 @@ export function getAuthOptions(): NextAuthOptions {
           newPassword: { label: "New Password", type: "password" },
         },
         async authorize(credentials) {
+          console.log("[AUTH] authorize called", {
+            hasUsername: !!credentials?.username,
+            hasPassword: !!credentials?.password,
+            hasSession: !!credentials?.session,
+            hasNewPassword: !!credentials?.newPassword,
+          });
+
           if (
             credentials?.session &&
             credentials?.newPassword &&
             credentials?.username
           ) {
+            console.log("[AUTH] Handling NEW_PASSWORD_REQUIRED challenge");
             try {
               const cognito = getCognito();
               const result = await cognito.completeNewPasswordChallenge({
                 username: credentials.username,
                 session: credentials.session,
                 newPassword: credentials.newPassword,
+              });
+
+              console.log("[AUTH] Password challenge completed successfully", {
+                userId: result.user.sub,
               });
 
               return {
@@ -79,7 +91,7 @@ export function getAuthOptions(): NextAuthOptions {
                 refreshToken: result.token.refreshToken,
               } as UserWithTokens;
             } catch (error: unknown) {
-              console.error("Password change error:", error);
+              console.error("[AUTH] Password change error:", error);
               if (error && typeof error === "object") {
                 const cognitoError = error as {
                   name?: string;
@@ -98,11 +110,13 @@ export function getAuthOptions(): NextAuthOptions {
           }
 
           if (!credentials?.username || !credentials?.password) {
+            console.log("[AUTH] Missing credentials, returning null");
             return null;
           }
 
           try {
             const cognito = getCognito();
+            console.log("[AUTH] Calling cognito.signIn for:", credentials.username);
 
             const result = await cognito.signIn({
               username: credentials.username,
@@ -110,6 +124,7 @@ export function getAuthOptions(): NextAuthOptions {
             });
 
             if ("challengeName" in result) {
+              console.log("[AUTH] Challenge received:", result.challengeName);
               throw new Error(
                 JSON.stringify({
                   challengeName: result.challengeName,
@@ -118,6 +133,13 @@ export function getAuthOptions(): NextAuthOptions {
                 }),
               );
             }
+
+            console.log("[AUTH] Sign in successful", {
+              userId: result.user.sub,
+              hasAccessToken: !!result.token.accessToken,
+              hasIdToken: !!result.token.idToken,
+              hasRefreshToken: !!result.token.refreshToken,
+            });
 
             return {
               id: result.user.sub || credentials.username,
@@ -134,7 +156,7 @@ export function getAuthOptions(): NextAuthOptions {
             ) {
               throw error;
             }
-            console.error("Auth error:", error);
+            console.error("[AUTH] Auth error:", error);
             return null;
           }
         },
@@ -142,6 +164,12 @@ export function getAuthOptions(): NextAuthOptions {
     ],
     callbacks: {
       async jwt({ token, user, trigger, session }) {
+        console.log("[AUTH] jwt callback", {
+          trigger,
+          hasUser: !!user,
+          hasSession: !!session,
+          tokenSub: token.sub,
+        });
         const jwtToken = token as JWTToken;
 
         if (trigger === "update" && session) {
@@ -221,6 +249,11 @@ export function getAuthOptions(): NextAuthOptions {
         return token;
       },
       async session({ session, token }) {
+        console.log("[AUTH] session callback", {
+          hasToken: !!token,
+          tokenError: (token as JWTToken).error,
+          hasUser: !!session.user,
+        });
         const jwtToken = token as JWTToken;
         if (jwtToken && session.user) {
           const sessionWithTokens = session as unknown as SessionWithTokens;
