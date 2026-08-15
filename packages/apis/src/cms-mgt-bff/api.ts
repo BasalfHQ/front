@@ -40,8 +40,6 @@ export async function updatePage(page: Page, idToken: string) {
     headers: headers({ idToken }),
     body: page,
   });
-  console.log(page);
-  console.log(response);
   if (response.response.status !== 200) {
     throw new Error(response.data?.message ?? "Failed to update page");
   }

@@ -45,8 +45,16 @@ export function usePageCreated(
   return [page, setPage, clearPage, "loaded"];
 }
 
+function getStoredPage(initialPage: Page): Page | null {
+  if (typeof window === "undefined") return null;
+  const stored = getStorage(PAGE_UPDATED_KEY);
+  if (!stored || stored.pageId !== initialPage.pageId) return initialPage;
+  if (!stored.seo) return initialPage;
+  return stored;
+}
+
 export function usePageUpdated(
-  session: Session,
+  session: Session | null,
   initialPage: Page,
 ): [
   Page | null,
@@ -55,12 +63,10 @@ export function usePageUpdated(
   "loading" | "loaded" | "wrong-organization-or-website",
 ] {
   const [page, setStatePage] = useState<Page | null>(
-    typeof window !== "undefined"
-      ? (getStorage(PAGE_UPDATED_KEY) ?? initialPage)
-      : null,
+    getStoredPage(initialPage),
   );
 
-  if (!page) return [page, setPage, clearPage, "loading"];
+  if (!page || !session) return [page, setPage, clearPage, "loading"];
 
   function setPage(page: Page) {
     setStatePage(page);

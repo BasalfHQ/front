@@ -142,7 +142,7 @@ export function UpdatePageForm({
   const { data: session, status } = useSession();
   const t = useTranslations("updatePage");
   const [page, setPage, clearPage] = usePageUpdated(
-    session!,
+    session,
     initialPage,
   );
   const router = useRouter();
