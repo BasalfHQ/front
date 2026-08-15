@@ -1,4 +1,4 @@
-import type { CmsComponents, CmsPaths } from "@repo/apis";
+import type { components as CmsComponents, paths as CmsPaths } from "./types";
 import createClient from "openapi-fetch";
 
 export type AllPages = CmsComponents["schemas"]["AllPages"];

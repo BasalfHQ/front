@@ -76,24 +76,15 @@ export function LoginModal() {
           window.location.href = newUrl;
         }
       } else {
-        console.log("[AUTH-CLIENT] Calling signIn with username:", email);
         const result = await signIn("cognito", {
           username: email,
           password,
           redirect: false,
         });
 
-        console.log("[AUTH-CLIENT] signIn result:", {
-          ok: result?.ok,
-          error: result?.error,
-          status: result?.status,
-          url: result?.url,
-        });
-
         if (result?.error) {
           try {
             const errorData = JSON.parse(result.error);
-            console.log("[AUTH-CLIENT] Parsed error data:", errorData);
             if (errorData.challengeName === "NEW_PASSWORD_REQUIRED") {
               setChallengeData({
                 session: errorData.session,
@@ -103,18 +94,15 @@ export function LoginModal() {
               return;
             }
           } catch {
-            console.log("[AUTH-CLIENT] Error is not JSON:", result.error);
+            // Not a challenge error
           }
           setError("Invalid credentials");
           setLoading(false);
         } else if (result?.ok) {
-          console.log("[AUTH-CLIENT] Login OK, redirecting to:", pathname);
           const params = new URLSearchParams(searchParams.toString());
           params.delete("login");
           const newUrl = params.toString() ? `${pathname}?${params}` : pathname;
           window.location.href = newUrl;
-        } else {
-          console.log("[AUTH-CLIENT] Unexpected result state:", result);
         }
       }
     } catch (err) {

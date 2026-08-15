@@ -27,8 +27,3 @@ export {
   ISO_639_1_CODES_WITH_FLAGS,
 } from "./cms-mgt-bff/locales";
 
-export type {
-  paths as CmsPaths,
-  components as CmsComponents,
-  operations as CmsOperations,
-} from "./cms-mgt-bff-lib/types";

@@ -173,7 +173,6 @@ export function UpdatePageForm({
     try {
       await updatePage(page);
       toast.success(t("success"));
-      clearPage();
     } catch (error) {
       console.error(error);
       toast.error(t("errors.updatePageFailed"));
