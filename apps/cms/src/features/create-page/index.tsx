@@ -3,6 +3,7 @@ import { getTranslations, I18nClientProvider, Link, redirect } from "@repo/i18n"
 import { baseUrl } from "@repo/config";
 import { CreatePageForm } from "./components/form";
 import { getLocales, getPages } from "@repo/apis";
+import { PageTitle } from "@repo/ui";
 
 export async function CreatePage({
   params,
@@ -26,7 +27,7 @@ export async function CreatePage({
       <Link href="/pages" className="text-sm text-gray-500 hover:underline">
         ← {t("backToPages")}
       </Link>
-      <h1 className="text-2xl font-bold">{t("title")}</h1>
+      <PageTitle>{t("title")}</PageTitle>
       <I18nClientProvider namespace={["createPage", "BlockForm", "SeoForm"]}>
         <CreatePageForm locales={Locales} pages={pages} />
       </I18nClientProvider>

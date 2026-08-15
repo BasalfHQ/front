@@ -68,9 +68,7 @@ export async function getWebsites(idToken: string): Promise<Website[]> {
   return response.data ?? [];
 }
 
-export async function getLocales(
-  idToken: string,
-): Promise<Locales> {
+export async function getLocales(idToken: string): Promise<Locales> {
   const response = await client.GET("/locales", {
     headers: headers({ idToken }),
   });
@@ -87,4 +85,11 @@ export async function updateLocales(locales: Locales, idToken: string) {
     console.error("Error updating locales", response.data);
     throw new Error(response.data?.message ?? "Failed to update locales");
   }
+}
+
+export async function getToken(idToken: string) {
+  const response = await client.GET("/token", {
+    headers: headers({ idToken }),
+  });
+  return response.data ?? null;
 }

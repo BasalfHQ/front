@@ -12,6 +12,7 @@ export {
   deletePage,
   updateLocales,
   getLocales,
+  getToken,
 } from "./cms-mgt-bff/api";
 export type {
   Page,

@@ -13,6 +13,7 @@ import {
   DialogFooter,
   Input,
   Label,
+  PageTitle,
 } from "@repo/ui";
 import { createUser, deleteUser } from "./actions";
 
@@ -53,7 +54,7 @@ export function UserList({ initialUsers }: UserListProps) {
   return (
     <>
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">{t("title")}</h1>
+        <PageTitle>{t("title")}</PageTitle>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button>{t("addUser")}</Button>

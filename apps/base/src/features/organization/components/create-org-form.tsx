@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@repo/ui/button";
 import { Input } from "@repo/ui/components/input";
 import { Label } from "@repo/ui/components/label";
+import { PageTitle } from "@repo/ui";
 import { createOrganization } from "../actions";
 
 export function CreateOrgForm() {
@@ -33,7 +34,7 @@ export function CreateOrgForm() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-6">{t("title")}</h1>
+      <PageTitle className="mb-6">{t("title")}</PageTitle>
 
       <form onSubmit={handleSubmit} className="space-y-4 mb-8">
         <div className="space-y-2">

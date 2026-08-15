@@ -42,7 +42,7 @@ export function OrganizationSelect({
       onValueChange={handleChange}
       disabled={isChanging}
     >
-      <SelectTrigger className="w-[150px]">
+      <SelectTrigger className="min-w-[150px]">
         <SelectValue placeholder="Select organization" />
       </SelectTrigger>
       <SelectContent>

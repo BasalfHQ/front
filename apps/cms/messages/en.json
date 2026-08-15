@@ -1,6 +1,7 @@
 {
   "nav": {
-    "pages": "Pages"
+    "pages": "Pages",
+    "token": "Your access keys"
   },
   "homepage": {
     "title": "Connect to your account to access the CMS"
@@ -249,5 +250,11 @@
     "deleteCancel": "Cancel",
     "deleteConfirm": "Delete",
     "deleting": "Deleting..."
+  },
+  "token": {
+    "title": "Your access key",
+    "description": "Your access keys allow you to access the Basalf CMS API. These keys must be kept secret and never shared. If you lose these keys, you will no longer be able to access the Basalf CMS API. If you share them, you could expose your account to security risks. If you lose them, contact us immediately.",
+    "copy": "Copy your token",
+    "copied": "Token copied"
   }
 }

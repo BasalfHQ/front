@@ -37,7 +37,10 @@ export default async function LocaleLayout({ children, params }: Props) {
       lang={locale}
       locale={locale}
       messages={messages}
-      navItems={[{ label: t("pages"), href: "/pages", authOnly: true }]}
+      navItems={[
+        { label: t("pages"), href: "/pages", authOnly: true },
+        { label: t("token"), href: "/token", authOnly: true },
+      ]}
     >
       {children}
     </RootLayout>

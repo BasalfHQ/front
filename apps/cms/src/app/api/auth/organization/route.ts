@@ -27,6 +27,7 @@ export async function POST(request: Request) {
       username: session.user.email,
       userAttributes: {
         "custom:currentOrganization": organizationId,
+        "custom:currentWebsite": "website_default_" + organizationId,
       },
     });
 

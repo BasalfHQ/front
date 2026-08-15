@@ -1,6 +1,7 @@
 {
   "nav": {
-    "pages": "Pages"
+    "pages": "Pages",
+    "token": "Vos clés d'accès"
   },
   "homepage": {
     "title": "Connectez-vous à votre compte pour accéder au CMS"
@@ -249,5 +250,11 @@
     "deleteCancel": "Annuler",
     "deleteConfirm": "Supprimer",
     "deleting": "Suppression..."
+  },
+  "token": {
+    "title": "Votre clé d'accès",
+    "description": "Vos clés d'accès vous permettent d'accéder à l'API de Basalf CMS. Ces clés doivent absolument rester secrètes et ne jamais être partagées. Si vous perdez ces clés, vous ne pourrez plus accéder à l'API de Basalf CMS. Si vous les partagez, vous pourriez exposer votre compte à des risques de sécurité. Si vous les perdez, contactez nous immediatement.",
+    "copy": "Copier votre token",
+    "copied": "Token copié"
   }
 }

@@ -58,3 +58,4 @@ export { DatePicker } from "./components/date-picker";
 export { Calendar } from "./components/calendar";
 export { TagInput } from "./components/tag-input";
 export { Badge } from "./components/badge";
+export { PageTitle, PageDescription } from "./components/page-header";

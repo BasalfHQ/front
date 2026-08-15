@@ -8,7 +8,7 @@ import { auth, Button } from "@repo/auth-ui";
 import { baseUrl } from "@repo/config";
 import { AllPages, getLocales, getPages } from "@repo/apis";
 import { LocalesModale } from "./components/locale-modale";
-import { Badge } from "@repo/ui";
+import { Badge, PageTitle } from "@repo/ui";
 
 export async function Pages({
   params,
@@ -33,7 +33,7 @@ export async function Pages({
     <div className="flex flex-col gap-4">
       <div className="flex justify-between items-center w-full">
         <div className="flex flex-col gap-2">
-          <h1 className="text-2xl font-bold">{t("title")}</h1>
+          <PageTitle>{t("title")}</PageTitle>
           <Link href="/create-page">
             <Button>{t("createPage")}</Button>
           </Link>

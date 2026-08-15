@@ -9,6 +9,7 @@ import { baseUrl } from "@repo/config";
 import { UpdatePageForm } from "./components/form";
 import { getLocales, getPage } from "@repo/apis";
 import { notFound } from "next/navigation";
+import { PageTitle } from "@repo/ui";
 
 export async function UpdatePage({
   params,
@@ -36,7 +37,7 @@ export async function UpdatePage({
       <Link href="/pages" className="text-sm text-gray-500 hover:underline">
         ← {t("backToPages")}
       </Link>
-      <h1 className="text-2xl font-bold">{t("title")}</h1>
+      <PageTitle>{t("title")}</PageTitle>
       <I18nClientProvider namespace={["updatePage", "BlockForm", "SeoForm"]}>
         <UpdatePageForm locales={locales} initialPage={page} />
       </I18nClientProvider>
