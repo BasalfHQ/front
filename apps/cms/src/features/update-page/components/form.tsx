@@ -171,6 +171,7 @@ export function UpdatePageForm({
 
     setLoading(true);
     try {
+      console.log("CLIENT page.seo before submit:", JSON.stringify(page.seo));
       await updatePage(page);
       toast.success(t("success"));
     } catch (error) {

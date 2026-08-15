@@ -49,8 +49,16 @@ function getStoredPage(initialPage: Page): Page | null {
   if (typeof window === "undefined") return null;
   const stored = getStorage(PAGE_UPDATED_KEY);
   if (!stored || stored.pageId !== initialPage.pageId) return initialPage;
-  if (!stored.seo) return initialPage;
-  return stored;
+  return {
+    ...initialPage,
+    ...stored,
+    seo: {
+      ...initialPage.seo,
+      ...stored.seo,
+      schemas: stored.seo?.schemas ?? initialPage.seo.schemas,
+      keywords: stored.seo?.keywords ?? initialPage.seo.keywords,
+    },
+  };
 }
 
 export function usePageUpdated(
