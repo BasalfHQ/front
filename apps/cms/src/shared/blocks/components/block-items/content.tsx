@@ -17,8 +17,7 @@ export function BlockContent({
       <Tiptap
         content={content}
         onUpdate={(html: string) => {
-          // @ts-expect-error - Just Block type error
-          onChange({ ...block, content: html });
+          onChange(html);
         }}
         className={`w-full h-[300px] min-h-[60px] prose prose-sm ${error ? "border-destructive" : ""}`}
       />
