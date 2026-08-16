@@ -106,7 +106,7 @@ export function RootLayout({
 }: RootLayoutProps) {
   return (
     <html lang={lang}>
-      <body className={cn("flex min-h-screen flex-col w-full", className)}>
+      <body className={cn("flex min-h-screen flex-col w-full overflow-x-hidden", className)}>
         {children}
         <Toaster position="top-right" />
       </body>

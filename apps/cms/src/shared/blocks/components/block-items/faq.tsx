@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useTranslations } from "@repo/i18n";
-import { Button, Input, Tiptap } from "@repo/ui";
+import { AutoSizeInput, Button, Input, Textarea, Tiptap } from "@repo/ui";
 import { Trash2 } from "@repo/ui/icons";
 
 let nextFaqKey = 0;
@@ -47,7 +47,7 @@ export function BlockFaq({
                 {t("attributes.faq.question")}
               </p>
               <div className="flex gap-4 items-center">
-                <Input
+                <AutoSizeInput
                   value={item.question}
                   onChange={(e) =>
                     onChange(
@@ -58,8 +58,8 @@ export function BlockFaq({
                       ),
                     )
                   }
-                  className="border-muted-foreground shadow-none"
-                />{" "}
+                  className="border-muted-foreground shadow-none text-wrap"
+                />
                 <Trash2
                   className="size-6 cursor-pointer text-destructive hover:text-destructive/80"
                   onClick={() => handleDelete(index)}
@@ -79,7 +79,7 @@ export function BlockFaq({
                     ),
                   )
                 }
-                className="w-full h-[200px] min-h-[60px] prose prose-sm"
+                className="w-full h-fit min-h-[60px] prose prose-sm"
               />
             </div>
           </div>

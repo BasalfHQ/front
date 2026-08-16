@@ -74,7 +74,7 @@ export function Tiptap({ content, onUpdate, className, error }: TiptapProps) {
         <Toolbar editor={editor} />
         <EditorContent
           editor={editor}
-          className="p-2 min-h-[60px] flex-1 overflow-y-auto [&_.tiptap]:outline-none [&_.tiptap]:h-full"
+          className="p-2 min-h-[60px] flex-1 overflow-y-auto [&_.tiptap]:outline-none [&_.tiptap]:h-full text-[14px] text-normal"
         />
       </div>
       {error && <p className="text-xs text-destructive">{error}</p>}

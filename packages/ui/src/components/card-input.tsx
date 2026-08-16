@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "../lib/utils";
+import { AutoSizeInput } from "./auto-size-input";
 import { Input } from "./input";
 import {
   Select,
@@ -9,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./select";
+import { Textarea } from "./textarea";
 
 type CardInputProps =
   | {
@@ -80,19 +82,21 @@ export function CardInput({
         )}
       </div>
       {inputProps.type === "input" ? (
-        <Input
+        <AutoSizeInput
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          id={inputId}
-          className={cn("w-full", error && "border-destructive", classNameInput)}
-          placeholder={placeholder}
-          required={required}
+          rows={1}
+          className="border-muted-foreground shadow-none min-w-[300px] w-fit min-h-[30px] h-fit text-wrap"
         />
       ) : (
         <Select value={value} onValueChange={onChange} required={required}>
           <SelectTrigger
             id={inputId}
-            className={cn("w-full", error && "border-destructive", classNameInput)}
+            className={cn(
+              "w-full",
+              error && "border-destructive",
+              classNameInput,
+            )}
           >
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
@@ -105,9 +109,7 @@ export function CardInput({
           </SelectContent>
         </Select>
       )}
-      {error && (
-        <p className="text-xs text-destructive mt-1">{error}</p>
-      )}
+      {error && <p className="text-xs text-destructive mt-1">{error}</p>}
     </div>
   );
 }

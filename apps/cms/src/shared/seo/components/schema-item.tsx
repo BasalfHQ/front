@@ -9,6 +9,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  AutoSizeInput,
 } from "@repo/ui";
 import { Trash2 } from "@repo/ui/icons";
 import type { SchemaErrors } from "@/features/create-page/components/form";
@@ -91,23 +92,31 @@ function ArticleFields({
       <div className="flex flex-wrap gap-2">
         <div className="flex flex-col gap-1 flex-1 min-w-[200px]">
           <label className="text-sm font-medium">{t("fields.title")}</label>
-          <Input
+          <AutoSizeInput
             value={schema.title}
             onChange={(e) => onChange({ ...schema, title: e.target.value })}
             className={errors?.title ? "border-destructive" : ""}
             placeholder={t("fields.titlePlaceholder")}
           />
-          {errors?.title && <p className="text-xs text-destructive">{errors.title}</p>}
+          {errors?.title && (
+            <p className="text-xs text-destructive">{errors.title}</p>
+          )}
         </div>
         <div className="flex flex-col gap-1 flex-1 min-w-[200px]">
-          <label className="text-sm font-medium">{t("fields.description")}</label>
-          <Input
+          <label className="text-sm font-medium">
+            {t("fields.description")}
+          </label>
+          <AutoSizeInput
             value={schema.description}
-            onChange={(e) => onChange({ ...schema, description: e.target.value })}
+            onChange={(e) =>
+              onChange({ ...schema, description: e.target.value })
+            }
             className={errors?.description ? "border-destructive" : ""}
             placeholder={t("fields.descriptionPlaceholder")}
           />
-          {errors?.description && <p className="text-xs text-destructive">{errors.description}</p>}
+          {errors?.description && (
+            <p className="text-xs text-destructive">{errors.description}</p>
+          )}
         </div>
       </div>
       <div className="flex flex-wrap gap-2">
@@ -122,7 +131,9 @@ function ArticleFields({
           />
         </div>
         <div className="flex flex-col gap-1 flex-1 min-w-[200px]">
-          <label className="text-sm font-medium">{t("fields.readingTime")}</label>
+          <label className="text-sm font-medium">
+            {t("fields.readingTime")}
+          </label>
           <Input
             type="number"
             value={schema.readingTime}
@@ -132,7 +143,9 @@ function ArticleFields({
             className={errors?.readingTime ? "border-destructive" : ""}
             placeholder={t("fields.readingTimePlaceholder")}
           />
-          {errors?.readingTime && <p className="text-xs text-destructive">{errors.readingTime}</p>}
+          {errors?.readingTime && (
+            <p className="text-xs text-destructive">{errors.readingTime}</p>
+          )}
         </div>
       </div>
       <div className="flex flex-col gap-1">

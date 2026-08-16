@@ -19,7 +19,7 @@ export function BlockContent({
         onUpdate={(html: string) => {
           onChange(html);
         }}
-        className={`w-full h-[300px] min-h-[60px] prose prose-sm ${error ? "border-destructive" : ""}`}
+        className={`w-full h-fit min-h-[60px] prose prose-sm ${error ? "border-destructive" : ""}`}
       />
       {error && <p className="text-xs text-destructive">{error}</p>}
     </div>
