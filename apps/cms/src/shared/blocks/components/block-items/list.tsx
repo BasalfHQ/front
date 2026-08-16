@@ -1,5 +1,5 @@
 import { useTranslations } from "@repo/i18n";
-import { Switch, Label, Input } from "@repo/ui";
+import { Switch, Label, Input, AutoSizeInput } from "@repo/ui";
 
 export function BlockList({
   list,
@@ -43,7 +43,7 @@ export function BlockList({
             <p className="text-sm w-[20px] text-center">
               {list.ordered ? `${index + 1}.` : "•"}
             </p>
-            <Input
+            <AutoSizeInput
               value={item.text}
               id={`list-item-${index}`}
               onChange={(e) =>

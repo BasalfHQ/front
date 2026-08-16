@@ -4,8 +4,8 @@ import { Page } from "@repo/apis";
 import { Session } from "next-auth";
 import { useState } from "react";
 
-const PAGE_CREATED_KEY = "page-created" as const;
-const PAGE_UPDATED_KEY = "page-updated" as const;
+export const PAGE_CREATED_KEY = "page-created" as const;
+export const PAGE_UPDATED_KEY = "page-updated" as const;
 
 const createEmptyPage = (session: Session | null): Omit<Page, "pageId"> => ({
   organizationId: session?.user.currentOrganization ?? "",

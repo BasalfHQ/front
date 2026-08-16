@@ -19,6 +19,22 @@
       "submit": "Ajouter les langues",
       "success": "Les langues ont été ajoutées avec succès !",
       "error": "Une erreur est survenue lors de l'ajout des langues"
+    },
+    "CreatePageWithAIButton": {
+      "cta": "Créer une page avec l'IA",
+      "title": "Créer une page avec l'IA",
+      "description": "Décrivez la page que vous souhaitez et générez-la avec votre assistant IA.",
+      "language": "Langue",
+      "whatPage": "Quelle page voulez-vous ?",
+      "placeholder": "Créer une page expliquant les bienfaits de l'ostéopathie pour le mal de dos...",
+      "copyPrompt": "Copier le prompt",
+      "copied": "Copié !",
+      "copyHint": "Collez ce prompt dans ChatGPT, Claude, ou un autre assistant IA.",
+      "aiResponse": "Réponse de l'IA",
+      "pasteResponse": "Coller la réponse",
+      "pastePlaceholder": "Collez la réponse JSON ici...",
+      "createPage": "Créer la page",
+      "invalidResponse": "La réponse n'est pas valide. Veuillez réessayer, l'IA fait parfois des erreurs :/"
     }
   },
   "createPage": {

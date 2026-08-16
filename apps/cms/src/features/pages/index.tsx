@@ -9,6 +9,7 @@ import { baseUrl } from "@repo/config";
 import { AllPages, getLocales, getPages } from "@repo/apis";
 import { LocalesModale } from "./components/locale-modale";
 import { Badge, PageTitle } from "@repo/ui";
+import { CreatePageWithAIButton } from "./components/create-page-with-ai";
 
 export async function Pages({
   params,
@@ -34,9 +35,12 @@ export async function Pages({
       <div className="flex justify-between items-center w-full">
         <div className="flex flex-col gap-2">
           <PageTitle>{t("title")}</PageTitle>
-          <Link href="/create-page">
-            <Button>{t("createPage")}</Button>
-          </Link>
+          <div className="flex gap-2">
+            <Link href="/create-page">
+              <Button>{t("createPage")}</Button>
+            </Link>
+            <CreatePageWithAIButton locales={locales} pages={pages} />
+          </div>
         </div>
         <I18nClientProvider namespace="pages">
           <LocalesModale locales={locales} />

@@ -19,6 +19,22 @@
       "submit": "Add the languages",
       "success": "The languages have been added successfully!",
       "error": "An error occurred while adding the languages"
+    },
+    "CreatePageWithAIButton": {
+      "cta": "Create page with AI",
+      "title": "Create page with AI",
+      "description": "Describe the page you want and generate it with your AI assistant.",
+      "language": "Language",
+      "whatPage": "What page do you want?",
+      "placeholder": "Create a page explaining the benefits of osteopathy for back pain...",
+      "copyPrompt": "Copy prompt",
+      "copied": "Copied!",
+      "copyHint": "Paste this prompt into ChatGPT, Claude, or another AI assistant.",
+      "aiResponse": "AI response",
+      "pasteResponse": "Paste response",
+      "pastePlaceholder": "Paste the JSON response here...",
+      "createPage": "Create page",
+      "invalidResponse": "The response is not valid. Please try again, AI sometimes makes mistakes :/"
     }
   },
   "createPage": {
