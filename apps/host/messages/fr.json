@@ -1,6 +1,9 @@
 {
   "homepage": {
     "title": "Bienvenue sur Host",
-    "description": "Gérez votre hébergement web"
+    "description": "Gérez votre hébergement web",
+    "error": {
+      "websiteNotFound": "Site web non trouvé"
+    }
   }
 }

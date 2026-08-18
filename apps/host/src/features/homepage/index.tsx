@@ -18,7 +18,7 @@ export async function Homepage({
     getWebsite(session.idToken),
   ]);
   if (!website) {
-    throw new Error("Website not found");
+    return <p>{t("error.websiteNotFound")}</p>;
   }
   return (
     <div className="flex flex-col gap-4">

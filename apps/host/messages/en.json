@@ -1,6 +1,9 @@
 {
   "homepage": {
     "title": "Welcome to Host",
-    "description": "Manage your website hosting"
+    "description": "Manage your website hosting",
+    "error": {
+      "websiteNotFound": "Website not found"
+    }
   }
 }
