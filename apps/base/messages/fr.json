@@ -33,5 +33,17 @@
     "creating": "Création...",
     "createOrganization": "Créer une organisation",
     "createdSuccess": "Organisation \"{name}\" créée avec succès"
+  },
+  "homepage": {
+    "title": "Bienvenue sur Basalf",
+    "description": "Gérez vos projets et organisations",
+    "cms": {
+      "title": "CMS",
+      "description": "Notre système de gestion de contenu"
+    },
+    "host": {
+      "title": "Hébergement",
+      "description": "Notre plateforme de hébergement web"
+    }
   }
 }

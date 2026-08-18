@@ -13,6 +13,7 @@ export enum EnvVar {
   AUTH_COOKIE_DOMAIN = "AUTH_COOKIE_DOMAIN",
   USER_MGT_BFF_URL = "USER_MGT_BFF_URL",
   CMS_MGT_BFF_URL = "CMS_MGT_BFF_URL",
+  HOST_MGT_BFF_URL = "HOST_MGT_BFF_URL",
 }
 
 const STAGE = (process.env.NEXT_PUBLIC_STAGE as Stage) || Stage.DEV;
@@ -47,6 +48,7 @@ export const env = {
   api: {
     userMgtBffUrl: () => getEnv(EnvVar.USER_MGT_BFF_URL),
     cmsMgtBffUrl: () => getEnv(EnvVar.CMS_MGT_BFF_URL),
+    hostMgtBffUrl: () => getEnv(EnvVar.HOST_MGT_BFF_URL),
   },
 };
 
