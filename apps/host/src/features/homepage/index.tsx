@@ -1,8 +1,9 @@
 import { PageDescription, PageTitle } from "@repo/ui";
-import { getTranslations, redirect } from "@repo/i18n";
+import { getTranslations, I18nClientProvider, redirect } from "@repo/i18n";
 import { getWebsite } from "@repo/apis";
 import { getSession } from "@repo/auth-ui";
 import { baseUrl } from "@repo/config";
+import { CreateWebsiteForm } from "./components/create-website-form";
 
 export async function Homepage({
   params,
@@ -26,6 +27,9 @@ export async function Homepage({
         <PageTitle>{t("title")}</PageTitle>
         <PageDescription>{t("description")}</PageDescription>
       </div>
+      <I18nClientProvider namespace="homepage">
+        <CreateWebsiteForm />
+      </I18nClientProvider>
     </div>
   );
 }

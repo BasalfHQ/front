@@ -3,7 +3,27 @@
     "title": "Welcome to Host",
     "description": "Manage your website hosting",
     "error": {
-      "websiteNotFound": "Website not found"
-    }
+      "websiteNotFound": "Website not found",
+      "uploadYourWebsiteError": "Failed to upload website",
+      "domainLength": "Domain must be 3-30 characters",
+      "domainFormat": "Must be lowercase letters, numbers or hyphens. No hyphen at the start or end"
+    },
+    "createWebsite": "Create Website",
+    "updateWebsite": "Update Website",
+    "choseSubDomain": "Do you want a custom subDomain?",
+    "choseSubDomainDescription": "You can choose a custom subDomain for your website (e.g. 'mywebsite.host.basalf.com' or 'my-blog.host.basalf.com'), it should be unique and not already in use. You can check the availability of the domain below.",
+    "enterSubDomain": "Wanted subDomain",
+    "domainAvailable": "Domain available",
+    "dontWantSubDomain": "I don't need a custom subDomain",
+    "domainUnavailable": "Domain already in use",
+    "checkDomainAvailability": "Check domain availability",
+    "check": "Check",
+    "changeDomain": "Change domain",
+    "addDomain": "Add domain",
+    "uploadYourWebsite": "Upload your website",
+    "websiteOnThisUrl": "Your website will be available at this URL: {url}.host.basalf.com",
+    "uploadYourWebsiteDescription": "Upload your website to the server, it should be a static working website",
+    "uploadYourWebsiteButton": "Upload",
+    "uploadYourWebsiteSuccess": "Website uploaded successfully"
   }
 }

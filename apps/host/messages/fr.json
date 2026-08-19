@@ -3,7 +3,27 @@
     "title": "Bienvenue sur Host",
     "description": "Gérez votre hébergement web",
     "error": {
-      "websiteNotFound": "Site web non trouvé"
-    }
+      "websiteNotFound": "Site web non trouvé",
+      "uploadYourWebsiteError": "Erreur lors de la mise en ligne du site web",
+      "domainLength": "Le domaine doit contenir entre 3 et 30 caractères",
+      "domainFormat": "Doit être des lettres en minuscule, chiffres ou tirets. Pas de tiret au début ou à la fin"
+    },
+    "createWebsite": "Créer un site web",
+    "updateWebsite": "Mettre à jour le site web",
+    "choseSubDomain": "Voulez-vous un sous-domaine personnalisé ?",
+    "choseSubDomainDescription": "Vous pouvez choisir un sous-domaine personnalisé pour votre site web (par exemple 'mon-site.host.basalf.com' ou 'mon-blog.host.basalf.com'), il doit être unique et non déjà utilisé. Vous pouvez vérifier la disponibilité du domaine ci-dessous.",
+    "enterSubDomain": "Sous-domaine souhaité",
+    "dontWantSubDomain": "Je ne veux pas de sous-domaine personnalisé",
+    "domainAvailable": "Domaine disponible",
+    "domainUnavailable": "Domaine déjà utilisé",
+    "checkDomainAvailability": "Vérifier la disponibilité du domaine",
+    "check": "Vérifier",
+    "changeDomain": "Changer de domaine",
+    "addDomain": "Ajouter un domaine",
+    "uploadYourWebsite": "Mettre en ligne votre site web",
+    "websiteOnThisUrl": "Votre site web sera disponible à cette URL: {url}.host.basalf.com",
+    "uploadYourWebsiteDescription": "Mettre en ligne votre site web sur le serveur, il doit être un site web statique fonctionnel",
+    "uploadYourWebsiteButton": "Mettre en ligne",
+    "uploadYourWebsiteSuccess": "Site web mis en ligne avec succès"
   }
 }
