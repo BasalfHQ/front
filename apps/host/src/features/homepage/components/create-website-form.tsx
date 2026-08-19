@@ -3,7 +3,10 @@
 import { Button, Card, CardHeader, Input, toast } from "@repo/ui";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { checkDomainAvailability, getSignedUrl as getSignedUrlAction } from "../actions";
+import {
+  checkDomainAvailability,
+  getSignedUrl as getSignedUrlAction,
+} from "../actions";
 import { Loader2 } from "@repo/ui/icons";
 import { WebsiteUpload } from "./folder-upload";
 import { validateDomain } from "../utils";
@@ -28,7 +31,7 @@ export function CreateWebsiteForm() {
       const res = await checkDomainAvailability(domainIdInput);
       if (res?.available) {
         setDomainId(domainIdInput);
-        getSignedUrl();
+        getSignedUrl(domainIdInput);
       } else {
         console.log("res:", res);
         toast.error(t("domainUnavailable"));
@@ -41,11 +44,11 @@ export function CreateWebsiteForm() {
     }
   }
 
-  async function getSignedUrl() {
+  async function getSignedUrl(initialDomainId?: string) {
     setLoading(true);
     try {
       setLoading(true);
-      const res = await getSignedUrlAction(domainId);
+      const res = await getSignedUrlAction(initialDomainId || domainId);
       setSignedUrl(res);
       setVariant("upload");
     } catch (error) {
@@ -87,7 +90,10 @@ export function CreateWebsiteForm() {
             />
             <p className="py-1.5">.host.basalf.com</p>
           </div>
-          <Button onClick={getDomainAvailability} disabled={loading || !!domainError || !domainIdInput}>
+          <Button
+            onClick={getDomainAvailability}
+            disabled={loading || !!domainError || !domainIdInput}
+          >
             {loading ? (
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
@@ -96,11 +102,13 @@ export function CreateWebsiteForm() {
           </Button>
         </div>
         {domainError && (
-          <p className="text-sm text-destructive">{t(`error.${domainError}`)}</p>
+          <p className="text-sm text-destructive">
+            {t(`error.${domainError}`)}
+          </p>
         )}
         <p
           className="text-sm hover:underline cursor-pointer text-muted-foreground"
-          onClick={getSignedUrl}
+          onClick={() => getSignedUrl()}
         >
           <>
             {loading && <Loader2 className="w-4 h-4 animate-spin" />}
@@ -125,7 +133,21 @@ export function CreateWebsiteForm() {
           </p>
           {domainId && <p>{t("websiteOnThisUrl", { url: domainId })}</p>}
         </div>
-        {signedUrl && <WebsiteUpload uploadUrl={signedUrl} />}
+        {signedUrl && (
+          <WebsiteUpload
+            uploadUrl={signedUrl}
+            onSuccess={() => setVariant("success")}
+            onError={(error) => toast.error(error.message)}
+          />
+        )}
+      </Card>
+    );
+  }
+
+  if (variant === "success") {
+    return (
+      <Card variant="success" className="max-w-[800px] flex flex-col gap-4">
+        <p>{t("websiteCreated")}</p>
       </Card>
     );
   }

@@ -11,9 +11,16 @@ import type { UploadUrl } from "@repo/apis";
 type Props = {
   uploadUrl: UploadUrl;
   className?: string;
+  onSuccess?: () => void;
+  onError?: (error: Error) => void;
 };
 
-export function WebsiteUpload({ uploadUrl, className }: Props) {
+export function WebsiteUpload({
+  uploadUrl,
+  className,
+  onSuccess,
+  onError,
+}: Props) {
   const [files, setFiles] = useState<File[]>([]);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string>();
@@ -67,6 +74,7 @@ export function WebsiteUpload({ uploadUrl, className }: Props) {
 
     if (!directories.length) {
       setError("Please drop a folder.");
+      onError?.(new Error("Please drop a folder."));
       return;
     }
 
@@ -88,6 +96,7 @@ export function WebsiteUpload({ uploadUrl, className }: Props) {
 
     if (!hasIndex) {
       setError("The folder must contain an index.html file.");
+      onError?.(new Error("The folder must contain an index.html file."));
       return;
     }
 
@@ -131,10 +140,12 @@ export function WebsiteUpload({ uploadUrl, className }: Props) {
 
         setProgress(Math.round((uploaded / files.length) * 100));
       }
+      onSuccess?.();
     } catch (error) {
       console.error("[WebsiteUpload] Upload failed:", error);
 
       setError("Upload failed.");
+      onError?.(new Error("Upload failed."));
     }
   };
 

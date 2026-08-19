@@ -1,4 +1,4 @@
-import { PageDescription, PageTitle } from "@repo/ui";
+import { Card, PageDescription, PageTitle } from "@repo/ui";
 import { getTranslations, I18nClientProvider, redirect } from "@repo/i18n";
 import { getWebsite } from "@repo/apis";
 import { getSession } from "@repo/auth-ui";
