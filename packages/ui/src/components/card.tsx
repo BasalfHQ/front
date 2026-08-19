@@ -11,22 +11,28 @@ export function Card({
   className?: string;
   href?: string;
 }) {
-  const PotentialLink = href ? Link : React.Fragment;
-  return (
-    <PotentialLink href={href ?? ""} prefetch={true}>
-      <div
-        className={cn(
-          "flex flex-col gap-1 rounded-md border p-4 w-fit justify-between bg-accent/50",
-          href && "hover:bg-accent/80",
-          className,
-        )}
-      >
-        {children}
-      </div>
-    </PotentialLink>
+  const content = (
+    <div
+      className={cn(
+        "flex flex-col gap-1 rounded-md border p-4 w-fit justify-between bg-accent/50",
+        href && "hover:bg-accent/80",
+        className,
+      )}
+    >
+      {children}
+    </div>
   );
-}
 
+  if (href) {
+    return (
+      <Link href={href} prefetch>
+        {content}
+      </Link>
+    );
+  }
+
+  return content;
+}
 export function CardHeader({
   children,
   className,

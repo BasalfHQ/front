@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/upload-url": {
+    "/upload-url/{domainId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -15,7 +15,9 @@ export interface paths {
             parameters: {
                 query?: never;
                 header?: never;
-                path?: never;
+                path: {
+                    domainId: string;
+                };
                 cookie?: never;
             };
             requestBody?: never;
@@ -26,7 +28,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": string;
+                        "application/json": components["schemas"]["UploadUrl"];
                     };
                 };
                 /** @description Bad request */
@@ -230,6 +232,13 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        UploadUrl: {
+            url: string;
+            fields: {
+                [key: string]: string;
+            };
+            prefix: string;
+        };
         Website: {
             name: string;
             websiteId: string;

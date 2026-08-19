@@ -33,3 +33,8 @@ export {
   getDomainAvailability,
   changeDomain,
 } from "./host-mgt-bff/api";
+
+export type {
+  UploadUrl,
+  Website,
+} from "./host-mgt-bff";

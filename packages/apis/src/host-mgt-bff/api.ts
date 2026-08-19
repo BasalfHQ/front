@@ -1,4 +1,4 @@
-import { client, Website } from ".";
+import { client, UploadUrl, Website } from ".";
 import { headers } from "../utils";
 
 export async function getWebsite(
@@ -12,22 +12,37 @@ export async function getWebsite(
 
 export async function getUploadUrl(
   idToken: string,
-): Promise<string | undefined> {
-  const response = await client.GET("/upload-url", {
+  domainId: string | undefined,
+): Promise<UploadUrl | undefined> {
+  const response = await client.GET("/upload-url/{domainId}", {
     headers: headers({ idToken }),
+    params: { path: { domainId: domainId ?? "" } },
   });
+  if (response.response.status !== 200) {
+    console.log(response);
+    console.log(response.data);
+    throw new Error("Failed to get upload url");
+  }
   return response.data;
 }
 
 export async function getDomainAvailability(
   domain: string,
   idToken: string,
-): Promise<boolean | undefined> {
+): Promise<
+  | { available: boolean; status?: "uploading" | "uploaded" | "failed" }
+  | undefined
+> {
   const response = await client.GET("/domain/{domain}", {
     params: { path: { domain } },
     headers: headers({ idToken }),
   });
-  return response.data?.available;
+  if (response.response.status !== 200) {
+    console.log(response);
+    console.log(response.data);
+    throw new Error("Failed to get domain availability");
+  }
+  return response.data;
 }
 
 export async function changeDomain(
@@ -41,6 +56,7 @@ export async function changeDomain(
     body: { newDomain },
   });
   if (response.response.status !== 200) {
+    console.log(response.data);
     throw new Error(response.data?.message ?? "Failed to change domain");
   }
 }
