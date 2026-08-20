@@ -2,6 +2,7 @@
   "homepage": {
     "title": "Bienvenue sur Host",
     "description": "Gérez votre hébergement web",
+    "youMustBeLoggedIn": "Vous devez être connecté pour accéder à cette page",
     "error": {
       "websiteNotFound": "Site web non trouvé",
       "uploadYourWebsiteError": "Erreur lors de la mise en ligne du site web",
@@ -24,6 +25,9 @@
     "websiteOnThisUrl": "Votre site web sera disponible à cette URL: {url}.host.basalf.com",
     "uploadYourWebsiteDescription": "Mettre en ligne votre site web sur le serveur, il doit être un site web statique fonctionnel",
     "uploadYourWebsiteButton": "Mettre en ligne",
-    "uploadYourWebsiteSuccess": "Site web mis en ligne avec succès"
+    "uploadYourWebsiteSuccess": "Site web mis en ligne avec succès",
+    "websiteCreated": "Votre site est maintenant en ligne !",
+    "websiteCreatedDescription": "Votre site sera disponible à l'adresse {url} dans quelques minutes",
+    "visitWebsite": "Visiter le site web"
   }
 }

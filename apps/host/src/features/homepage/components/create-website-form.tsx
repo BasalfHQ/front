@@ -11,6 +11,7 @@ import { Loader2 } from "@repo/ui/icons";
 import { WebsiteUpload } from "./folder-upload";
 import { validateDomain } from "../utils";
 import { UploadUrl } from "@repo/apis";
+import { Link } from "@repo/i18n";
 
 type variants = "closed" | "domain" | "upload" | "success";
 
@@ -49,6 +50,7 @@ export function CreateWebsiteForm() {
     try {
       setLoading(true);
       const res = await getSignedUrlAction(initialDomainId || domainId);
+      setDomainId(res.domainId);
       setSignedUrl(res);
       setVariant("upload");
     } catch (error) {
@@ -146,8 +148,16 @@ export function CreateWebsiteForm() {
 
   if (variant === "success") {
     return (
-      <Card variant="success" className="max-w-[800px] flex flex-col gap-4">
-        <p>{t("websiteCreated")}</p>
+      <Card variant="success" className="max-w-[800px] flex flex-col gap-4 items-center">
+        <CardHeader>{t("websiteCreated")}</CardHeader>
+        <p className="text-sm text-muted-foreground">
+          {t("websiteCreatedDescription", {
+            url: domainId + ".host.basalf.com",
+          })}
+        </p>
+        <Link href={`https://${domainId}.host.basalf.com`}>
+          <Button>{t("visitWebsite")}</Button>
+        </Link>
       </Card>
     );
   }

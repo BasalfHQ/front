@@ -2,6 +2,7 @@
   "homepage": {
     "title": "Welcome to Host",
     "description": "Manage your website hosting",
+    "youMustBeLoggedIn": "You must be logged in to access this page",
     "error": {
       "websiteNotFound": "Website not found",
       "uploadYourWebsiteError": "Failed to upload website",
@@ -24,6 +25,9 @@
     "websiteOnThisUrl": "Your website will be available at this URL: {url}.host.basalf.com",
     "uploadYourWebsiteDescription": "Upload your website to the server, it should be a static working website",
     "uploadYourWebsiteButton": "Upload",
-    "uploadYourWebsiteSuccess": "Website uploaded successfully"
+    "uploadYourWebsiteSuccess": "Website uploaded successfully",
+    "websiteCreated": "Your website is now live!",
+    "websiteCreatedDescription": "Your website will be available at {url} in a few minutes",
+    "visitWebsite": "Visit website"
   }
 }
