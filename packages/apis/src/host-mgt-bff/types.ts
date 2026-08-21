@@ -238,6 +238,7 @@ export interface components {
                 [key: string]: string;
             };
             prefix: string;
+            domainId: string;
         };
         Website: {
             name: string;
