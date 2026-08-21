@@ -40,19 +40,24 @@ export function WebsiteUpload({
 
     // webkitRelativePath contains the selected folder name.
     // Remove it so the selected folder itself is treated as the root.
-    const normalizedFiles = files.map((file) => {
-      const path = file.webkitRelativePath || file.name;
-      const parts = path.split("/");
+    const normalizedFiles = files
+      .filter((file) => {
+        const path = file.webkitRelativePath || file.name;
+        return !path.split("/").some((part) => part.startsWith(".git"));
+      })
+      .map((file) => {
+        const path = file.webkitRelativePath || file.name;
+        const parts = path.split("/");
 
-      const normalizedPath = parts.slice(1).join("/");
+        const normalizedPath = parts.slice(1).join("/");
 
-      Object.defineProperty(file, "webkitRelativePath", {
-        value: normalizedPath,
-        configurable: true,
+        Object.defineProperty(file, "webkitRelativePath", {
+          value: normalizedPath,
+          configurable: true,
+        });
+
+        return file;
       });
-
-      return file;
-    });
 
     addFiles(normalizedFiles);
 
@@ -236,8 +241,12 @@ async function readDirectory(
     entries.push(...batch);
   }
 
+  const filteredEntries = entries.filter(
+    (entry) => !entry.name.startsWith(".git"),
+  );
+
   const files = await Promise.all(
-    entries.map(async (entry) => {
+    filteredEntries.map(async (entry) => {
       if (entry.isFile) {
         return new Promise<File[]>((resolve, reject) => {
           (entry as FileSystemFileEntry).file((file) => {

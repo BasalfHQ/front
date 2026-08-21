@@ -1,7 +1,13 @@
 "use server";
 
-import { getUploadUrl, getDomainAvailability, changeDomain as changeDomainApi } from "@repo/apis";
+import {
+  getUploadUrl,
+  getDomainAvailability,
+  changeDomain as changeDomainApi,
+  deleteDeployment as deleteDeploymentApi,
+} from "@repo/apis";
 import { getSession } from "@repo/auth-ui";
+import { revalidatePath } from "next/cache";
 
 export async function getSignedUrl(domainId: string | undefined) {
   const session = await getSession();
@@ -27,10 +33,23 @@ export async function checkDomainAvailability(domain: string) {
   return domainAvailability;
 }
 
-export async function changeDomain(baseDomain: string, newDomain: string) {
+export async function changeDomain(baseDomain?: string, newDomain?: string) {
+  if (!baseDomain || !newDomain) {
+    throw new Error("Domains are required");
+  }
   const session = await getSession();
   if (!session || !session.idToken) {
     throw new Error("Unauthorized");
   }
   await changeDomainApi(baseDomain, newDomain, session.idToken);
+  revalidatePath("/");
+}
+
+export async function deleteDeployment() {
+  const session = await getSession();
+  if (!session || !session.idToken) {
+    throw new Error("Unauthorized");
+  }
+  await deleteDeploymentApi(session.idToken);
+  revalidatePath("/");
 }

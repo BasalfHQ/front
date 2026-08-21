@@ -60,3 +60,13 @@ export async function changeDomain(
     throw new Error(response.data?.message ?? "Failed to change domain");
   }
 }
+
+export async function deleteDeployment(idToken: string): Promise<void> {
+  const response = await client.DELETE("/deployment", {
+    headers: headers({ idToken }),
+  });
+  if (response.response.status !== 200) {
+    console.log(response.data);
+    throw new Error("Failed to delete deployment");
+  }
+}

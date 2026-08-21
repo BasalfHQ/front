@@ -32,6 +32,7 @@ export {
   getUploadUrl,
   getDomainAvailability,
   changeDomain,
+  deleteDeployment,
 } from "./host-mgt-bff/api";
 
 export type {

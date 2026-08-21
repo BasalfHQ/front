@@ -1,8 +1,9 @@
 "use client";
 
 import { Button, Card, CardHeader, Input, toast } from "@repo/ui";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import {
   checkDomainAvailability,
   getSignedUrl as getSignedUrlAction,
@@ -11,7 +12,6 @@ import { Loader2 } from "@repo/ui/icons";
 import { WebsiteUpload } from "./folder-upload";
 import { validateDomain } from "../utils";
 import { UploadUrl } from "@repo/apis";
-import { Link } from "@repo/i18n";
 
 type variants = "closed" | "domain" | "upload" | "success";
 
@@ -22,6 +22,7 @@ export function CreateWebsiteForm() {
   const [loading, setLoading] = useState<boolean>(false);
   const [signedUrl, setSignedUrl] = useState<UploadUrl | undefined>(undefined);
   const [domainError, setDomainError] = useState<string | null>(null);
+  const router = useRouter();
 
   const t = useTranslations("homepage");
 
@@ -147,18 +148,47 @@ export function CreateWebsiteForm() {
   }
 
   if (variant === "success") {
-    return (
-      <Card variant="success" className="max-w-[800px] flex flex-col gap-4 items-center">
-        <CardHeader>{t("websiteCreated")}</CardHeader>
-        <p className="text-sm text-muted-foreground">
-          {t("websiteCreatedDescription", {
-            url: domainId + ".host.basalf.com",
-          })}
-        </p>
-        <Link href={`https://${domainId}.host.basalf.com`}>
-          <Button>{t("visitWebsite")}</Button>
-        </Link>
-      </Card>
-    );
+    return <SuccessPolling domainId={domainId} onReady={() => router.refresh()} />;
   }
+}
+
+function SuccessPolling({
+  domainId,
+  onReady,
+}: {
+  domainId: string | undefined;
+  onReady: () => void;
+}) {
+  const t = useTranslations("homepage");
+
+  useEffect(() => {
+    if (!domainId) return;
+
+    const stage = process.env.NEXT_PUBLIC_STAGE === "dev" ? ".dev" : "";
+    const url = `https://${domainId}${stage}.host.basalf.com`;
+
+    const id = setInterval(async () => {
+      try {
+        const res = await fetch(url, { mode: "no-cors" });
+        if (res.type === "opaque" || res.ok) {
+          clearInterval(id);
+          onReady();
+        }
+      } catch {}
+    }, 2000);
+
+    return () => clearInterval(id);
+  }, [domainId, onReady]);
+
+  return (
+    <Card className="max-w-[800px] flex flex-col gap-4 items-center">
+      <CardHeader>{t("websiteCreated")}</CardHeader>
+      <p className="text-sm text-muted-foreground">
+        {t("websiteCreatedDescription", {
+          url: domainId + ".host.basalf.com",
+        })}
+      </p>
+      <Loader2 className="size-5 animate-spin text-muted-foreground" />
+    </Card>
+  );
 }

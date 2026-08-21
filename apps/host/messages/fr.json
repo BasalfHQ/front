@@ -25,9 +25,21 @@
     "websiteOnThisUrl": "Votre site web sera disponible à cette URL: {url}.host.basalf.com",
     "uploadYourWebsiteDescription": "Mettre en ligne votre site web sur le serveur, il doit être un site web statique fonctionnel",
     "uploadYourWebsiteButton": "Mettre en ligne",
-    "uploadYourWebsiteSuccess": "Site web mis en ligne avec succès",
+    "uploadYourWebsiteSuccess": "Votre site web est en ligne",
     "websiteCreated": "Votre site est maintenant en ligne !",
     "websiteCreatedDescription": "Votre site sera disponible à l'adresse {url} dans quelques minutes",
-    "visitWebsite": "Visiter le site web"
+    "visitWebsite": "Visiter le site web",
+    "isYourWebsiteNotHereYet": "Votre site web n'est pas encore en ligne, il faut attendre quelques minutes pour que le site soit disponible. Si après quelques minutes, le site n'est pas encore disponible, veuillez nous contacter.",
+    "deleteDeployment": "Déconnecter le site web",
+    "deleteDeploymentDescription": "Vous pouvez déconnecter votre site web de Host en supprimant l'hébergement. Cela va désactiver le site web et le rendre indisponible. Vous pourrez le reconnecter plus tard.",
+    "areYouSureYouWantToDeleteYourWebsite": "Êtes-vous sûr de vouloir déconnecter votre site web ?",
+    "delete": "Déconnecter",
+    "deleteError": "Erreur lors de la déconnexion du site web, veuillez réessayer plus tard. Si le problème persiste, veuillez nous contacter.",
+    "changerDomain": "Changer l'url de mon site web",
+    "yourWebsite": "Votre site web",
+    "online": "En ligne",
+    "newDomainDescription": "Changez votre nom de domaine. Vérifiez la disponibilité du domaine ci-dessous puis changez le. Ce changement prendra effet dans quelques minutes.",
+    "newDomain": "_______.host.basalf.com",
+    "domainUnavailableError": "Le domaine est déjà utilisé"
   }
 }

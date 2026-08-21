@@ -25,9 +25,21 @@
     "websiteOnThisUrl": "Your website will be available at this URL: {url}.host.basalf.com",
     "uploadYourWebsiteDescription": "Upload your website to the server, it should be a static working website",
     "uploadYourWebsiteButton": "Upload",
-    "uploadYourWebsiteSuccess": "Website uploaded successfully",
+    "uploadYourWebsiteSuccess": "Your website is live",
     "websiteCreated": "Your website is now live!",
     "websiteCreatedDescription": "Your website will be available at {url} in a few minutes",
-    "visitWebsite": "Visit website"
+    "visitWebsite": "Visit website",
+    "isYourWebsiteNotHereYet": "Your website is not yet live, it should be available in a few minutes. If after a few minutes, the website is not available, please contact us.",
+    "deleteDeployment": "Disconnect website",
+    "deleteDeploymentDescription": "You can disconnect your website from Host by deleting the hosting. This will disable the website and make it unavailable. You will be able to reconnect it later.",
+    "areYouSureYouWantToDeleteYourWebsite": "Are you sure you want to disconnect your website?",
+    "delete": "Disconnect",
+    "deleteError": "Erreur lors de la déconnexion du site web, veuillez réessayer plus tard. Si le problème persiste, veuillez nous contacter.",
+    "changerDomain": "Changer l'url de mon site web",
+    "yourWebsite": "Your website",
+    "online": "Online",
+    "newDomainDescription": "Change your domain name. Check the availability of the domain below and change it. This change will take effect in a few minutes.",
+    "newDomain": "____.host.basalf.com",
+    "domainUnavailableError": "Domain already in use"
   }
 }
