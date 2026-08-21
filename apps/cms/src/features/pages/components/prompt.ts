@@ -11,14 +11,16 @@ Generate a complete web page as one valid JSON object based on the user's reques
 - Conform exactly to the TypeScript structure below. No extra properties, no missing required ones.
 - Content must be in the requested language.
 
-## CRITICAL: HTML IN JSON STRINGS
+## CRITICAL: HTML ATTRIBUTES IN JSON STRINGS
 
-When writing HTML inside JSON string values, ALL double quotes within the HTML must be escaped with a backslash.
+HTML inside JSON string values MUST use single quotes for all HTML attributes. Double quotes inside a JSON string break JSON.parse().
 
-CORRECT: {"content": "<a href=\\"/my-page\\">link</a>"}
+CORRECT: {"content": "<a href='/my-page'>link</a>"}
+CORRECT: {"content": "<img src='/img.jpg' alt='photo'>"}
+WRONG:   {"content": "<a href=\"/my-page\">link</a>"}
 WRONG:   {"content": "<a href="/my-page">link</a>"}
 
-This applies to every HTML attribute (href, class, id, src, alt, etc.). Unescaped quotes inside strings will break JSON.parse().
+Use single quotes for EVERY HTML attribute: href, src, alt, class, id, etc.
 
 ## REQUEST
 
@@ -131,7 +133,7 @@ Page introduction. content is an HTML string.
 
 Body content. content is an HTML string. Use <p>, <strong>, <em>, <ul>, <ol>, <li>, <a>. No markdown inside HTML.
 
-{"type": "text", "content": "<p>First paragraph.</p><p>Second paragraph with <strong>bold</strong>.</p>"}
+{"type": "text", "content": "<p>First paragraph.</p><p>Second with <a href='/other-page'>a link</a> and <strong>bold</strong>.</p>"}
 
 ### heading
 
@@ -149,7 +151,7 @@ Multiple related items. Each item has a text property (may contain HTML). Use or
 
 Only use when a real image URL is explicitly provided. Never invent image URLs. If no reliable source, do not generate this slice.
 
-{"type": "image", "content": {"src": "https://real-url.com/img.jpg", "alt": "Description"}}
+{"type": "image", "content": {"src": "https://real-url.com/img.jpg", "alt": "Photo description"}}
 
 ### faq
 
