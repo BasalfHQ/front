@@ -8,7 +8,7 @@ import {
   checkDomainAvailability,
   getSignedUrl as getSignedUrlAction,
 } from "../actions";
-import { Loader2 } from "@repo/ui/icons";
+import { Check, Loader2, Search } from "@repo/ui/icons";
 import { WebsiteUpload } from "./folder-upload";
 import { validateDomain } from "../utils";
 import { UploadUrl } from "@repo/apis";
@@ -22,35 +22,42 @@ export function CreateWebsiteForm() {
   const [loading, setLoading] = useState<boolean>(false);
   const [signedUrl, setSignedUrl] = useState<UploadUrl | undefined>(undefined);
   const [domainError, setDomainError] = useState<string | null>(null);
+  const [domainAvailable, setDomainAvailable] = useState(false);
+  const [domainNotAvailable, setDomainNotAvailable] = useState(false);
+  const [checkingDomain, setCheckingDomain] = useState(false);
   const router = useRouter();
 
   const t = useTranslations("homepage");
 
-  async function getDomainAvailability() {
-    setLoading(true);
-    try {
-      setLoading(true);
-      const res = await checkDomainAvailability(domainIdInput);
-      if (res?.available) {
-        setDomainId(domainIdInput);
-        getSignedUrl(domainIdInput);
-      } else {
-        console.log("res:", res);
-        toast.error(t("domainUnavailable"));
-      }
-    } catch (error) {
-      console.log("error:", error);
-      toast.error(t("domainUnavailable"));
-    } finally {
-      setLoading(false);
-    }
-  }
+  useEffect(() => {
+    setDomainAvailable(false);
+    setDomainNotAvailable(false);
+    const validationError = domainIdInput ? validateDomain(domainIdInput) : null;
+    setDomainError(validationError);
+    if (!domainIdInput || validationError) return;
 
-  async function getSignedUrl(initialDomainId?: string) {
+    const timeout = setTimeout(async () => {
+      try {
+        setCheckingDomain(true);
+        const res = await checkDomainAvailability(domainIdInput);
+        setDomainAvailable(res?.available ?? false);
+        if (!res?.available) setDomainNotAvailable(true);
+      } catch {
+        setDomainNotAvailable(true);
+      } finally {
+        setCheckingDomain(false);
+      }
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [domainIdInput]);
+
+  async function goToUpload(skipDomain?: boolean) {
     setLoading(true);
     try {
-      setLoading(true);
-      const res = await getSignedUrlAction(initialDomainId || domainId);
+      const chosenDomain =
+        !skipDomain && domainAvailable ? domainIdInput : undefined;
+      const res = await getSignedUrlAction(chosenDomain);
       setDomainId(res.domainId);
       setSignedUrl(res);
       setVariant("upload");
@@ -78,51 +85,51 @@ export function CreateWebsiteForm() {
             {t("choseSubDomainDescription")}
           </p>
         </div>
-        <div className="flex w-full gap-2">
-          <div className="flex gap-0">
-            <Input
-              type="text"
-              className="min-w-[200px]"
-              placeholder={t("enterSubDomain")}
-              value={domainIdInput}
-              onChange={(e) => {
-                const val = e.target.value;
-                setDomainIdInput(val);
-                setDomainError(val ? validateDomain(val) : null);
-              }}
-            />
-            <p className="py-1.5">.host.basalf.com</p>
-          </div>
-          <Button
-            onClick={getDomainAvailability}
-            disabled={loading || !!domainError || !domainIdInput}
-          >
-            {loading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
-            ) : (
-              t("check")
-            )}
-          </Button>
+        <div className="flex w-full min-w-0 items-center gap-2">
+          <Input
+            type="text"
+            className="w-0 flex-1"
+            placeholder={t("enterSubDomain")}
+            value={domainIdInput}
+            onChange={(e) => setDomainIdInput(e.target.value)}
+          />
+          <p className="shrink-0 py-1.5">.host.basalf.com</p>
+          {checkingDomain ? (
+            <Loader2 className="size-5 shrink-0 animate-spin" />
+          ) : domainAvailable ? (
+            <Check className="size-5 shrink-0 text-green-500" />
+          ) : (
+            <Search className="size-5 shrink-0 text-muted-foreground" />
+          )}
         </div>
         {domainError && (
           <p className="text-sm text-destructive">
             {t(`error.${domainError}`)}
           </p>
         )}
-        <p
-          className="text-sm hover:underline cursor-pointer text-muted-foreground"
-          onClick={() => getSignedUrl()}
+        {domainNotAvailable && !domainError && (
+          <p className="text-sm text-destructive">{t("domainUnavailable")}</p>
+        )}
+        <Button
+          className="w-full"
+          onClick={() => goToUpload(false)}
+          disabled={loading || (!!domainIdInput && !domainAvailable)}
         >
-          <>
-            {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-            {t("dontWantSubDomain")}
-          </>
+          {loading ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : (
+            t("next")
+          )}
+        </Button>
+        <p
+          className="text-sm hover:underline cursor-pointer text-muted-foreground text-center"
+          onClick={() => goToUpload(true)}
+        >
+          {t("dontWantSubDomain")}
         </p>
       </Card>
     );
   }
-
-  console.log("signedUrl:", signedUrl);
 
   if (variant === "upload") {
     return (

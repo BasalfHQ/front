@@ -19,6 +19,7 @@
     "domainUnavailable": "Domain already in use",
     "checkDomainAvailability": "Check domain availability",
     "check": "Check",
+    "next": "Next",
     "changeDomain": "Change domain",
     "addDomain": "Add domain",
     "uploadYourWebsite": "Upload your website",

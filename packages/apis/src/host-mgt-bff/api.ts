@@ -16,7 +16,7 @@ export async function getUploadUrl(
 ): Promise<UploadUrl | undefined> {
   const response = await client.GET("/upload-url/{domainId}", {
     headers: headers({ idToken }),
-    params: { path: { domainId: domainId ?? "" } },
+    params: { path: { domainId: domainId || "none" } },
   });
   if (response.response.status !== 200) {
     console.log(response);
