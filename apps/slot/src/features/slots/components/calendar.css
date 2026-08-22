@@ -73,3 +73,10 @@
   background: hsl(var(--accent) / 0.3);
   cursor: pointer;
 }
+.fc-v-event {
+  border: none;
+}
+
+.fc-event-main {
+  background: hsl(var(--accent));
+}

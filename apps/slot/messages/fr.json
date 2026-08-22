@@ -10,7 +10,7 @@
   },
   "slots": {
     "title": "Créneaux",
-    "description": "Gérez les créneaux de votre site.",
+    "description": "Gérez les créneaux de votre site. Cliquez sur un créneau pour le modifier ou le supprimer. Cliquez sur le calendrier pour créer un nouveau créneau.",
     "CreateSlots": {
       "title": "Créer un créneau",
       "description": "Définissez le jour et l'heure de votre nouveau créneau.",
@@ -28,7 +28,9 @@
       "createSlotsError": "Erreur lors de la création des créneaux."
     },
     "SlotEvent": {
-      "slotsAvailable": "Disponibilité"
+      "slotsUsed": "Réservés",
+      "full": "Réservé",
+      "available": "Disponible"
     },
     "EditSlot": {
       "title": "Modifier le créneau",

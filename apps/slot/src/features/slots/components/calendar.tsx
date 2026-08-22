@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -9,7 +9,7 @@ import type { DateClickArg } from "@fullcalendar/interaction";
 import type { DatesSetArg, EventClickArg } from "@fullcalendar/core";
 import { useLocale } from "@repo/i18n";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { addWeeks, subWeeks, addDays, subDays } from "date-fns";
+import { addWeeks, subWeeks } from "date-fns";
 import "./calendar.css";
 import { CreateSlots, CreateSlotsDialogState } from "./create-slots";
 import { EditSlot, EditSlotDialogState } from "./edit-slot";
@@ -49,7 +49,6 @@ export function SlotCalendar({ initialSlots }: { initialSlots?: Slot[] }) {
   const locale = useLocale();
   const isMobile = useIsMobile();
   const queryClient = useQueryClient();
-  const calendarRef = useRef<FullCalendar>(null);
 
   const [dateRange, setDateRange] = useState<{
     start: string;
@@ -148,7 +147,6 @@ export function SlotCalendar({ initialSlots }: { initialSlots?: Slot[] }) {
         datesSet={handleDatesSet}
         events={slotsToEvents(slots as Slot[] | undefined)}
         eventContent={(arg) => <SlotEvent arg={arg} />}
-        ref={calendarRef}
         height="75vh"
         allDaySlot={false}
         nowIndicator={true}

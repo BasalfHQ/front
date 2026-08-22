@@ -10,7 +10,7 @@
   },
   "slots": {
     "title": "Slots",
-    "description": "Manage your slots.",
+    "description": "Manage your slots. Click on a slot to edit or delete it. Click on the calendar to create a new slot.",
     "back": "Back to homepage",
     "CreateSlots": {
       "title": "Create a slot",
@@ -29,7 +29,9 @@
       "createSlotsError": "Failed to create slots."
     },
     "SlotEvent": {
-      "slotsAvailable": "Availability"
+      "slotsUsed": "Booked",
+      "full": "Booked",
+      "available": "Available"
     },
     "EditSlot": {
       "title": "Edit slot",
