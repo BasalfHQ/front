@@ -13,7 +13,7 @@ export const getWebsiteStatus = async (website: Website) => {
     if (!website.domainId) {
       return { uploaded: false };
     }
-    const baseHostUrl = `https://${website.domainId}${process.env.NEXT_PUBLIC_STAGE === "dev" ? ".dev" : ""}.host.basalf.com`;
+    const baseHostUrl = `https://${website.domainId}${process.env.NEXT_PUBLIC_STAGE === "dev" ? ".dev" : ""}.bslf.app`;
     const result = await fetch(baseHostUrl, { cache: "no-store" });
     if (result.status !== 200) {
       return { uploaded: false };

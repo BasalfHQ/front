@@ -12,7 +12,7 @@
     "createWebsite": "Create Website",
     "updateWebsite": "Update Website",
     "choseSubDomain": "Do you want a custom subDomain?",
-    "choseSubDomainDescription": "You can choose a custom subDomain for your website (e.g. 'mywebsite.host.basalf.com' or 'my-blog.host.basalf.com'), it should be unique and not already in use. You can check the availability of the domain below.",
+    "choseSubDomainDescription": "You can choose a custom subDomain for your website (e.g. 'mywebsite.bslf.app' or 'my-blog.bslf.app'), it should be unique and not already in use. You can check the availability of the domain below.",
     "enterSubDomain": "Wanted subDomain",
     "domainAvailable": "Domain available",
     "dontWantSubDomain": "I don't need a custom subDomain",
@@ -23,7 +23,7 @@
     "changeDomain": "Change domain",
     "addDomain": "Add domain",
     "uploadYourWebsite": "Upload your website",
-    "websiteOnThisUrl": "Your website will be available at this URL: {url}.host.basalf.com",
+    "websiteOnThisUrl": "Your website will be available at this URL: {url}.bslf.app",
     "uploadYourWebsiteDescription": "Upload your website to the server, it should be a static working website",
     "uploadYourWebsiteButton": "Upload",
     "uploadYourWebsiteSuccess": "Your website is live",
@@ -40,7 +40,7 @@
     "yourWebsite": "Your website",
     "online": "Online",
     "newDomainDescription": "Change your domain name. Check the availability of the domain below and change it. This change will take effect in a few minutes.",
-    "newDomain": "____.host.basalf.com",
+    "newDomain": "____.bslf.app",
     "domainUnavailableError": "Domain already in use"
   }
 }

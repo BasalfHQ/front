@@ -30,6 +30,7 @@
     "noOrganizations": "No organizations found",
     "organizationName": "Organization Name",
     "enterName": "Enter organization name",
+    "timezone": "Timezone",
     "creating": "Creating...",
     "createOrganization": "Create Organization",
     "createdSuccess": "Organization \"{name}\" created successfully"

@@ -20,6 +20,7 @@ export async function getOrganizations(): Promise<Organization[]> {
 
 export async function createOrganization(
   name: string,
+  timezone: string,
 ): Promise<{ success: boolean; organization?: Organization; error?: string }> {
   const session = await auth();
 
@@ -27,7 +28,7 @@ export async function createOrganization(
     return { success: false, error: "Unauthorized" };
   }
 
-  const org = await apiCreateOrganization(name, session.idToken);
+  const org = await apiCreateOrganization(name, timezone, session.idToken);
 
   if (org) {
     return { success: true, organization: org };

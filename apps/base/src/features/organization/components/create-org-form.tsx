@@ -5,12 +5,21 @@ import { useTranslations } from "next-intl";
 import { Button } from "@repo/ui/button";
 import { Input } from "@repo/ui/components/input";
 import { Label } from "@repo/ui/components/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@repo/ui/components/select";
 import { PageTitle } from "@repo/ui";
 import { createOrganization } from "../actions";
+import { TIMEZONES } from "../timezones";
 
 export function CreateOrgForm() {
   const t = useTranslations("organization");
   const [name, setName] = useState("");
+  const [timezone, setTimezone] = useState("Europe/Paris");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -21,11 +30,12 @@ export function CreateOrgForm() {
     setSuccess("");
 
     startTransition(async () => {
-      const result = await createOrganization(name);
+      const result = await createOrganization(name, timezone);
 
       if (result.success && result.organization) {
         setSuccess(t("createdSuccess", { name: result.organization.name }));
         setName("");
+        setTimezone("Europe/Paris");
       } else {
         setError(result.error || "Failed to create organization");
       }
@@ -47,6 +57,22 @@ export function CreateOrgForm() {
             required
             disabled={isPending}
           />
+        </div>
+
+        <div className="space-y-2">
+          <Label>{t("timezone")}</Label>
+          <Select value={timezone} onValueChange={setTimezone} disabled={isPending}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {TIMEZONES.map((tz) => (
+                <SelectItem key={tz} value={tz}>
+                  {tz}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         {error && <p className="text-sm text-red-600">{error}</p>}

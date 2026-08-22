@@ -32,11 +32,12 @@ export async function getOrganizations(
 
 export async function createOrganization(
   name: string,
+  timezone: string,
   idToken: string,
 ): Promise<Organization | null> {
   try {
     const response = await client.POST("/organization", {
-      body: { name },
+      body: { name, timezone },
       headers: headers({ idToken }),
     });
     return response.data ?? null;

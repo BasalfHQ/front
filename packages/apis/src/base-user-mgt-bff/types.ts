@@ -85,6 +85,7 @@ export interface paths {
                 content: {
                     "application/json": {
                         name?: string;
+                        timezone?: string;
                     };
                 };
             };
@@ -143,6 +144,7 @@ export interface paths {
                 content: {
                     "application/json": {
                         name: string;
+                        timezone: string;
                     };
                 };
             };
@@ -458,6 +460,7 @@ export interface components {
         Organization: {
             organizationId: string;
             name: string;
+            timezone: string;
         };
         User: {
             organizationId: string;

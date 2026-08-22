@@ -37,13 +37,6 @@ export default async function LocaleLayout({ children, params }: Props) {
       locale={locale}
       messages={messages}
       navItems={[
-        {
-          label: t("cms"),
-          href:
-            process.env.NEXT_PUBLIC_STAGE === "prod"
-              ? "https://cms.basalf.com/"
-              : "http://localhost:3001/",
-        },
         { label: t("users"), href: "/users", authOnly: true },
         { label: t("organizations"), href: "/organization", adminOnly: true },
       ]}

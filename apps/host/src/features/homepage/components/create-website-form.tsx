@@ -32,7 +32,9 @@ export function CreateWebsiteForm() {
   useEffect(() => {
     setDomainAvailable(false);
     setDomainNotAvailable(false);
-    const validationError = domainIdInput ? validateDomain(domainIdInput) : null;
+    const validationError = domainIdInput
+      ? validateDomain(domainIdInput)
+      : null;
     setDomainError(validationError);
     if (!domainIdInput || validationError) return;
 
@@ -93,7 +95,7 @@ export function CreateWebsiteForm() {
             value={domainIdInput}
             onChange={(e) => setDomainIdInput(e.target.value)}
           />
-          <p className="shrink-0 py-1.5">.host.basalf.com</p>
+          <p className="shrink-0 py-1.5">.bslf.app</p>
           {checkingDomain ? (
             <Loader2 className="size-5 shrink-0 animate-spin" />
           ) : domainAvailable ? (
@@ -115,11 +117,7 @@ export function CreateWebsiteForm() {
           onClick={() => goToUpload(false)}
           disabled={loading || (!!domainIdInput && !domainAvailable)}
         >
-          {loading ? (
-            <Loader2 className="size-4 animate-spin" />
-          ) : (
-            t("next")
-          )}
+          {loading ? <Loader2 className="size-4 animate-spin" /> : t("next")}
         </Button>
         <p
           className="text-sm hover:underline cursor-pointer text-muted-foreground text-center"
@@ -155,7 +153,9 @@ export function CreateWebsiteForm() {
   }
 
   if (variant === "success") {
-    return <SuccessPolling domainId={domainId} onReady={() => router.refresh()} />;
+    return (
+      <SuccessPolling domainId={domainId} onReady={() => router.refresh()} />
+    );
   }
 }
 
@@ -172,7 +172,7 @@ function SuccessPolling({
     if (!domainId) return;
 
     const stage = process.env.NEXT_PUBLIC_STAGE === "dev" ? ".dev" : "";
-    const url = `https://${domainId}${stage}.host.basalf.com`;
+    const url = `https://${domainId}${stage}.bslf.app`;
 
     const id = setInterval(async () => {
       try {
@@ -192,7 +192,7 @@ function SuccessPolling({
       <CardHeader>{t("websiteCreated")}</CardHeader>
       <p className="text-sm text-muted-foreground">
         {t("websiteCreatedDescription", {
-          url: domainId + ".host.basalf.com",
+          url: domainId + ".bslf.app",
         })}
       </p>
       <Loader2 className="size-5 animate-spin text-muted-foreground" />
