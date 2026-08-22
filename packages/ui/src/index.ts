@@ -64,3 +64,5 @@ export { AutoSizeInput } from "./components/auto-size-input";
 export { Card, CardHeader } from "./components/card";
 export { Progress } from "./components/progress";
 export { Copy } from "./components/copy";
+export { TimePicker } from "./components/time-picker";
+export { QueryProvider } from "./components/query-provider";

@@ -8,6 +8,7 @@ import { Button } from "@repo/ui";
 import { Calendar } from "@repo/ui";
 import { Popover, PopoverContent, PopoverTrigger } from "@repo/ui";
 import { cn } from "../lib/utils";
+import { useLocale } from "@repo/i18n";
 
 export function DatePicker({
   value,
@@ -15,15 +16,20 @@ export function DatePicker({
   placeholder = "Pick a date",
   className,
   error,
+  minDate,
+  maxDate,
 }: {
   value?: string;
   onChange: (value: string) => void;
   placeholder?: string;
   className?: string;
   error?: string;
-  }) {
+  minDate?: Date;
+  maxDate?: Date;
+}) {
   const [open, setOpen] = React.useState(false);
-  
+  const locale = useLocale();
+
   const date = value ? parseISO(value) : undefined;
 
   function handleSelect(selected: Date | undefined) {
@@ -43,20 +49,25 @@ export function DatePicker({
               className,
             )}
           >
-            {date ? format(date, "PPP") : <span>{placeholder}</span>}
+            {date ? (
+              date.toLocaleDateString(locale, { dateStyle: "long" })
+            ) : (
+              <span>{placeholder}</span>
+            )}
             <CalendarIcon className="size-4" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent
-          className="w-auto min-w-[var(--radix-popover-trigger-width)] p-0"
-          align="start"
-        >
+        <PopoverContent className="w-fit p-0 h-[330px]" align="start">
           <Calendar
             mode="single"
             selected={date}
             onSelect={handleSelect}
             defaultMonth={date}
             onDayClick={() => setOpen(false)}
+            disabled={(day) =>
+              (minDate && day < minDate) || (maxDate && day > maxDate) || false
+            }
+            className="h-[330px]"
           />
         </PopoverContent>
       </Popover>

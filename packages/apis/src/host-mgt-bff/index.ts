@@ -7,5 +7,4 @@ export type UploadUrl = components["schemas"]["UploadUrl"];
 
 export const client = createClient<paths>({
   baseUrl: env.api.hostMgtBffUrl(),
-  cache: "no-store",
 });

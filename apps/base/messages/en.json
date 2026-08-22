@@ -42,6 +42,10 @@
     "host": {
       "title": "Host",
       "description": "Our website hosting platform"
+    },
+    "slot": {
+      "title": "Slots",
+      "description": "Our slot management and reservation platform"
     }
   }
 }

@@ -1,0 +1,57 @@
+{
+  "homepage": {
+    "title": "Slot",
+    "description": "This module allows you to manage slots and reservations on your site."
+  },
+  "nav": {
+    "slots": "Slots",
+    "reservations": "Reservations",
+    "home": "Home"
+  },
+  "slots": {
+    "title": "Slots",
+    "description": "Manage your slots.",
+    "back": "Back to homepage",
+    "CreateSlots": {
+      "title": "Create a slot",
+      "description": "Set the day and time for your new slot.",
+      "day": "Day",
+      "startTime": "Start time",
+      "endTime": "End time",
+      "create": "Create",
+      "startDateInThePast": "The selected date is in the past.",
+      "repeat": "Repeat",
+      "cancelRepeat": "Cancel repeat",
+      "repeatDescription": "Repeat on",
+      "allDays": "Every day",
+      "capacity": "Capacity: {count}",
+      "repeatUntil": "Repeat until",
+      "createSlotsError": "Failed to create slots."
+    },
+    "SlotEvent": {
+      "slotsAvailable": "Availability"
+    },
+    "EditSlot": {
+      "title": "Edit slot",
+      "description": "Modify the time and capacity of this slot.",
+      "startTime": "Start time",
+      "endTime": "End time",
+      "usedCapacity": "Used",
+      "maxCapacity": "Capacity",
+      "save": "Save",
+      "delete": "Delete",
+      "deleteTitle": "Delete slot",
+      "deleteDescription": "Choose how to delete this slot.",
+      "deleteThis": "Delete this slot",
+      "deleteAllSameHour": "Delete all slots at this hour",
+      "cancel": "Cancel",
+      "updateError": "Failed to update slot.",
+      "deleteError": "Failed to delete slot."
+    }
+  },
+  "reservations": {
+    "title": "Reservations",
+    "description": "Manage your reservations.",
+    "back": "Back to homepage"
+  }
+}

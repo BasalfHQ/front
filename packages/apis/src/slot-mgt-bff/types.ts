@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/upload-url/{domainId}": {
+    "/slots/{startDate}/{endDate}": {
         parameters: {
             query?: never;
             header?: never;
@@ -16,19 +16,20 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    domainId: string;
+                    startDate: string;
+                    endDate: string;
                 };
                 cookie?: never;
             };
             requestBody?: never;
             responses: {
-                /** @description Get a signed url to upload a file to the website */
+                /** @description Check all slots */
                 200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["UploadUrl"];
+                        "application/json": components["schemas"]["Slot"][];
                     };
                 };
                 /** @description Bad request */
@@ -42,7 +43,56 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Not found */
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/slot/{slotId}/{startDate}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    slotId: string;
+                    startDate: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Check a slot */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Slot"];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+                /** @description Slot not found */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -57,54 +107,48 @@ export interface paths {
         };
         put?: never;
         post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/domain/{domain}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
+        delete: {
             parameters: {
                 query?: never;
                 header?: never;
                 path: {
-                    domain: string;
+                    slotId: string;
+                    startDate: string;
                 };
                 cookie?: never;
             };
             requestBody?: never;
             responses: {
-                /** @description Check if a domain is available */
+                /** @description Delete a slot */
                 200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
                         "application/json": {
-                            available: boolean;
-                            /** @enum {string} */
-                            status?: "uploading" | "uploaded" | "failed";
+                            message: string;
+                        };
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
                         };
                     };
                 };
             };
         };
-        put?: never;
-        post?: never;
-        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/domain/{baseDomain}": {
+    "/slot": {
         parameters: {
             query?: never;
             header?: never;
@@ -113,7 +157,45 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        maxCapacity: number;
+                        startDate: string;
+                        endDate: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Create a slot */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Slot"];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
         delete?: never;
         options?: never;
         head?: never;
@@ -121,20 +203,22 @@ export interface paths {
             parameters: {
                 query?: never;
                 header?: never;
-                path: {
-                    baseDomain: string;
-                };
+                path?: never;
                 cookie?: never;
             };
             requestBody?: {
                 content: {
                     "application/json": {
-                        newDomain: string;
+                        slotId: string;
+                        maxCapacity: number;
+                        usedCapacity: number;
+                        startDate: string;
+                        endDate: string;
                     };
                 };
             };
             responses: {
-                /** @description Change the domain of a website */
+                /** @description Update a slot */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -156,44 +240,46 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Not found */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            message: string;
-                        };
-                    };
-                };
             };
         };
         trace?: never;
     };
-    "/website": {
+    "/slots/batch": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        get: {
+        get?: never;
+        put?: never;
+        post: {
             parameters: {
                 query?: never;
                 header?: never;
                 path?: never;
                 cookie?: never;
             };
-            requestBody?: never;
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        capacity: number;
+                        startDate: string;
+                        endDate: string;
+                        intervals: components["schemas"]["Intervals"];
+                    };
+                };
+            };
             responses: {
-                /** @description Check if a domain is available */
+                /** @description Batch create slots */
                 200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["Website"];
+                        "application/json": {
+                            message: string;
+                        };
                     };
                 };
                 /** @description Bad request */
@@ -207,28 +293,15 @@ export interface paths {
                         };
                     };
                 };
-                /** @description Not found */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            message: string;
-                        };
-                    };
-                };
             };
         };
-        put?: never;
-        post?: never;
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/deployment": {
+    "/slots/batch/{startDate}/{endDate}": {
         parameters: {
             query?: never;
             header?: never;
@@ -240,14 +313,19 @@ export interface paths {
         post?: never;
         delete: {
             parameters: {
-                query?: never;
+                query?: {
+                    sameHour?: string;
+                };
                 header?: never;
-                path?: never;
+                path: {
+                    startDate: string;
+                    endDate: string;
+                };
                 cookie?: never;
             };
             requestBody?: never;
             responses: {
-                /** @description Deployment deleted */
+                /** @description Batch delete slots */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -260,17 +338,6 @@ export interface paths {
                 };
                 /** @description Bad request */
                 400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            message: string;
-                        };
-                    };
-                };
-                /** @description Not found */
-                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -291,23 +358,16 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        UploadUrl: {
-            url: string;
-            fields: {
-                [key: string]: string;
-            };
-            prefix: string;
-            domainId: string;
-        };
-        Website: {
-            name: string;
+        Slot: {
+            slotId: string;
+            organizationId: string;
             websiteId: string;
-            domainId?: string;
-            /** @enum {string} */
-            uploadStatus?: "uploading" | "uploaded" | "failed";
-            /** @enum {string} */
-            deploymentOrigin: "cms" | "file" | "github" | "none";
+            maxCapacity: number;
+            usedCapacity: number;
+            startDate: string;
+            endDate: string;
         };
+        Intervals: "alldays" | ("sunday" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday")[];
     };
     responses: never;
     parameters: never;

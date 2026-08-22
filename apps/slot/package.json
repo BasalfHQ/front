@@ -1,20 +1,26 @@
 {
-  "name": "host",
+  "name": "slot",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev --port 3002",
+    "dev": "next dev --port 3003",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "@fullcalendar/core": "6",
+    "@fullcalendar/daygrid": "6",
+    "@fullcalendar/interaction": "6",
+    "@fullcalendar/react": "6",
+    "@fullcalendar/timegrid": "6",
     "@repo/apis": "workspace:*",
     "@repo/auth-ui": "workspace:*",
     "@repo/config": "workspace:*",
     "@repo/i18n": "workspace:*",
     "@repo/ui": "workspace:*",
+    "@tanstack/react-query": "^5.101.4",
     "date-fns": "^4.4.0",
     "next": "16.3.1",
     "next-auth": "^4.24.0",

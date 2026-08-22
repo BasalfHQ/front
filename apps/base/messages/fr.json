@@ -45,6 +45,10 @@
     "host": {
       "title": "Hébergement",
       "description": "Notre plateforme de hébergement web"
+    },
+    "slot": {
+      "title": "Créneaux",
+      "description": "Notre plateforme de gestion de créneaux et de réservations"
     }
   }
 }

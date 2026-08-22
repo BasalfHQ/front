@@ -1,0 +1,55 @@
+{
+  "homepage": {
+    "title": "Slot",
+    "description": "Ce module permet de gérer les slots et réservations de votre site."
+  },
+  "nav": {
+    "slots": "Créneaux",
+    "reservations": "Réservations",
+    "home": "Accueil"
+  },
+  "slots": {
+    "title": "Créneaux",
+    "description": "Gérez les créneaux de votre site.",
+    "CreateSlots": {
+      "title": "Créer un créneau",
+      "description": "Définissez le jour et l'heure de votre nouveau créneau.",
+      "day": "Jour",
+      "startTime": "Heure de début",
+      "endTime": "Heure de fin",
+      "create": "Créer",
+      "startDateInThePast": "La date sélectionnée est dans le passé.",
+      "repeat": "Répéter",
+      "cancelRepeat": "Annuler la répétition",
+      "repeatDescription": "Répéter le",
+      "allDays": "Tous les jours",
+      "capacity": "Capacité : {count}",
+      "repeatUntil": "Répéter jusqu'au",
+      "createSlotsError": "Erreur lors de la création des créneaux."
+    },
+    "SlotEvent": {
+      "slotsAvailable": "Disponibilité"
+    },
+    "EditSlot": {
+      "title": "Modifier le créneau",
+      "description": "Modifiez l'heure et la capacité de ce créneau.",
+      "startTime": "Heure de début",
+      "endTime": "Heure de fin",
+      "usedCapacity": "Utilisée",
+      "maxCapacity": "Capacité",
+      "save": "Enregistrer",
+      "delete": "Supprimer",
+      "deleteTitle": "Supprimer le créneau",
+      "deleteDescription": "Choisissez comment supprimer ce créneau.",
+      "deleteThis": "Supprimer ce créneau",
+      "deleteAllSameHour": "Supprimer tous les créneaux à cette heure",
+      "cancel": "Annuler",
+      "updateError": "Erreur lors de la mise à jour du créneau.",
+      "deleteError": "Erreur lors de la suppression du créneau."
+    }
+  },
+  "reservations": {
+    "title": "Réservations",
+    "description": "Gérez les réservations de votre site."
+  }
+}

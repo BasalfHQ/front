@@ -39,3 +39,17 @@ export type {
   UploadUrl,
   Website,
 } from "./host-mgt-bff";
+
+export {
+  getSlots,
+  getSlot,
+  createSlot,
+  createSlots,
+  updateSlot,
+  deleteSlot,
+  deleteSlots,
+} from "./slot-mgt-bff/api";
+export type {
+  Slot,
+  SlotRepeatInterval,
+} from "./slot-mgt-bff";
