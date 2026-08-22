@@ -33,6 +33,8 @@ export async function Homepage() {
 
   const shouldPoll = !websiteStatus.uploaded && website.domainId;
 
+  console.log("iframe URL:", websiteStatus.url);
+
   return (
     <div className="flex flex-col gap-4">
       {shouldPoll && <AutoRefresh />}
@@ -81,7 +83,7 @@ export async function Homepage() {
             <div className="flex flex-col gap-4 md:items-end items-start">
               <iframe
                 src={websiteStatus.url}
-                className="h-[300px] w-full max-h-[500px] max-w-[500px] border rounded-md"
+                className="h-[300px] w-full max-h-[500px] md:max-w-[500px] border rounded-md"
                 title="Website preview"
               />
               <Link

@@ -22,7 +22,6 @@ export const getWebsiteStatus = async (website: Website) => {
     if (!html) {
       return { uploaded: false };
     }
-    console.log("html:", html);
     return { uploaded: true, url: baseHostUrl };
   } catch {
     return { uploaded: false };
