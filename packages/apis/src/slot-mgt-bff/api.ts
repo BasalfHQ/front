@@ -137,3 +137,15 @@ export async function deleteSlots(
   }
   return response.data;
 }
+
+export async function getSlotToken(idToken: string) {
+  const response = await client.GET("/token", {
+    headers: headers({ idToken }),
+  });
+  if (response.response.status !== 200) {
+    console.log(response);
+    console.log(response.data);
+    throw new Error("Failed to get slot token");
+  }
+  return response.data;
+}

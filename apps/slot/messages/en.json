@@ -6,7 +6,8 @@
   "nav": {
     "slots": "Slots",
     "reservations": "Reservations",
-    "home": "Home"
+    "home": "Home",
+    "token": "Your access keys"
   },
   "slots": {
     "title": "Slots",
@@ -55,5 +56,11 @@
     "title": "Reservations",
     "description": "Manage your reservations.",
     "back": "Back to homepage"
+  },
+  "token": {
+    "title": "Your access key",
+    "description": "Your access keys allow you to access the Basalf SLOT API. These keys must be kept secret and never shared. If you lose these keys, you will no longer be able to access the Basalf SLOT API. If you share them, you could expose your account to security risks. If you lose them, contact us immediately.",
+    "copy": "Copy your token",
+    "copied": "Token copied"
   }
 }

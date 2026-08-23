@@ -12,7 +12,7 @@ export {
   deletePage,
   updateLocales,
   getLocales,
-  getToken,
+  getToken as getCMSToken,
 } from "./cms-mgt-bff/api";
 export type {
   Page,
@@ -48,6 +48,7 @@ export {
   updateSlot,
   deleteSlot,
   deleteSlots,
+  getSlotToken,
 } from "./slot-mgt-bff/api";
 export type {
   Slot,
