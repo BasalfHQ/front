@@ -27,11 +27,10 @@ export async function getSlots(
 export async function getSlot(
   idToken: string,
   slotId: string,
-  startDate: string,
 ) {
-  const response = await client.GET("/slot/{slotId}/{startDate}", {
+  const response = await client.GET("/slot/{slotId}", {
     params: {
-      path: { slotId: slotId, startDate: startDate },
+      path: { slotId: slotId },
     },
     headers: headers({ idToken }),
   });
@@ -134,6 +133,100 @@ export async function deleteSlots(
     console.log(response);
     console.log(response.data);
     throw new Error("Failed to delete slots");
+  }
+  return response.data;
+}
+
+export async function createBooking(
+  idToken: string,
+  booking: {
+    slotId?: string;
+    firstName: string;
+    lastName: string;
+    email?: string;
+    phone?: string;
+    additionalInfo?: string;
+    startDate: string;
+    endDate: string;
+    numberOfPerson: number;
+  },
+) {
+  const response = await client.POST("/booking", {
+    body: booking,
+    headers: headers({ idToken }),
+  });
+  if (response.response.status !== 200) {
+    console.log(response);
+    console.log(response.data);
+    throw new Error("Failed to create booking");
+  }
+  return response.data;
+}
+
+export async function getBookings(
+  idToken: string,
+  startDate: string,
+  endDate: string,
+) {
+  const response = await client.GET("/booking/range/{startDate}/{endDate}", {
+    params: {
+      path: { startDate, endDate },
+    },
+    headers: headers({ idToken }),
+  });
+  if (response.response.status !== 200) {
+    console.log(response);
+    console.log(response.data);
+    throw new Error("Failed to get bookings");
+  }
+  return response.data || [];
+}
+
+export async function getBooking(idToken: string, bookingId: string) {
+  const response = await client.GET("/booking/{bookingId}", {
+    params: { path: { bookingId } },
+    headers: headers({ idToken }),
+  });
+  if (response.response.status !== 200) {
+    console.log(response);
+    console.log(response.data);
+    throw new Error("Failed to get booking");
+  }
+  return response.data;
+}
+
+export async function cancelBooking(
+  idToken: string,
+  bookingId: string,
+  startDate: string,
+) {
+  const response = await client.PATCH("/booking/{bookingId}/{startDate}/cancel", {
+    params: { path: { bookingId, startDate } },
+    headers: headers({ idToken }),
+  });
+  if (response.response.status !== 200) {
+    console.log(response);
+    console.log(response.data);
+    throw new Error("Failed to cancel booking");
+  }
+  return response.data;
+}
+
+export async function rescheduleBooking(
+  idToken: string,
+  bookingId: string,
+  startDate: string,
+  newDates: { startDate: string; endDate: string; slotId?: string },
+) {
+  const response = await client.PATCH("/booking/{bookingId}/{startDate}/reschedule", {
+    params: { path: { bookingId, startDate } },
+    body: newDates,
+    headers: headers({ idToken }),
+  });
+  if (response.response.status !== 200) {
+    console.log(response);
+    console.log(response.data);
+    throw new Error("Failed to reschedule booking");
   }
   return response.data;
 }

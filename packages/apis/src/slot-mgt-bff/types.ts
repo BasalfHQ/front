@@ -50,6 +50,317 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/booking/{bookingId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    bookingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Get a booking */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Booking"];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+                /** @description Not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/booking/range/{startDate}/{endDate}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    startDate: string;
+                    endDate: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Get all bookings in a given period */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Booking"][];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/booking": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        slotId?: string;
+                        firstName: string;
+                        lastName: string;
+                        email?: string;
+                        phone?: string;
+                        additionalInfo?: string;
+                        startDate: string;
+                        endDate: string;
+                        numberOfPerson: number;
+                    };
+                };
+            };
+            responses: {
+                /** @description Create a booking */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            bookingId: string;
+                            organizationId: string;
+                            websiteId: string;
+                            slotId?: string;
+                            firstName: string;
+                            lastName: string;
+                            email?: string;
+                            phone?: string;
+                            additionalInfo?: string;
+                            startDate: string;
+                            endDate: string;
+                            numberOfPerson: number;
+                            /** @enum {string} */
+                            status: "booked" | "canceled";
+                        };
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/booking/{bookingId}/{startDate}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    bookingId: string;
+                    startDate: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Cancel a booking */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Booking"];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+                /** @description Not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
+        trace?: never;
+    };
+    "/booking/{bookingId}/{startDate}/reschedule": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    bookingId: string;
+                    startDate: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        startDate: string;
+                        endDate: string;
+                        slotId?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Reschedule a booking */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Booking"];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+                /** @description Not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
+        trace?: never;
+    };
     "/slots/{startDate}/{endDate}": {
         parameters: {
             query?: never;
@@ -99,7 +410,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/slot/{slotId}/{startDate}": {
+    "/slot/{slotId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -112,7 +423,6 @@ export interface paths {
                 header?: never;
                 path: {
                     slotId: string;
-                    startDate: string;
                 };
                 cookie?: never;
             };
@@ -153,42 +463,7 @@ export interface paths {
         };
         put?: never;
         post?: never;
-        delete: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    slotId: string;
-                    startDate: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Delete a slot */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            message: string;
-                        };
-                    };
-                };
-                /** @description Bad request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            message: string;
-                        };
-                    };
-                };
-            };
-        };
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -347,6 +622,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/slot/{slotId}/{startDate}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    slotId: string;
+                    startDate: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Delete a slot */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/slots/batch/{startDate}/{endDate}": {
         parameters: {
             query?: never;
@@ -404,6 +730,23 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        Booking: {
+            bookingId: string;
+            organizationId: string;
+            websiteId: string;
+            slotId?: string;
+            firstName: string;
+            lastName: string;
+            email?: string;
+            phone?: string;
+            additionalInfo?: string;
+            startDate: string;
+            endDate: string;
+            numberOfPerson: number;
+            /** @enum {string} */
+            status: "booked" | "canceled";
+            timezone: string;
+        };
         Slot: {
             slotId: string;
             organizationId: string;

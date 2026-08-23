@@ -7,6 +7,7 @@ import {
   updateSlot as updateSlotApi,
   deleteSlot as deleteSlotApi,
   deleteSlots as deleteSlotsApi,
+  createBooking as createBookingApi,
   SlotRepeatInterval,
 } from "@repo/apis";
 import { getSession } from "@repo/auth-ui";
@@ -103,6 +104,26 @@ export async function deleteSlotsAtSameHour(
     addYears(new Date(endDate), 4).toISOString(),
     sameHour,
   );
+  revalidatePath("/slots");
+  return result;
+}
+
+export async function createBooking(booking: {
+  slotId?: string;
+  firstName: string;
+  lastName: string;
+  email?: string;
+  phone?: string;
+  additionalInfo?: string;
+  startDate: string;
+  endDate: string;
+  numberOfPerson: number;
+}) {
+  const [session, locale] = await Promise.all([getSession(), getLocale()]);
+  if (!session || !session.idToken) {
+    return redirect({ href: "/", locale });
+  }
+  const result = await createBookingApi(session.idToken, booking);
   revalidatePath("/slots");
   return result;
 }

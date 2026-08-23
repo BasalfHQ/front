@@ -1,10 +1,18 @@
 import { getSession } from "@repo/auth-ui";
 import { getTranslations, redirect } from "@repo/i18n";
-import { PageDescription, PageTitle } from "@repo/ui";
+import {
+  PageDescription,
+  PageTitle,
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@repo/ui";
 import { SlotCalendar } from "./components/calendar";
 import { QueryProvider } from "@repo/ui";
 import { getSlots } from "./actions";
-import { subWeeks, addWeeks } from "date-fns";
+import { addWeeks } from "date-fns";
 
 export default async function Slots({
   params,
@@ -21,7 +29,7 @@ export default async function Slots({
 
   const now = new Date();
   const initialSlots = await getSlots(
-    subWeeks(now, 1).toISOString(),
+    now.toISOString(),
     addWeeks(now, 1).toISOString(),
   );
 

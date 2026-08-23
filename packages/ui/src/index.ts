@@ -55,6 +55,7 @@ export { toast } from "sonner";
 export { Tiptap, type TiptapProps } from "./components/tiptap";
 export { Switch } from "./components/switch";
 export { DatePicker } from "./components/date-picker";
+export { DateRangePicker } from "./components/date-range-picker";
 export { Calendar } from "./components/calendar";
 export { TagInput } from "./components/tag-input";
 export { Badge } from "./components/badge";
@@ -66,3 +67,6 @@ export { Progress } from "./components/progress";
 export { Copy } from "./components/copy";
 export { TimePicker } from "./components/time-picker";
 export { QueryProvider } from "./components/query-provider";
+export { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./components/table";
+
+export { formatHour, formatDay, formatMonth, formatDate } from "./lib/dates";

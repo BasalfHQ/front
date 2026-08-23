@@ -49,8 +49,14 @@ export {
   deleteSlot,
   deleteSlots,
   getSlotToken,
+  createBooking,
+  getBookings,
+  getBooking,
+  cancelBooking,
+  rescheduleBooking,
 } from "./slot-mgt-bff/api";
 export type {
   Slot,
   SlotRepeatInterval,
+  Booking,
 } from "./slot-mgt-bff";
