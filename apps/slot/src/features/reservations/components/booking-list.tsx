@@ -26,10 +26,12 @@ export function BookingList({
   initialBookings,
   initialStartDate,
   initialEndDate,
+  serviceMap,
 }: {
   initialBookings: Booking[];
   initialStartDate: string;
   initialEndDate: string;
+  serviceMap?: Record<string, string>;
 }) {
   const [startDate, setStartDate] = useState(initialStartDate);
   const [endDate, setEndDate] = useState(initialEndDate);
@@ -54,14 +56,14 @@ export function BookingList({
         {isPending ? (
           <Loader2 className="size-4 animate-spin" />
         ) : (
-          <List bookings={data} />
+          <List bookings={data} serviceMap={serviceMap} />
         )}
       </div>
     </div>
   );
 }
 
-function List({ bookings }: { bookings: Booking[] }) {
+function List({ bookings, serviceMap }: { bookings: Booking[]; serviceMap?: Record<string, string> }) {
   const locale = useLocale();
   const t = useTranslations("reservations");
 
@@ -70,6 +72,7 @@ function List({ bookings }: { bookings: Booking[] }) {
       <TableHeader>
         <TableRow>
           <TableHead>{t("name")}</TableHead>
+          {serviceMap && <TableHead>{t("service")}</TableHead>}
           <TableHead>{t("date")}</TableHead>
           <TableHead>{t("status")}</TableHead>
           <TableHead>{t("actions")}</TableHead>
@@ -101,6 +104,11 @@ function List({ bookings }: { bookings: Booking[] }) {
                 <TableCell>
                   {booking.firstName} {booking.lastName}
                 </TableCell>
+                {serviceMap && (
+                  <TableCell>
+                    {serviceMap[booking.serviceId] ?? booking.serviceId}
+                  </TableCell>
+                )}
                 <TableCell>
                   {formatDay(booking.startDate, locale, booking.timezone)} -{" "}
                   {formatHour(booking.startDate, locale, booking.timezone)}

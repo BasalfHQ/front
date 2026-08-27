@@ -13,7 +13,9 @@ export interface paths {
         };
         get: {
             parameters: {
-                query?: never;
+                query?: {
+                    serviceId?: string;
+                };
                 header?: never;
                 path?: never;
                 cookie?: never;
@@ -109,7 +111,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/booking/range/{startDate}/{endDate}": {
+    "/booking/range/{startDate}/{endDate}/{serviceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -123,12 +125,13 @@ export interface paths {
                 path: {
                     startDate: string;
                     endDate: string;
+                    serviceId: string;
                 };
                 cookie?: never;
             };
             requestBody?: never;
             responses: {
-                /** @description Get all bookings in a given period */
+                /** @description Get all bookings in a given period, serviceId can be 'all' */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -177,6 +180,7 @@ export interface paths {
             requestBody?: {
                 content: {
                     "application/json": {
+                        serviceId: string;
                         slotId?: string;
                         firstName: string;
                         lastName: string;
@@ -198,8 +202,7 @@ export interface paths {
                     content: {
                         "application/json": {
                             bookingId: string;
-                            organizationId: string;
-                            websiteId: string;
+                            serviceId: string;
                             slotId?: string;
                             firstName: string;
                             lastName: string;
@@ -248,7 +251,9 @@ export interface paths {
         head?: never;
         patch: {
             parameters: {
-                query?: never;
+                query?: {
+                    serviceId?: string;
+                };
                 header?: never;
                 path: {
                     bookingId: string;
@@ -308,7 +313,9 @@ export interface paths {
         head?: never;
         patch: {
             parameters: {
-                query?: never;
+                query?: {
+                    serviceId?: string;
+                };
                 header?: never;
                 path: {
                     bookingId: string;
@@ -361,7 +368,179 @@ export interface paths {
         };
         trace?: never;
     };
-    "/slots/{startDate}/{endDate}": {
+    "/service": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description List all services */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Service"][];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        name: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Create a service */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Service"];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/service/{serviceId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    serviceId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Delete a service */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    serviceId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        name: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Update a service */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
+        trace?: never;
+    };
+    "/slots/{startDate}/{endDate}/{serviceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -375,12 +554,13 @@ export interface paths {
                 path: {
                     startDate: string;
                     endDate: string;
+                    serviceId: string;
                 };
                 cookie?: never;
             };
             requestBody?: never;
             responses: {
-                /** @description Check all slots */
+                /** @description Get all slots, serviceId can be 'all' */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -428,7 +608,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Check a slot */
+                /** @description Get a slot by ID */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -488,6 +668,7 @@ export interface paths {
             requestBody?: {
                 content: {
                     "application/json": {
+                        serviceId: string;
                         maxCapacity: number;
                         startDate: string;
                         endDate: string;
@@ -531,8 +712,8 @@ export interface paths {
                 content: {
                     "application/json": {
                         slotId: string;
+                        serviceId: string;
                         maxCapacity: number;
-                        usedCapacity: number;
                         startDate: string;
                         endDate: string;
                     };
@@ -584,6 +765,7 @@ export interface paths {
             requestBody?: {
                 content: {
                     "application/json": {
+                        serviceId: string;
                         capacity: number;
                         startDate: string;
                         endDate: string;
@@ -634,7 +816,9 @@ export interface paths {
         post?: never;
         delete: {
             parameters: {
-                query?: never;
+                query: {
+                    serviceId: string;
+                };
                 header?: never;
                 path: {
                     slotId: string;
@@ -673,7 +857,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/slots/batch/{startDate}/{endDate}": {
+    "/slots/batch/{startDate}/{endDate}/{serviceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -692,12 +876,13 @@ export interface paths {
                 path: {
                     startDate: string;
                     endDate: string;
+                    serviceId: string;
                 };
                 cookie?: never;
             };
             requestBody?: never;
             responses: {
-                /** @description Batch delete slots */
+                /** @description Batch delete slots, serviceId can be 'all' */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -732,8 +917,7 @@ export interface components {
     schemas: {
         Booking: {
             bookingId: string;
-            organizationId: string;
-            websiteId: string;
+            serviceId: string;
             slotId?: string;
             firstName: string;
             lastName: string;
@@ -747,10 +931,13 @@ export interface components {
             status: "booked" | "canceled";
             timezone: string;
         };
+        Service: {
+            serviceId: string;
+            name: string;
+        };
         Slot: {
             slotId: string;
-            organizationId: string;
-            websiteId: string;
+            serviceId: string;
             maxCapacity: number;
             usedCapacity: number;
             startDate: string;

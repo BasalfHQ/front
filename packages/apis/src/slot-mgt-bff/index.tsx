@@ -7,6 +7,7 @@ export type SlotRepeatInterval = NonNullable<
   paths["/slots/batch"]["post"]["requestBody"]
   >["content"]["application/json"]["intervals"];
 export type Booking = components["schemas"]["Booking"];
+export type Service = components["schemas"]["Service"];
 
 export const client = createClient<paths>({
   baseUrl: env.api.slotMgtBffUrl(),

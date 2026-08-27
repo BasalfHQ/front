@@ -15,8 +15,10 @@ import { CreateSlots, CreateSlotsDialogState } from "./create-slots";
 import { EditSlot, EditSlotDialogState } from "./edit-slot";
 import { addHours } from "date-fns";
 import { getSlots } from "../actions";
-import type { Slot } from "@repo/apis";
+import type { Slot, Service } from "@repo/apis";
 import { SlotEvent } from "./event";
+import { ServiceFilter } from "./service-filter";
+import type { ServiceColorMap } from "../service-colors";
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -31,24 +33,44 @@ function useIsMobile() {
   return isMobile;
 }
 
-function slotsToEvents(slots: Slot[] | undefined) {
+function slotsToEvents(
+  slots: Slot[] | undefined,
+  serviceColorMap: ServiceColorMap,
+) {
   if (!slots) return [];
   return slots.map((slot) => ({
     id: slot.slotId,
     start: slot.startDate,
     end: slot.endDate,
     title: `${slot.usedCapacity}/${slot.maxCapacity}`,
+    backgroundColor: serviceColorMap[slot.serviceId] ?? "#f5f5f4",
+    borderColor: serviceColorMap[slot.serviceId] ?? "#f5f5f4",
     extendedProps: {
       usedCapacity: slot.usedCapacity,
       maxCapacity: slot.maxCapacity,
+      serviceId: slot.serviceId,
+      color: serviceColorMap[slot.serviceId] ?? "#f5f5f4",
     },
   }));
 }
 
-export function SlotCalendar({ initialSlots }: { initialSlots?: Slot[] }) {
+export function SlotCalendar({
+  initialSlots,
+  services,
+  serviceColorMap,
+}: {
+  initialSlots?: Slot[];
+  services: Service[];
+  serviceColorMap: ServiceColorMap;
+}) {
   const locale = useLocale();
   const isMobile = useIsMobile();
   const queryClient = useQueryClient();
+  const hasMultipleServices = services.length > 1;
+
+  const [selectedServiceIds, setSelectedServiceIds] = useState<Set<string>>(
+    () => new Set(services.map((s) => s.serviceId)),
+  );
 
   const [dateRange, setDateRange] = useState<{
     start: string;
@@ -65,6 +87,12 @@ export function SlotCalendar({ initialSlots }: { initialSlots?: Slot[] }) {
     queryFn: () => getSlots(dateRange.start, dateRange.end),
     initialData: initialSlots,
   });
+
+  const filteredSlots = hasMultipleServices
+    ? (slots as Slot[] | undefined)?.filter((s) =>
+        selectedServiceIds.has(s.serviceId),
+      )
+    : (slots as Slot[] | undefined);
 
   const prefetch = useCallback(
     (start: Date, end: Date) => {
@@ -100,6 +128,7 @@ export function SlotCalendar({ initialSlots }: { initialSlots?: Slot[] }) {
         maxCapacity: 1,
         startDate: new Date().toISOString(),
         endDate: new Date().toISOString(),
+        serviceId: services[0]?.serviceId ?? "",
       },
     });
 
@@ -117,6 +146,7 @@ export function SlotCalendar({ initialSlots }: { initialSlots?: Slot[] }) {
         maxCapacity: 1,
         startDate: start.toISOString(),
         endDate: end.toISOString(),
+        serviceId: services[0]?.serviceId ?? "",
       },
     });
   }
@@ -130,7 +160,15 @@ export function SlotCalendar({ initialSlots }: { initialSlots?: Slot[] }) {
   }
 
   return (
-    <div className="fc-shadcn">
+    <div className="fc-shadcn flex flex-col gap-4">
+      {hasMultipleServices && (
+        <ServiceFilter
+          services={services}
+          serviceColorMap={serviceColorMap}
+          selectedIds={selectedServiceIds}
+          onSelectionChange={setSelectedServiceIds}
+        />
+      )}
       <FullCalendar
         key={isMobile ? "day" : "week"}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -145,15 +183,25 @@ export function SlotCalendar({ initialSlots }: { initialSlots?: Slot[] }) {
         dateClick={handleDateClick}
         eventClick={handleEventClick}
         datesSet={handleDatesSet}
-        events={slotsToEvents(slots as Slot[] | undefined)}
+        events={slotsToEvents(filteredSlots, serviceColorMap)}
         eventContent={(arg) => <SlotEvent arg={arg} />}
         height="75vh"
         allDaySlot={false}
         nowIndicator={true}
         validRange={{ start: new Date() }}
       />
-      <CreateSlots state={createSlotState} setState={setCreateSlotState} />
-      <EditSlot state={editSlotState} setState={setEditSlotState} />
+      <CreateSlots
+        state={createSlotState}
+        setState={setCreateSlotState}
+        services={services}
+        hasMultipleServices={hasMultipleServices}
+      />
+      <EditSlot
+        state={editSlotState}
+        setState={setEditSlotState}
+        services={services}
+        hasMultipleServices={hasMultipleServices}
+      />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Booking, getBooking } from "@repo/apis";
+import { Booking, getBooking, getServices } from "@repo/apis";
 import { getSession } from "@repo/auth-ui";
 import { getLocale, getTranslations, redirect, Link } from "@repo/i18n";
 import { Badge, formatDate } from "@repo/ui";
@@ -21,10 +21,15 @@ export default async function BookingDetail({
   if (!session || !session.idToken) {
     return redirect({ href: "/login", locale });
   }
-  const booking = await getBooking(session.idToken, bookingId);
+  const [booking, services] = await Promise.all([
+    getBooking(session.idToken, bookingId),
+    getServices(session.idToken),
+  ]);
   if (!booking) {
     return notFound();
   }
+  const hasMultipleServices = services.length > 1;
+  const serviceName = services.find((s) => s.serviceId === booking.serviceId)?.name;
 
   const isInThePast = isPast(booking.startDate);
   const status = isInThePast ? "isPast" : booking.status;
@@ -62,6 +67,12 @@ export default async function BookingDetail({
       </div>
 
       <div className="flex flex-col gap-1 text-sm">
+        {hasMultipleServices && serviceName && (
+          <p>
+            <span className="text-muted-foreground">{t("service")}:</span>{" "}
+            {serviceName}
+          </p>
+        )}
         <p>
           <span className="text-muted-foreground">{t("date")}:</span>{" "}
           {formatDate(booking.startDate, locale, booking.timezone)}

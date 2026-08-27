@@ -1,6 +1,6 @@
 {
-  "name": "@basalf/cms",
-  "version": "0.0.5",
+  "name": "@basalf/slot",
+  "version": "0.0.1",
   "type": "module",
   "exports": {
     ".": {

@@ -6,20 +6,14 @@ export type Page = CmsComponents["schemas"]["Page"];
 export type Block = Page["slices"][number];
 export type PageSeo = Page["seo"];
 export type Schemas = PageSeo["schemas"];
+export type ApiClient = ReturnType<typeof createClient<CmsPaths>>;
 
-function getBaseUrl(): string {
-  const isProd = process.env.NODE_ENV === "production";
-  const url = isProd
-    ? "https://ipvks3xer0.execute-api.eu-central-1.amazonaws.com"
-    : "https://my8vongi38.execute-api.eu-central-1.amazonaws.com";
-  return url;
-}
-
-let _client: ReturnType<typeof createClient<CmsPaths>> | null = null;
-
-export function getClient() {
-  if (!_client) {
-    _client = createClient<CmsPaths>({ baseUrl: getBaseUrl() });
+export function createApiClient(token: string): ApiClient {
+  const payload = JSON.parse(atob(token.split(".")[1]));
+  if (!payload.apiId) {
+    throw new Error("Token missing apiId");
   }
-  return _client;
+  return createClient<CmsPaths>({
+    baseUrl: `https://${payload.apiId}.execute-api.eu-central-1.amazonaws.com`,
+  });
 }

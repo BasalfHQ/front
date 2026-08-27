@@ -14,19 +14,22 @@ import {
   TimePicker,
   Checkbox,
   Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   toast,
 } from "@repo/ui";
-import { Slot, SlotRepeatInterval } from "@repo/apis";
+import { Slot, SlotRepeatInterval, Service } from "@repo/apis";
 import { useMemo, useState } from "react";
 import { isPast, addMonths, addYears } from "date-fns";
 import { useLocale } from "@repo/i18n";
 import { createSlot, createSlots } from "../actions";
 import { Loader2 } from "@repo/ui/icons";
+import { useQueryClient } from "@tanstack/react-query";
 
-export type InputSlot = Omit<
-  Slot,
-  "slotId" | "organizationId" | "websiteId" | "usedCapacity"
->;
+export type InputSlot = Omit<Slot, "slotId" | "usedCapacity">;
 export type CreateSlotsDialogState = {
   open: boolean;
   slot: InputSlot;
@@ -45,14 +48,19 @@ const WEEKDAYS = [
 export function CreateSlots({
   state,
   setState,
+  services,
+  hasMultipleServices,
 }: {
   state: CreateSlotsDialogState;
   setState: (state: CreateSlotsDialogState) => void;
+  services: Service[];
+  hasMultipleServices: boolean;
 }) {
   const t = useTranslations("slots.CreateSlots");
   const [isLoading, setIsLoading] = useState(false);
   const [editingCapacity, setEditingCapacity] = useState(false);
   const locale = useLocale();
+  const queryClient = useQueryClient();
   const [interval, setInterval] = useState<SlotRepeatInterval | undefined>(
     undefined,
   );
@@ -69,14 +77,17 @@ export function CreateSlots({
           end.toISOString(),
           state.slot.maxCapacity,
           interval,
+          state.slot.serviceId,
         );
       } else {
         await createSlot(
           new Date(state.slot.startDate).toISOString(),
           new Date(state.slot.endDate).toISOString(),
           state.slot.maxCapacity,
+          state.slot.serviceId,
         );
       }
+      queryClient.invalidateQueries({ queryKey: ["slots"] });
       setState({ ...state, open: false });
     } catch (error) {
       console.error(error);
@@ -254,7 +265,6 @@ export function CreateSlots({
                   },
                 });
               }}
-              maxTime={getTime(state.slot.endDate)}
             />
           </div>
           <div className="flex flex-col gap-1 flex-1">
@@ -292,6 +302,31 @@ export function CreateSlots({
         </DialogHeader>
         <DialogDescription>{t("description")}</DialogDescription>
         {content}
+        {hasMultipleServices && (
+          <div className="flex flex-col gap-1">
+            <Label>{t("service")}</Label>
+            <Select
+              value={state.slot.serviceId}
+              onValueChange={(value) =>
+                setState({
+                  ...state,
+                  slot: { ...state.slot, serviceId: value },
+                })
+              }
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {services.map((s) => (
+                  <SelectItem key={s.serviceId} value={s.serviceId}>
+                    {s.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
         <div className="flex gap-2">
           <div className="flex-1">
             {editingCapacity ? (

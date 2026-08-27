@@ -12,6 +12,8 @@
   "slots": {
     "title": "Créneaux",
     "description": "Gérez les créneaux de votre site. Cliquez sur un créneau pour le modifier ou le supprimer. Cliquez sur le calendrier pour créer un nouveau créneau.",
+    "selectAll": "Tout sélectionner",
+    "unselectAll": "Tout désélectionner",
     "CreateSlots": {
       "title": "Créer un créneau",
       "description": "Définissez le jour et l'heure de votre nouveau créneau.",
@@ -26,7 +28,8 @@
       "allDays": "Tous les jours",
       "capacity": "Capacité : {count}",
       "repeatUntil": "Répéter jusqu'au",
-      "createSlotsError": "Erreur lors de la création des créneaux."
+      "createSlotsError": "Erreur lors de la création des créneaux.",
+      "service": "Service"
     },
     "SlotEvent": {
       "slotsUsed": "Réservés",
@@ -62,13 +65,15 @@
       "additionalInfo": "Informations supplémentaires",
       "numberOfPerson": "Nombre de personnes",
       "confirmBooking": "Confirmer la réservation",
-      "bookingError": "Erreur lors de la création de la réservation."
+      "bookingError": "Erreur lors de la création de la réservation.",
+      "service": "Service"
     }
   },
   "reservations": {
     "title": "Réservations",
     "description": "Gérez les réservations de votre site.",
     "name": "Nom",
+    "service": "Service",
     "date": "Date",
     "status": "Statut",
     "booked": "Réservé",
@@ -78,6 +83,7 @@
     "view": "Voir",
     "detail": {
       "back": "Retour aux réservations",
+      "service": "Service",
       "date": "Date",
       "persons": "Personnes",
       "email": "Email",

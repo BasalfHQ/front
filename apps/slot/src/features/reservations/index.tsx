@@ -1,4 +1,4 @@
-import { getBookings } from "@repo/apis";
+import { getBookings, getServices } from "@repo/apis";
 import { getSession } from "@repo/auth-ui";
 import { getLocale, getTranslations, redirect } from "@repo/i18n";
 import { PageDescription, PageTitle, QueryProvider } from "@repo/ui";
@@ -17,10 +17,12 @@ export default async function Reservations() {
   const now = new Date();
   const startDate = now.toISOString();
   const endDate = addMonths(now, 1).toISOString();
-  const bookings = await getBookings(
-    session.idToken,
-    startDate,
-    endDate,
+  const [bookings, services] = await Promise.all([
+    getBookings(session.idToken, startDate, endDate),
+    getServices(session.idToken),
+  ]);
+  const serviceMap = Object.fromEntries(
+    services.map((s) => [s.serviceId, s.name]),
   );
   return (
     <div className="flex flex-col gap-1">
@@ -28,7 +30,12 @@ export default async function Reservations() {
       <PageDescription>{t("description")}</PageDescription>
 
       <QueryProvider>
-        <BookingList initialBookings={bookings} initialStartDate={startDate} initialEndDate={endDate} />
+        <BookingList
+          initialBookings={bookings}
+          initialStartDate={startDate}
+          initialEndDate={endDate}
+          serviceMap={services.length > 1 ? serviceMap : undefined}
+        />
       </QueryProvider>
     </div>
   );

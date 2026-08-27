@@ -1,24 +1,18 @@
-import { getClient } from "./client";
+import type { ApiClient } from "./client";
 
-export const getPages = async (Token: string) => {
-  const response = await getClient().GET("/", {
-    headers: {
-      Token,
-    },
+export const getPages = async (client: ApiClient, token: string) => {
+  const response = await client.GET("/", {
+    headers: { Token: token },
   });
   return response.data ?? [];
 };
 
-export const getPage = async (pageId: string, Token: string) => {
-  const response = await getClient().GET("/{pageId}", {
+export const getPage = async (client: ApiClient, pageId: string, token: string) => {
+  const response = await client.GET("/{pageId}", {
     params: {
-      path: {
-        pageId,
-      },
+      path: { pageId },
     },
-    headers: {
-      Token,
-    },
+    headers: { Token: token },
   });
   return response.data;
 };

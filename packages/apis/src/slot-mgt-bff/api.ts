@@ -1,17 +1,65 @@
-import { client, Slot, SlotRepeatInterval } from ".";
+import { client, Slot, SlotRepeatInterval, Service } from ".";
 import { headers } from "../utils";
+
+export async function getServices(idToken: string): Promise<Service[]> {
+  const response = await client.GET("/service", {
+    headers: headers({ idToken }),
+  });
+  if (response.response.status !== 200) {
+    throw new Error("Failed to get services");
+  }
+  return response.data ?? [];
+}
+
+export async function createService(
+  idToken: string,
+  name: string,
+): Promise<Service | null> {
+  const response = await client.POST("/service", {
+    body: { name },
+    headers: headers({ idToken }),
+  });
+  if (response.response.status !== 200) {
+    throw new Error("Failed to create service");
+  }
+  return response.data ?? null;
+}
+
+export async function updateService(
+  idToken: string,
+  serviceId: string,
+  name: string,
+) {
+  const response = await client.PATCH("/service/{serviceId}", {
+    params: { path: { serviceId } },
+    body: { name },
+    headers: headers({ idToken }),
+  });
+  if (response.response.status !== 200) {
+    throw new Error("Failed to update service");
+  }
+  return response.data;
+}
+
+export async function deleteService(idToken: string, serviceId: string) {
+  const response = await client.DELETE("/service/{serviceId}", {
+    params: { path: { serviceId } },
+    headers: headers({ idToken }),
+  });
+  if (response.response.status !== 200) {
+    throw new Error("Failed to delete service");
+  }
+  return response.data;
+}
 
 export async function getSlots(
   idToken: string,
   startDate: string,
   endDate: string,
 ) {
-  const response = await client.GET("/slots/{startDate}/{endDate}", {
+  const response = await client.GET("/slots/{startDate}/{endDate}/{serviceId}", {
     params: {
-      path: {
-        startDate: startDate,
-        endDate: endDate,
-      },
+      path: { startDate, endDate, serviceId: "all" },
     },
     headers: headers({ idToken }),
   });
@@ -24,10 +72,7 @@ export async function getSlots(
   return response.data;
 }
 
-export async function getSlot(
-  idToken: string,
-  slotId: string,
-) {
+export async function getSlot(idToken: string, slotId: string) {
   const response = await client.GET("/slot/{slotId}", {
     params: {
       path: { slotId: slotId },
@@ -44,7 +89,12 @@ export async function getSlot(
 
 export async function createSlot(
   idToken: string,
-  slot: Omit<Slot, "slotId" | "organizationId" | "websiteId" | "usedCapacity">,
+  slot: {
+    maxCapacity: number;
+    startDate: string;
+    endDate: string;
+    serviceId: string;
+  },
 ) {
   const response = await client.POST("/slot", {
     body: slot,
@@ -64,9 +114,10 @@ export async function createSlots(
   startDate: string,
   endDate: string,
   intervals: SlotRepeatInterval,
+  serviceId: string,
 ) {
   const response = await client.POST("/slots/batch", {
-    body: { capacity, startDate, endDate, intervals },
+    body: { serviceId, capacity, startDate, endDate, intervals },
     headers: headers({ idToken }),
   });
   if (response.response.status !== 200) {
@@ -81,8 +132,8 @@ export async function updateSlot(
   idToken: string,
   slot: {
     slotId: string;
+    serviceId: string;
     maxCapacity: number;
-    usedCapacity: number;
     startDate: string;
     endDate: string;
   },
@@ -103,9 +154,13 @@ export async function deleteSlot(
   idToken: string,
   slotId: string,
   startDate: string,
+  serviceId: string,
 ) {
   const response = await client.DELETE("/slot/{slotId}/{startDate}", {
-    params: { path: { slotId, startDate } },
+    params: {
+      path: { slotId, startDate },
+      query: { serviceId },
+    },
     headers: headers({ idToken }),
   });
   if (response.response.status !== 200) {
@@ -120,15 +175,19 @@ export async function deleteSlots(
   idToken: string,
   startDate: string,
   endDate: string,
-  sameHour: boolean,
+  serviceId: string,
+  sameHour?: boolean,
 ) {
-  const response = await client.DELETE("/slots/batch/{startDate}/{endDate}", {
-    params: {
-      path: { startDate, endDate },
-      query: { sameHour: sameHour ? "true" : undefined },
+  const response = await client.DELETE(
+    "/slots/batch/{startDate}/{endDate}/{serviceId}",
+    {
+      params: {
+        path: { startDate, endDate, serviceId },
+        query: { sameHour: sameHour ? "true" : undefined },
+      },
+      headers: headers({ idToken }),
     },
-    headers: headers({ idToken }),
-  });
+  );
   if (response.response.status !== 200) {
     console.log(response);
     console.log(response.data);
@@ -149,6 +208,7 @@ export async function createBooking(
     startDate: string;
     endDate: string;
     numberOfPerson: number;
+    serviceId: string;
   },
 ) {
   const response = await client.POST("/booking", {
@@ -168,14 +228,18 @@ export async function getBookings(
   startDate: string,
   endDate: string,
 ) {
-  const response = await client.GET("/booking/range/{startDate}/{endDate}", {
-    params: {
-      path: { startDate, endDate },
+  const response = await client.GET(
+    "/booking/range/{startDate}/{endDate}/{serviceId}",
+    {
+      params: {
+        path: { startDate, endDate, serviceId: "all" },
+      },
+      headers: headers({ idToken }),
     },
-    headers: headers({ idToken }),
-  });
+  );
   if (response.response.status !== 200) {
     console.log(response);
+
     console.log(response.data);
     throw new Error("Failed to get bookings");
   }
@@ -200,10 +264,13 @@ export async function cancelBooking(
   bookingId: string,
   startDate: string,
 ) {
-  const response = await client.PATCH("/booking/{bookingId}/{startDate}/cancel", {
-    params: { path: { bookingId, startDate } },
-    headers: headers({ idToken }),
-  });
+  const response = await client.PATCH(
+    "/booking/{bookingId}/{startDate}/cancel",
+    {
+      params: { path: { bookingId, startDate } },
+      headers: headers({ idToken }),
+    },
+  );
   if (response.response.status !== 200) {
     console.log(response);
     console.log(response.data);
@@ -218,11 +285,14 @@ export async function rescheduleBooking(
   startDate: string,
   newDates: { startDate: string; endDate: string; slotId?: string },
 ) {
-  const response = await client.PATCH("/booking/{bookingId}/{startDate}/reschedule", {
-    params: { path: { bookingId, startDate } },
-    body: newDates,
-    headers: headers({ idToken }),
-  });
+  const response = await client.PATCH(
+    "/booking/{bookingId}/{startDate}/reschedule",
+    {
+      params: { path: { bookingId, startDate } },
+      body: newDates,
+      headers: headers({ idToken }),
+    },
+  );
   if (response.response.status !== 200) {
     console.log(response);
     console.log(response.data);

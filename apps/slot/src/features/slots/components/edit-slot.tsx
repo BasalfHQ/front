@@ -12,9 +12,14 @@ import {
   TimePicker,
   Input,
   AutoSizeInput,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   toast,
 } from "@repo/ui";
-import type { Slot } from "@repo/apis";
+import type { Slot, Service } from "@repo/apis";
 import { useState } from "react";
 import {
   updateSlot,
@@ -34,9 +39,13 @@ type Mode = "choice" | "update" | "book" | "delete";
 export function EditSlot({
   state,
   setState,
+  services,
+  hasMultipleServices,
 }: {
   state: EditSlotDialogState;
   setState: (state: EditSlotDialogState) => void;
+  services: Service[];
+  hasMultipleServices: boolean;
 }) {
   const t = useTranslations("slots.EditSlot");
   const [isLoading, setIsLoading] = useState(false);
@@ -83,8 +92,8 @@ export function EditSlot({
       setIsLoading(true);
       await updateSlot({
         slotId: slot.slotId,
+        serviceId: slot.serviceId,
         maxCapacity: slot.maxCapacity,
-        usedCapacity: slot.usedCapacity,
         startDate: slot.startDate,
         endDate: slot.endDate,
       });
@@ -101,7 +110,7 @@ export function EditSlot({
     if (!slot) return;
     try {
       setIsLoading(true);
-      await deleteSlot(slot.slotId, slot.startDate);
+      await deleteSlot(slot.slotId, slot.startDate, slot.serviceId);
       queryClient.invalidateQueries({ queryKey: ["slots"] });
       handleOpen(false);
     } catch {
@@ -115,7 +124,7 @@ export function EditSlot({
     if (!slot) return;
     try {
       setIsLoading(true);
-      await deleteSlotsAtSameHour(slot.startDate, slot.endDate, true);
+      await deleteSlotsAtSameHour(slot.startDate, slot.endDate, slot.serviceId, true);
       queryClient.invalidateQueries({ queryKey: ["slots"] });
       handleOpen(false);
     } catch {
@@ -130,6 +139,7 @@ export function EditSlot({
     try {
       setIsLoading(true);
       await createBooking({
+        serviceId: slot.serviceId,
         slotId: slot.slotId,
         firstName: bookingForm.firstName,
         lastName: bookingForm.lastName,
@@ -172,7 +182,9 @@ export function EditSlot({
         {mode === "choice" && (
           <div className="flex flex-col gap-2">
             <Button onClick={() => setMode("update")}>{t("update")}</Button>
-            <Button onClick={() => setMode("book")}>{t("book")}</Button>
+            {slot.usedCapacity < slot.maxCapacity && (
+              <Button onClick={() => setMode("book")}>{t("book")}</Button>
+            )}
             <Button
               variant="destructive"
               onClick={() => setMode("delete")}
@@ -244,6 +256,29 @@ export function EditSlot({
                 />
               </div>
             </div>
+
+            {hasMultipleServices && (
+              <div className="flex flex-col gap-1">
+                <Label>{t("service")}</Label>
+                <Select
+                  value={slot.serviceId}
+                  onValueChange={(value) =>
+                    setEditedSlot({ ...slot, serviceId: value })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {services.map((s) => (
+                      <SelectItem key={s.serviceId} value={s.serviceId}>
+                        {s.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
 
             <div className="flex gap-2">
               <Button
@@ -329,7 +364,7 @@ export function EditSlot({
               />
             </div>
 
-            {slot.maxCapacity > 1 && (
+            {slot.maxCapacity > 1 && slot.maxCapacity - slot.usedCapacity > 1 && (
               <div className="flex flex-col gap-1">
                 <Label>{t("numberOfPerson")}</Label>
                 <Input
@@ -340,7 +375,10 @@ export function EditSlot({
                   onChange={(e) =>
                     setBookingForm({
                       ...bookingForm,
-                      numberOfPerson: Math.max(1, Number(e.target.value)),
+                      numberOfPerson: Math.min(
+                        Math.max(1, Number(e.target.value)),
+                        slot.maxCapacity - slot.usedCapacity,
+                      ),
                     })
                   }
                 />

@@ -13,6 +13,8 @@
     "title": "Slots",
     "description": "Manage your slots. Click on a slot to edit or delete it. Click on the calendar to create a new slot.",
     "back": "Back to homepage",
+    "selectAll": "Select all",
+    "unselectAll": "Unselect all",
     "CreateSlots": {
       "title": "Create a slot",
       "description": "Set the day and time for your new slot.",
@@ -27,7 +29,8 @@
       "allDays": "Every day",
       "capacity": "Capacity: {count}",
       "repeatUntil": "Repeat until",
-      "createSlotsError": "Failed to create slots."
+      "createSlotsError": "Failed to create slots.",
+      "service": "Service"
     },
     "SlotEvent": {
       "slotsUsed": "Booked",
@@ -63,7 +66,8 @@
       "additionalInfo": "Additional info",
       "numberOfPerson": "Number of persons",
       "confirmBooking": "Confirm reservation",
-      "bookingError": "Failed to create reservation."
+      "bookingError": "Failed to create reservation.",
+      "service": "Service"
     }
   },
   "reservations": {
@@ -71,6 +75,7 @@
     "description": "Manage your reservations.",
     "back": "Back to homepage",
     "name": "Name",
+    "service": "Service",
     "date": "Date",
     "status": "Status",
     "booked": "Booked",
@@ -80,6 +85,7 @@
     "view": "View",
     "detail": {
       "back": "Back to reservations",
+      "service": "Service",
       "date": "Date",
       "persons": "Persons",
       "email": "Email",

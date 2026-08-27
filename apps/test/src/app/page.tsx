@@ -1,17 +1,32 @@
 import CMS from "@basalf/cms";
+import SLOT from "@basalf/slot";
+import { addMonths } from "date-fns";
 
-const testToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25JZCI6Im9yZ184MDAzNzRmOS1lZDgwLTRmYWQtOTUyYS04N2Q5ZWZjMjFmNmMiLCJ3ZWJzaXRlSWQiOiJ3ZWJzaXRlX2RlZmF1bHRfb3JnXzgwMDM3NGY5LWVkODAtNGZhZC05NTJhLTg3ZDllZmMyMWY2YyJ9.mI7oeUogu349fZDZO1RX15Zso_h8XKmeJXuoV3oqsUw";
-const cms = new CMS(testToken);
+// const CMStestToken = "°°°°°°°°°°°°";
+// const cms = new CMS(CMStestToken);
+
+const SLOTtestToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25JZCI6Im9yZ185MThiZjMyZS0wMzY1LTQwYjktOTNmYi03YzA4MTRkYWU4ZGQiLCJ3ZWJzaXRlSWQiOiJzZXJ2aWNlX2RlZmF1bHRfb3JnXzkxOGJmMzJlLTAzNjUtNDBiOS05M2ZiLTdjMDgxNGRhZThkZCIsImFwaUlkIjoiOW9pYXA2OGduayJ9.un1Fh5Amt3josJn_be2WlGUgZWAgePhrAUOUubtFt54";
+const slot = new SLOT(SLOTtestToken);
 
 export default async function Home() {
-  const pages = await cms.getPages();
-  const page = await cms.getPage(pages[0].pageId);
-  console.log(page);
+  const services = await slot.getServices();
+  console.log(services);
+
+  const startDate = new Date();
+  const endDate = addMonths(new Date(), 1);
+  const slots = await slot.getSlots(
+    startDate.toISOString(),
+    endDate.toISOString(),
+  );
+  console.log(slots);
   return (
     <main className="flex flex-col p-4">
-      <div className="flex flex-col">{pages.map((page) => <div key={page.pageId}>{page.url}</div>)}</div>
-      <div className="flex flex-col">{page.slices.map((slice) => <div key={slice.sliceId}>{slice.type}</div>)}</div>
+      <div className="flex flex-col">
+        {services.map((service) => (
+          <div key={service.serviceId}>{service.name}</div>
+        ))}
+      </div>
     </main>
   );
 }

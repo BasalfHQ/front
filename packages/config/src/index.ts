@@ -15,6 +15,7 @@ export enum EnvVar {
   CMS_MGT_BFF_URL = "CMS_MGT_BFF_URL",
   HOST_MGT_BFF_URL = "HOST_MGT_BFF_URL",
   SLOT_MGT_BFF_URL = "SLOT_MGT_BFF_URL",
+  SLOT_MGT_BFF_LIB_URL = "SLOT_MGT_BFF_LIB_URL",
 }
 
 const STAGE = (process.env.NEXT_PUBLIC_STAGE as Stage) || Stage.DEV;

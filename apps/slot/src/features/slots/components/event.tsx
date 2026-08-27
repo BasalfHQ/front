@@ -1,5 +1,4 @@
 import { Badge } from "@repo/ui";
-import { cn } from "@repo/ui/lib/utils";
 import { useTranslations } from "next-intl";
 
 export function SlotEvent({
@@ -10,14 +9,13 @@ export function SlotEvent({
   const t = useTranslations("slots.SlotEvent");
   const usedCapacity = arg.event.extendedProps.usedCapacity as number;
   const maxCapacity = arg.event.extendedProps.maxCapacity as number;
+  const color = arg.event.extendedProps.color as string | undefined;
   const isFull = usedCapacity >= maxCapacity;
 
   return (
     <div
-      className={cn(
-        "flex flex-col justify-between p-1 h-full overflow-hidden text-primary",
-        isFull ? "bg-accent/90" : "bg-accent/20",
-      )}
+      className="flex flex-col justify-between p-1 h-full overflow-hidden text-primary"
+      style={{ backgroundColor: color }}
     >
       <span className="text-[0.7rem] opacity-80">{arg.timeText}</span>
       <div>
