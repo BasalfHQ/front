@@ -418,6 +418,7 @@ export interface paths {
                 content: {
                     "application/json": {
                         name: string;
+                        description?: string;
                     };
                 };
             };
@@ -510,6 +511,7 @@ export interface paths {
                 content: {
                     "application/json": {
                         name: string;
+                        description?: string;
                     };
                 };
             };
@@ -934,6 +936,7 @@ export interface components {
         Service: {
             serviceId: string;
             name: string;
+            description?: string;
         };
         Slot: {
             slotId: string;

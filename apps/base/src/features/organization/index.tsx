@@ -1,8 +1,8 @@
 import { auth, isAdmin } from "@repo/auth-ui";
 import { CreateOrgForm } from "./components/create-org-form";
+import { OrgList } from "./components/org-list";
 import { redirect } from "next/navigation";
 import { getOrganizations as apiGetOrganizations } from "@repo/apis";
-import { getTranslations } from "@repo/i18n";
 import { baseUrl } from "@repo/config";
 
 export async function OrganizationPage() {
@@ -12,31 +12,12 @@ export async function OrganizationPage() {
     return redirect(baseUrl);
   }
 
-  const [t, organizations] = await Promise.all([
-    getTranslations("organization"),
-    apiGetOrganizations(session.idToken),
-  ]);
+  const organizations = await apiGetOrganizations(session.idToken);
 
   return (
     <div>
       <CreateOrgForm />
-      <h2 className="text-xl font-semibold mb-4">
-        {t("existingOrganizations")}
-      </h2>
-      {organizations.length === 0 ? (
-        <p className="text-gray-500">{t("noOrganizations")}</p>
-      ) : (
-        <ul className="space-y-2">
-          {organizations.map((org) => (
-            <li key={org.organizationId} className="p-3 border rounded">
-              <span className="font-medium">{org.name}</span>
-              <span className="text-gray-500 text-sm ml-2">
-                ({org.organizationId})
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
+      <OrgList organizations={organizations} />
     </div>
   );
 }

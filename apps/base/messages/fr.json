@@ -31,9 +31,16 @@
     "organizationName": "Nom de l'organisation",
     "enterName": "Entrez le nom de l'organisation",
     "timezone": "Fuseau horaire",
+    "email": "Email",
+    "enterEmail": "Entrez l'email de l'organisation",
     "creating": "Création...",
     "createOrganization": "Créer une organisation",
-    "createdSuccess": "Organisation \"{name}\" créée avec succès"
+    "createdSuccess": "Organisation \"{name}\" créée avec succès",
+    "editOrganization": "Modifier l'organisation",
+    "editDescription": "Modifier les détails de l'organisation.",
+    "saving": "Enregistrement...",
+    "save": "Enregistrer",
+    "updateFailed": "Échec de la mise à jour de l'organisation"
   },
   "homepage": {
     "title": "Bienvenue sur Basalf",

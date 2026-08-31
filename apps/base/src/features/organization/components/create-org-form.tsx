@@ -19,6 +19,7 @@ import { TIMEZONES } from "../timezones";
 export function CreateOrgForm() {
   const t = useTranslations("organization");
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [timezone, setTimezone] = useState("Europe/Paris");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState("");
@@ -30,11 +31,12 @@ export function CreateOrgForm() {
     setSuccess("");
 
     startTransition(async () => {
-      const result = await createOrganization(name, timezone);
+      const result = await createOrganization(name, timezone, email);
 
       if (result.success && result.organization) {
         setSuccess(t("createdSuccess", { name: result.organization.name }));
         setName("");
+        setEmail("");
         setTimezone("Europe/Paris");
       } else {
         setError(result.error || "Failed to create organization");
@@ -60,6 +62,19 @@ export function CreateOrgForm() {
         </div>
 
         <div className="space-y-2">
+          <Label htmlFor="email">{t("email")}</Label>
+          <Input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder={t("enterEmail")}
+            required
+            disabled={isPending}
+          />
+        </div>
+
+        <div className="space-y-2">
           <Label>{t("timezone")}</Label>
           <Select value={timezone} onValueChange={setTimezone} disabled={isPending}>
             <SelectTrigger>
@@ -78,7 +93,7 @@ export function CreateOrgForm() {
         {error && <p className="text-sm text-red-600">{error}</p>}
         {success && <p className="text-sm text-green-600">{success}</p>}
 
-        <Button type="submit" disabled={isPending || !name.trim()}>
+        <Button type="submit" disabled={isPending || !name.trim() || !email.trim()}>
           {isPending ? t("creating") : t("createOrganization")}
         </Button>
       </form>

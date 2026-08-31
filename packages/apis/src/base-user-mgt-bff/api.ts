@@ -33,16 +33,33 @@ export async function getOrganizations(
 export async function createOrganization(
   name: string,
   timezone: string,
+  email: string,
   idToken: string,
 ): Promise<Organization | null> {
   try {
     const response = await client.POST("/organization", {
-      body: { name, timezone },
+      body: { name, timezone, email },
       headers: headers({ idToken }),
     });
     return response.data ?? null;
   } catch (error) {
     console.error("Error creating organization:", error);
     return null;
+  }
+}
+
+export async function updateOrganization(
+  organization: Organization,
+  idToken: string,
+): Promise<boolean> {
+  try {
+    await client.PATCH("/organization", {
+      body: organization,
+      headers: headers({ idToken }),
+    });
+    return true;
+  } catch (error) {
+    console.error("Error updating organization:", error);
+    return false;
   }
 }

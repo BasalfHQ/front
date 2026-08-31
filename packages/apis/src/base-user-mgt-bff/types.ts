@@ -72,37 +72,7 @@ export interface paths {
         };
         options?: never;
         head?: never;
-        patch: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    organizationId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": {
-                        name?: string;
-                        timezone?: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description Update an organization */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            message: string;
-                        };
-                    };
-                };
-            };
-        };
+        patch?: never;
         trace?: never;
     };
     "/organization": {
@@ -145,6 +115,7 @@ export interface paths {
                     "application/json": {
                         name: string;
                         timezone: string;
+                        email?: string;
                     };
                 };
             };
@@ -174,7 +145,32 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        patch?: never;
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["Organization"];
+                };
+            };
+            responses: {
+                /** @description Update an organization */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
         trace?: never;
     };
     "/user/my-organizations": {
@@ -461,6 +457,7 @@ export interface components {
             organizationId: string;
             name: string;
             timezone: string;
+            email?: string;
         };
         User: {
             organizationId: string;

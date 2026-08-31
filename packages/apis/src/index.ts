@@ -3,6 +3,7 @@ export {
   getOrganizationsByEmail,
   getOrganizations,
   createOrganization,
+  updateOrganization,
 } from "./base-user-mgt-bff/api";
 export {
   getPages,
