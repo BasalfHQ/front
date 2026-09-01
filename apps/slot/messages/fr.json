@@ -1,7 +1,9 @@
 {
   "homepage": {
     "title": "Slot",
-    "description": "Ce module permet de gérer les slots et réservations de votre site."
+    "description": "Ce module permet de gérer les slots et réservations de votre site.",
+    "loginRequired": "Connectez-vous pour gérer vos services et créneaux.",
+    "login": "Se connecter"
   },
   "nav": {
     "slots": "Créneaux",

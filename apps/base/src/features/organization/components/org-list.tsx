@@ -24,6 +24,7 @@ import {
 } from "@repo/ui/components/select";
 import { Pencil } from "@repo/ui/icons";
 import { updateOrganization } from "../actions";
+import { LANGUAGES } from "../languages";
 import { TIMEZONES } from "../timezones";
 
 export function OrgList({ organizations }: { organizations: Organization[] }) {
@@ -32,6 +33,7 @@ export function OrgList({ organizations }: { organizations: Organization[] }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [timezone, setTimezone] = useState("");
+  const [language, setLanguage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleUpdate = async () => {
@@ -43,6 +45,7 @@ export function OrgList({ organizations }: { organizations: Organization[] }) {
         name: name.trim(),
         email: email.trim(),
         timezone,
+        ...(language && { language }),
       });
       if (result.success) {
         setEditingOrg(null);
@@ -71,6 +74,11 @@ export function OrgList({ organizations }: { organizations: Organization[] }) {
               className="p-3 border rounded flex items-center justify-between"
             >
               <div>
+                {org.language && (
+                  <span className="mr-2">
+                    {LANGUAGES.find((l) => l.code === org.language)?.flag}
+                  </span>
+                )}
                 <span className="font-medium">{org.name}</span>
                 <span className="text-gray-500 text-sm ml-2">
                   ({org.organizationId})
@@ -89,6 +97,7 @@ export function OrgList({ organizations }: { organizations: Organization[] }) {
                   setName(org.name);
                   setEmail(org.email ?? "");
                   setTimezone(org.timezone);
+                  setLanguage(org.language ?? "");
                 }}
               >
                 <Pencil className="size-4" />
@@ -128,6 +137,21 @@ export function OrgList({ organizations }: { organizations: Organization[] }) {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label>{t("language")}</Label>
+              <Select value={language} onValueChange={setLanguage}>
+                <SelectTrigger>
+                  <SelectValue placeholder={t("selectLanguage")} />
+                </SelectTrigger>
+                <SelectContent>
+                  {LANGUAGES.map((lang) => (
+                    <SelectItem key={lang.code} value={lang.code}>
+                      {lang.flag} {lang.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="flex flex-col gap-2">
               <Label>{t("timezone")}</Label>

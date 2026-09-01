@@ -116,6 +116,7 @@ export interface paths {
                         name: string;
                         timezone: string;
                         email?: string;
+                        language?: string;
                     };
                 };
             };
@@ -458,6 +459,7 @@ export interface components {
             name: string;
             timezone: string;
             email?: string;
+            language?: string;
         };
         User: {
             organizationId: string;

@@ -23,6 +23,7 @@ export async function createOrganization(
   name: string,
   timezone: string,
   email: string,
+  language: string,
 ): Promise<{ success: boolean; organization?: Organization; error?: string }> {
   const session = await auth();
 
@@ -34,6 +35,7 @@ export async function createOrganization(
     name,
     timezone,
     email,
+    language,
     session.idToken,
   );
 

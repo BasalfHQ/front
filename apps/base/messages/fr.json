@@ -30,6 +30,8 @@
     "noOrganizations": "Aucune organisation trouvée",
     "organizationName": "Nom de l'organisation",
     "enterName": "Entrez le nom de l'organisation",
+    "language": "Langue",
+    "selectLanguage": "Sélectionnez une langue",
     "timezone": "Fuseau horaire",
     "email": "Email",
     "enterEmail": "Entrez l'email de l'organisation",

@@ -1,7 +1,9 @@
 {
   "homepage": {
     "title": "Slot",
-    "description": "This module allows you to manage slots and reservations on your site."
+    "description": "This module allows you to manage slots and reservations on your site.",
+    "loginRequired": "Sign in to manage your services and slots.",
+    "login": "Sign in"
   },
   "nav": {
     "slots": "Slots",

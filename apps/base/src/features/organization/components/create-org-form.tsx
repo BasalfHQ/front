@@ -14,6 +14,7 @@ import {
 } from "@repo/ui/components/select";
 import { PageTitle } from "@repo/ui";
 import { createOrganization } from "../actions";
+import { LANGUAGES } from "../languages";
 import { TIMEZONES } from "../timezones";
 
 export function CreateOrgForm() {
@@ -21,6 +22,7 @@ export function CreateOrgForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [timezone, setTimezone] = useState("Europe/Paris");
+  const [language, setLanguage] = useState("fr");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -31,13 +33,14 @@ export function CreateOrgForm() {
     setSuccess("");
 
     startTransition(async () => {
-      const result = await createOrganization(name, timezone, email);
+      const result = await createOrganization(name, timezone, email, language);
 
       if (result.success && result.organization) {
         setSuccess(t("createdSuccess", { name: result.organization.name }));
         setName("");
         setEmail("");
         setTimezone("Europe/Paris");
+        setLanguage("fr");
       } else {
         setError(result.error || "Failed to create organization");
       }
@@ -72,6 +75,22 @@ export function CreateOrgForm() {
             required
             disabled={isPending}
           />
+        </div>
+
+        <div className="space-y-2">
+          <Label>{t("language")}</Label>
+          <Select value={language} onValueChange={setLanguage} disabled={isPending}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {LANGUAGES.map((lang) => (
+                <SelectItem key={lang.code} value={lang.code}>
+                  {lang.flag} {lang.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="space-y-2">

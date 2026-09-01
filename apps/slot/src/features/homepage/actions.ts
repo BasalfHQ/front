@@ -7,13 +7,13 @@ import {
   updateService as updateServiceApi,
 } from "@repo/apis";
 import { getSession } from "@repo/auth-ui";
-import { getLocale, redirect } from "@repo/i18n";
+import { redirect } from "@repo/i18n";
 import { revalidatePath } from "next/cache";
 
 export async function getServices() {
-  const [session, locale] = await Promise.all([getSession(), getLocale()]);
+  const session = await getSession();
   if (!session || !session.idToken) {
-    return redirect({ href: "/", locale });
+    return null;
   }
   return await getServicesApi(session.idToken);
 }
