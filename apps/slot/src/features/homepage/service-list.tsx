@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Service } from "@repo/apis";
 import {
   Button,
@@ -10,18 +10,37 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-  Input,
   Label,
   toast,
 } from "@repo/ui";
 import { Plus, Pencil, Trash2 } from "@repo/ui/icons";
-import { createService, updateService, deleteService } from "./actions";
+import {
+  createService,
+  updateService,
+  deleteService,
+  getBookingOccupations,
+  type BookingCategory,
+} from "./actions";
+import { OccupationSelect } from "./occupation-select";
 
-export function ServiceList({ services }: { services: Service[] }) {
+export function ServiceList({
+  services,
+  locale,
+}: {
+  services: Service[];
+  locale: string;
+}) {
   const [createOpen, setCreateOpen] = useState(false);
   const [editingService, setEditingService] = useState<Service | null>(null);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState<BookingCategory[] | null>(null);
+
+  const loadEscoData = useCallback(async () => {
+    if (categories) return;
+    const data = await getBookingOccupations();
+    setCategories(data.categories);
+  }, [categories]);
 
   const handleCreate = async () => {
     if (!name.trim()) return;
@@ -86,6 +105,7 @@ export function ServiceList({ services }: { services: Service[] }) {
                 onClick={() => {
                   setEditingService(service);
                   setName(service.name);
+                  loadEscoData();
                 }}
               >
                 <Pencil className="size-4" />
@@ -110,6 +130,7 @@ export function ServiceList({ services }: { services: Service[] }) {
         onClick={() => {
           setCreateOpen(true);
           setName("");
+          loadEscoData();
         }}
       >
         <Plus className="size-4 mr-2" />
@@ -126,13 +147,16 @@ export function ServiceList({ services }: { services: Service[] }) {
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-2">
-            <Label htmlFor="service-name">Name</Label>
-            <Input
-              id="service-name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Haircut, Consultation, Yoga class..."
-            />
+            <Label>Occupation</Label>
+            {categories ? (
+              <OccupationSelect
+                categories={categories}
+                locale={locale}
+                onChange={(_id, label) => setName(label)}
+              />
+            ) : (
+              <p className="text-sm text-muted-foreground">Loading...</p>
+            )}
           </div>
           <DialogFooter>
             <Button onClick={handleCreate} disabled={loading || !name.trim()}>
@@ -154,12 +178,16 @@ export function ServiceList({ services }: { services: Service[] }) {
             <DialogDescription>Update the service name.</DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-2">
-            <Label htmlFor="edit-service-name">Name</Label>
-            <Input
-              id="edit-service-name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+            <Label>Occupation</Label>
+            {categories ? (
+              <OccupationSelect
+                categories={categories}
+                locale={locale}
+                onChange={(_id, label) => setName(label)}
+              />
+            ) : (
+              <p className="text-sm text-muted-foreground">Loading...</p>
+            )}
           </div>
           <DialogFooter>
             <Button onClick={handleUpdate} disabled={loading || !name.trim()}>
