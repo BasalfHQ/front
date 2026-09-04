@@ -1,4 +1,4 @@
-import { client, Organization } from "./index";
+import { client, Organization, Address } from "./index";
 import { headers } from "../utils";
 
 export async function getOrganizationsByEmail(
@@ -38,10 +38,12 @@ export async function createOrganization(
   email: string,
   language: string,
   idToken: string,
+  address?: Address,
+  isOnBookWebsite?: boolean,
 ): Promise<Organization | null> {
   try {
     const response = await client.POST("/organization", {
-      body: { name, timezone, email, language },
+      body: { name, timezone, email, language, address, isOnBookWebsite },
       headers: headers({ idToken }),
     });
     return response.data ?? null;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { Service } from "@repo/apis";
 import {
   Button,
@@ -10,47 +10,33 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
+  Input,
   Label,
+  Tiptap,
   toast,
 } from "@repo/ui";
-import { Plus, Pencil, Trash2 } from "@repo/ui/icons";
-import {
-  createService,
-  updateService,
-  deleteService,
-  getBookingOccupations,
-  type BookingCategory,
-} from "./actions";
-import { OccupationSelect } from "./occupation-select";
+import { Plus, Pencil, Trash2, FileText, X } from "@repo/ui/icons";
+import { useTranslations } from "@repo/i18n";
+import { createService, updateService, deleteService } from "./actions";
 
-export function ServiceList({
-  services,
-  locale,
-}: {
-  services: Service[];
-  locale: string;
-}) {
+export function ServiceList({ services }: { services: Service[] }) {
+  const t = useTranslations("homepage.services");
   const [createOpen, setCreateOpen] = useState(false);
   const [editingService, setEditingService] = useState<Service | null>(null);
   const [name, setName] = useState("");
+  const [description, setDescription] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(false);
-  const [categories, setCategories] = useState<BookingCategory[] | null>(null);
-
-  const loadEscoData = useCallback(async () => {
-    if (categories) return;
-    const data = await getBookingOccupations();
-    setCategories(data.categories);
-  }, [categories]);
 
   const handleCreate = async () => {
     if (!name.trim()) return;
     setLoading(true);
     try {
-      await createService(name.trim());
+      await createService(name.trim(), description);
       setCreateOpen(false);
       setName("");
+      setDescription(undefined);
     } catch {
-      toast("Failed to create service");
+      toast(t("createError"));
     } finally {
       setLoading(false);
     }
@@ -60,11 +46,12 @@ export function ServiceList({
     if (!editingService || !name.trim()) return;
     setLoading(true);
     try {
-      await updateService(editingService.serviceId, name.trim());
+      await updateService(editingService.serviceId, name.trim(), description);
       setEditingService(null);
       setName("");
+      setDescription(undefined);
     } catch {
-      toast("Failed to update service");
+      toast(t("updateError"));
     } finally {
       setLoading(false);
     }
@@ -75,7 +62,7 @@ export function ServiceList({
     try {
       await deleteService(serviceId);
     } catch {
-      toast("Failed to delete service");
+      toast(t("deleteError"));
     } finally {
       setLoading(false);
     }
@@ -83,6 +70,10 @@ export function ServiceList({
 
   return (
     <div className="flex flex-col gap-2 max-w-md">
+      <div className="flex flex-col gap-1">
+        <h2 className="text-lg font-semibold">{t("title")}</h2>
+        <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
+      </div>
       {services.map((service) => {
         const isDefault = service.serviceId.startsWith("service_default");
         return (
@@ -94,7 +85,7 @@ export function ServiceList({
               <p className="font-medium">{service.name}</p>
               {isDefault && (
                 <p className="text-xs text-muted-foreground">
-                  Default service — rename it but cannot be deleted
+                  {t("defaultServiceHint")}
                 </p>
               )}
             </div>
@@ -105,7 +96,7 @@ export function ServiceList({
                 onClick={() => {
                   setEditingService(service);
                   setName(service.name);
-                  loadEscoData();
+                  setDescription(service.description);
                 }}
               >
                 <Pencil className="size-4" />
@@ -130,37 +121,63 @@ export function ServiceList({
         onClick={() => {
           setCreateOpen(true);
           setName("");
-          loadEscoData();
+          setDescription(undefined);
         }}
       >
         <Plus className="size-4 mr-2" />
-        Add a service
+        {t("addService")}
       </Button>
 
       <Dialog open={createOpen} onOpenChange={setCreateOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Create a service</DialogTitle>
-            <DialogDescription>
-              A service represents an activity or offering provided by your
-              organization.
-            </DialogDescription>
+            <DialogTitle>{t("createTitle")}</DialogTitle>
+            <DialogDescription>{t("createDescription")}</DialogDescription>
           </DialogHeader>
-          <div className="flex flex-col gap-2">
-            <Label>Occupation</Label>
-            {categories ? (
-              <OccupationSelect
-                categories={categories}
-                locale={locale}
-                onChange={(_id, label) => setName(label)}
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="service-name">{t("name")}</Label>
+              <Input
+                id="service-name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder={t("namePlaceholder")}
               />
+            </div>
+            {description !== undefined ? (
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center justify-between">
+                  <Label>{t("description")}</Label>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="size-6"
+                    onClick={() => setDescription(undefined)}
+                  >
+                    <X className="size-3.5" />
+                  </Button>
+                </div>
+                <Tiptap
+                  content={description}
+                  onUpdate={(html) => setDescription(html)}
+                  className="w-full h-fit min-h-[60px] prose prose-sm"
+                />
+              </div>
             ) : (
-              <p className="text-sm text-muted-foreground">Loading...</p>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setDescription("")}
+              >
+                <FileText className="size-4 mr-2" />
+                {t("addDescription")}
+              </Button>
             )}
           </div>
           <DialogFooter>
             <Button onClick={handleCreate} disabled={loading || !name.trim()}>
-              {loading ? "Creating..." : "Create"}
+              {loading ? t("creating") : t("create")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -169,29 +186,60 @@ export function ServiceList({
       <Dialog
         open={!!editingService}
         onOpenChange={(open) => {
-          if (!open) setEditingService(null);
+          if (!open) {
+            setEditingService(null);
+            setDescription(undefined);
+          }
         }}
       >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Edit service</DialogTitle>
-            <DialogDescription>Update the service name.</DialogDescription>
+            <DialogTitle>{t("editTitle")}</DialogTitle>
+            <DialogDescription>{t("editDescription")}</DialogDescription>
           </DialogHeader>
-          <div className="flex flex-col gap-2">
-            <Label>Occupation</Label>
-            {categories ? (
-              <OccupationSelect
-                categories={categories}
-                locale={locale}
-                onChange={(_id, label) => setName(label)}
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="edit-service-name">{t("name")}</Label>
+              <Input
+                id="edit-service-name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
+            </div>
+            {description !== undefined ? (
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center justify-between">
+                  <Label>{t("description")}</Label>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="size-6"
+                    onClick={() => setDescription(undefined)}
+                  >
+                    <X className="size-3.5" />
+                  </Button>
+                </div>
+                <Tiptap
+                  content={description}
+                  onUpdate={(html) => setDescription(html)}
+                  className="w-full h-fit min-h-[60px] prose prose-sm"
+                />
+              </div>
             ) : (
-              <p className="text-sm text-muted-foreground">Loading...</p>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setDescription("")}
+              >
+                <FileText className="size-4 mr-2" />
+                {t("addDescription")}
+              </Button>
             )}
           </div>
           <DialogFooter>
             <Button onClick={handleUpdate} disabled={loading || !name.trim()}>
-              {loading ? "Saving..." : "Save"}
+              {loading ? t("saving") : t("save")}
             </Button>
           </DialogFooter>
         </DialogContent>

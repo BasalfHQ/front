@@ -10,7 +10,7 @@ import {
   Button,
 } from "@repo/ui";
 import { X } from "@repo/ui/icons";
-import type { BookingCategory } from "./actions";
+import type { BookingCategory } from "./types";
 
 interface OccupationSelectProps {
   categories: BookingCategory[];

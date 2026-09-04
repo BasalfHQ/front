@@ -1,4 +1,4 @@
-import { client, Slot, SlotRepeatInterval, Service } from ".";
+import { client, Slot, SlotRepeatInterval, Service, ServiceProvider } from ".";
 import { headers } from "../utils";
 
 export async function getServices(idToken: string): Promise<Service[]> {
@@ -14,9 +14,10 @@ export async function getServices(idToken: string): Promise<Service[]> {
 export async function createService(
   idToken: string,
   name: string,
+  description?: string,
 ): Promise<Service | null> {
   const response = await client.POST("/service", {
-    body: { name },
+    body: { name, description },
     headers: headers({ idToken }),
   });
   if (response.response.status !== 200) {
@@ -29,10 +30,11 @@ export async function updateService(
   idToken: string,
   serviceId: string,
   name: string,
+  description?: string,
 ) {
   const response = await client.PATCH("/service/{serviceId}", {
     params: { path: { serviceId } },
-    body: { name },
+    body: { name, description },
     headers: headers({ idToken }),
   });
   if (response.response.status !== 200) {
@@ -309,6 +311,62 @@ export async function getSlotToken(idToken: string) {
     console.log(response);
     console.log(response.data);
     throw new Error("Failed to get slot token");
+  }
+  return response.data;
+}
+
+export async function getServiceProviders(
+  idToken: string,
+): Promise<ServiceProvider[]> {
+  const response = await client.GET("/service-provider", {
+    headers: headers({ idToken }),
+  });
+  if (response.response.status !== 200) {
+    throw new Error("Failed to get service providers");
+  }
+  return response.data ?? [];
+}
+
+export async function createServiceProvider(
+  idToken: string,
+  body: { firstName: string; lastName: string; occupationId: string; email?: string; description?: string },
+): Promise<ServiceProvider | null> {
+  const response = await client.POST("/service-provider", {
+    body,
+    headers: headers({ idToken }),
+  });
+  if (response.response.status !== 200) {
+    throw new Error("Failed to create service provider");
+  }
+  return response.data ?? null;
+}
+
+export async function updateServiceProvider(
+  idToken: string,
+  serviceProviderId: string,
+  body: { firstName: string; lastName: string; occupationId: string; email?: string; description?: string },
+) {
+  const response = await client.PATCH("/service-provider/{serviceProviderId}", {
+    params: { path: { serviceProviderId } },
+    body,
+    headers: headers({ idToken }),
+  });
+  if (response.response.status !== 200) {
+    throw new Error("Failed to update service provider");
+  }
+  return response.data;
+}
+
+export async function deleteServiceProvider(
+  idToken: string,
+  serviceProviderId: string,
+) {
+  const response = await client.DELETE("/service-provider/{serviceProviderId}", {
+    params: { path: { serviceProviderId } },
+    headers: headers({ idToken }),
+  });
+  if (response.response.status !== 200) {
+    throw new Error("Failed to delete service provider");
   }
   return response.data;
 }

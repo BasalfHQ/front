@@ -6,6 +6,7 @@ import {
   createOrganization as apiCreateOrganization,
   updateOrganization as apiUpdateOrganization,
   type Organization,
+  type Address,
 } from "@repo/apis";
 import { revalidatePath } from "next/cache";
 
@@ -24,6 +25,8 @@ export async function createOrganization(
   timezone: string,
   email: string,
   language: string,
+  address?: Address,
+  isOnBookWebsite?: boolean,
 ): Promise<{ success: boolean; organization?: Organization; error?: string }> {
   const session = await auth();
 
@@ -37,6 +40,8 @@ export async function createOrganization(
     email,
     language,
     session.idToken,
+    address,
+    isOnBookWebsite,
   );
 
   if (org) {

@@ -9,7 +9,9 @@
       "@repo/auth-ui": ["../../packages/auth-ui/src"],
       "@repo/config": ["../../packages/config/src"],
       "@repo/ui": ["../../packages/ui/src"],
-      "@repo/ui/*": ["../../packages/ui/src/*"]
+      "@repo/ui/*": ["../../packages/ui/src/*"],
+      "@repo/esco": ["../../packages/esco/src"],
+      "@repo/esco/*": ["../../packages/esco/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

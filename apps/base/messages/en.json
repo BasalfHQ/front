@@ -42,7 +42,14 @@
     "editDescription": "Update the organization details.",
     "saving": "Saving...",
     "save": "Save",
-    "updateFailed": "Failed to update organization"
+    "updateFailed": "Failed to update organization",
+    "address": "Address",
+    "streetAddress": "Street",
+    "streetNumber": "Number",
+    "addressLocality": "City",
+    "postalCode": "Postal code",
+    "addressCountry": "Country",
+    "isOnBookWebsite": "Display on booking website"
   },
   "homepage": {
     "title": "Welcome to Basalf",

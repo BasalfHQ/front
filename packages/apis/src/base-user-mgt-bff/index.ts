@@ -3,6 +3,7 @@ import { paths, components } from "./types";
 import { env } from "@repo/config";
 
 export type Organization = components["schemas"]["Organization"];
+export type Address = components["schemas"]["Address"];
 export type User = components["schemas"]["User"];
 
 export const client = createClient<paths>({

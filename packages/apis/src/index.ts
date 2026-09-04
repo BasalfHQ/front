@@ -59,10 +59,15 @@ export {
   createService,
   updateService,
   deleteService,
+  getServiceProviders,
+  createServiceProvider,
+  updateServiceProvider,
+  deleteServiceProvider,
 } from "./slot-mgt-bff/api";
 export type {
   Slot,
   SlotRepeatInterval,
   Booking,
   Service,
+  ServiceProvider,
 } from "./slot-mgt-bff";

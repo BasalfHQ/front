@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
+  Checkbox,
   Input,
   Label,
   toast,
@@ -22,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@repo/ui/components/select";
-import { Pencil } from "@repo/ui/icons";
+import { Globe, Pencil } from "@repo/ui/icons";
 import { updateOrganization } from "../actions";
 import { LANGUAGES } from "../languages";
 import { TIMEZONES } from "../timezones";
@@ -34,10 +35,24 @@ export function OrgList({ organizations }: { organizations: Organization[] }) {
   const [email, setEmail] = useState("");
   const [timezone, setTimezone] = useState("");
   const [language, setLanguage] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [streetNumber, setStreetNumber] = useState("");
+  const [addressLocality, setAddressLocality] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [addressCountry, setAddressCountry] = useState("");
+  const [isOnBookWebsite, setIsOnBookWebsite] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const isValid =
+    name.trim() &&
+    email.trim() &&
+    streetAddress.trim() &&
+    addressLocality.trim() &&
+    postalCode.trim() &&
+    addressCountry.trim();
+
   const handleUpdate = async () => {
-    if (!editingOrg || !name.trim() || !email.trim()) return;
+    if (!editingOrg || !isValid) return;
     setLoading(true);
     try {
       const result = await updateOrganization({
@@ -45,7 +60,15 @@ export function OrgList({ organizations }: { organizations: Organization[] }) {
         name: name.trim(),
         email: email.trim(),
         timezone,
+        isOnBookWebsite,
         ...(language && { language }),
+        address: {
+          streetAddress: streetAddress.trim(),
+          streetNumber: streetNumber.trim() || undefined,
+          addressLocality: addressLocality.trim(),
+          postalCode: postalCode.trim(),
+          addressCountry: addressCountry.trim(),
+        },
       });
       if (result.success) {
         setEditingOrg(null);
@@ -89,7 +112,11 @@ export function OrgList({ organizations }: { organizations: Organization[] }) {
                   </span>
                 )}
               </div>
-              <Button
+              <div className="flex items-center gap-1">
+                <Globe
+                  className={`size-4 ${org.isOnBookWebsite ? "text-green-500" : "text-gray-300"}`}
+                />
+                <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => {
@@ -98,10 +125,17 @@ export function OrgList({ organizations }: { organizations: Organization[] }) {
                   setEmail(org.email ?? "");
                   setTimezone(org.timezone);
                   setLanguage(org.language ?? "");
+                  setStreetAddress(org.address?.streetAddress ?? "");
+                  setStreetNumber(org.address?.streetNumber ?? "");
+                  setAddressLocality(org.address?.addressLocality ?? "");
+                  setPostalCode(org.address?.postalCode ?? "");
+                  setAddressCountry(org.address?.addressCountry ?? "");
+                  setIsOnBookWebsite(org.isOnBookWebsite);
                 }}
               >
                 <Pencil className="size-4" />
               </Button>
+              </div>
             </li>
           ))}
         </ul>
@@ -168,12 +202,76 @@ export function OrgList({ organizations }: { organizations: Organization[] }) {
                 </SelectContent>
               </Select>
             </div>
+            <fieldset className="space-y-3">
+              <Label className="text-base font-medium">{t("address")}</Label>
+              <div className="grid grid-cols-3 gap-3">
+                <div className="space-y-2">
+                  <Label htmlFor="edit-street-number">
+                    {t("streetNumber")}
+                  </Label>
+                  <Input
+                    id="edit-street-number"
+                    value={streetNumber}
+                    onChange={(e) => setStreetNumber(e.target.value)}
+                  />
+                </div>
+                <div className="col-span-2 space-y-2">
+                  <Label htmlFor="edit-street-address">
+                    {t("streetAddress")}
+                  </Label>
+                  <Input
+                    id="edit-street-address"
+                    value={streetAddress}
+                    onChange={(e) => setStreetAddress(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-3">
+                <div className="space-y-2">
+                  <Label htmlFor="edit-postal-code">{t("postalCode")}</Label>
+                  <Input
+                    id="edit-postal-code"
+                    value={postalCode}
+                    onChange={(e) => setPostalCode(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="edit-city">{t("addressLocality")}</Label>
+                  <Input
+                    id="edit-city"
+                    value={addressLocality}
+                    onChange={(e) => setAddressLocality(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="edit-country">{t("addressCountry")}</Label>
+                  <Input
+                    id="edit-country"
+                    value={addressCountry}
+                    onChange={(e) => setAddressCountry(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+            </fieldset>
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="edit-is-on-book-website"
+                checked={isOnBookWebsite}
+                onCheckedChange={(checked) =>
+                  setIsOnBookWebsite(checked === true)
+                }
+              />
+              <Label htmlFor="edit-is-on-book-website">
+                {t("isOnBookWebsite")}
+              </Label>
+            </div>
           </div>
           <DialogFooter>
-            <Button
-              onClick={handleUpdate}
-              disabled={loading || !name.trim() || !email.trim()}
-            >
+            <Button onClick={handleUpdate} disabled={loading || !isValid}>
               {loading ? t("saving") : t("save")}
             </Button>
           </DialogFooter>

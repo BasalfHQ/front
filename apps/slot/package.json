@@ -17,6 +17,7 @@
     "@fullcalendar/timegrid": "6",
     "@repo/apis": "workspace:*",
     "@repo/auth-ui": "workspace:*",
+    "@repo/esco": "workspace:*",
     "@repo/config": "workspace:*",
     "@repo/i18n": "workspace:*",
     "@repo/ui": "workspace:*",

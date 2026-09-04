@@ -115,8 +115,11 @@ export interface paths {
                     "application/json": {
                         name: string;
                         timezone: string;
-                        email?: string;
                         language?: string;
+                        email?: string;
+                        /** @default false */
+                        isOnBookWebsite?: boolean;
+                        address?: components["schemas"]["Address"];
                     };
                 };
             };
@@ -458,8 +461,18 @@ export interface components {
             organizationId: string;
             name: string;
             timezone: string;
-            email?: string;
             language?: string;
+            email?: string;
+            /** @default false */
+            isOnBookWebsite: boolean;
+            address?: components["schemas"]["Address"];
+        };
+        Address: {
+            streetAddress?: string;
+            streetNumber?: string;
+            addressLocality?: string;
+            postalCode?: string;
+            addressCountry?: string;
         };
         User: {
             organizationId: string;

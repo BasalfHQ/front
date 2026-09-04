@@ -42,7 +42,14 @@
     "editDescription": "Modifier les détails de l'organisation.",
     "saving": "Enregistrement...",
     "save": "Enregistrer",
-    "updateFailed": "Échec de la mise à jour de l'organisation"
+    "updateFailed": "Échec de la mise à jour de l'organisation",
+    "address": "Adresse",
+    "streetAddress": "Rue",
+    "streetNumber": "Numéro",
+    "addressLocality": "Ville",
+    "postalCode": "Code postal",
+    "addressCountry": "Pays",
+    "isOnBookWebsite": "Afficher sur le site de réservation"
   },
   "homepage": {
     "title": "Bienvenue sur Basalf",
