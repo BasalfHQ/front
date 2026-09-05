@@ -20,7 +20,7 @@ export async function CalendarSubscription() {
   }
 
   const orgId = session.user.currentOrganization;
-  const subscriptionUrl = `${slotBaseUrl}/api/calendar/${orgId}`;
+  const subscriptionUrl = `${slotBaseUrl.replace(/\/$/, "")}/api/calendar/${orgId}`;
 
   return (
     <div className="container mx-auto max-w-2xl py-8 px-4">

@@ -169,7 +169,9 @@
       "step1": "Open the Calendar app on your Mac or iPhone.",
       "step2": "Go to File > New Calendar Subscription (Mac) or Settings > Calendar > Accounts > Add Account > Other > Add Subscribed Calendar (iPhone).",
       "step3": "Paste the subscription URL above.",
-      "step4": "Click Subscribe. Choose your refresh frequency and you're done."
+      "step4": "Leave username and password empty — no login is required.",
+      "step5": "If prompted about SSL, disable it (the feed does not require SSL authentication).",
+      "step6": "Click Subscribe. Choose your refresh frequency and you're done."
     }
   },
   "token": {
