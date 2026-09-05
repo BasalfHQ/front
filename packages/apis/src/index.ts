@@ -71,3 +71,5 @@ export type {
   Service,
   ServiceProvider,
 } from "./slot-mgt-bff";
+
+export * as Book from "./book-mgt-bff";

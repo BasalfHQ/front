@@ -16,6 +16,7 @@ export enum EnvVar {
   HOST_MGT_BFF_URL = "HOST_MGT_BFF_URL",
   SLOT_MGT_BFF_URL = "SLOT_MGT_BFF_URL",
   SLOT_MGT_BFF_LIB_URL = "SLOT_MGT_BFF_LIB_URL",
+  BOOK_MGT_BFF_URL = "BOOK_MGT_BFF_URL",
 }
 
 const STAGE = (process.env.NEXT_PUBLIC_STAGE as Stage) || Stage.DEV;
@@ -52,6 +53,7 @@ export const env = {
     cmsMgtBffUrl: () => getEnv(EnvVar.CMS_MGT_BFF_URL),
     hostMgtBffUrl: () => getEnv(EnvVar.HOST_MGT_BFF_URL),
     slotMgtBffUrl: () => getEnv(EnvVar.SLOT_MGT_BFF_URL),
+    bookMgtBffUrl: () => getEnv(EnvVar.BOOK_MGT_BFF_URL),
   },
 };
 
