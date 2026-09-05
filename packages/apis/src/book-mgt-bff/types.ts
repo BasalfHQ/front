@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/booking/range/{startDate}/{endDate}/{serviceId}": {
+    "/booking/range/{organizationId}/{startDate}/{endDate}/{serviceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -16,6 +16,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
+                    organizationId: string;
                     startDate: string;
                     endDate: string;
                     serviceId: string;
@@ -54,7 +55,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/booking": {
+    "/booking/{organizationId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -67,7 +68,9 @@ export interface paths {
             parameters: {
                 query?: never;
                 header?: never;
-                path?: never;
+                path: {
+                    organizationId: string;
+                };
                 cookie?: never;
             };
             requestBody?: {
@@ -129,7 +132,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/service": {
+    "/service/{organizationId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -140,7 +143,9 @@ export interface paths {
             parameters: {
                 query?: never;
                 header?: never;
-                path?: never;
+                path: {
+                    organizationId: string;
+                };
                 cookie?: never;
             };
             requestBody?: never;
@@ -154,8 +159,82 @@ export interface paths {
                         "application/json": components["schemas"]["Service"][];
                     };
                 };
-                /** @description Bad request */
-                400: {
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/service-provider/{organizationId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    organizationId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description List all service providers */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ServiceProvider"][];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/organization/{organizationId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    organizationId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Get organization info */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Organization"];
+                    };
+                };
+                /** @description Organization not found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -175,7 +254,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/service-provider": {
+    "/organization": {
         parameters: {
             query?: never;
             header?: never;
@@ -191,24 +270,13 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description List all service providers */
+                /** @description Get all orgs */
                 200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["ServiceProvider"][];
-                    };
-                };
-                /** @description Bad request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            message: string;
-                        };
+                        "application/json": components["schemas"]["Organization"][];
                     };
                 };
             };
@@ -221,7 +289,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/slots/{startDate}/{endDate}/{serviceId}": {
+    "/slots/{organizationId}/{startDate}/{endDate}/{serviceId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -233,6 +301,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
+                    organizationId: string;
                     startDate: string;
                     endDate: string;
                     serviceId: string;
@@ -248,17 +317,6 @@ export interface paths {
                     };
                     content: {
                         "application/json": components["schemas"]["Slot"][];
-                    };
-                };
-                /** @description Bad request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            message: string;
-                        };
                     };
                 };
             };
@@ -303,6 +361,20 @@ export interface components {
             occupationId: string;
             email?: string;
             description?: string;
+        };
+        Organization: {
+            organizationId: string;
+            name: string;
+            timezone: string;
+            isOnBookWebsite: boolean;
+            address?: components["schemas"]["Address"];
+        };
+        Address: {
+            streetAddress?: string;
+            streetNumber?: string;
+            addressLocality?: string;
+            postalCode?: string;
+            addressCountry?: string;
         };
         Slot: {
             slotId: string;

@@ -4,6 +4,7 @@
     "description": "Ce module permet de gérer les slots et réservations de votre site.",
     "loginRequired": "Connectez-vous pour gérer vos services et créneaux.",
     "login": "Se connecter",
+    "calendarSubscription": "Synchroniser les réservations avec votre calendrier",
     "serviceProvider": {
       "title": "Profil du prestataire",
       "description": "C'est ce que vos clients verront lorsqu'ils réservent. Votre nom, métier et coordonnées inspirent confiance et permettent aux clients de savoir avec qui ils ont rendez-vous.",
@@ -46,6 +47,7 @@
     "slots": "Créneaux",
     "reservations": "Réservations",
     "home": "Accueil",
+    "calendar": "Calendrier",
     "token": "Vos clés d'accès"
   },
   "slots": {
@@ -144,6 +146,28 @@
       "confirmReschedule": "Confirmer",
       "rescheduleSuccess": "Réservation reprogrammée.",
       "rescheduleError": "Erreur lors de la reprogrammation."
+    }
+  },
+  "calendar": {
+    "title": "Abonnement calendrier",
+    "description": "Abonnez-vous au calendrier de vos réservations pour les voir directement dans votre application de calendrier préférée.",
+    "subscriptionUrl": "URL d'abonnement",
+    "copy": "Copier",
+    "copied": "Copié !",
+    "google": {
+      "title": "Google Agenda",
+      "step1": "Ouvrez Google Agenda sur votre ordinateur.",
+      "step2": "À gauche, à côté de « Autres agendas », cliquez sur l'icône +.",
+      "step3": "Sélectionnez « À partir de l'URL ».",
+      "step4": "Collez l'URL d'abonnement ci-dessus.",
+      "step5": "Cliquez sur « Ajouter l'agenda ». Les événements se synchroniseront automatiquement."
+    },
+    "apple": {
+      "title": "Calendrier Apple",
+      "step1": "Ouvrez l'app Calendrier sur votre Mac ou iPhone.",
+      "step2": "Allez dans Fichier > Nouvel abonnement à un calendrier (Mac) ou Réglages > Calendrier > Comptes > Ajouter un compte > Autre > Ajouter un calendrier avec abonnement (iPhone).",
+      "step3": "Collez l'URL d'abonnement ci-dessus.",
+      "step4": "Cliquez sur S'abonner. Choisissez la fréquence de rafraîchissement et c'est terminé."
     }
   },
   "token": {

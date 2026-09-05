@@ -30,7 +30,7 @@ export function NavAuthSlot({ isLoggedIn, organizations }: NavAuthSlotProps) {
     if (response.ok) {
       const { tokens } = await response.json();
       await update(tokens);
-      window.location.reload();
+      router.refresh();
     }
   };
 

@@ -4,6 +4,7 @@
     "description": "This module allows you to manage slots and reservations on your site.",
     "loginRequired": "Sign in to manage your services and slots.",
     "login": "Sign in",
+    "calendarSubscription": "Sync bookings with your calendar",
     "serviceProvider": {
       "title": "Service provider profile",
       "description": "This is who your clients will see when they book. Your name, occupation and contact info help build trust and let clients know who they'll be meeting with.",
@@ -46,6 +47,7 @@
     "slots": "Slots",
     "reservations": "Reservations",
     "home": "Home",
+    "calendar": "Calendar",
     "token": "Your access keys"
   },
   "slots": {
@@ -146,6 +148,28 @@
       "confirmReschedule": "Confirm reschedule",
       "rescheduleSuccess": "Reservation rescheduled.",
       "rescheduleError": "Failed to reschedule reservation."
+    }
+  },
+  "calendar": {
+    "title": "Calendar subscription",
+    "description": "Subscribe to your bookings calendar to see all reservations directly in your favorite calendar app.",
+    "subscriptionUrl": "Subscription URL",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "google": {
+      "title": "Google Calendar",
+      "step1": "Open Google Calendar on your computer.",
+      "step2": "On the left, next to \"Other calendars\", click the + icon.",
+      "step3": "Select \"From URL\".",
+      "step4": "Paste the subscription URL above.",
+      "step5": "Click \"Add calendar\". Events will sync automatically."
+    },
+    "apple": {
+      "title": "Apple Calendar",
+      "step1": "Open the Calendar app on your Mac or iPhone.",
+      "step2": "Go to File > New Calendar Subscription (Mac) or Settings > Calendar > Accounts > Add Account > Other > Add Subscribed Calendar (iPhone).",
+      "step3": "Paste the subscription URL above.",
+      "step4": "Click Subscribe. Choose your refresh frequency and you're done."
     }
   },
   "token": {

@@ -94,6 +94,7 @@ export function EditSlot({
         slotId: slot.slotId,
         serviceId: slot.serviceId,
         maxCapacity: slot.maxCapacity,
+        usedCapacity: slot.usedCapacity,
         startDate: slot.startDate,
         endDate: slot.endDate,
       });

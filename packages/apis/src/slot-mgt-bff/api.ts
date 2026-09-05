@@ -136,6 +136,7 @@ export async function updateSlot(
     slotId: string;
     serviceId: string;
     maxCapacity: number;
+    usedCapacity: number;
     startDate: string;
     endDate: string;
   },
@@ -313,6 +314,17 @@ export async function getSlotToken(idToken: string) {
     throw new Error("Failed to get slot token");
   }
   return response.data;
+}
+
+export async function getCalendarSubscription(organizationId: string): Promise<string | null> {
+  const response = await client.GET("/booking/calendar-subscription-url/{organizationId}", {
+    params: { path: { organizationId } },
+    parseAs: "text",
+  });
+  if (response.response.status !== 200) {
+    return null;
+  }
+  return response.data as string ?? null;
 }
 
 export async function getServiceProviders(

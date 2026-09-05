@@ -41,6 +41,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         { label: t("home"), href: "/" },
         { label: t("slots"), href: "/slots", authOnly: true },
         { label: t("reservations"), href: "/reservations", authOnly: true },
+        { label: t("calendar"), href: "/calendar", authOnly: true },
         { label: t("token"), href: "/token", authOnly: true },
       ]}
     >

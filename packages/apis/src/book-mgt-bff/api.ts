@@ -1,11 +1,32 @@
-import { client, Booking, Service, ServiceProvider, Slot } from ".";
-import { headers } from "../utils";
+import {
+  client,
+  Booking,
+  Service,
+  ServiceProvider,
+  Organization,
+  Slot,
+} from ".";
 
-export async function getServices(
-  idToken: string,
-): Promise<Service[]> {
-  const response = await client.GET("/service", {
-    headers: headers({ idToken }),
+export async function getOrganizations(): Promise<Organization[]> {
+  const response = await client.GET("/organization");
+  if (response.response.status !== 200) {
+    throw new Error("Failed to get organizations");
+  }
+  return response.data ?? [];
+}
+
+export async function getOrganization(
+  organizationId: string,
+): Promise<Organization | undefined> {
+  const response = await client.GET("/organization/{organizationId}", {
+    params: { path: { organizationId } },
+  });
+  return response.data;
+}
+
+export async function getServices(organizationId: string): Promise<Service[]> {
+  const response = await client.GET("/service/{organizationId}", {
+    params: { path: { organizationId } },
   });
   if (response.response.status !== 200) {
     throw new Error("Failed to get services");
@@ -14,10 +35,10 @@ export async function getServices(
 }
 
 export async function getServiceProviders(
-  idToken: string,
+  organizationId: string,
 ): Promise<ServiceProvider[]> {
-  const response = await client.GET("/service-provider", {
-    headers: headers({ idToken }),
+  const response = await client.GET("/service-provider/{organizationId}", {
+    params: { path: { organizationId } },
   });
   if (response.response.status !== 200) {
     throw new Error("Failed to get service providers");
@@ -26,18 +47,17 @@ export async function getServiceProviders(
 }
 
 export async function getSlots(
-  idToken: string,
+  organizationId: string,
   startDate: string,
   endDate: string,
   serviceId: string = "all",
 ): Promise<Slot[]> {
   const response = await client.GET(
-    "/slots/{startDate}/{endDate}/{serviceId}",
+    "/slots/{organizationId}/{startDate}/{endDate}/{serviceId}",
     {
       params: {
-        path: { startDate, endDate, serviceId },
+        path: { organizationId, startDate, endDate, serviceId },
       },
-      headers: headers({ idToken }),
     },
   );
   if (response.response.status !== 200) {
@@ -47,18 +67,17 @@ export async function getSlots(
 }
 
 export async function getBookings(
-  idToken: string,
+  organizationId: string,
   startDate: string,
   endDate: string,
   serviceId: string = "all",
 ): Promise<Booking[]> {
   const response = await client.GET(
-    "/booking/range/{startDate}/{endDate}/{serviceId}",
+    "/booking/range/{organizationId}/{startDate}/{endDate}/{serviceId}",
     {
       params: {
-        path: { startDate, endDate, serviceId },
+        path: { organizationId, startDate, endDate, serviceId },
       },
-      headers: headers({ idToken }),
     },
   );
   if (response.response.status !== 200) {
@@ -68,7 +87,7 @@ export async function getBookings(
 }
 
 export async function createBooking(
-  idToken: string,
+  organizationId: string,
   booking: {
     serviceId: string;
     slotId?: string;
@@ -82,9 +101,9 @@ export async function createBooking(
     numberOfPerson: number;
   },
 ) {
-  const response = await client.POST("/booking", {
+  const response = await client.POST("/booking/{organizationId}", {
+    params: { path: { organizationId } },
     body: booking,
-    headers: headers({ idToken }),
   });
   if (response.response.status !== 200) {
     throw new Error("Failed to create booking");

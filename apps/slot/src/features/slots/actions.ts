@@ -71,6 +71,7 @@ export async function updateSlot(slot: {
   slotId: string;
   serviceId: string;
   maxCapacity: number;
+  usedCapacity: number;
   startDate: string;
   endDate: string;
 }) {

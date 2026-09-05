@@ -63,6 +63,7 @@ export {
   createServiceProvider,
   updateServiceProvider,
   deleteServiceProvider,
+  getCalendarSubscription,
 } from "./slot-mgt-bff/api";
 export type {
   Slot,
