@@ -162,12 +162,20 @@
       "step4": "Collez l'URL d'abonnement ci-dessus.",
       "step5": "Cliquez sur « Ajouter l'agenda ». Les événements se synchroniseront automatiquement."
     },
-    "apple": {
-      "title": "Calendrier Apple",
-      "step1": "Ouvrez l'app Calendrier sur votre Mac ou iPhone.",
-      "step2": "Allez dans Fichier > Nouvel abonnement à un calendrier (Mac) ou Réglages > Calendrier > Comptes > Ajouter un compte > Autre > Ajouter un calendrier avec abonnement (iPhone).",
+    "iphone": {
+      "title": "iPhone / iPad",
+      "step1": "Allez dans Réglages > Calendrier > Comptes > Ajouter un compte.",
+      "step2": "Sélectionnez « Autre », puis « Ajouter un calendrier avec abonnement ».",
       "step3": "Collez l'URL d'abonnement ci-dessus.",
-      "step4": "Cliquez sur S'abonner. Choisissez la fréquence de rafraîchissement et c'est terminé."
+      "step4": "Laissez le nom d'utilisateur et le mot de passe vides — aucune connexion n'est requise.",
+      "step5": "Si « Impossible de vérifier les informations du compte » ou une erreur SSL apparaît, désactivez SSL et appuyez sur Suivant."
+    },
+    "mac": {
+      "title": "Mac",
+      "step1": "Ouvrez l'app Calendrier.",
+      "step2": "Allez dans Fichier > Nouvel abonnement à un calendrier.",
+      "step3": "Collez l'URL d'abonnement ci-dessus et cliquez sur S'abonner.",
+      "step4": "Laissez le nom d'utilisateur et le mot de passe vides, choisissez la fréquence de rafraîchissement et cliquez sur OK."
     }
   },
   "token": {

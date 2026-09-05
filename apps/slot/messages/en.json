@@ -164,14 +164,20 @@
       "step4": "Paste the subscription URL above.",
       "step5": "Click \"Add calendar\". Events will sync automatically."
     },
-    "apple": {
-      "title": "Apple Calendar",
-      "step1": "Open the Calendar app on your Mac or iPhone.",
-      "step2": "Go to File > New Calendar Subscription (Mac) or Settings > Calendar > Accounts > Add Account > Other > Add Subscribed Calendar (iPhone).",
+    "iphone": {
+      "title": "iPhone / iPad",
+      "step1": "Go to Settings > Calendar > Accounts > Add Account.",
+      "step2": "Select \"Other\", then \"Add Subscribed Calendar\".",
       "step3": "Paste the subscription URL above.",
       "step4": "Leave username and password empty — no login is required.",
-      "step5": "If prompted about SSL, disable it (the feed does not require SSL authentication).",
-      "step6": "Click Subscribe. Choose your refresh frequency and you're done."
+      "step5": "If you see \"Unable to verify account information\" or an SSL error, disable SSL and tap Next."
+    },
+    "mac": {
+      "title": "Mac",
+      "step1": "Open the Calendar app.",
+      "step2": "Go to File > New Calendar Subscription.",
+      "step3": "Paste the subscription URL above and click Subscribe.",
+      "step4": "Leave username and password empty, choose your refresh frequency, and click OK."
     }
   },
   "token": {
