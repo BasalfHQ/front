@@ -96,7 +96,7 @@ export default async function Home({
           return 0;
         })
         .map(({ service, slots: serviceSlots }) => {
-          const defaultPattern = `${orgId}- Service`;
+          const defaultPattern = `${org.name} Service`;
           const serviceName =
             service.name === defaultPattern
               ? (getOccupationLabel(

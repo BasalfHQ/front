@@ -10,8 +10,12 @@ import {
 export async function getOrganizations(): Promise<Organization[]> {
   const response = await client.GET("/organization");
   if (response.response.status !== 200) {
+    console.error(response.response.status);
+    console.error(response.response.statusText);
+    console.error(response.error);
     throw new Error("Failed to get organizations");
   }
+  console.log(response.data);
   return response.data ?? [];
 }
 
