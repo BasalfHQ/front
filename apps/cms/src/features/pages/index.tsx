@@ -6,7 +6,7 @@ import {
 } from "@repo/i18n";
 import { auth, Button } from "@repo/auth-ui";
 import { baseUrl } from "@repo/config";
-import { AllPages, getLocales, getPages } from "@repo/apis";
+import { Cms } from "@repo/apis";
 import { LocalesModale } from "./components/locale-modale";
 import { Badge, PageTitle } from "@repo/ui";
 import { CreatePageWithAIButton } from "./components/create-page-with-ai";
@@ -26,8 +26,8 @@ export async function Pages({
   }
 
   const [pages, locales] = await Promise.all([
-    getPages(session.idToken),
-    getLocales(session.idToken),
+    Cms.getPages(session.idToken),
+    Cms.getLocales(session.idToken),
   ]);
 
   return (
@@ -56,7 +56,7 @@ export async function Pages({
   );
 }
 
-function PageItem({ page }: { page: AllPages[number] }) {
+function PageItem({ page }: { page: Cms.AllPages[number] }) {
   return (
     <Link
       href={`/pages/${page.pageId}`}

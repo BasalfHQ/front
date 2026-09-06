@@ -6,10 +6,10 @@ import { Upload, X } from "@repo/ui/icons";
 import { Button, Progress } from "@repo/ui";
 import { cn } from "@repo/ui/lib/utils";
 
-import type { UploadUrl } from "@repo/apis";
+import { Host } from "@repo/apis";
 
 type Props = {
-  uploadUrl: UploadUrl;
+  uploadUrl: Host.UploadUrl;
   className?: string;
   onSuccess?: () => void;
   onError?: (error: Error) => void;

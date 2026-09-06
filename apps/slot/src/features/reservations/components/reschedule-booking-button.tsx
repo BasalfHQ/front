@@ -1,6 +1,6 @@
 "use client";
 
-import { Booking, Slot } from "@repo/apis";
+import { Slot } from "@repo/apis";
 import { useEffect, useState } from "react";
 import {
   Button,
@@ -21,14 +21,14 @@ import { addMonths, format, isSameDay, parseISO } from "date-fns";
 import { fr } from "date-fns/locale/fr";
 import { enUS } from "date-fns/locale/en-US";
 
-export function RescheduleBookingButton({ booking }: { booking: Booking }) {
+export function RescheduleBookingButton({ booking }: { booking: Slot.Booking }) {
   const t = useTranslations("reservations.detail");
   const locale = useLocale();
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [slots, setSlots] = useState<Slot[]>([]);
+  const [slots, setSlots] = useState<Slot.Slot[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
-  const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
+  const [selectedSlot, setSelectedSlot] = useState<Slot.Slot | null>(null);
   const [month, setMonth] = useState(new Date());
   const router = useRouter();
 

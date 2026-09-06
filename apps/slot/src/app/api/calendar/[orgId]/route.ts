@@ -1,4 +1,4 @@
-import { getCalendarSubscription } from "@repo/apis";
+import { Slot } from "@repo/apis";
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -6,7 +6,7 @@ export async function GET(
   { params }: { params: Promise<{ orgId: string }> },
 ) {
   const { orgId } = await params;
-  const ics = await getCalendarSubscription(orgId);
+  const ics = await Slot.getCalendarSubscription(orgId);
 
   if (!ics) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });

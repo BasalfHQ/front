@@ -13,13 +13,13 @@ import {
 } from "@repo/ui";
 import { Check, Loader2, Pencil, Search } from "@repo/ui/icons";
 import { useEffect, useState } from "react";
-import { Website } from "@repo/apis";
+import { Host } from "@repo/apis";
 import {
   changeDomain as changeDomainAction,
   checkDomainAvailability as checkDomainAvailabilityAction,
 } from "../actions";
 
-export function ChangeDomain({ website }: { website: Website }) {
+export function ChangeDomain({ website }: { website: Host.Website }) {
   const t = useTranslations("homepage");
   const [isOpen, setIsOpen] = useState(false);
   const [newDomain, setNewDomain] = useState("");

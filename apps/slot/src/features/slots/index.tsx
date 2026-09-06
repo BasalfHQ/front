@@ -4,7 +4,7 @@ import { PageDescription, PageTitle } from "@repo/ui";
 import { SlotCalendar } from "./components/calendar";
 import { QueryProvider } from "@repo/ui";
 import { getSlots } from "./actions";
-import { getServices } from "@repo/apis";
+import { Slot } from "@repo/apis";
 import { addWeeks } from "date-fns";
 import { buildServiceColorMap } from "./service-colors";
 
@@ -24,7 +24,7 @@ export default async function Slots({
   const now = new Date();
   const [initialSlots, services] = await Promise.all([
     getSlots(now.toISOString(), addWeeks(now, 1).toISOString()),
-    getServices(session.idToken),
+    Slot.getServices(session.idToken),
   ]);
 
   const serviceColorMap = buildServiceColorMap(

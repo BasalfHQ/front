@@ -1,9 +1,9 @@
-import { Block } from "@repo/apis";
+import { Cms } from "@repo/apis";
 import { useTranslations } from "@repo/i18n";
 import { Button } from "@repo/ui";
 import { useState } from "react";
 
-type BaseBlockType = Exclude<Block["type"], "image">;
+type BaseBlockType = Exclude<Cms.Block["type"], "image">;
 const blockTypes: BaseBlockType[] = [
   "description",
   "text",
@@ -15,7 +15,7 @@ const blockTypes: BaseBlockType[] = [
   "related",
 ];
 
-const baseBlocks: Record<BaseBlockType, Block> = {
+const baseBlocks: Record<BaseBlockType, Cms.Block> = {
   description: { type: "description", content: "" },
   text: { type: "text", content: "" },
   heading: { type: "heading", content: "", level: 2 },
@@ -30,8 +30,8 @@ export function AddNewBlock({
   value,
   onAdd,
 }: {
-  value: Block[];
-  onAdd: (blocks: Block[]) => void;
+  value: Cms.Block[];
+  onAdd: (blocks: Cms.Block[]) => void;
 }) {
   const [openSelection, setOpenSelection] = useState<boolean>(false);
   const t = useTranslations("BlockForm");

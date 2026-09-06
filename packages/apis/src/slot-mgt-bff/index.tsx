@@ -13,3 +13,28 @@ export type ServiceProvider = components["schemas"]["ServiceProvider"];
 export const client = createClient<paths>({
   baseUrl: env.api.slotMgtBffUrl(),
 });
+
+export {
+  getServices,
+  createService,
+  updateService,
+  deleteService,
+  getSlots,
+  getSlot,
+  createSlot,
+  createSlots,
+  updateSlot,
+  deleteSlot,
+  deleteSlots,
+  createBooking,
+  getBookings,
+  getBooking,
+  cancelBooking,
+  rescheduleBooking,
+  getSlotToken,
+  getCalendarSubscription,
+  getServiceProviders,
+  createServiceProvider,
+  updateServiceProvider,
+  deleteServiceProvider,
+} from "./api";

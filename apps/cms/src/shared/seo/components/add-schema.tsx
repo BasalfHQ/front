@@ -1,9 +1,9 @@
-import { PageSeo } from "@repo/apis";
+import { Cms } from "@repo/apis";
 import { useTranslations } from "@repo/i18n";
 import { Button } from "@repo/ui";
 import { useState } from "react";
 
-type Schema = PageSeo["schemas"][number];
+type Schema = Cms.PageSeo["schemas"][number];
 type SchemaType = Schema["type"];
 
 const schemaTypes: SchemaType[] = ["article", "person", "product"];

@@ -1,15 +1,6 @@
 "use server";
 
-import {
-  createSlot as createSlotApi,
-  getSlots as getSlotsApi,
-  createSlots as createSlotsApi,
-  updateSlot as updateSlotApi,
-  deleteSlot as deleteSlotApi,
-  deleteSlots as deleteSlotsApi,
-  createBooking as createBookingApi,
-  SlotRepeatInterval,
-} from "@repo/apis";
+import { Slot } from "@repo/apis";
 import { getSession } from "@repo/auth-ui";
 import { getLocale, redirect } from "@repo/i18n";
 import { addYears } from "date-fns";
@@ -25,7 +16,7 @@ export async function createSlot(
   if (!session || !session.idToken) {
     return redirect({ href: "/", locale });
   }
-  const slot = await createSlotApi(session.idToken, {
+  const slot = await Slot.createSlot(session.idToken, {
     serviceId,
     startDate,
     endDate,
@@ -39,14 +30,14 @@ export async function createSlots(
   startDate: string,
   endDate: string,
   maxCapacity: number,
-  interval: SlotRepeatInterval,
+  interval: Slot.SlotRepeatInterval,
   serviceId: string,
 ) {
   const [session, locale] = await Promise.all([getSession(), getLocale()]);
   if (!session || !session.idToken) {
     return redirect({ href: "/", locale });
   }
-  const slots = await createSlotsApi(
+  const slots = await Slot.createSlots(
     session.idToken,
     maxCapacity,
     startDate,
@@ -63,7 +54,7 @@ export async function getSlots(startDate: string, endDate: string) {
   if (!session || !session.idToken) {
     return redirect({ href: "/", locale });
   }
-  const slots = await getSlotsApi(session.idToken, startDate, endDate);
+  const slots = await Slot.getSlots(session.idToken, startDate, endDate);
   return slots;
 }
 
@@ -79,7 +70,7 @@ export async function updateSlot(slot: {
   if (!session || !session.idToken) {
     return redirect({ href: "/", locale });
   }
-  const result = await updateSlotApi(session.idToken, slot);
+  const result = await Slot.updateSlot(session.idToken, slot);
   revalidatePath("/slots");
   return result;
 }
@@ -93,7 +84,7 @@ export async function deleteSlot(
   if (!session || !session.idToken) {
     return redirect({ href: "/", locale });
   }
-  const result = await deleteSlotApi(
+  const result = await Slot.deleteSlot(
     session.idToken,
     slotId,
     startDate,
@@ -113,7 +104,7 @@ export async function deleteSlotsAtSameHour(
   if (!session || !session.idToken) {
     return redirect({ href: "/", locale });
   }
-  const result = await deleteSlotsApi(
+  const result = await Slot.deleteSlots(
     session.idToken,
     startDate,
     addYears(new Date(endDate), 4).toISOString(),
@@ -140,7 +131,7 @@ export async function createBooking(booking: {
   if (!session || !session.idToken) {
     return redirect({ href: "/", locale });
   }
-  const result = await createBookingApi(session.idToken, booking);
+  const result = await Slot.createBooking(session.idToken, booking);
   revalidatePath("/slots");
   return result;
 }

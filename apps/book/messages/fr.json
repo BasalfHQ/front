@@ -1,5 +1,26 @@
 {
   "homepage": {
-    "title": "Book"
+    "takeAnAppointment": "Prendre rendez-vous"
+  },
+  "booking": {
+    "selectSlot": "Choisissez un créneau",
+    "noSlots": "Aucun créneau disponible pour ce professionnel pour le moment.",
+    "errorTitle": "Réservation en ligne indisponible",
+    "changeSlot": "Changer de créneau",
+    "formTitle": "Réservez votre créneau",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "additionalInfo": "Informations complémentaires (optionnel)",
+    "at": "à",
+    "confirm": "Confirmer",
+    "confirming": "Réservation en cours...",
+    "bookingError": "Erreur lors de la réservation. Veuillez réessayer.",
+    "slotNotAvailable": "Ce créneau n'est plus disponible. Veuillez en choisir un autre.",
+    "missingInfo": "Informations manquantes",
+    "successTitle": "Réservation confirmée !",
+    "successText": "Votre rendez-vous a bien été enregistré.",
+    "bookAnother": "Prendre un autre rendez-vous"
   }
 }

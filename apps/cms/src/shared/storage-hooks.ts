@@ -1,13 +1,13 @@
 "use client";
 
-import { Page } from "@repo/apis";
+import { Cms } from "@repo/apis";
 import { Session } from "next-auth";
 import { useState } from "react";
 
 export const PAGE_CREATED_KEY = "page-created" as const;
 export const PAGE_UPDATED_KEY = "page-updated" as const;
 
-const createEmptyPage = (session: Session | null): Omit<Page, "pageId"> => ({
+const createEmptyPage = (session: Session | null): Omit<Cms.Page, "pageId"> => ({
   organizationId: session?.user.currentOrganization ?? "",
   websiteId: session?.user.currentWebsite ?? "",
   locale: "",
@@ -19,12 +19,12 @@ const createEmptyPage = (session: Session | null): Omit<Page, "pageId"> => ({
 export function usePageCreated(
   session: Session | null,
 ): [
-  Omit<Page, "pageId"> | null,
-  (page: Omit<Page, "pageId">) => void,
+  Omit<Cms.Page, "pageId"> | null,
+  (page: Omit<Cms.Page, "pageId">) => void,
   () => void,
   "loading" | "loaded",
 ] {
-  const [page, setStatePage] = useState<Omit<Page, "pageId"> | null>(
+  const [page, setStatePage] = useState<Omit<Cms.Page, "pageId"> | null>(
     typeof window !== "undefined"
       ? (getStorage(PAGE_CREATED_KEY) ?? createEmptyPage(session))
       : null,
@@ -32,7 +32,7 @@ export function usePageCreated(
 
   if (!page) return [page, setPage, clearPage, "loading"];
 
-  function setPage(page: Omit<Page, "pageId">) {
+  function setPage(page: Omit<Cms.Page, "pageId">) {
     setStatePage(page);
     localStorage.setItem(PAGE_CREATED_KEY, JSON.stringify(page));
   }
@@ -45,7 +45,7 @@ export function usePageCreated(
   return [page, setPage, clearPage, "loaded"];
 }
 
-function getStoredPage(initialPage: Page): Page | null {
+function getStoredPage(initialPage: Cms.Page): Cms.Page | null {
   if (typeof window === "undefined") return null;
   const stored = getStorage(PAGE_UPDATED_KEY);
   if (!stored || stored.pageId !== initialPage.pageId) return initialPage;
@@ -63,20 +63,20 @@ function getStoredPage(initialPage: Page): Page | null {
 
 export function usePageUpdated(
   session: Session | null,
-  initialPage: Page,
+  initialPage: Cms.Page,
 ): [
-  Page | null,
-  (page: Page) => void,
+  Cms.Page | null,
+  (page: Cms.Page) => void,
   () => void,
   "loading" | "loaded" | "wrong-organization-or-website",
 ] {
-  const [page, setStatePage] = useState<Page | null>(
+  const [page, setStatePage] = useState<Cms.Page | null>(
     getStoredPage(initialPage),
   );
 
   if (!page || !session) return [page, setPage, clearPage, "loading"];
 
-  function setPage(page: Page) {
+  function setPage(page: Cms.Page) {
     setStatePage(page);
     localStorage.setItem(PAGE_UPDATED_KEY, JSON.stringify(page));
   }
@@ -96,11 +96,11 @@ export function usePageUpdated(
   return [page, setPage, clearPage, "loaded"];
 }
 
-function getStorage(key: typeof PAGE_CREATED_KEY): Omit<Page, "pageId"> | null;
-function getStorage(key: typeof PAGE_UPDATED_KEY): Page | null;
+function getStorage(key: typeof PAGE_CREATED_KEY): Omit<Cms.Page, "pageId"> | null;
+function getStorage(key: typeof PAGE_UPDATED_KEY): Cms.Page | null;
 function getStorage(
   key: typeof PAGE_CREATED_KEY | typeof PAGE_UPDATED_KEY,
-): Omit<Page, "pageId"> | Page | null {
+): Omit<Cms.Page, "pageId"> | Cms.Page | null {
   const value = localStorage.getItem(key);
 
   if (!value) {

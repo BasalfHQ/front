@@ -11,7 +11,7 @@ import {
 import { Check, Loader2, Search } from "@repo/ui/icons";
 import { WebsiteUpload } from "./folder-upload";
 import { validateDomain } from "../utils";
-import { UploadUrl } from "@repo/apis";
+import { Host } from "@repo/apis";
 
 type variants = "closed" | "domain" | "upload" | "success";
 
@@ -20,7 +20,9 @@ export function CreateWebsiteForm() {
   const [domainIdInput, setDomainIdInput] = useState<string>("");
   const [domainId, setDomainId] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(false);
-  const [signedUrl, setSignedUrl] = useState<UploadUrl | undefined>(undefined);
+  const [signedUrl, setSignedUrl] = useState<Host.UploadUrl | undefined>(
+    undefined,
+  );
   const [domainError, setDomainError] = useState<string | null>(null);
   const [domainAvailable, setDomainAvailable] = useState(false);
   const [domainNotAvailable, setDomainNotAvailable] = useState(false);

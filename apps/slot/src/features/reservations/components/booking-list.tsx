@@ -1,6 +1,6 @@
 "use client";
 
-import { Booking } from "@repo/apis";
+import { Slot } from "@repo/apis";
 import { useQuery } from "@tanstack/react-query";
 import { getBookings } from "../actions";
 import { useState } from "react";
@@ -28,7 +28,7 @@ export function BookingList({
   initialEndDate,
   serviceMap,
 }: {
-  initialBookings: Booking[];
+  initialBookings: Slot.Booking[];
   initialStartDate: string;
   initialEndDate: string;
   serviceMap?: Record<string, string>;
@@ -63,7 +63,7 @@ export function BookingList({
   );
 }
 
-function List({ bookings, serviceMap }: { bookings: Booking[]; serviceMap?: Record<string, string> }) {
+function List({ bookings, serviceMap }: { bookings: Slot.Booking[]; serviceMap?: Record<string, string> }) {
   const locale = useLocale();
   const t = useTranslations("reservations");
 

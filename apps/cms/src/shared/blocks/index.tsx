@@ -1,6 +1,6 @@
 "use client";
 
-import { Block } from "@repo/apis";
+import { Cms } from "@repo/apis";
 import { AddNewBlock } from "./components/add-block";
 import { cn } from "@repo/ui/lib/utils";
 import { BlockItem } from "./components/block-items";
@@ -16,8 +16,8 @@ export function BlockForm({
 }: {
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
-  value: Block[];
-  onChange: (blocks: Block[]) => void;
+  value: Cms.Block[];
+  onChange: (blocks: Cms.Block[]) => void;
   className?: string;
   errors?: (BlockErrors | null)[];
 }) {
@@ -36,7 +36,7 @@ export function BlockForm({
     onChange(reordered);
   }
 
-  function updateBlock(index: number, block: Block) {
+  function updateBlock(index: number, block: Cms.Block) {
     const updated = [...value];
     updated[index] = block;
 

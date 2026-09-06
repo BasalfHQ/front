@@ -1,4 +1,4 @@
-import { Website } from "@repo/apis";
+import { Host } from "@repo/apis";
 
 const DOMAIN_REGEX = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/;
 
@@ -8,7 +8,7 @@ export function validateDomain(domain: string): string | null {
   return null;
 }
 
-export const getWebsiteStatus = async (website: Website) => {
+export const getWebsiteStatus = async (website: Host.Website) => {
   try {
     if (!website.domainId) {
       return { uploaded: false };

@@ -21,7 +21,7 @@ import {
   SelectValue,
   toast,
 } from "@repo/ui";
-import { Slot, SlotRepeatInterval, Service } from "@repo/apis";
+import { Slot } from "@repo/apis";
 import { useMemo, useState } from "react";
 import { isPast, addMonths, addYears } from "date-fns";
 import { useLocale } from "@repo/i18n";
@@ -29,7 +29,7 @@ import { createSlot, createSlots } from "../actions";
 import { Loader2 } from "@repo/ui/icons";
 import { useQueryClient } from "@tanstack/react-query";
 
-export type InputSlot = Omit<Slot, "slotId" | "usedCapacity">;
+export type InputSlot = Omit<Slot.Slot, "slotId" | "usedCapacity">;
 export type CreateSlotsDialogState = {
   open: boolean;
   slot: InputSlot;
@@ -53,7 +53,7 @@ export function CreateSlots({
 }: {
   state: CreateSlotsDialogState;
   setState: (state: CreateSlotsDialogState) => void;
-  services: Service[];
+  services: Slot.Service[];
   hasMultipleServices: boolean;
 }) {
   const t = useTranslations("slots.CreateSlots");
@@ -61,7 +61,7 @@ export function CreateSlots({
   const [editingCapacity, setEditingCapacity] = useState(false);
   const locale = useLocale();
   const queryClient = useQueryClient();
-  const [interval, setInterval] = useState<SlotRepeatInterval | undefined>(
+  const [interval, setInterval] = useState<Slot.SlotRepeatInterval | undefined>(
     undefined,
   );
 

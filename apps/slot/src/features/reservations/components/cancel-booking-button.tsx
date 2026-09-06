@@ -1,6 +1,6 @@
 "use client";
 
-import { Booking } from "@repo/apis";
+import { Slot } from "@repo/apis";
 import { useState } from "react";
 import {
   Button,
@@ -17,7 +17,7 @@ import { cancelBooking } from "../actions";
 import { toast } from "@repo/ui";
 import { useRouter } from "next/navigation";
 
-export function CancelBookingButton({ booking }: { booking: Booking }) {
+export function CancelBookingButton({ booking }: { booking: Slot.Booking }) {
   const t = useTranslations("reservations.detail");
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

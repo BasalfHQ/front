@@ -16,7 +16,7 @@ import {
 } from "@repo/ui";
 
 import getPrompt from "./prompt";
-import { AllPages, ISO_639_1_CODES_WITH_FLAGS, Locales } from "@repo/apis";
+import { Cms } from "@repo/apis";
 import { Bot } from "@repo/ui/icons";
 import { PAGE_CREATED_KEY } from "../../../shared/storage-hooks";
 import { useRouter } from "next/navigation";
@@ -26,12 +26,12 @@ export function CreatePageWithAIButton({
   locales,
   pages,
 }: {
-  locales: Locales;
-  pages: AllPages;
+  locales: Cms.Locales;
+  pages: Cms.AllPages;
 }) {
   const [open, setOpen] = useState(false);
   const [prompt, setPrompt] = useState("");
-  const [locale, setLocale] = useState<Locales[number]>(locales[0]);
+  const [locale, setLocale] = useState<Cms.Locales[number]>(locales[0]);
   const [response, setResponse] = useState("");
   const [copied, setCopied] = useState(false);
   const [copiedTempState, setCopiedTempState] = useState(false);
@@ -62,7 +62,7 @@ export function CreatePageWithAIButton({
     setResponse(text);
   };
 
-  const languages = ISO_639_1_CODES_WITH_FLAGS.filter((loc) =>
+  const languages = Cms.ISO_639_1_CODES_WITH_FLAGS.filter((loc) =>
     locales.includes(loc.code),
   );
 
@@ -89,7 +89,7 @@ export function CreatePageWithAIButton({
             <Label htmlFor="page-locale">{t("language")}</Label>
 
             <Select
-              onValueChange={(value) => setLocale(value as Locales[number])}
+              onValueChange={(value) => setLocale(value as Cms.Locales[number])}
             >
               <SelectTrigger>
                 <div className="flex items-center gap-2">

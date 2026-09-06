@@ -1,23 +1,17 @@
 "use server";
 
 import { auth, isAdmin } from "@repo/auth-ui";
-import {
-  getOrganizations as apiGetOrganizations,
-  createOrganization as apiCreateOrganization,
-  updateOrganization as apiUpdateOrganization,
-  type Organization,
-  type Address,
-} from "@repo/apis";
+import { Base } from "@repo/apis";
 import { revalidatePath } from "next/cache";
 
-export async function getOrganizations(): Promise<Organization[]> {
+export async function getOrganizations(): Promise<Base.Organization[]> {
   const session = await auth();
 
   if (!session?.idToken || !isAdmin(session.user?.email)) {
     return [];
   }
 
-  return apiGetOrganizations(session.idToken);
+  return Base.getOrganizations(session.idToken);
 }
 
 export async function createOrganization(
@@ -25,16 +19,16 @@ export async function createOrganization(
   timezone: string,
   email: string,
   language: string,
-  address?: Address,
+  address?: Base.Address,
   isOnBookWebsite?: boolean,
-): Promise<{ success: boolean; organization?: Organization; error?: string }> {
+): Promise<{ success: boolean; organization?: Base.Organization; error?: string }> {
   const session = await auth();
 
   if (!session?.idToken || !isAdmin(session.user?.email)) {
     return { success: false, error: "Unauthorized" };
   }
 
-  const org = await apiCreateOrganization(
+  const org = await Base.createOrganization(
     name,
     timezone,
     email,
@@ -53,7 +47,7 @@ export async function createOrganization(
 }
 
 export async function updateOrganization(
-  organization: Organization,
+  organization: Base.Organization,
 ): Promise<{ success: boolean; error?: string }> {
   const session = await auth();
 
@@ -61,7 +55,7 @@ export async function updateOrganization(
     return { success: false, error: "Unauthorized" };
   }
 
-  const result = await apiUpdateOrganization(organization, session.idToken);
+  const result = await Base.updateOrganization(organization, session.idToken);
 
   if (result) {
     revalidatePath("/organization");

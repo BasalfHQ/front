@@ -7,7 +7,7 @@ import {
   Copy,
 } from "@repo/ui";
 import { getTranslations, I18nClientProvider, Link } from "@repo/i18n";
-import { getWebsite } from "@repo/apis";
+import { Host } from "@repo/apis";
 import { getSession } from "@repo/auth-ui";
 import { CreateWebsiteForm } from "./components/create-website-form";
 import { getWebsiteStatus } from "./utils";
@@ -24,7 +24,7 @@ export async function Homepage() {
   if (!session || !session.idToken) {
     return <p>{t("youMustBeLoggedIn")}</p>;
   }
-  const website = await getWebsite(session.idToken);
+  const website = await Host.getWebsite(session.idToken);
   if (!website) {
     return <p>{t("error.websiteNotFound")}</p>;
   }

@@ -2,7 +2,7 @@ import { auth } from "@repo/auth-ui";
 import { getTranslations, I18nClientProvider, Link, redirect } from "@repo/i18n";
 import { baseUrl } from "@repo/config";
 import { CreatePageForm } from "./components/form";
-import { getLocales, getPages } from "@repo/apis";
+import { Cms } from "@repo/apis";
 import { PageTitle } from "@repo/ui";
 
 export async function CreatePage({
@@ -19,8 +19,8 @@ export async function CreatePage({
     return redirect({ href: baseUrl, locale });
   }
   const [Locales, pages] = await Promise.all([
-    getLocales(session!.idToken),
-    getPages(session!.idToken),
+    Cms.getLocales(session!.idToken),
+    Cms.getPages(session!.idToken),
   ]);
   return (
     <div className="flex flex-col gap-4">

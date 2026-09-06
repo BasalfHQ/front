@@ -8,3 +8,11 @@ export type UploadUrl = components["schemas"]["UploadUrl"];
 export const client = createClient<paths>({
   baseUrl: env.api.hostMgtBffUrl(),
 });
+
+export {
+  getWebsite,
+  getUploadUrl,
+  getDomainAvailability,
+  changeDomain,
+  deleteDeployment,
+} from "./api";

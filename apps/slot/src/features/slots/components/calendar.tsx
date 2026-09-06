@@ -15,7 +15,7 @@ import { CreateSlots, CreateSlotsDialogState } from "./create-slots";
 import { EditSlot, EditSlotDialogState } from "./edit-slot";
 import { addHours } from "date-fns";
 import { getSlots } from "../actions";
-import type { Slot, Service } from "@repo/apis";
+import { Slot } from "@repo/apis";
 import { SlotEvent } from "./event";
 import { ServiceFilter } from "./service-filter";
 import type { ServiceColorMap } from "../service-colors";
@@ -34,7 +34,7 @@ function useIsMobile() {
 }
 
 function slotsToEvents(
-  slots: Slot[] | undefined,
+  slots: Slot.Slot[] | undefined,
   serviceColorMap: ServiceColorMap,
 ) {
   if (!slots) return [];
@@ -59,8 +59,8 @@ export function SlotCalendar({
   services,
   serviceColorMap,
 }: {
-  initialSlots?: Slot[];
-  services: Service[];
+  initialSlots?: Slot.Slot[];
+  services: Slot.Service[];
   serviceColorMap: ServiceColorMap;
 }) {
   const locale = useLocale();
@@ -89,10 +89,10 @@ export function SlotCalendar({
   });
 
   const filteredSlots = hasMultipleServices
-    ? (slots as Slot[] | undefined)?.filter((s) =>
+    ? (slots as Slot.Slot[] | undefined)?.filter((s) =>
         selectedServiceIds.has(s.serviceId),
       )
-    : (slots as Slot[] | undefined);
+    : (slots as Slot.Slot[] | undefined);
 
   const prefetch = useCallback(
     (start: Date, end: Date) => {
@@ -152,7 +152,7 @@ export function SlotCalendar({
   }
 
   function handleEventClick(info: EventClickArg) {
-    const slotsArray = slots as Slot[] | undefined;
+    const slotsArray = slots as Slot.Slot[] | undefined;
     const slot = slotsArray?.find((s) => s.slotId === info.event.id);
     if (slot) {
       setEditSlotState({ open: true, slot });

@@ -1,4 +1,4 @@
-import { PageSeo } from "@repo/apis";
+import { Cms } from "@repo/apis";
 import { useTranslations } from "@repo/i18n";
 import {
   Input,
@@ -14,7 +14,7 @@ import {
 import { Trash2 } from "@repo/ui/icons";
 import type { SchemaErrors } from "@/features/create-page/components/form";
 
-type Schema = PageSeo["schemas"][number];
+type Schema = Cms.PageSeo["schemas"][number];
 
 export function SchemaItem({
   schema,

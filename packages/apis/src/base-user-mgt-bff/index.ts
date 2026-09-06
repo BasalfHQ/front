@@ -9,3 +9,10 @@ export type User = components["schemas"]["User"];
 export const client = createClient<paths>({
   baseUrl: env.api.userMgtBffUrl(),
 });
+
+export {
+  getOrganizationsByEmail,
+  getOrganizations,
+  createOrganization,
+  updateOrganization,
+} from "./api";

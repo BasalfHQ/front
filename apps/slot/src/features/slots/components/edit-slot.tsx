@@ -19,7 +19,7 @@ import {
   SelectValue,
   toast,
 } from "@repo/ui";
-import type { Slot, Service } from "@repo/apis";
+import { Slot } from "@repo/apis";
 import { useState } from "react";
 import {
   updateSlot,
@@ -31,7 +31,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 export type EditSlotDialogState = {
   open: boolean;
-  slot: Slot | null;
+  slot: Slot.Slot | null;
 };
 
 type Mode = "choice" | "update" | "book" | "delete";
@@ -44,13 +44,13 @@ export function EditSlot({
 }: {
   state: EditSlotDialogState;
   setState: (state: EditSlotDialogState) => void;
-  services: Service[];
+  services: Slot.Service[];
   hasMultipleServices: boolean;
 }) {
   const t = useTranslations("slots.EditSlot");
   const [isLoading, setIsLoading] = useState(false);
   const [mode, setMode] = useState<Mode>("choice");
-  const [editedSlot, setEditedSlot] = useState<Slot | null>(null);
+  const [editedSlot, setEditedSlot] = useState<Slot.Slot | null>(null);
   const [bookingForm, setBookingForm] = useState({
     firstName: "",
     lastName: "",

@@ -52,6 +52,7 @@ export async function getSlots(
   endDate: string,
   serviceId: string = "all",
 ): Promise<Slot[]> {
+  // is serviceId all, then return all slots
   const response = await client.GET(
     "/slots/{organizationId}/{startDate}/{endDate}/{serviceId}",
     {
@@ -106,7 +107,8 @@ export async function createBooking(
     body: booking,
   });
   if (response.response.status !== 200) {
-    throw new Error("Failed to create booking");
+    const errorData = response.data as { message?: string } | undefined;
+    throw new Error(errorData?.message ?? "Failed to create booking");
   }
   return response.data;
 }

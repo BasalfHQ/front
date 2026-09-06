@@ -1,4 +1,4 @@
-import { Locales } from "@repo/apis";
+import { Cms } from "@repo/apis";
 
 const message = `
 Generate a complete web page as one valid JSON object based on the user's request.
@@ -210,7 +210,7 @@ Return the JSON now.
 `;
 
 export default function getPrompt(
-  locale: Locales[number],
+  locale: Cms.Locales[number],
   prompt: string,
   existingPages: {
     url: string;

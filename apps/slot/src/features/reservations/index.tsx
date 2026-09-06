@@ -1,4 +1,4 @@
-import { getBookings, getServices } from "@repo/apis";
+import { Slot } from "@repo/apis";
 import { getSession } from "@repo/auth-ui";
 import { getLocale, getTranslations, redirect } from "@repo/i18n";
 import { PageDescription, PageTitle, QueryProvider } from "@repo/ui";
@@ -18,8 +18,8 @@ export default async function Reservations() {
   const startDate = now.toISOString();
   const endDate = addMonths(now, 1).toISOString();
   const [bookings, services] = await Promise.all([
-    getBookings(session.idToken, startDate, endDate),
-    getServices(session.idToken),
+    Slot.getBookings(session.idToken, startDate, endDate),
+    Slot.getServices(session.idToken),
   ]);
   const serviceMap = Object.fromEntries(
     services.map((s) => [s.serviceId, s.name]),

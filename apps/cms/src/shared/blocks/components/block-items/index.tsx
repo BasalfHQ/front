@@ -1,6 +1,6 @@
 "use client";
 
-import { Block } from "@repo/apis";
+import { Cms } from "@repo/apis";
 import { useTranslations } from "@repo/i18n";
 import { ChevronUp, ChevronDown, Trash2 } from "@repo/ui/icons";
 import { BlockLevel } from "./level";
@@ -20,10 +20,10 @@ export function BlockItem({
   onDelete,
   errors,
 }: {
-  block: Block;
+  block: Cms.Block;
   isFirst: boolean;
   isLast: boolean;
-  onChange: (block: Block) => void;
+  onChange: (block: Cms.Block) => void;
   onMoveUp: () => void;
   onMoveDown: () => void;
   onDelete: () => void;

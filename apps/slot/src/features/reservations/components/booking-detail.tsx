@@ -1,4 +1,4 @@
-import { Booking, getBooking, getServices } from "@repo/apis";
+import { Slot } from "@repo/apis";
 import { getSession } from "@repo/auth-ui";
 import { getLocale, getTranslations, redirect, Link } from "@repo/i18n";
 import { Badge, formatDate } from "@repo/ui";
@@ -22,8 +22,8 @@ export default async function BookingDetail({
     return redirect({ href: "/login", locale });
   }
   const [booking, services] = await Promise.all([
-    getBooking(session.idToken, bookingId),
-    getServices(session.idToken),
+    Slot.getBooking(session.idToken, bookingId),
+    Slot.getServices(session.idToken),
   ]);
   if (!booking) {
     return notFound();

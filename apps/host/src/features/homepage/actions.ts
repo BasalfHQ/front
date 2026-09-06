@@ -1,11 +1,6 @@
 "use server";
 
-import {
-  getUploadUrl,
-  getDomainAvailability,
-  changeDomain as changeDomainApi,
-  deleteDeployment as deleteDeploymentApi,
-} from "@repo/apis";
+import { Host } from "@repo/apis";
 import { getSession } from "@repo/auth-ui";
 import { revalidatePath } from "next/cache";
 
@@ -14,7 +9,7 @@ export async function getSignedUrl(domainId: string | undefined) {
   if (!session || !session.idToken) {
     throw new Error("Unauthorized");
   }
-  const uploadUrl = await getUploadUrl(session.idToken, domainId);
+  const uploadUrl = await Host.getUploadUrl(session.idToken, domainId);
   if (!uploadUrl) {
     throw new Error("Failed to get upload url");
   }
@@ -26,7 +21,7 @@ export async function checkDomainAvailability(domain: string) {
   if (!session || !session.idToken) {
     throw new Error("Unauthorized");
   }
-  const domainAvailability = await getDomainAvailability(
+  const domainAvailability = await Host.getDomainAvailability(
     domain,
     session.idToken,
   );
@@ -41,7 +36,7 @@ export async function changeDomain(baseDomain?: string, newDomain?: string) {
   if (!session || !session.idToken) {
     throw new Error("Unauthorized");
   }
-  await changeDomainApi(baseDomain, newDomain, session.idToken);
+  await Host.changeDomain(baseDomain, newDomain, session.idToken);
   revalidatePath("/");
 }
 
@@ -50,6 +45,6 @@ export async function deleteDeployment() {
   if (!session || !session.idToken) {
     throw new Error("Unauthorized");
   }
-  await deleteDeploymentApi(session.idToken);
+  await Host.deleteDeployment(session.idToken);
   revalidatePath("/");
 }

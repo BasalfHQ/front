@@ -1,4 +1,4 @@
-import { getOrganizationsByEmail } from "@repo/apis";
+import { Base } from "@repo/apis";
 import { getSession, isAdmin } from "@repo/auth";
 import { AuthProvider } from "@repo/auth/provider";
 import { I18nProvider } from "@repo/i18n";
@@ -34,7 +34,7 @@ export async function RootLayout({
   );
 
   const organizations = session?.idToken
-    ? await getOrganizationsByEmail(session.idToken)
+    ? await Base.getOrganizationsByEmail(session.idToken)
     : [];
 
   const authSlot = (

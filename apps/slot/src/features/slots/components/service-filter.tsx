@@ -1,6 +1,6 @@
 "use client";
 
-import type { Service } from "@repo/apis";
+import { Slot } from "@repo/apis";
 import { Button, Checkbox } from "@repo/ui";
 import type { ServiceColorMap } from "../service-colors";
 import { useTranslations } from "@repo/i18n";
@@ -11,7 +11,7 @@ export function ServiceFilter({
   selectedIds,
   onSelectionChange,
 }: {
-  services: Service[];
+  services: Slot.Service[];
   serviceColorMap: ServiceColorMap;
   selectedIds: Set<string>;
   onSelectionChange: (ids: Set<string>) => void;

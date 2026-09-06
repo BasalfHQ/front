@@ -1,16 +1,16 @@
 "use server";
 
-import { client, User } from "@repo/apis";
+import { Base } from "@repo/apis";
 import { getAuthHeaders, auth } from "@repo/auth-ui";
 import { revalidatePath } from "next/cache";
 
-export async function getUsers(): Promise<User[]> {
+export async function getUsers(): Promise<Base.User[]> {
   const session = await auth();
   if (!session) {
     return [];
   }
 
-  const { data, error } = await client.GET("/user", {
+  const { data, error } = await Base.client.GET("/user", {
     headers: getAuthHeaders(session),
   });
 
@@ -38,7 +38,7 @@ export async function createUser(
     return { success: false, error: "allFieldsRequired" };
   }
 
-  const { error } = await client.POST("/user", {
+  const { error } = await Base.client.POST("/user", {
     headers: getAuthHeaders(session),
     body: { mail, firstName, lastName },
   });
@@ -60,7 +60,7 @@ export async function deleteUser(
     return { success: false, error: "notAuthenticated" };
   }
 
-  const { error } = await client.DELETE("/user/{userId}", {
+  const { error } = await Base.client.DELETE("/user/{userId}", {
     headers: getAuthHeaders(session),
     params: { path: { userId } },
   });

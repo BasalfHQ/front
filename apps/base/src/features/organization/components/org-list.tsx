@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { type Organization } from "@repo/apis";
+import { Base } from "@repo/apis";
 import {
   Button,
   Dialog,
@@ -28,9 +28,9 @@ import { updateOrganization } from "../actions";
 import { LANGUAGES } from "../languages";
 import { TIMEZONES } from "../timezones";
 
-export function OrgList({ organizations }: { organizations: Organization[] }) {
+export function OrgList({ organizations }: { organizations: Base.Organization[] }) {
   const t = useTranslations("organization");
-  const [editingOrg, setEditingOrg] = useState<Organization | null>(null);
+  const [editingOrg, setEditingOrg] = useState<Base.Organization | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [timezone, setTimezone] = useState("");

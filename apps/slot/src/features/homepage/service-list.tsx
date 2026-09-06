@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Service } from "@repo/apis";
+import { Slot } from "@repo/apis";
 import {
   Button,
   Dialog,
@@ -19,10 +19,10 @@ import { Plus, Pencil, Trash2, FileText, X } from "@repo/ui/icons";
 import { useTranslations } from "@repo/i18n";
 import { createService, updateService, deleteService } from "./actions";
 
-export function ServiceList({ services }: { services: Service[] }) {
+export function ServiceList({ services }: { services: Slot.Service[] }) {
   const t = useTranslations("homepage.services");
   const [createOpen, setCreateOpen] = useState(false);
-  const [editingService, setEditingService] = useState<Service | null>(null);
+  const [editingService, setEditingService] = useState<Slot.Service | null>(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(false);

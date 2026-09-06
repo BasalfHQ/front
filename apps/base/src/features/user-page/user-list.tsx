@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import type { User } from "@repo/apis";
+import { Base } from "@repo/apis";
 import {
   Button,
   Dialog,
@@ -18,7 +18,7 @@ import {
 import { createUser, deleteUser } from "./actions";
 
 interface UserListProps {
-  initialUsers: User[];
+  initialUsers: Base.User[];
 }
 
 export function UserList({ initialUsers }: UserListProps) {

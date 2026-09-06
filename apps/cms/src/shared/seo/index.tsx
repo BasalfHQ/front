@@ -1,6 +1,6 @@
 "use client";
 
-import { PageSeo } from "@repo/apis";
+import { Cms } from "@repo/apis";
 import { useTranslations } from "@repo/i18n";
 import { CardInput, TagInput } from "@repo/ui";
 import { AddNewSchema } from "./components/add-schema";
@@ -13,21 +13,21 @@ export function SeoForm({
   errors,
   schemaErrors,
 }: {
-  value: PageSeo;
-  onChange: (seo: PageSeo) => void;
+  value: Cms.PageSeo;
+  onChange: (seo: Cms.PageSeo) => void;
   errors?: { title?: string; description?: string };
   schemaErrors?: (SchemaErrors | null)[];
 }) {
   const t = useTranslations("SeoForm");
 
-  const seo: PageSeo = {
+  const seo: Cms.PageSeo = {
     title: value.title ?? "",
     description: value.description ?? "",
     keywords: value.keywords ?? [],
     schemas: value.schemas ?? [],
   };
 
-  function updateSchema(index: number, schema: PageSeo["schemas"][number]) {
+  function updateSchema(index: number, schema: Cms.PageSeo["schemas"][number]) {
     const updated = [...seo.schemas];
     updated[index] = schema;
     onChange({ ...seo, schemas: updated });

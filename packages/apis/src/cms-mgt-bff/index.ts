@@ -12,3 +12,20 @@ export type Locales = components["schemas"]["Locales"];
 export const client = createClient<paths>({
   baseUrl: env.api.cmsMgtBffUrl(),
 });
+
+export {
+  getPages,
+  getPage,
+  createPage,
+  updatePage,
+  deletePage,
+  getWebsites,
+  getLocales,
+  updateLocales,
+  getToken,
+} from "./api";
+
+export {
+  ISO_639_1_CODES,
+  ISO_639_1_CODES_WITH_FLAGS,
+} from "./locales";

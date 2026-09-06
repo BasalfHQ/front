@@ -35,7 +35,7 @@ export async function Homepage() {
           />
           <ServiceList services={services} />
           <div>
-            <Button variant="outline" asChild className="max-w-xs">
+            <Button variant="outline" asChild className="max-w-md w-full">
               <Link href="/calendar">{t("calendarSubscription")}</Link>
             </Button>
           </div>

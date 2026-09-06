@@ -40,6 +40,14 @@
       "types": "./src/lib/utils.ts",
       "default": "./src/lib/utils.ts"
     },
+    "./lib/dates": {
+      "types": "./src/lib/dates.ts",
+      "default": "./src/lib/dates.ts"
+    },
+    "./components/auto-size-input": {
+      "types": "./src/components/auto-size-input.tsx",
+      "default": "./src/components/auto-size-input.tsx"
+    },
     "./globals.css": "./src/globals.css",
     "./tailwind.config": {
       "types": "./tailwind.config.ts",

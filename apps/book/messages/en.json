@@ -1,5 +1,26 @@
 {
   "homepage": {
-    "title": "Book"
+    "takeAnAppointment": "Take an appointment"
+  },
+  "booking": {
+    "selectSlot": "Choose a slot",
+    "noSlots": "No slot available for this provider at the moment.",
+    "errorTitle": "Online booking unavailable",
+    "changeSlot": "Change slot",
+    "formTitle": "Book your slot",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "additionalInfo": "Additional information (optional)",
+    "at": "at",
+    "confirm": "Confirm",
+    "confirming": "Booking...",
+    "bookingError": "Booking failed. Please try again.",
+    "slotNotAvailable": "This slot is no longer available. Please choose another one.",
+    "missingInfo": "Missing information",
+    "successTitle": "Booking confirmed!",
+    "successText": "Your appointment has been recorded.",
+    "bookAnother": "Book another appointment"
   }
 }

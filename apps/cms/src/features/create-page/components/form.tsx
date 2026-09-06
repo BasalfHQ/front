@@ -4,13 +4,11 @@ import { usePageCreated } from "@/shared/storage-hooks";
 import { useSession } from "next-auth/react";
 import { useLocale, useRouter, useTranslations } from "@repo/i18n";
 import { Button, CardInput, toast } from "@repo/ui";
-import { Locales, Page } from "@repo/apis";
-import { ISO_639_1_CODES_WITH_FLAGS } from "@repo/apis";
+import { Cms } from "@repo/apis";
 import { BlockForm } from "@/shared/blocks";
 import { baseUrl } from "@repo/config";
 import { SeoForm } from "@/shared/seo";
 import { useState } from "react";
-import type { AllPages, Block, PageSeo } from "@repo/apis";
 import { createPage } from "../actions";
 
 export type BlockErrors = Record<string, string>;
@@ -31,7 +29,7 @@ type FormErrors = {
 };
 
 function validateBlock(
-  block: Block,
+  block: Cms.Block,
   t: (key: string) => string,
 ): BlockErrors | null {
   const errors: BlockErrors = {};
@@ -76,7 +74,7 @@ function validateBlock(
 }
 
 function validateSchema(
-  schema: PageSeo["schemas"][number],
+  schema: Cms.PageSeo["schemas"][number],
   t: (key: string) => string,
 ): SchemaErrors | null {
   const errors: SchemaErrors = {};
@@ -104,7 +102,7 @@ function validateSchema(
 }
 
 function validatePage(
-  page: Omit<Page, "pageId">,
+  page: Omit<Cms.Page, "pageId">,
   t: (key: string) => string,
 ): FormErrors {
   const errors: FormErrors = {};
@@ -130,8 +128,8 @@ export function CreatePageForm({
   locales,
   pages,
 }: {
-  locales: Locales;
-  pages: AllPages;
+  locales: Cms.Locales;
+  pages: Cms.AllPages;
 }) {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -148,7 +146,7 @@ export function CreatePageForm({
   }
   if (status === "loading" || !page) return <div>Loading...</div>;
 
-  const languages = ISO_639_1_CODES_WITH_FLAGS.filter((loc) =>
+  const languages = Cms.ISO_639_1_CODES_WITH_FLAGS.filter((loc) =>
     locales.includes(loc.code),
   );
 
@@ -177,7 +175,7 @@ export function CreatePageForm({
     }
   }
 
-  function updatePage(updated: Omit<Page, "pageId">) {
+  function updatePage(updated: Omit<Cms.Page, "pageId">) {
     setPage(updated);
     if (submitted) {
       setErrors(validatePage(updated, t));

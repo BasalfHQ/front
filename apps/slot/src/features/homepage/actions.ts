@@ -1,15 +1,6 @@
 "use server";
 
-import {
-  getServices as getServicesApi,
-  createService as createServiceApi,
-  deleteService as deleteServiceApi,
-  updateService as updateServiceApi,
-  getServiceProviders as getServiceProvidersApi,
-  createServiceProvider as createServiceProviderApi,
-  updateServiceProvider as updateServiceProviderApi,
-  deleteServiceProvider as deleteServiceProviderApi,
-} from "@repo/apis";
+import { Slot } from "@repo/apis";
 import { getSession } from "@repo/auth-ui";
 import { getLocale, redirect } from "@repo/i18n";
 import { revalidatePath } from "next/cache";
@@ -19,7 +10,7 @@ export async function getServices() {
   if (!session || !session.idToken) {
     return null;
   }
-  return await getServicesApi(session.idToken);
+  return await Slot.getServices(session.idToken);
 }
 
 export async function createService(name: string, description?: string) {
@@ -27,7 +18,7 @@ export async function createService(name: string, description?: string) {
   if (!session || !session.idToken) {
     return redirect({ href: "/", locale });
   }
-  const result = await createServiceApi(session.idToken, name, description);
+  const result = await Slot.createService(session.idToken, name, description);
   revalidatePath("/");
   return result;
 }
@@ -41,7 +32,7 @@ export async function updateService(
   if (!session || !session.idToken) {
     return redirect({ href: "/", locale });
   }
-  await updateServiceApi(session.idToken, serviceId, name, description);
+  await Slot.updateService(session.idToken, serviceId, name, description);
   revalidatePath("/");
 }
 
@@ -50,7 +41,7 @@ export async function deleteService(serviceId: string) {
   if (!session || !session.idToken) {
     return redirect({ href: "/", locale });
   }
-  await deleteServiceApi(session.idToken, serviceId);
+  await Slot.deleteService(session.idToken, serviceId);
   revalidatePath("/");
 }
 
@@ -59,7 +50,7 @@ export async function getServiceProviders() {
   if (!session || !session.idToken) {
     return null;
   }
-  return await getServiceProvidersApi(session.idToken);
+  return await Slot.getServiceProviders(session.idToken);
 }
 
 export async function createServiceProvider(body: {
@@ -73,7 +64,7 @@ export async function createServiceProvider(body: {
   if (!session || !session.idToken) {
     return redirect({ href: "/", locale });
   }
-  const result = await createServiceProviderApi(session.idToken, body);
+  const result = await Slot.createServiceProvider(session.idToken, body);
   revalidatePath("/");
   return result;
 }
@@ -92,7 +83,7 @@ export async function updateServiceProvider(
   if (!session || !session.idToken) {
     return redirect({ href: "/", locale });
   }
-  await updateServiceProviderApi(session.idToken, serviceProviderId, body);
+  await Slot.updateServiceProvider(session.idToken, serviceProviderId, body);
   revalidatePath("/");
 }
 
@@ -101,6 +92,6 @@ export async function deleteServiceProvider(serviceProviderId: string) {
   if (!session || !session.idToken) {
     return redirect({ href: "/", locale });
   }
-  await deleteServiceProviderApi(session.idToken, serviceProviderId);
+  await Slot.deleteServiceProvider(session.idToken, serviceProviderId);
   revalidatePath("/");
 }

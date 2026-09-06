@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ServiceProvider } from "@repo/apis";
+import { Slot } from "@repo/apis";
 import {
   Button,
   Dialog,
@@ -22,7 +22,7 @@ import { useTranslations } from "@repo/i18n";
 import { createServiceProvider, updateServiceProvider } from "./actions";
 
 interface ServiceProviderProfileProps {
-  provider: ServiceProvider | null;
+  provider: Slot.ServiceProvider | null;
   categories: BookingCategory[];
   locale: string;
 }

@@ -2,7 +2,7 @@ import { auth, isAdmin } from "@repo/auth-ui";
 import { CreateOrgForm } from "./components/create-org-form";
 import { OrgList } from "./components/org-list";
 import { redirect } from "next/navigation";
-import { getOrganizations as apiGetOrganizations } from "@repo/apis";
+import { Base } from "@repo/apis";
 import { baseUrl } from "@repo/config";
 
 export async function OrganizationPage() {
@@ -12,7 +12,7 @@ export async function OrganizationPage() {
     return redirect(baseUrl);
   }
 
-  const organizations = await apiGetOrganizations(session.idToken);
+  const organizations = await Base.getOrganizations(session.idToken);
 
   return (
     <div>

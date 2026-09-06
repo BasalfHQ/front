@@ -2,7 +2,7 @@ import { getTranslations, I18nClientProvider, redirect } from "@repo/i18n";
 import { auth } from "@repo/auth-ui";
 import { PageTitle, PageDescription } from "@repo/ui";
 import { TokenCopy } from "./token-copy";
-import { getSlotToken } from "@repo/apis";
+import { Slot } from "@repo/apis";
 
 export async function Token({
   params,
@@ -18,7 +18,7 @@ export async function Token({
     return redirect({ href: "/", locale });
   }
 
-  const token = await getSlotToken(session.idToken);
+  const token = await Slot.getSlotToken(session.idToken);
   console.log("token", token);
   if (!token) {
     return redirect({ href: "/", locale });

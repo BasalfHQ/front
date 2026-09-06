@@ -7,7 +7,7 @@ import {
 } from "@repo/i18n";
 import { baseUrl } from "@repo/config";
 import { UpdatePageForm } from "./components/form";
-import { getLocales, getPage } from "@repo/apis";
+import { Cms } from "@repo/apis";
 import { notFound } from "next/navigation";
 import { PageTitle } from "@repo/ui";
 
@@ -26,8 +26,8 @@ export async function UpdatePage({
   }
 
   const [locales, page] = await Promise.all([
-    getLocales(session.idToken),
-    getPage(pageId, session.idToken),
+    Cms.getLocales(session.idToken),
+    Cms.getPage(pageId, session.idToken),
   ]);
 
   if (!page) return notFound();

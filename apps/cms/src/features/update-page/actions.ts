@@ -1,19 +1,15 @@
 "use server";
 
-import {
-  updatePage as updatePageApi,
-  deletePage as deletePageApi,
-  Page,
-} from "@repo/apis";
+import { Cms } from "@repo/apis";
 import { auth } from "@repo/auth-ui";
 import { revalidatePath } from "next/cache";
 
-export async function updatePage(page: Page) {
+export async function updatePage(page: Cms.Page) {
   const session = await auth();
   if (!session || !session.idToken) {
     throw new Error("Unauthorized");
   }
-  await updatePageApi(page, session.idToken);
+  await Cms.updatePage(page, session.idToken);
   revalidatePath("/pages");
   revalidatePath(`/pages/${page.pageId}`);
 }
@@ -23,6 +19,6 @@ export async function deletePage(pageId: string) {
   if (!session || !session.idToken) {
     throw new Error("Unauthorized");
   }
-  await deletePageApi(pageId, session.idToken);
+  await Cms.deletePage(pageId, session.idToken);
   revalidatePath("/pages");
 }

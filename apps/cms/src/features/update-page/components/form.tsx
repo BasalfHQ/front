@@ -15,13 +15,11 @@ import {
   DialogFooter,
   DialogClose,
 } from "@repo/ui";
-import { Locales, Page } from "@repo/apis";
-import { ISO_639_1_CODES_WITH_FLAGS } from "@repo/apis";
+import { Cms } from "@repo/apis";
 import { BlockForm } from "@/shared/blocks";
 import { baseUrl } from "@repo/config";
 import { SeoForm } from "@/shared/seo";
 import { useState } from "react";
-import type { Block, PageSeo } from "@repo/apis";
 import { updatePage, deletePage } from "../actions";
 import type { BlockErrors, SchemaErrors } from "@/features/create-page/components/form";
 
@@ -40,7 +38,7 @@ type FormErrors = {
 };
 
 function validateBlock(
-  block: Block,
+  block: Cms.Block,
   t: (key: string) => string,
 ): BlockErrors | null {
   const errors: Record<string, string> = {};
@@ -85,7 +83,7 @@ function validateBlock(
 }
 
 function validateSchema(
-  schema: PageSeo["schemas"][number],
+  schema: Cms.PageSeo["schemas"][number],
   t: (key: string) => string,
 ): Record<string, string> | null {
   const errors: Record<string, string> = {};
@@ -112,7 +110,7 @@ function validateSchema(
   return Object.keys(errors).length ? errors : null;
 }
 
-function validatePage(page: Page, t: (key: string) => string): FormErrors {
+function validatePage(page: Cms.Page, t: (key: string) => string): FormErrors {
   const errors: FormErrors = {};
 
   if (!page.url.trim()) errors.url = t("errors.urlRequired");
@@ -136,8 +134,8 @@ export function UpdatePageForm({
   locales,
   initialPage,
 }: {
-  locales: Locales;
-  initialPage: Page;
+  locales: Cms.Locales;
+  initialPage: Cms.Page;
 }) {
   const { data: session, status } = useSession();
   const t = useTranslations("updatePage");
@@ -158,7 +156,7 @@ export function UpdatePageForm({
   }
   if (status === "loading" || !page) return <div>Loading...</div>;
 
-  const languages = ISO_639_1_CODES_WITH_FLAGS.filter((loc) =>
+  const languages = Cms.ISO_639_1_CODES_WITH_FLAGS.filter((loc) =>
     locales.includes(loc.code),
   );
 
@@ -182,7 +180,7 @@ export function UpdatePageForm({
     }
   }
 
-  function handleUpdatePage(updated: Page) {
+  function handleUpdatePage(updated: Cms.Page) {
     setPage(updated);
     if (submitted) {
       setErrors(validatePage(updated, t));

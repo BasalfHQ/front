@@ -1,6 +1,6 @@
 "use client";
 
-import { Locales, ISO_639_1_CODES_WITH_FLAGS } from "@repo/apis";
+import { Cms } from "@repo/apis";
 import {
   Button,
   Checkbox,
@@ -20,9 +20,9 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { updateLocales } from "../actions";
 
-export function LocalesModale({ locales }: { locales: Locales }) {
+export function LocalesModale({ locales }: { locales: Cms.Locales }) {
   const [isOpen, setIsOpen] = useState(locales.length > 0 ? false : true);
-  const [selectedLocale, setSelectedLocale] = useState<Locales>(locales || []);
+  const [selectedLocale, setSelectedLocale] = useState<Cms.Locales>(locales || []);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -52,7 +52,7 @@ export function LocalesModale({ locales }: { locales: Locales }) {
           </p>
           <div className="flex gap-2 items-center">
             {locales?.map((locale) => {
-              const localeObject = ISO_639_1_CODES_WITH_FLAGS.find(
+              const localeObject = Cms.ISO_639_1_CODES_WITH_FLAGS.find(
                 (l) => l.code === locale,
               );
               if (!localeObject) return null;
@@ -89,7 +89,7 @@ export function LocalesModale({ locales }: { locales: Locales }) {
                     }
                   >
                     {
-                      ISO_639_1_CODES_WITH_FLAGS.find((l) => l.code === locale)
+                      Cms.ISO_639_1_CODES_WITH_FLAGS.find((l) => l.code === locale)
                         ?.flag
                     }
                   </p>
@@ -107,7 +107,7 @@ export function LocalesModale({ locales }: { locales: Locales }) {
             />
 
             <div className="mt-2 max-h-[220px] overflow-y-auto">
-              {ISO_639_1_CODES_WITH_FLAGS.filter((locale) =>
+              {Cms.ISO_639_1_CODES_WITH_FLAGS.filter((locale) =>
                 locale.name.toLowerCase().includes(search.toLowerCase()),
               ).map((locale) => {
                 const isSelected = selectedLocale.includes(locale.code);
