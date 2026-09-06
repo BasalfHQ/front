@@ -8,6 +8,9 @@ export const metadata: Metadata = {
     icon: "/icon.png",
     apple: "/apple-icon.png",
   },
+  verification: {
+    google: "04sp6e87avP2LDhrjVzY6xmJMEgOEtJNGqtTnWgviWQ",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
