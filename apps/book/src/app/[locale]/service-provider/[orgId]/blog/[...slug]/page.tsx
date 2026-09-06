@@ -53,9 +53,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export async function generateStaticParams({
   params,
 }: {
-  params: Promise<{ locale: string; orgId: string }>;
+  params: { locale: string; orgId: string };
 }) {
-  const { orgId } = await params;
+  const { orgId } = params;
   try {
     const pages = await getAllArticles(orgId);
     return pages.map((page) => ({
