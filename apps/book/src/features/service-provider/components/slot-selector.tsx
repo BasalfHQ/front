@@ -75,8 +75,11 @@ function chunkDays(days: DayGroup[], size: number): DayGroup[][] {
   return chunks;
 }
 
-function upcomingDays(count: number, timezone: string): DayGroup[] {
-  const today = new Date();
+function upcomingDays(
+  count: number,
+  timezone: string,
+  today: Date,
+): DayGroup[] {
   return Array.from({ length: count }, (_, i) => {
     const d = new Date(today);
     d.setDate(d.getDate() + i);
@@ -110,6 +113,11 @@ export const SlotSelector = () => {
   } = useBooking();
   const isMobile = useIsMobile();
   const chunkSize = isMobile ? 3 : 7;
+  const [today, setToday] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setToday(new Date());
+  }, []);
 
   const hasMultipleServices = services.length > 1;
   const serviceGroups = useMemo(
@@ -128,6 +136,15 @@ export const SlotSelector = () => {
     return service.name;
   };
 
+  if (!today) {
+    return (
+      <div className="flex flex-col gap-4">
+        <h2 className="text-xl font-semibold">{t("selectSlot")}</h2>
+        <div className="h-32" />
+      </div>
+    );
+  }
+
   if (hasMultipleServices) {
     return (
       <div className="flex flex-col gap-6">
@@ -137,7 +154,7 @@ export const SlotSelector = () => {
           const hasSlots = days.length > 0;
           const chunks = hasSlots
             ? chunkDays(days, chunkSize)
-            : chunkDays(upcomingDays(7, organization.timezone), chunkSize);
+            : chunkDays(upcomingDays(7, organization.timezone, today), chunkSize);
           return (
             <div key={group.service.serviceId} className="flex flex-col gap-2">
               <h3 className="text-lg font-medium">
@@ -162,7 +179,7 @@ export const SlotSelector = () => {
   const hasSlots = days.length > 0;
   const chunks = hasSlots
     ? chunkDays(days, chunkSize)
-    : chunkDays(upcomingDays(7, organization.timezone), chunkSize);
+    : chunkDays(upcomingDays(7, organization.timezone, today), chunkSize);
 
   return (
     <div className="flex flex-col gap-4">

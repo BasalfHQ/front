@@ -1,11 +1,13 @@
 import { Book } from "@repo/apis";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { addMonths } from "date-fns";
 import { BookAppointment } from "./components/book";
 import { getTranslations, getLocale, I18nClientProvider } from "@repo/i18n";
 import bookingData from "@repo/esco/data/booking-occupations.json";
 import type { BookingCategory } from "@repo/esco";
 import { MapPin } from "@repo/ui/icons";
+import { getAllArticlesWithFallback } from "@/features/blog";
 
 function getOccupationLabel(
   categories: BookingCategory[],
@@ -28,13 +30,15 @@ export default async function Home({
   const now = new Date();
   const t = await getTranslations("homepage");
   const inTwoMonths = addMonths(now, 2);
-  const [org, sps, slots, services, locale] = await Promise.all([
+  const currentLocale = await getLocale();
+  const [org, sps, slots, services, articles] = await Promise.all([
     Book.getOrganization(orgId),
     Book.getServiceProviders(orgId),
     Book.getSlots(orgId, now.toISOString(), inTwoMonths.toISOString()),
     Book.getServices(orgId),
-    getLocale(),
+    getAllArticlesWithFallback(orgId, currentLocale).catch(() => []),
   ]);
+  const locale = currentLocale;
   if (!org || !sps || sps.length === 0) {
     notFound();
   }
@@ -80,7 +84,7 @@ export default async function Home({
           <MapPin size={16} className="flex-shrink-0" />
           <p>{address()}</p>
         </div>
-        <p
+        <div
           className="text-lg text-gray-600 mb-4"
           dangerouslySetInnerHTML={{ __html: sp.description ?? "" }}
         />
@@ -112,7 +116,7 @@ export default async function Home({
                 {serviceName} - {t("takeAnAppointment")}
               </h3>
               {service.description && (
-                <p
+                <div
                   dangerouslySetInnerHTML={{
                     __html: service.description ?? "",
                   }}
@@ -131,6 +135,63 @@ export default async function Home({
             </div>
           );
         })}
+
+      {articles.length > 0 && (
+        <div className="w-full flex flex-col gap-4 mt-8 pt-8 mb-10 border-t border-border">
+          <h2 className="text-2xl font-bold">{t("blogTitle")}</h2>
+          <p className="text-muted-foreground">{t("blogDescription")}</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            {articles.slice(0, 4).map((article) => {
+              const articleSchema = article.seo.schemas.find(
+                (s) => s.type === "article",
+              );
+              const articleLocalePath =
+                article.locale === "en" ? "" : `/${article.locale}`;
+              const langFlag =
+                article.locale === "fr" ? "🇫🇷" : article.locale === "en" ? "🇬🇧" : "";
+              return (
+                <Link
+                  key={article.pageId}
+                  href={`${articleLocalePath}/service-provider/${orgId}/blog${article.url}`}
+                  className="block p-4 border border-border rounded-lg hover:border-primary/50 hover:shadow-sm transition-all"
+                >
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                    {article.isOtherLocale && (
+                      <span title={article.locale}>{langFlag}</span>
+                    )}
+                    {articleSchema && articleSchema.type === "article" && (
+                      <>
+                        <time dateTime={articleSchema.date}>
+                          {new Date(articleSchema.date).toLocaleDateString(
+                            article.locale,
+                            {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                            },
+                          )}
+                        </time>
+                        <span>•</span>
+                        <span>{articleSchema.readingTime} min</span>
+                      </>
+                    )}
+                  </div>
+                  <h3 className="font-semibold mb-1">{article.seo.title}</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2">
+                    {article.seo.description}
+                  </p>
+                </Link>
+              );
+            })}
+          </div>
+          <Link
+            href={`${locale === "en" ? "" : `/${locale}`}/service-provider/${orgId}/blog`}
+            className="text-muted-foreground hover:text-foreground underline text-sm w-fit"
+          >
+            {t("viewAllArticles")}
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

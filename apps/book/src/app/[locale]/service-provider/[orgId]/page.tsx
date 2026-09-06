@@ -1,9 +1,12 @@
+export const dynamic = "force-dynamic";
+
 import ServiceProvider from "@/features/service-provider";
 import { Book } from "@repo/apis";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import bookingData from "@repo/esco/data/booking-occupations.json";
 import {
+  getBaseUrl,
   getOccupationLabel,
   getCategoryLabel,
   getSchemaType,
@@ -41,7 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ? `Book an appointment with ${providerName}, ${occupation}`
       : `Book an appointment with ${providerName}`;
 
-  const url = `https://book.basalf.com/${locale}/service-provider/${orgId}`;
+  const url = `${getBaseUrl()}/${locale}/service-provider/${orgId}`;
 
   return {
     title,
@@ -93,7 +96,7 @@ export default async function Page({ params }: Props) {
   );
   const schemaType = getSchemaType(bookingData.categories, sp.occupationId);
   const address = formatAddress(org.address);
-  const url = `https://book.basalf.com/${locale}/service-provider/${orgId}`;
+  const url = `${getBaseUrl()}/${locale}/service-provider/${orgId}`;
 
   const jsonLd = generateJsonLd({
     schemaType,

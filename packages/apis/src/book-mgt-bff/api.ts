@@ -5,6 +5,8 @@ import {
   ServiceProvider,
   Organization,
   Slot,
+  Page,
+  AllPages,
 } from ".";
 
 export async function getOrganizations(): Promise<Organization[]> {
@@ -113,6 +115,29 @@ export async function createBooking(
   if (response.response.status !== 200) {
     const errorData = response.data as { message?: string } | undefined;
     throw new Error(errorData?.message ?? "Failed to create booking");
+  }
+  return response.data;
+}
+
+export async function getPages(organizationId: string) {
+  const response = await client.GET("/page/{organizationId}", {
+    params: { path: { organizationId } },
+  });
+  if (response.response.status !== 200) {
+    throw new Error("Failed to get pages");
+  }
+  return response.data;
+}
+
+export async function getPage(
+  organizationId: string,
+  pageId: string,
+): Promise<Page | undefined> {
+  const response = await client.GET("/page/{organizationId}/{pageId}", {
+    params: { path: { organizationId, pageId } },
+  });
+  if (response.response.status !== 200) {
+    return undefined;
   }
   return response.data;
 }

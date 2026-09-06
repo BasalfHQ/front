@@ -8,6 +8,8 @@ export type ServiceProvider = components["schemas"]["ServiceProvider"];
 export type Organization = components["schemas"]["Organization"];
 export type Address = components["schemas"]["Address"];
 export type Slot = components["schemas"]["Slot"];
+export type Page = components["schemas"]["Page"];
+export type AllPages = components["schemas"]["AllPages"];
 
 console.log("url:", env.api.bookMgtBffUrl());
 
@@ -23,4 +25,6 @@ export {
   getSlots,
   getBookings,
   createBooking,
+  getPages,
+  getPage,
 } from "./api";

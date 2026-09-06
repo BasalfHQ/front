@@ -1,6 +1,10 @@
 {
   "homepage": {
-    "takeAnAppointment": "Take an appointment"
+    "takeAnAppointment": "Take an appointment",
+    "blogTitle": "Articles",
+    "blogDescription": "Discover our latest articles and insights.",
+    "viewAllArticles": "View all articles",
+    "back": "Back"
   },
   "booking": {
     "selectSlot": "Choose a slot",

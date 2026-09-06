@@ -206,6 +206,92 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/page/{organizationId}/{pageId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    organizationId: string;
+                    pageId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Get a page */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Page"];
+                    };
+                };
+                /** @description Page not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/page/{organizationId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    organizationId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description List pages of the organization's default website */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["AllPages"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/organization/{organizationId}": {
         parameters: {
             query?: never;
@@ -362,6 +448,128 @@ export interface components {
             email?: string;
             description?: string;
         };
+        Page: {
+            organizationId: string;
+            websiteId: string;
+            pageId: string;
+            locale: string;
+            url: string;
+            slices: ({
+                /** @enum {string} */
+                type: "description";
+                content: string;
+            } | {
+                /** @enum {string} */
+                type: "text";
+                content: string;
+            } | {
+                /** @enum {string} */
+                type: "heading";
+                content: string;
+                level?: 2 | 3;
+            } | {
+                /** @enum {string} */
+                type: "list";
+                content: {
+                    ordered?: boolean;
+                    items: {
+                        text: string;
+                    }[];
+                };
+            } | {
+                /** @enum {string} */
+                type: "image";
+                content: {
+                    src: string;
+                    alt: string;
+                };
+            } | {
+                /** @enum {string} */
+                type: "faq";
+                content: {
+                    question: string;
+                    answer: string;
+                }[];
+            } | {
+                /** @enum {string} */
+                type: "space";
+            } | {
+                /** @enum {string} */
+                type: "related";
+                content: string[];
+            })[];
+            seo: {
+                title: string;
+                description: string;
+                keywords?: string[];
+                schemas: ({
+                    /** @enum {string} */
+                    type: "article";
+                    title: string;
+                    description: string;
+                    date: string;
+                    readingTime: number;
+                    keywords: string[];
+                } | {
+                    /** @enum {string} */
+                    type: "person";
+                    name: string;
+                    jobTitle?: string;
+                    description?: string;
+                    url?: string;
+                    sameAs?: string[];
+                } | {
+                    /** @enum {string} */
+                    type: "product";
+                    name: string;
+                    description?: string;
+                    brand?: string;
+                    price?: number;
+                    priceCurrency?: string;
+                    /** @enum {string} */
+                    availability?: "InStock" | "OutOfStock" | "PreOrder";
+                })[];
+            };
+        };
+        AllPages: {
+            organizationId: string;
+            websiteId: string;
+            pageId: string;
+            locale: string;
+            url: string;
+            seo: {
+                title: string;
+                description: string;
+                keywords?: string[];
+                schemas: ({
+                    /** @enum {string} */
+                    type: "article";
+                    title: string;
+                    description: string;
+                    date: string;
+                    readingTime: number;
+                    keywords: string[];
+                } | {
+                    /** @enum {string} */
+                    type: "person";
+                    name: string;
+                    jobTitle?: string;
+                    description?: string;
+                    url?: string;
+                    sameAs?: string[];
+                } | {
+                    /** @enum {string} */
+                    type: "product";
+                    name: string;
+                    description?: string;
+                    brand?: string;
+                    price?: number;
+                    priceCurrency?: string;
+                    /** @enum {string} */
+                    availability?: "InStock" | "OutOfStock" | "PreOrder";
+                })[];
+            };
+        }[];
         Organization: {
             organizationId: string;
             name: string;

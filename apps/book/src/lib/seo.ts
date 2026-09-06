@@ -1,6 +1,13 @@
 import type { BookingCategory } from "@repo/esco";
 import type { Book } from "@repo/apis";
 
+export function getBaseUrl(): string {
+  if (process.env.NEXT_PUBLIC_STAGE === "dev") {
+    return "http://localhost:3100";
+  }
+  return "https://book.basalf.com";
+}
+
 export type SchemaOrgType =
   | "MedicalBusiness"
   | "HealthAndBeautyBusiness"

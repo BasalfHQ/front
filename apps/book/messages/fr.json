@@ -1,6 +1,10 @@
 {
   "homepage": {
-    "takeAnAppointment": "Prendre rendez-vous"
+    "takeAnAppointment": "Prendre rendez-vous",
+    "blogTitle": "Articles",
+    "blogDescription": "Découvrez nos derniers articles et conseils.",
+    "viewAllArticles": "Voir tous les articles",
+    "back": "Retour"
   },
   "booking": {
     "selectSlot": "Choisissez un créneau",
