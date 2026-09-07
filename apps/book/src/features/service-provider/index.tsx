@@ -77,7 +77,7 @@ export default async function Home({
 
   return (
     <I18nClientProvider namespace="common">
-      <div className="flex flex-col items-center mt-10 gap-10 mx-10 xl:mx-0">
+      <div className="flex flex-col items-center mt-10 gap-10 mx-4 md:mx-10 xl:mx-0">
         <div className="text-center md:text-left flex flex-col w-full gap-2">
           <h1 className="text-4xl font-bold">
             {sp.firstName} {sp.lastName}
