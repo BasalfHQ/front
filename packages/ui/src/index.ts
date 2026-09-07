@@ -62,6 +62,7 @@ export { Badge } from "./components/badge";
 export { PageTitle, PageDescription } from "./components/page-header";
 export { Textarea } from "./components/textarea";
 export { AutoSizeInput } from "./components/auto-size-input";
+export { ExpandableText, type ExpandableTextProps } from "./components/expandable-text";
 export { Card, CardHeader } from "./components/card";
 export { Progress } from "./components/progress";
 export { Copy } from "./components/copy";

@@ -48,6 +48,10 @@
       "types": "./src/components/auto-size-input.tsx",
       "default": "./src/components/auto-size-input.tsx"
     },
+    "./components/expandable-text": {
+      "types": "./src/components/expandable-text.tsx",
+      "default": "./src/components/expandable-text.tsx"
+    },
     "./globals.css": "./src/globals.css",
     "./tailwind.config": {
       "types": "./tailwind.config.ts",

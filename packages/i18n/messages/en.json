@@ -9,7 +9,9 @@
     "confirm": "Confirm",
     "back": "Back",
     "next": "Next",
-    "search": "Search"
+    "search": "Search",
+    "showMore": "Show more",
+    "showLess": "Show less"
   },
   "nav": {
     "home": "Home",
