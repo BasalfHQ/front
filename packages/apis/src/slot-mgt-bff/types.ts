@@ -467,6 +467,7 @@ export interface paths {
                     "application/json": {
                         name: string;
                         description?: string;
+                        price?: number;
                     };
                 };
             };
@@ -560,6 +561,7 @@ export interface paths {
                     "application/json": {
                         name: string;
                         description?: string;
+                        price?: number;
                     };
                 };
             };
@@ -1205,6 +1207,7 @@ export interface components {
             serviceId: string;
             name: string;
             description?: string;
+            price?: number;
         };
         ServiceProvider: {
             serviceProviderId: string;

@@ -11,8 +11,6 @@ export type Slot = components["schemas"]["Slot"];
 export type Page = components["schemas"]["Page"];
 export type AllPages = components["schemas"]["AllPages"];
 
-console.log("url:", env.api.bookMgtBffUrl());
-
 export const client = createClient<paths>({
   baseUrl: env.api.bookMgtBffUrl(),
 });

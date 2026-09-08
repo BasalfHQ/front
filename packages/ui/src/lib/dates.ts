@@ -27,6 +27,22 @@ export function formatDay(
   );
 }
 
+export function formatShortDay(
+  date: string | Date,
+  locale: string = "fr",
+  timezone: string = "Europe/Paris",
+) {
+  return (typeof date === "string" ? new Date(date) : date).toLocaleDateString(
+    locale,
+    {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      timeZone: timezone,
+    },
+  );
+}
+
 export function formatMonth(
   date: string | Date,
   locale: string = "fr",

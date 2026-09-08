@@ -439,6 +439,7 @@ export interface components {
             serviceId: string;
             name: string;
             description?: string;
+            price?: number;
         };
         ServiceProvider: {
             serviceProviderId: string;
