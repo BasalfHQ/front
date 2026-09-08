@@ -33,6 +33,7 @@
     "language": "Language",
     "selectLanguage": "Select a language",
     "timezone": "Timezone",
+    "currency": "Currency",
     "email": "Email",
     "enterEmail": "Enter organization email",
     "creating": "Creating...",

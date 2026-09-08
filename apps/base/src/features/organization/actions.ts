@@ -21,6 +21,7 @@ export async function createOrganization(
   language: string,
   address?: Base.Address,
   isOnBookWebsite?: boolean,
+  currency?: string,
 ): Promise<{ success: boolean; organization?: Base.Organization; error?: string }> {
   const session = await auth();
 
@@ -36,6 +37,7 @@ export async function createOrganization(
     session.idToken,
     address,
     isOnBookWebsite,
+    currency,
   );
 
   if (org) {

@@ -23,11 +23,10 @@ export const serviceAnchorId = (serviceId: string) =>
 function servicePillLabel(
   service: Book.Service,
   serviceSlots: Book.Slot[],
+  currency: string | undefined,
   locale: string,
 ) {
-  // Book.Organization currently exposes no currency field — formatPrice
-  // resolves to null (never fabricated) until the API adds one.
-  const priceLabel = formatPrice(service.price, undefined, locale);
+  const priceLabel = formatPrice(service.price, currency, locale);
   const durationLabel = formatDurationRange(serviceSlots);
   return combinePill(durationLabel, priceLabel);
 }
@@ -95,7 +94,7 @@ export default async function Home({
     ({ service, slots: serviceSlots }) => ({
       service,
       name: serviceName(service),
-      pillLabel: servicePillLabel(service, serviceSlots, locale),
+      pillLabel: servicePillLabel(service, serviceSlots, org.currency, locale),
       hasSlots: serviceSlots.length > 0,
       nextSlots: [...serviceSlots]
         .sort((a, b) => a.startDate.localeCompare(b.startDate))

@@ -17,6 +17,7 @@ import { PageTitle } from "@repo/ui";
 import { createOrganization } from "../actions";
 import { LANGUAGES } from "../languages";
 import { TIMEZONES } from "../timezones";
+import { CURRENCIES } from "../currencies";
 
 export function CreateOrgForm() {
   const t = useTranslations("organization");
@@ -24,6 +25,7 @@ export function CreateOrgForm() {
   const [email, setEmail] = useState("");
   const [timezone, setTimezone] = useState("Europe/Paris");
   const [language, setLanguage] = useState("fr");
+  const [currency, setCurrency] = useState("EUR");
   const [streetAddress, setStreetAddress] = useState("");
   const [streetNumber, setStreetNumber] = useState("");
   const [addressLocality, setAddressLocality] = useState("");
@@ -61,6 +63,7 @@ export function CreateOrgForm() {
           addressCountry: addressCountry.trim(),
         },
         isOnBookWebsite,
+        currency,
       );
 
       if (result.success && result.organization) {
@@ -69,6 +72,7 @@ export function CreateOrgForm() {
         setEmail("");
         setTimezone("Europe/Paris");
         setLanguage("fr");
+        setCurrency("EUR");
         setStreetAddress("");
         setStreetNumber("");
         setAddressLocality("");
@@ -112,7 +116,7 @@ export function CreateOrgForm() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="space-y-2">
             <Label>{t("language")}</Label>
             <Select value={language} onValueChange={setLanguage} disabled={isPending}>
@@ -138,6 +142,21 @@ export function CreateOrgForm() {
                 {TIMEZONES.map((tz) => (
                   <SelectItem key={tz} value={tz}>
                     {tz}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-2">
+            <Label>{t("currency")}</Label>
+            <Select value={currency} onValueChange={setCurrency} disabled={isPending}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {CURRENCIES.map((c) => (
+                  <SelectItem key={c.code} value={c.code}>
+                    {c.symbol} {c.code}
                   </SelectItem>
                 ))}
               </SelectContent>

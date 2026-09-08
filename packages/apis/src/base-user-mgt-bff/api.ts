@@ -9,8 +9,6 @@ export async function getOrganizationsByEmail(
       headers: headers({ idToken }),
     });
 
-
-    console.log(response.data);
     return response.data ?? [];
   } catch (error) {
     console.error("Error fetching organizations:", error);
@@ -40,10 +38,11 @@ export async function createOrganization(
   idToken: string,
   address?: Address,
   isOnBookWebsite?: boolean,
+  currency?: string,
 ): Promise<Organization | null> {
   try {
     const response = await client.POST("/organization", {
-      body: { name, timezone, email, language, address, isOnBookWebsite },
+      body: { name, timezone, email, language, address, isOnBookWebsite, currency },
       headers: headers({ idToken }),
     });
     return response.data ?? null;

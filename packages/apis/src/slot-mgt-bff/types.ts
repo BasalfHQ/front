@@ -1153,13 +1153,13 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Get all slots, serviceId can be 'all' */
+                /** @description Get organization info */
                 200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["Slot"][];
+                        "application/json": components["schemas"]["Organization"];
                     };
                 };
                 /** @description Organization not found */
@@ -1226,6 +1226,21 @@ export interface components {
             endDate: string;
         };
         Intervals: "alldays" | ("sunday" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday")[];
+        Organization: {
+            organizationId: string;
+            name: string;
+            timezone: string;
+            currency?: string;
+            isOnBookWebsite: boolean;
+            address?: components["schemas"]["Address"];
+        };
+        Address: {
+            streetAddress?: string;
+            streetNumber?: string;
+            addressLocality?: string;
+            postalCode?: string;
+            addressCountry?: string;
+        };
     };
     responses: never;
     parameters: never;

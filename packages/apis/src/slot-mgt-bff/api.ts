@@ -15,9 +15,10 @@ export async function createService(
   idToken: string,
   name: string,
   description?: string,
+  price?: number,
 ): Promise<Service | null> {
   const response = await client.POST("/service", {
-    body: { name, description },
+    body: { name, description, price },
     headers: headers({ idToken }),
   });
   if (response.response.status !== 200) {
@@ -31,10 +32,11 @@ export async function updateService(
   serviceId: string,
   name: string,
   description?: string,
+  price?: number,
 ) {
   const response = await client.PATCH("/service/{serviceId}", {
     params: { path: { serviceId } },
-    body: { name, description },
+    body: { name, description, price },
     headers: headers({ idToken }),
   });
   if (response.response.status !== 200) {

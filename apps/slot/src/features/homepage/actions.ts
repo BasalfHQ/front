@@ -13,12 +13,21 @@ export async function getServices() {
   return await Slot.getServices(session.idToken);
 }
 
-export async function createService(name: string, description?: string) {
+export async function createService(
+  name: string,
+  description?: string,
+  price?: number,
+) {
   const [session, locale] = await Promise.all([getSession(), getLocale()]);
   if (!session || !session.idToken) {
     return redirect({ href: "/", locale });
   }
-  const result = await Slot.createService(session.idToken, name, description);
+  const result = await Slot.createService(
+    session.idToken,
+    name,
+    description,
+    price,
+  );
   revalidatePath("/");
   return result;
 }
@@ -27,12 +36,13 @@ export async function updateService(
   serviceId: string,
   name: string,
   description?: string,
+  price?: number,
 ) {
   const [session, locale] = await Promise.all([getSession(), getLocale()]);
   if (!session || !session.idToken) {
     return redirect({ href: "/", locale });
   }
-  await Slot.updateService(session.idToken, serviceId, name, description);
+  await Slot.updateService(session.idToken, serviceId, name, description, price);
   revalidatePath("/");
 }
 

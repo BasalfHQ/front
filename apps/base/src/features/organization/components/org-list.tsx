@@ -27,6 +27,7 @@ import { Globe, Pencil } from "@repo/ui/icons";
 import { updateOrganization } from "../actions";
 import { LANGUAGES } from "../languages";
 import { TIMEZONES } from "../timezones";
+import { CURRENCIES } from "../currencies";
 
 export function OrgList({ organizations }: { organizations: Base.Organization[] }) {
   const t = useTranslations("organization");
@@ -35,6 +36,7 @@ export function OrgList({ organizations }: { organizations: Base.Organization[] 
   const [email, setEmail] = useState("");
   const [timezone, setTimezone] = useState("");
   const [language, setLanguage] = useState("");
+  const [currency, setCurrency] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [streetNumber, setStreetNumber] = useState("");
   const [addressLocality, setAddressLocality] = useState("");
@@ -62,6 +64,7 @@ export function OrgList({ organizations }: { organizations: Base.Organization[] 
         timezone,
         isOnBookWebsite,
         ...(language && { language }),
+        ...(currency && { currency }),
         address: {
           streetAddress: streetAddress.trim(),
           streetNumber: streetNumber.trim() || undefined,
@@ -125,6 +128,7 @@ export function OrgList({ organizations }: { organizations: Base.Organization[] 
                   setEmail(org.email ?? "");
                   setTimezone(org.timezone);
                   setLanguage(org.language ?? "");
+                  setCurrency(org.currency ?? "");
                   setStreetAddress(org.address?.streetAddress ?? "");
                   setStreetNumber(org.address?.streetNumber ?? "");
                   setAddressLocality(org.address?.addressLocality ?? "");
@@ -197,6 +201,21 @@ export function OrgList({ organizations }: { organizations: Base.Organization[] 
                   {TIMEZONES.map((tz) => (
                     <SelectItem key={tz} value={tz}>
                       {tz}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label>{t("currency")}</Label>
+              <Select value={currency} onValueChange={setCurrency}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {CURRENCIES.map((c) => (
+                    <SelectItem key={c.code} value={c.code}>
+                      {c.symbol} {c.code}
                     </SelectItem>
                   ))}
                 </SelectContent>

@@ -575,6 +575,7 @@ export interface components {
             organizationId: string;
             name: string;
             timezone: string;
+            currency?: string;
             isOnBookWebsite: boolean;
             address?: components["schemas"]["Address"];
         };

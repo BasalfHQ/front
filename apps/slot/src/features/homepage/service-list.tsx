@@ -25,16 +25,22 @@ export function ServiceList({ services }: { services: Slot.Service[] }) {
   const [editingService, setEditingService] = useState<Slot.Service | null>(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState<string | undefined>(undefined);
+  const [price, setPrice] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleCreate = async () => {
     if (!name.trim()) return;
     setLoading(true);
     try {
-      await createService(name.trim(), description);
+      await createService(
+        name.trim(),
+        description,
+        price.trim() ? Math.round(Number(price) * 100) : undefined,
+      );
       setCreateOpen(false);
       setName("");
       setDescription(undefined);
+      setPrice("");
     } catch {
       toast(t("createError"));
     } finally {
@@ -46,10 +52,16 @@ export function ServiceList({ services }: { services: Slot.Service[] }) {
     if (!editingService || !name.trim()) return;
     setLoading(true);
     try {
-      await updateService(editingService.serviceId, name.trim(), description);
+      await updateService(
+        editingService.serviceId,
+        name.trim(),
+        description,
+        price.trim() ? Math.round(Number(price) * 100) : undefined,
+      );
       setEditingService(null);
       setName("");
       setDescription(undefined);
+      setPrice("");
     } catch {
       toast(t("updateError"));
     } finally {
@@ -97,6 +109,9 @@ export function ServiceList({ services }: { services: Slot.Service[] }) {
                   setEditingService(service);
                   setName(service.name);
                   setDescription(service.description);
+                  setPrice(
+                    service.price !== undefined ? String(service.price / 100) : "",
+                  );
                 }}
               >
                 <Pencil className="size-4" />
@@ -122,6 +137,7 @@ export function ServiceList({ services }: { services: Slot.Service[] }) {
           setCreateOpen(true);
           setName("");
           setDescription(undefined);
+          setPrice("");
         }}
       >
         <Plus className="size-4 mr-2" />
@@ -142,6 +158,18 @@ export function ServiceList({ services }: { services: Slot.Service[] }) {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder={t("namePlaceholder")}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="service-price">{t("price")}</Label>
+              <Input
+                id="service-price"
+                type="number"
+                min="0"
+                step="0.01"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                placeholder={t("pricePlaceholder")}
               />
             </div>
             {description !== undefined ? (
@@ -204,6 +232,18 @@ export function ServiceList({ services }: { services: Slot.Service[] }) {
                 id="edit-service-name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="edit-service-price">{t("price")}</Label>
+              <Input
+                id="edit-service-price"
+                type="number"
+                min="0"
+                step="0.01"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                placeholder={t("pricePlaceholder")}
               />
             </div>
             {description !== undefined ? (

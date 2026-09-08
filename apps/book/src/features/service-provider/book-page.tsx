@@ -43,7 +43,7 @@ export default async function BookPage({
     return null;
   }
 
-  const priceLabel = formatPrice(service.price, undefined, locale);
+  const priceLabel = formatPrice(service.price, org.currency, locale);
 
   const sp = sps[0];
   const providerName = `${sp.firstName} ${sp.lastName}`;

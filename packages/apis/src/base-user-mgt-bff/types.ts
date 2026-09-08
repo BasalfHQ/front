@@ -117,6 +117,7 @@ export interface paths {
                         timezone: string;
                         language?: string;
                         email?: string;
+                        currency?: string;
                         /** @default false */
                         isOnBookWebsite?: boolean;
                         address?: components["schemas"]["Address"];
@@ -463,6 +464,7 @@ export interface components {
             timezone: string;
             language?: string;
             email?: string;
+            currency?: string;
             /** @default false */
             isOnBookWebsite: boolean;
             address?: components["schemas"]["Address"];

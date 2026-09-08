@@ -31,6 +31,8 @@
       "editDescription": "Modifier le nom du service.",
       "name": "Nom",
       "namePlaceholder": "ex. Coupe de cheveux, Consultation, Cours de yoga...",
+      "price": "Prix",
+      "pricePlaceholder": "ex. 25.00",
       "description": "Description",
       "addDescription": "Ajouter une description",
       "defaultServiceHint": "Service par défaut — vous pouvez le renommer mais pas le supprimer",

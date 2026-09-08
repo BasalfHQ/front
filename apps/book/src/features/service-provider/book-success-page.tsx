@@ -42,7 +42,7 @@ export default async function BookSuccessPage({
     sp.occupationId,
     locale,
   );
-  const priceLabel = formatPrice(service?.price, undefined, locale);
+  const priceLabel = formatPrice(service?.price, org.currency, locale);
   const durationLabel = formatDuration(booking.startDate, booking.endDate);
 
   const address = formatAddress(org.address);
