@@ -5,6 +5,7 @@ import { Book } from "@repo/apis";
 import { getAllArticlesWithFallback } from "@/features/blog";
 import { getBaseUrl } from "@/lib/seo";
 import { getTranslations } from "@repo/i18n";
+import { MoveLeft } from "@repo/ui/icons";
 
 export const dynamic = "force-dynamic";
 
@@ -71,12 +72,14 @@ export default async function BlogIndex({ params }: Props) {
   }
 
   return (
-    <div className="max-w-2xl mx-auto mb-10">
+    <div className="mx-auto mb-10 max-w-2xl px-5 py-8 md:px-6">
       <Link
         href={`${localePath}/service-provider/${orgId}`}
-        className="text-sm text-muted-foreground hover:underline"
+        className="flex min-h-[44px] w-fit items-center gap-2 text-info hover:underline"
       >
-        ← {t("back")}</Link>
+        <MoveLeft size={16} />
+        <span className="text-sm font-medium">{t("back")}</span>
+      </Link>
       <header className="mb-10 mt-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4">Blog</h1>
         <p className="text-lg text-muted-foreground">
@@ -97,7 +100,7 @@ export default async function BlogIndex({ params }: Props) {
             <Link
               key={article.pageId}
               href={`${articleLocalePath}/service-provider/${orgId}/blog${article.url}`}
-              className="block p-6 border border-border rounded-lg hover:border-primary/50 hover:shadow-sm transition-all"
+              className="block rounded-lg border border-border bg-card p-6 shadow-[0_0_0_rgba(0,0,0,0)] transition-all hover:border-info/60 hover:shadow-[0_4px_16px_-4px_hsl(var(--info)/0.25)]"
             >
               <div className="flex items-center gap-3 text-sm text-muted-foreground mb-2">
                 {article.isOtherLocale && (

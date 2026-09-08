@@ -2,24 +2,34 @@ import { Book } from "@repo/apis";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { addMonths } from "date-fns";
-import { BookAppointment } from "./components/book";
+import { ServiceBookSection } from "./components/service-book-section";
+import { ServiceQuickNav } from "./components/service-quick-nav";
+import { ServicesBooking } from "./components/services-booking";
 import { getTranslations, getLocale, I18nClientProvider } from "@repo/i18n";
 import bookingData from "@repo/esco/data/booking-occupations.json";
-import type { BookingCategory } from "@repo/esco";
 import { MapPin } from "@repo/ui/icons";
 import { ExpandableText } from "@repo/ui/components/expandable-text";
 import { getAllArticlesWithFallback } from "@/features/blog";
+import { formatAddress, getOccupationLabel } from "@/lib/seo";
+import {
+  combinePill,
+  formatDurationRange,
+  formatPrice,
+} from "@/lib/price";
 
-function getOccupationLabel(
-  categories: BookingCategory[],
-  occupationId: string,
+export const serviceAnchorId = (serviceId: string) =>
+  `service-${serviceId}`;
+
+function servicePillLabel(
+  service: Book.Service,
+  serviceSlots: Book.Slot[],
   locale: string,
-): string | null {
-  for (const cat of categories) {
-    const occ = cat.occupations.find((o) => o.id === occupationId);
-    if (occ) return occ.labels[locale] ?? occ.labels["en"] ?? null;
-  }
-  return null;
+) {
+  // Book.Organization currently exposes no currency field — formatPrice
+  // resolves to null (never fabricated) until the API adds one.
+  const priceLabel = formatPrice(service.price, undefined, locale);
+  const durationLabel = formatDurationRange(serviceSlots);
+  return combinePill(durationLabel, priceLabel);
 }
 
 export default async function Home({
@@ -44,104 +54,126 @@ export default async function Home({
     notFound();
   }
   const sp = sps[0];
+  const providerName = `${sp.firstName} ${sp.lastName}`;
+  const occupationLabel = getOccupationLabel(
+    bookingData.categories,
+    sp.occupationId,
+    locale,
+  );
+  const address = formatAddress(org.address);
+  const googleMapsUrl = address
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
+    : null;
 
-  const address = () => {
-    const adr = org.address;
-    if (!adr) return null;
+  const availableSlots = slots.filter((s) => s.usedCapacity < s.maxCapacity);
 
-    const formattedAddress = [
-      [adr.streetNumber, adr.streetAddress].filter(Boolean).join(" "),
-      [adr.postalCode, adr.addressLocality].filter(Boolean).join(" "),
-      adr.addressCountry,
-    ]
-      .filter(Boolean)
-      .join(", ");
+  const orderedServices = services
+    .map((service) => ({
+      service,
+      slots: availableSlots.filter((s) => s.serviceId === service.serviceId),
+    }))
+    .sort((a, b) => {
+      if (a.slots.length === 0 && b.slots.length > 0) return 1;
+      if (a.slots.length > 0 && b.slots.length === 0) return -1;
+      return 0;
+    });
 
-    if (!formattedAddress) return null;
+  const serviceName = (service: Book.Service) =>
+    service.name === `${org.name} Service`
+      ? (getOccupationLabel(bookingData.categories, sp.occupationId, locale) ??
+        service.name)
+      : service.name;
 
-    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-      formattedAddress,
-    )}`;
+  const quickNavServices = orderedServices
+    .filter(({ slots }) => slots.length > 0)
+    .map(({ service }) => ({
+      name: serviceName(service),
+      anchorId: serviceAnchorId(service.serviceId),
+    }));
 
-    return (
-      <a
-        href={googleMapsUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="hover:underline"
-      >
-        {formattedAddress}
-      </a>
-    );
-  };
+  const serviceBookingSummaries = orderedServices.map(
+    ({ service, slots: serviceSlots }) => ({
+      service,
+      name: serviceName(service),
+      pillLabel: servicePillLabel(service, serviceSlots, locale),
+      hasSlots: serviceSlots.length > 0,
+      nextSlots: [...serviceSlots]
+        .sort((a, b) => a.startDate.localeCompare(b.startDate))
+        .slice(0, 3),
+      anchorId: serviceAnchorId(service.serviceId),
+    }),
+  );
 
   return (
     <I18nClientProvider namespace="common">
-      <div className="flex flex-col items-center mt-10 gap-10 mx-4 md:mx-10 xl:mx-0">
-        <div className="text-center md:text-left flex flex-col w-full gap-2">
-          <h1 className="text-4xl font-bold">
-            {sp.firstName} {sp.lastName}
+      <div className="flex flex-col items-center gap-10 px-5 pb-24 pt-8 md:pb-10 md:px-6">
+        <div className="flex w-full flex-col gap-2 text-center md:text-left">
+          <h1 className="text-[26px] font-bold tracking-[-0.02em] md:text-4xl">
+            {providerName}
           </h1>
-          <div className="flex items-center gap-1 text-gray-600">
-            <MapPin size={16} className="flex-shrink-0" />
-            <p>{address()}</p>
-          </div>
+          {occupationLabel && (
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              {occupationLabel}
+            </p>
+          )}
+          {address && (
+            <>
+              <a
+                href={googleMapsUrl ?? undefined}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mx-auto flex min-h-[44px] w-full items-center gap-2 rounded-lg border border-border bg-card px-3 hover:bg-accent md:hidden"
+              >
+                <MapPin size={16} className="shrink-0 text-info" />
+                <span className="text-sm text-foreground">{address}</span>
+              </a>
+              <a
+                href={googleMapsUrl ?? undefined}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden w-fit items-center gap-1 text-info hover:underline md:flex"
+              >
+                <MapPin size={16} className="shrink-0" />
+                <span>{address}</span>
+              </a>
+            </>
+          )}
           <ExpandableText
             html={sp.description ?? ""}
-            className="text-lg text-gray-600 mb-4 text-left"
+            className="mb-0 text-left text-lg text-muted-foreground md:mb-4"
           />
         </div>
-        {services
-          .map((service) => ({
-            service,
-            slots: slots.filter((s) => s.serviceId === service.serviceId),
-          }))
-          .sort((a, b) => {
-            if (a.slots.length === 0 && b.slots.length > 0) return 1;
-            if (a.slots.length > 0 && b.slots.length === 0) return -1;
-            return 0;
-          })
-          .map(({ service, slots: serviceSlots }) => {
-            const defaultPattern = `${org.name} Service`;
-            const serviceName =
-              service.name === defaultPattern
-                ? (getOccupationLabel(
-                    bookingData.categories,
-                    sp.occupationId,
-                    locale,
-                  ) ?? service.name)
-                : service.name;
 
-            return (
-              <div
+        <ServicesBooking orgId={orgId} services={serviceBookingSummaries} />
+
+        <I18nClientProvider namespace={["common", "booking"]}>
+          {quickNavServices.length > 1 && (
+            <ServiceQuickNav services={quickNavServices} />
+          )}
+
+          {serviceBookingSummaries.map(
+            ({ service, name, pillLabel, nextSlots, anchorId }) => (
+              <ServiceBookSection
                 key={service.serviceId}
-                className="w-full flex flex-col gap-4"
-              >
-                <h3 className="text-2xl font-bold">
-                  {serviceName} - {t("takeAnAppointment")}
-                </h3>
-                {service.description && (
-                  <ExpandableText html={service.description} />
-                )}
-                <I18nClientProvider namespace="booking">
-                  <BookAppointment
-                    organization={org}
-                    slots={serviceSlots}
-                    services={[service]}
-                    serviceProvider={sp}
-                    categories={bookingData.categories}
-                    locale={locale}
-                  />
-                </I18nClientProvider>
-              </div>
-            );
-          })}
+                orgId={orgId}
+                service={service}
+                heading={`${name} — ${t("takeAnAppointment")}`}
+                pillLabel={pillLabel}
+                description={service.description ?? null}
+                nextSlots={nextSlots}
+                locale={locale}
+                timezone={org.timezone}
+                anchorId={anchorId}
+              />
+            ),
+          )}
+        </I18nClientProvider>
 
         {articles.length > 0 && (
-          <div className="w-full flex flex-col gap-4 mt-8 pt-8 mb-10 border-t border-border">
+          <div className="mb-10 mt-8 flex w-full flex-col gap-4 border-t border-border pt-8">
             <h2 className="text-2xl font-bold">{t("blogTitle")}</h2>
             <p className="text-muted-foreground">{t("blogDescription")}</p>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
               {articles.slice(0, 4).map((article) => {
                 const articleSchema = article.seo.schemas.find(
                   (s) => s.type === "article",
@@ -158,9 +190,9 @@ export default async function Home({
                   <Link
                     key={article.pageId}
                     href={`${articleLocalePath}/service-provider/${orgId}/blog${article.url}`}
-                    className="block p-4 border border-border rounded-lg hover:border-primary/50 hover:shadow-sm transition-all"
+                    className="block rounded-lg border border-border bg-card p-4 shadow-[0_0_0_rgba(0,0,0,0)] transition-all hover:border-info/60 hover:shadow-[0_4px_16px_-4px_hsl(var(--info)/0.25)]"
                   >
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                    <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
                       {article.isOtherLocale && (
                         <span title={article.locale}>{langFlag}</span>
                       )}
@@ -181,10 +213,10 @@ export default async function Home({
                         </>
                       )}
                     </div>
-                    <h3 className="font-semibold mb-1">
+                    <h3 className="mb-1 font-semibold">
                       {article.seo.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2">
+                    <p className="line-clamp-2 text-sm text-muted-foreground">
                       {article.seo.description}
                     </p>
                   </Link>
@@ -193,7 +225,13 @@ export default async function Home({
             </div>
             <Link
               href={`${locale === "en" ? "" : `/${locale}`}/service-provider/${orgId}/blog`}
-              className="text-muted-foreground hover:text-foreground underline text-sm w-fit"
+              className="min-h-[44px] w-full rounded-md border border-border text-center leading-[44px] text-foreground hover:bg-accent md:hidden"
+            >
+              {t("viewAllArticles")}
+            </Link>
+            <Link
+              href={`${locale === "en" ? "" : `/${locale}`}/service-provider/${orgId}/blog`}
+              className="hidden w-fit text-sm text-info hover:underline md:block"
             >
               {t("viewAllArticles")}
             </Link>

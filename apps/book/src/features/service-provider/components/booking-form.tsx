@@ -1,6 +1,7 @@
 "use client";
 
-import { useLocale, useTranslations } from "@repo/i18n";
+import { Book } from "@repo/apis";
+import { Link, useRouter, useTranslations } from "@repo/i18n";
 import { Button } from "@repo/ui/button";
 import { AutoSizeInput } from "@repo/ui/components/auto-size-input";
 import { Input } from "@repo/ui/components/input";
@@ -8,13 +9,43 @@ import { Label } from "@repo/ui/components/label";
 import { formatDay, formatHour } from "@repo/ui/lib/dates";
 import { MapPin, MoveLeft } from "@repo/ui/icons";
 import { useState } from "react";
+import { formatDuration } from "@/lib/price";
 import { createBooking } from "../actions";
-import { useBooking } from "./book";
 
-export const BookingForm = () => {
+const inputClassName = "h-auto min-h-[46px] w-full max-w-none hover:cursor-auto";
+
+function capitalize(s: string): string {
+  return s.length ? s[0]!.toUpperCase() + s.slice(1) : s;
+}
+
+function formatAddress(organization: Book.Organization): string | null {
+  const adr = organization.address;
+  if (!adr) return null;
+  return [
+    [adr.streetNumber, adr.streetAddress].filter(Boolean).join(" "),
+    [adr.postalCode, adr.addressLocality].filter(Boolean).join(", "),
+  ]
+    .filter(Boolean)
+    .join(", ");
+}
+
+export const BookingForm = ({
+  orgId,
+  locale,
+  organization,
+  service,
+  slot,
+  priceLabel,
+}: {
+  orgId: string;
+  locale: string;
+  organization: Book.Organization;
+  service: Book.Service;
+  slot: Book.Slot;
+  priceLabel: string | null;
+}) => {
   const t = useTranslations("booking");
-  const locale = useLocale();
-  const { organization, slot, goToPreviousStep, goToNextStep } = useBooking();
+  const router = useRouter();
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -25,20 +56,18 @@ export const BookingForm = () => {
   const [error, setError] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
 
-  if (!slot) return <p>{t("missingInfo")}</p>;
+  const durationLabel = formatDuration(slot.startDate, slot.endDate);
+  const address = formatAddress(organization);
+  const dayLabel = capitalize(
+    formatDay(slot.startDate, locale, organization.timezone),
+  );
+  const hourLabel = formatHour(slot.startDate, locale, organization.timezone);
 
-  const formatAddress = () => {
-    const adr = organization.address;
-    if (!adr) return null;
-    return [
-      [adr.streetNumber, adr.streetAddress].filter(Boolean).join(" "),
-      [adr.postalCode, adr.addressLocality].filter(Boolean).join(" "),
-    ]
-      .filter(Boolean)
-      .join(", ");
-  };
-
-  const address = formatAddress();
+  const isFormValid =
+    form.firstName.trim() !== "" &&
+    form.lastName.trim() !== "" &&
+    form.email.trim() !== "" &&
+    form.phone.trim() !== "";
 
   const update = (field: keyof typeof form, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -60,67 +89,89 @@ export const BookingForm = () => {
       endDate: slot.endDate,
       numberOfPerson: 1,
     });
-    setIsPending(false);
     if (result.success) {
-      goToNextStep();
-    } else if (result.error === "SLOT_CAPACITY_EXCEEDED") {
+      router.push(`/service-provider/${orgId}/book/success`);
+      return;
+    }
+    setIsPending(false);
+    if (result.error === "SLOT_CAPACITY_EXCEEDED") {
       setError(t("slotNotAvailable"));
     } else {
       setError(t("bookingError"));
     }
   };
 
+  const submitButton = (
+    <Button
+      type="submit"
+      form="booking-form"
+      disabled={isPending || !isFormValid}
+      className="min-h-[44px] w-full"
+    >
+      {isPending
+        ? t("confirming")
+        : isFormValid
+          ? t("confirm")
+          : t("completeYourInfo")}
+    </Button>
+  );
+
   return (
-    <div className="flex flex-col gap-4 w-full justify-center items-center">
-      <div className="w-full">
-        <div
-          className="flex items-center gap-2 cursor-pointer border-b border-transparent hover:border-gray-400 w-fit text-gray-500"
-          onClick={goToPreviousStep}
-        >
-          <MoveLeft size={16} />
-          <p className="text-sm">{t("changeSlot")}</p>
-        </div>
-      </div>
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-4 max-w-md w-full"
+    <div className="mx-auto flex w-full max-w-xl flex-col gap-4">
+      <Link
+        href={`/service-provider/${orgId}/book/slot?serviceId=${service.serviceId}`}
+        className="flex min-h-[44px] w-fit items-center gap-2 text-info hover:underline"
       >
-        <h2 className="text-xl font-semibold">{t("formTitle")}</h2>
+        <MoveLeft size={16} />
+        <span className="text-sm font-medium">{t("changeSlot")}</span>
+      </Link>
 
-        <div className="flex flex-col gap-1">
-          <p className="text-gray-600">
-            {formatDay(slot.startDate, locale, organization.timezone)} {t("at")}{" "}
-            {formatHour(slot.startDate, locale, organization.timezone)}
-          </p>
-          {address && (
-            <div className="flex items-center gap-1 text-gray-600">
-              <MapPin size={16} className="flex-shrink-0" />
-              <p>{address}</p>
-            </div>
-          )}
-        </div>
+      <div className="flex flex-col gap-1 rounded-lg bg-accent p-4">
+        <span className="text-[11px] font-semibold uppercase tracking-wide text-accent-foreground/70">
+          {t("yourSlot")}
+        </span>
+        <p className="font-semibold text-accent-foreground">
+          {dayLabel} {t("at")} {hourLabel}
+        </p>
+        <p className="text-sm text-accent-foreground/80">
+          {[service.name, durationLabel, priceLabel].filter(Boolean).join(" · ")}
+        </p>
+        {address && (
+          <div className="mt-1 flex items-start gap-2 text-sm text-accent-foreground/80">
+            <MapPin size={16} className="mt-0.5 shrink-0 text-info" />
+            <p>{address}</p>
+          </div>
+        )}
+      </div>
 
-        <div className="flex flex-col sm:flex-row gap-2 w-full justify-between">
-          <div className="flex flex-col gap-1 flex-1">
+      <form
+        id="booking-form"
+        onSubmit={handleSubmit}
+        className="flex w-full flex-col gap-4"
+      >
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <div className="flex flex-1 flex-col gap-1">
             <Label htmlFor="firstName">{t("firstName")}</Label>
             <Input
               id="firstName"
               value={form.firstName}
               onChange={(e) => update("firstName", e.target.value)}
+              className={inputClassName}
               required
             />
           </div>
-          <div className="flex flex-col gap-1 flex-1">
+          <div className="flex flex-1 flex-col gap-1">
             <Label htmlFor="lastName">{t("lastName")}</Label>
             <Input
               id="lastName"
               value={form.lastName}
               onChange={(e) => update("lastName", e.target.value)}
+              className={inputClassName}
               required
             />
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2 sm:flex-row">
           <div className="flex flex-1 flex-col gap-1">
             <Label htmlFor="email">{t("email")}</Label>
             <Input
@@ -128,6 +179,7 @@ export const BookingForm = () => {
               type="email"
               value={form.email}
               onChange={(e) => update("email", e.target.value)}
+              className={inputClassName}
               required
             />
           </div>
@@ -138,6 +190,7 @@ export const BookingForm = () => {
               type="tel"
               value={form.phone}
               onChange={(e) => update("phone", e.target.value)}
+              className={inputClassName}
               required
             />
           </div>
@@ -148,14 +201,22 @@ export const BookingForm = () => {
             id="additionalInfo"
             value={form.additionalInfo}
             onChange={(e) => update("additionalInfo", e.target.value)}
-            className="w-full min-w-full bg-white"
+            className="w-full min-w-full bg-card"
           />
         </div>
-        {error && <p className="text-sm text-red-500">{error}</p>}
-        <Button type="submit" disabled={isPending}>
-          {isPending ? t("confirming") : t("confirm")}
-        </Button>
+
+        <p className="text-[12.5px] text-muted-foreground">
+          {t("cancellationNote")}
+        </p>
+
+        {error && <p className="text-sm text-destructive">{error}</p>}
+
+        <div className="hidden md:block">{submitButton}</div>
       </form>
+
+      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-card/95 px-4 py-3 backdrop-blur md:hidden">
+        {submitButton}
+      </div>
     </div>
   );
 };

@@ -27,7 +27,7 @@ export function Related({ urls, allPages, orgId, locale }: RelatedProps) {
           <Link
             key={related.url}
             href={`${localePath}/service-provider/${orgId}/blog${related.url}`}
-            className="block p-4 border border-border rounded-lg hover:border-primary/50 hover:shadow-sm transition-all"
+            className="block rounded-lg border border-border bg-card p-4 shadow-[0_0_0_rgba(0,0,0,0)] transition-all hover:border-info/60 hover:shadow-[0_4px_16px_-4px_hsl(var(--info)/0.25)]"
           >
             <h3 className="font-medium mt-2">{related.seo.title}</h3>
             <p className="text-sm text-muted-foreground mt-1">

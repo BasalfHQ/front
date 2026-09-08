@@ -86,15 +86,13 @@ export async function Blog({ orgId, locale, slug, providerName }: BlogProps) {
         blogUrl={blogUrl}
         homeUrl={homeUrl}
       />
-      <article className="max-w-2xl mx-auto mb-10">
+      <article className="mx-auto mb-10 max-w-2xl px-5 py-8 md:px-6">
         <Link
           href={homeUrl}
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground w-fit mb-6 group"
+          className="mb-6 flex min-h-[44px] w-fit items-center gap-2 text-info hover:underline"
         >
           <MoveLeft size={16} />
-          <span className="text-sm border-b border-transparent group-hover:border-border">
-            Book an appointment
-          </span>
+          <span className="text-sm font-medium">Book an appointment</span>
         </Link>
 
         <header className="mb-8">
@@ -139,7 +137,7 @@ export async function Blog({ orgId, locale, slug, providerName }: BlogProps) {
             </p>
             <Link
               href={homeUrl}
-              className="inline-block bg-primary text-primary-foreground px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+              className="inline-flex min-h-[44px] items-center justify-center rounded-md bg-info px-6 text-sm font-semibold text-info-foreground hover:bg-info/90"
             >
               Book now
             </Link>

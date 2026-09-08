@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-full flex flex-col align-middle">
-        <main className="max-w-[1024px] mx-auto">{children}</main>
+        <main className="w-full min-w-0 max-w-[1024px] mx-auto">{children}</main>
       </body>
     </html>
   );
