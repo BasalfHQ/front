@@ -1,4 +1,26 @@
 {
+  "auth": {
+    "signInTitle": "Login",
+    "signInDescription": "Enter your credentials to sign in",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign In",
+    "signingIn": "Loading...",
+    "invalidCredentials": "Invalid credentials",
+    "loginFailed": "Login failed",
+    "accountLinkIssue": "Something went wrong with your account link. Please contact Basalf support.",
+    "setNewPasswordTitle": "Set New Password",
+    "setNewPasswordDescription": "Please set a new password for your account",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "passwordHint": "Min 8 chars, uppercase, lowercase, number, special char",
+    "passwordsMismatch": "Passwords do not match",
+    "passwordChangeFailed": "Failed to change password",
+    "setPassword": "Set Password",
+    "signedInTitle": "You're signed in",
+    "signedInDescription": "Login successful.",
+    "goHome": "Go to Home"
+  },
   "nav": {
     "users": "Users",
     "cms": "CMS",
@@ -55,7 +77,10 @@
   "homepage": {
     "title": "Welcome to Basalf",
     "description": "Manage your projects and organizations",
-    "cms": { "title": "CMS", "description": "Our content management system" },
+    "cms": {
+      "title": "CMS",
+      "description": "Our content management system"
+    },
     "host": {
       "title": "Host",
       "description": "Our website hosting platform"

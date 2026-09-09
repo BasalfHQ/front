@@ -1,4 +1,26 @@
 {
+  "auth": {
+    "signInTitle": "Connexion",
+    "signInDescription": "Entrez vos identifiants pour vous connecter",
+    "email": "Email",
+    "password": "Mot de passe",
+    "signIn": "Se connecter",
+    "signingIn": "Chargement...",
+    "invalidCredentials": "Identifiants invalides",
+    "loginFailed": "Échec de la connexion",
+    "accountLinkIssue": "Un problème est survenu avec votre lien de compte. Veuillez contacter le support Basalf.",
+    "setNewPasswordTitle": "Définir un nouveau mot de passe",
+    "setNewPasswordDescription": "Veuillez définir un nouveau mot de passe pour votre compte",
+    "newPassword": "Nouveau mot de passe",
+    "confirmNewPassword": "Confirmer le nouveau mot de passe",
+    "passwordHint": "Min. 8 caractères, majuscule, minuscule, chiffre, caractère spécial",
+    "passwordsMismatch": "Les mots de passe ne correspondent pas",
+    "passwordChangeFailed": "Échec du changement de mot de passe",
+    "setPassword": "Définir le mot de passe",
+    "signedInTitle": "Vous êtes connecté",
+    "signedInDescription": "Connexion réussie.",
+    "goHome": "Aller à l'accueil"
+  },
   "homepage": {
     "title": "Slot",
     "description": "Ce module permet de gérer les slots et réservations de votre site.",

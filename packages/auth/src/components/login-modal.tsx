@@ -3,6 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useTranslations } from "@repo/i18n";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +15,23 @@ import { Input } from "@repo/ui/components/input";
 import { Label } from "@repo/ui/components/label";
 import { Button } from "@repo/ui/button";
 
+function getRawSearchParam(name: string): string | null {
+  if (typeof window === "undefined") return null;
+  const pair = window.location.search
+    .slice(1)
+    .split("&")
+    .find((p) => p.slice(0, p.indexOf("=")) === name);
+  if (pair === undefined) return null;
+  const raw = pair.slice(pair.indexOf("=") + 1);
+  try {
+    return decodeURIComponent(raw);
+  } catch {
+    return raw;
+  }
+}
+
 export function LoginModal() {
+  const t = useTranslations("auth");
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -26,6 +43,7 @@ export function LoginModal() {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const [challengeData, setChallengeData] = useState<{
     session: string;
     username: string;
@@ -36,23 +54,100 @@ export function LoginModal() {
     params.delete("login");
     params.delete("callbackUrl");
     params.delete("error");
+    params.delete("username");
+    params.delete("code");
     const newUrl = params.toString() ? `${pathname}?${params}` : pathname;
     router.push(newUrl);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const stripInviteParams = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("username");
+    params.delete("code");
+    const newUrl = params.toString() ? `${pathname}?${params}` : pathname;
+    router.replace(newUrl);
+  };
+
+  const attemptSignIn = async (
+    username: string,
+    pwd: string,
+    fromInviteLink = false,
+  ) => {
     setLoading(true);
     setError("");
 
     try {
-      if (challengeData) {
-        if (newPassword !== confirmNewPassword) {
-          setError("Passwords do not match");
-          setLoading(false);
-          return;
-        }
+      const result = await signIn("cognito", {
+        username,
+        password: pwd,
+        redirect: false,
+      });
 
+      if (result?.error) {
+        try {
+          const errorData = JSON.parse(result.error);
+          if (errorData.challengeName === "NEW_PASSWORD_REQUIRED") {
+            setChallengeData({
+              session: errorData.session,
+              username: errorData.username,
+            });
+            setLoading(false);
+            return;
+          }
+        } catch {
+          // Not a challenge error
+        }
+        // A user who followed an invite link never typed anything, so
+        // "invalid credentials" would be meaningless to them — the link
+        // itself (which silently carries a one-time code) is what failed.
+        setError(fromInviteLink ? t("accountLinkIssue") : t("invalidCredentials"));
+        setLoading(false);
+      } else if (result?.ok) {
+        setLoading(false);
+        setSuccess(true);
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError(fromInviteLink ? t("accountLinkIssue") : t("loginFailed"));
+      setLoading(false);
+    }
+  };
+
+  // Invite links from the "new account" email carry ?username=&code= (the
+  // temporary password) so the user lands straight on the "set new password"
+  // step instead of retyping what the email already gave them.
+  useEffect(() => {
+    if (!isOpen) return;
+    // Cognito's email template substitutes {username} without
+    // URL-encoding it, so an address like "alfred+1@x.com" reaches the
+    // browser as a literal "+". URLSearchParams (used by
+    // useSearchParams()) follows form-encoding rules and decodes that "+"
+    // as a space, corrupting the email. Parse the raw query string instead
+    // so "+" is read literally.
+    const inviteUsername = getRawSearchParam("username");
+    const inviteCode = getRawSearchParam("code");
+    if (!inviteUsername || !inviteCode) return;
+
+    setEmail(inviteUsername);
+    stripInviteParams();
+    void attemptSignIn(inviteUsername, inviteCode, true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (challengeData) {
+      setLoading(true);
+      setError("");
+
+      if (newPassword !== confirmNewPassword) {
+        setError(t("passwordsMismatch"));
+        setLoading(false);
+        return;
+      }
+
+      try {
         const result = await signIn("cognito", {
           username: challengeData.username,
           password: "",
@@ -64,52 +159,24 @@ export function LoginModal() {
         if (result?.error) {
           try {
             const errorData = JSON.parse(result.error);
-            setError(errorData.message || "Failed to change password");
+            setError(errorData.message || t("passwordChangeFailed"));
           } catch {
             setError(result.error);
           }
           setLoading(false);
         } else if (result?.ok) {
-          const params = new URLSearchParams(searchParams.toString());
-          params.delete("login");
-          const newUrl = params.toString() ? `${pathname}?${params}` : pathname;
-          window.location.href = newUrl;
-        }
-      } else {
-        const result = await signIn("cognito", {
-          username: email,
-          password,
-          redirect: false,
-        });
-
-        if (result?.error) {
-          try {
-            const errorData = JSON.parse(result.error);
-            if (errorData.challengeName === "NEW_PASSWORD_REQUIRED") {
-              setChallengeData({
-                session: errorData.session,
-                username: errorData.username,
-              });
-              setLoading(false);
-              return;
-            }
-          } catch {
-            // Not a challenge error
-          }
-          setError("Invalid credentials");
           setLoading(false);
-        } else if (result?.ok) {
-          const params = new URLSearchParams(searchParams.toString());
-          params.delete("login");
-          const newUrl = params.toString() ? `${pathname}?${params}` : pathname;
-          window.location.href = newUrl;
+          setSuccess(true);
         }
+      } catch (err) {
+        console.error("Login error:", err);
+        setError(t("loginFailed"));
+        setLoading(false);
       }
-    } catch (err) {
-      console.error("Login error:", err);
-      setError("Login failed");
-      setLoading(false);
+      return;
     }
+
+    await attemptSignIn(email, password);
   };
 
   useEffect(() => {
@@ -119,6 +186,7 @@ export function LoginModal() {
       setNewPassword("");
       setConfirmNewPassword("");
       setError("");
+      setSuccess(false);
       setChallengeData(null);
     }
   }, [isOpen]);
@@ -128,18 +196,35 @@ export function LoginModal() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            {challengeData ? "Set New Password" : "Login"}
+            {success
+              ? t("signedInTitle")
+              : challengeData
+                ? t("setNewPasswordTitle")
+                : t("signInTitle")}
           </DialogTitle>
           <DialogDescription>
-            {challengeData
-              ? "Please set a new password for your account"
-              : "Enter your credentials to sign in"}
+            {success
+              ? t("signedInDescription")
+              : challengeData
+                ? t("setNewPasswordDescription")
+                : t("signInDescription")}
           </DialogDescription>
         </DialogHeader>
 
+        {success ? (
+          <Button
+            type="button"
+            className="w-full h-12 text-base"
+            onClick={() => {
+              window.location.href = "/";
+            }}
+          >
+            {t("goHome")}
+          </Button>
+        ) : (
         <form onSubmit={handleSubmit} className="space-y-4 flex flex-col gap-4">
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t("email")}</Label>
             <Input
               id="email"
               type="email"
@@ -154,7 +239,7 @@ export function LoginModal() {
 
           {!challengeData && (
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t("password")}</Label>
               <Input
                 id="password"
                 type="password"
@@ -170,7 +255,7 @@ export function LoginModal() {
           {challengeData && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="newPassword">New Password</Label>
+                <Label htmlFor="newPassword">{t("newPassword")}</Label>
                 <Input
                   id="newPassword"
                   type="password"
@@ -182,11 +267,11 @@ export function LoginModal() {
                   minLength={8}
                 />
                 <p className="text-xs text-muted-foreground">
-                  Min 8 chars, uppercase, lowercase, number, special char
+                  {t("passwordHint")}
                 </p>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="confirmNewPassword">Confirm New Password</Label>
+                <Label htmlFor="confirmNewPassword">{t("confirmNewPassword")}</Label>
                 <Input
                   id="confirmNewPassword"
                   type="password"
@@ -205,12 +290,13 @@ export function LoginModal() {
 
           <Button type="submit" className="w-full" disabled={loading}>
             {loading
-              ? "Loading..."
+              ? t("signingIn")
               : challengeData
-                ? "Set Password"
-                : "Sign In"}
+                ? t("setPassword")
+                : t("signIn")}
           </Button>
         </form>
+        )}
       </DialogContent>
     </Dialog>
   );
