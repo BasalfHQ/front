@@ -16,10 +16,7 @@
     "passwordHint": "Min. 8 caractères, majuscule, minuscule, chiffre, caractère spécial",
     "passwordsMismatch": "Les mots de passe ne correspondent pas",
     "passwordChangeFailed": "Échec du changement de mot de passe",
-    "setPassword": "Définir le mot de passe",
-    "signedInTitle": "Vous êtes connecté",
-    "signedInDescription": "Connexion réussie.",
-    "goHome": "Aller à l'accueil"
+    "setPassword": "Définir le mot de passe"
   },
   "homepage": {
     "title": "Slot",
@@ -42,6 +39,12 @@
       "save": "Enregistrer",
       "saving": "Enregistrement...",
       "saveError": "Erreur lors de la sauvegarde du prestataire"
+    },
+    "serviceProviderPicture": {
+      "add": "Ajouter une photo",
+      "change": "Changer la photo",
+      "uploadError": "Erreur lors de l'envoi de la photo",
+      "deleteError": "Erreur lors de la suppression de la photo"
     },
     "services": {
       "title": "Services",

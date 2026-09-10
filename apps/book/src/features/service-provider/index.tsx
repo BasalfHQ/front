@@ -1,5 +1,6 @@
-import { Book } from "@repo/apis";
+import { Book, File } from "@repo/apis";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import { addMonths } from "date-fns";
 import { ServiceBookSection } from "./components/service-book-section";
@@ -64,6 +65,14 @@ export default async function Home({
     ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
     : null;
 
+  const pictureUrl = File.publicFileUrl(
+    orgId,
+    File.serviceProviderPictureKey(sp.serviceProviderId),
+  );
+  const hasPicture = await fetch(pictureUrl, { method: "HEAD" })
+    .then((r) => r.ok)
+    .catch(() => false);
+
   const availableSlots = slots.filter((s) => s.usedCapacity < s.maxCapacity);
 
   const orderedServices = services
@@ -106,41 +115,84 @@ export default async function Home({
   return (
     <I18nClientProvider namespace="common">
       <div className="flex flex-col items-center gap-10 px-5 pb-24 pt-8 md:pb-10 md:px-6">
-        <div className="flex w-full flex-col gap-2 text-center md:text-left">
-          <h1 className="text-[26px] font-bold tracking-[-0.02em] md:text-4xl">
-            {providerName}
-          </h1>
-          {occupationLabel && (
-            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              {occupationLabel}
-            </p>
+        {/* Mobile: image beside the compact identity, description full-width below */}
+        <div className="flex w-full flex-col gap-4 md:hidden">
+          <div className="flex flex-col items-center gap-4 xs:flex-row">
+            {hasPicture && (
+              <Image
+                src={pictureUrl}
+                alt={providerName}
+                width={192}
+                height={240}
+                className="w-48 shrink-0 rounded-lg border object-cover"
+                style={{ aspectRatio: "4 / 5" }}
+              />
+            )}
+            <div className="flex flex-col items-center gap-1 text-center xs:items-start xs:text-left">
+              <h1 className="text-[26px] font-bold tracking-[-0.02em]">
+                {providerName}
+              </h1>
+              {occupationLabel && (
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  {occupationLabel}
+                </p>
+              )}
+              {address && (
+                <a
+                  href={googleMapsUrl ?? undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-fit items-center gap-1 text-sm text-info hover:underline"
+                >
+                  <MapPin size={16} className="shrink-0" />
+                  <span>{address}</span>
+                </a>
+              )}
+            </div>
+          </div>
+          <ExpandableText
+            html={sp.description ?? ""}
+            className="mb-0 text-left text-lg text-muted-foreground"
+          />
+        </div>
+
+        {/* Desktop: image and full identity block in a single row */}
+        <div className="hidden w-full md:flex md:flex-row md:items-start md:gap-8">
+          {hasPicture && (
+            <Image
+              src={pictureUrl}
+              alt={providerName}
+              width={192}
+              height={240}
+              className="w-48 shrink-0 rounded-lg border object-cover"
+              style={{ aspectRatio: "4 / 5" }}
+            />
           )}
-          {address && (
-            <>
+          <div className="flex w-full flex-col gap-2 text-left">
+            <h1 className="text-4xl font-bold tracking-[-0.02em]">
+              {providerName}
+            </h1>
+            {occupationLabel && (
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                {occupationLabel}
+              </p>
+            )}
+            {address && (
               <a
                 href={googleMapsUrl ?? undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mx-auto flex min-h-[44px] w-full items-center gap-2 rounded-lg border border-border bg-card px-3 hover:bg-accent md:hidden"
-              >
-                <MapPin size={16} className="shrink-0 text-info" />
-                <span className="text-sm text-foreground">{address}</span>
-              </a>
-              <a
-                href={googleMapsUrl ?? undefined}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden w-fit items-center gap-1 text-info hover:underline md:flex"
+                className="flex w-fit items-center gap-1 text-info hover:underline"
               >
                 <MapPin size={16} className="shrink-0" />
                 <span>{address}</span>
               </a>
-            </>
-          )}
-          <ExpandableText
-            html={sp.description ?? ""}
-            className="mb-0 text-left text-lg text-muted-foreground md:mb-4"
-          />
+            )}
+            <ExpandableText
+              html={sp.description ?? ""}
+              className="mb-0 text-left text-lg text-muted-foreground md:mb-4"
+            />
+          </div>
         </div>
 
         <ServicesBooking orgId={orgId} services={serviceBookingSummaries} />

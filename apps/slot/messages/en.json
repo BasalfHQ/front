@@ -16,10 +16,7 @@
     "passwordHint": "Min 8 chars, uppercase, lowercase, number, special char",
     "passwordsMismatch": "Passwords do not match",
     "passwordChangeFailed": "Failed to change password",
-    "setPassword": "Set Password",
-    "signedInTitle": "You're signed in",
-    "signedInDescription": "Login successful.",
-    "goHome": "Go to Home"
+    "setPassword": "Set Password"
   },
   "homepage": {
     "title": "Slot",
@@ -42,6 +39,12 @@
       "save": "Save",
       "saving": "Saving...",
       "saveError": "Failed to save service provider"
+    },
+    "serviceProviderPicture": {
+      "add": "Add a picture",
+      "change": "Change picture",
+      "uploadError": "Failed to upload picture",
+      "deleteError": "Failed to delete picture"
     },
     "services": {
       "title": "Services",

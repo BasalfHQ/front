@@ -43,7 +43,6 @@ export function LoginModal() {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
   const [challengeData, setChallengeData] = useState<{
     session: string;
     username: string;
@@ -103,8 +102,8 @@ export function LoginModal() {
         setError(fromInviteLink ? t("accountLinkIssue") : t("invalidCredentials"));
         setLoading(false);
       } else if (result?.ok) {
-        setLoading(false);
-        setSuccess(true);
+        closeModal();
+        router.refresh();
       }
     } catch (err) {
       console.error("Login error:", err);
@@ -165,8 +164,8 @@ export function LoginModal() {
           }
           setLoading(false);
         } else if (result?.ok) {
-          setLoading(false);
-          setSuccess(true);
+          closeModal();
+          router.refresh();
         }
       } catch (err) {
         console.error("Login error:", err);
@@ -186,7 +185,6 @@ export function LoginModal() {
       setNewPassword("");
       setConfirmNewPassword("");
       setError("");
-      setSuccess(false);
       setChallengeData(null);
     }
   }, [isOpen]);
@@ -196,32 +194,15 @@ export function LoginModal() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            {success
-              ? t("signedInTitle")
-              : challengeData
-                ? t("setNewPasswordTitle")
-                : t("signInTitle")}
+            {challengeData ? t("setNewPasswordTitle") : t("signInTitle")}
           </DialogTitle>
           <DialogDescription>
-            {success
-              ? t("signedInDescription")
-              : challengeData
-                ? t("setNewPasswordDescription")
-                : t("signInDescription")}
+            {challengeData
+              ? t("setNewPasswordDescription")
+              : t("signInDescription")}
           </DialogDescription>
         </DialogHeader>
 
-        {success ? (
-          <Button
-            type="button"
-            className="w-full h-12 text-base"
-            onClick={() => {
-              window.location.href = "/";
-            }}
-          >
-            {t("goHome")}
-          </Button>
-        ) : (
         <form onSubmit={handleSubmit} className="space-y-4 flex flex-col gap-4">
           <div className="space-y-2">
             <Label htmlFor="email">{t("email")}</Label>
@@ -296,7 +277,6 @@ export function LoginModal() {
                 : t("signIn")}
           </Button>
         </form>
-        )}
       </DialogContent>
     </Dialog>
   );

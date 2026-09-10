@@ -1,4 +1,4 @@
-This app is a doctolib/treatwell like app. 
+Book product app — public customer-facing booking site (doctolib/treatwell-like). Talks to `book-mgt-bff` via `@repo/apis`. See `../../CLAUDE.md` for repo-wide rules and app map.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

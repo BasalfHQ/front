@@ -17,12 +17,23 @@ export enum EnvVar {
   SLOT_MGT_BFF_URL = "SLOT_MGT_BFF_URL",
   SLOT_MGT_BFF_LIB_URL = "SLOT_MGT_BFF_LIB_URL",
   BOOK_MGT_BFF_URL = "BOOK_MGT_BFF_URL",
+  FILE_MGT_BFF_URL = "FILE_MGT_BFF_URL",
 }
 
 const STAGE = (process.env.NEXT_PUBLIC_STAGE as Stage) || Stage.DEV;
 
 function getEnv(name: EnvVar): string | undefined {
   return process.env[`BASALF_${STAGE.toUpperCase()}_${name}`];
+}
+
+// NEXT_PUBLIC_ vars must be a literal `process.env.NEXT_PUBLIC_X` member
+// expression for Next.js to inline them into the client bundle at build
+// time — a computed/templated key (as getEnv above uses) is invisible to
+// that static replacement and stays undefined in the browser.
+function publicFileDomain(): string | undefined {
+  return STAGE === Stage.PROD
+    ? process.env.NEXT_PUBLIC_BASALF_PROD_FILE_DOMAIN
+    : process.env.NEXT_PUBLIC_BASALF_DEV_FILE_DOMAIN;
 }
 
 function requireEnv(name: EnvVar): string {
@@ -54,7 +65,9 @@ export const env = {
     hostMgtBffUrl: () => getEnv(EnvVar.HOST_MGT_BFF_URL),
     slotMgtBffUrl: () => getEnv(EnvVar.SLOT_MGT_BFF_URL),
     bookMgtBffUrl: () => getEnv(EnvVar.BOOK_MGT_BFF_URL),
+    fileMgtBffUrl: () => getEnv(EnvVar.FILE_MGT_BFF_URL),
   },
+  fileDomain: () => publicFileDomain(),
 };
 
 export const baseUrl =

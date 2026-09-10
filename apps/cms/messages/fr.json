@@ -16,10 +16,7 @@
     "passwordHint": "Min. 8 caractères, majuscule, minuscule, chiffre, caractère spécial",
     "passwordsMismatch": "Les mots de passe ne correspondent pas",
     "passwordChangeFailed": "Échec du changement de mot de passe",
-    "setPassword": "Définir le mot de passe",
-    "signedInTitle": "Vous êtes connecté",
-    "signedInDescription": "Connexion réussie.",
-    "goHome": "Aller à l'accueil"
+    "setPassword": "Définir le mot de passe"
   },
   "nav": {
     "pages": "Pages",

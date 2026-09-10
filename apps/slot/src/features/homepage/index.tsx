@@ -1,7 +1,11 @@
 import { PageDescription, PageTitle } from "@repo/ui";
 import { Button } from "@repo/ui/button";
 import { getLocale, getTranslations } from "@repo/i18n";
-import { getServices, getServiceProviders } from "./actions";
+import {
+  getServices,
+  getServiceProviders,
+  getServiceProviderPicture,
+} from "./actions";
 import { ServiceList } from "./service-list";
 import { ServiceProviderProfile } from "./service-provider-list";
 import { LoginPrompt } from "./login-prompt";
@@ -17,6 +21,10 @@ export async function Homepage() {
   ]);
 
   const isLoggedIn = services !== null && providers !== null;
+  const provider = isLoggedIn ? (providers[0] ?? null) : null;
+  const picture = provider
+    ? await getServiceProviderPicture(provider.serviceProviderId)
+    : null;
 
   return (
     <div className="flex flex-col gap-6">
@@ -29,7 +37,8 @@ export async function Homepage() {
       ) : (
         <>
           <ServiceProviderProfile
-            provider={providers[0] ?? null}
+            provider={provider}
+            picture={picture}
             categories={bookingData.categories}
             locale={locale}
           />

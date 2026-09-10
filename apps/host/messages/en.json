@@ -16,10 +16,7 @@
     "passwordHint": "Min 8 chars, uppercase, lowercase, number, special char",
     "passwordsMismatch": "Passwords do not match",
     "passwordChangeFailed": "Failed to change password",
-    "setPassword": "Set Password",
-    "signedInTitle": "You're signed in",
-    "signedInDescription": "Login successful.",
-    "goHome": "Go to Home"
+    "setPassword": "Set Password"
   },
   "homepage": {
     "title": "Welcome to Host",

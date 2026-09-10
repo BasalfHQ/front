@@ -1,3 +1,5 @@
+Scratch/sandbox app for experiments — not wired to any backend service.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know

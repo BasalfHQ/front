@@ -1,5 +1,28 @@
 # Basalf Front
 
+Basalf is a platform for multiple products (see [`../AGENTS.md`](../AGENTS.md)) — **book** is the current flagship product, not the whole picture. New products get their own app(s) here, following the same structure.
+
+## Apps (`apps/*`)
+
+Platform:
+
+| App | Purpose |
+|-----|---------|
+| `base` | Org/user account settings — talks to `base-user-mgt-bff` |
+| `host` | Website domain/cert settings for an org's site — talks to `host-mgt-bff` |
+| `cms` | Page content management — talks to `cms-mgt-bff` |
+
+Book product:
+
+| App | Purpose |
+|-----|---------|
+| `book` | Public customer-facing booking site (doctolib/treatwell-like) — talks to `book-mgt-bff` |
+| `slot` | Host-side dashboard to manage services and availability slots — talks to `slot-mgt-bff` |
+
+`test` is a scratch/sandbox app, not wired to any BFF.
+
+Each app talks to its matching backend only through `@repo/apis`'s `{name}-mgt-bff` client (see naming convention in `../AGENTS.md`).
+
 ## Architecture Rules
 
 ### API Calls - Server-Side Only
@@ -49,7 +72,11 @@ export default function Page() {
 ## Packages
 
 - `@repo/config` — Environment config (NEXT_PUBLIC_STAGE for stage detection)
-- `@repo/ui` — UI components (Button, Input, etc.)
+- `@repo/ui` — UI components (Button, Input, booking-specific ones like Calendar/SlotChip, etc.)
 - `@repo/auth` — Auth logic (Cognito, NextAuth config)
-- `@repo/apis` — API clients (server-side only)
+- `@repo/apis` — API clients per backend, one folder per `{name}-mgt-bff` (server-side only)
 - `@repo/auth-ui` — Combined auth + UI for app layouts (RootLayout with nav + auth)
+- `@repo/i18n` — next-intl routing, middleware, providers
+- `@repo/esco` — ESCO occupation taxonomy (data in `../esco/`) + occupation-select component
+- `@basalf/cms` — Published npm package: embeddable CMS client (openapi-fetch) for external sites, wraps `cms-mgt-bff`
+- `@basalf/slot` — Published npm package: embeddable booking widget client (`SlotClient`) for external sites, wraps `slot-mgt-bff`

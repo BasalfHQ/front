@@ -69,5 +69,11 @@ export { Copy } from "./components/copy";
 export { TimePicker } from "./components/time-picker";
 export { QueryProvider } from "./components/query-provider";
 export { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./components/table";
+export {
+  UploadFileButton,
+  type UploadFileButtonProps,
+  type SignedUploadUrl,
+  type UploadedFile,
+} from "./components/upload-file-button";
 
 export { formatHour, formatDay, formatMonth, formatDate } from "./lib/dates";

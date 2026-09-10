@@ -1,3 +1,5 @@
+Platform app — manage an org's website domain/cert settings. Talks to `host-mgt-bff` via `@repo/apis`. See `../../CLAUDE.md` for repo-wide rules and app map.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know

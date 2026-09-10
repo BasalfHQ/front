@@ -1,3 +1,5 @@
+Book product app — host-side dashboard to manage services and availability slots. Talks to `slot-mgt-bff` via `@repo/apis`. See `../../CLAUDE.md` for repo-wide rules and app map.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know
