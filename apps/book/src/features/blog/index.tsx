@@ -8,6 +8,7 @@ import { List } from "./components/list";
 import { Image } from "./components/image";
 import { Faq } from "./components/faq";
 import { Related } from "./components/related";
+import { Table } from "./components/table";
 import {
   ArticleSchema,
   FaqSchema,
@@ -37,6 +38,8 @@ function SliceRenderer({ slice }: { slice: Block }) {
       return <Space />;
     case "related":
       return null;
+    case "table":
+      return <Table table={slice.content} />;
   }
 }
 

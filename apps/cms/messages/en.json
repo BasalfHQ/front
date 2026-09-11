@@ -135,6 +135,10 @@
       "related": {
         "name": "Related",
         "description": "This block is used to add related pages to the page."
+      },
+      "table": {
+        "name": "Table",
+        "description": "This block is used to add a table to the page."
       }
     },
     "attributes": {
@@ -159,6 +163,13 @@
         "question": "Question",
         "answer": "Answer",
         "add": "Add a question"
+      },
+      "table": {
+        "title": "Table",
+        "hasHeaders": "Header row",
+        "addRow": "Add row",
+        "addColumn": "Add column",
+        "removeColumn": "Remove column"
       }
     }
   },

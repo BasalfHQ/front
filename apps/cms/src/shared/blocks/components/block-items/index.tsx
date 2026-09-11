@@ -8,6 +8,7 @@ import { BlockContent } from "./content";
 import { BlockList } from "./list";
 import { BlockRelated } from "./related";
 import { BlockFaq } from "./faq";
+import { BlockTable } from "./table";
 import type { BlockErrors } from "@/features/create-page/components/form";
 
 export function BlockItem({
@@ -113,6 +114,13 @@ export function BlockItem({
               faq={block.content}
               onChange={(content) => onChange({ ...block, content })}
               error={errors?.items}
+            />
+          )}
+
+          {block.type === "table" && (
+            <BlockTable
+              table={block.content}
+              onChange={(content) => onChange({ ...block, content })}
             />
           )}
 

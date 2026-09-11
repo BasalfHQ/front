@@ -498,6 +498,13 @@ export interface components {
                 /** @enum {string} */
                 type: "related";
                 content: string[];
+            } | {
+                /** @enum {string} */
+                type: "table";
+                content: {
+                    headers?: string[];
+                    rows: string[][];
+                };
             })[];
             seo: {
                 title: string;

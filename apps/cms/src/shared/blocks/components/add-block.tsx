@@ -13,6 +13,7 @@ const blockTypes: BaseBlockType[] = [
   "faq",
   "space",
   "related",
+  "table",
 ];
 
 const baseBlocks: Record<BaseBlockType, Cms.Block> = {
@@ -24,6 +25,7 @@ const baseBlocks: Record<BaseBlockType, Cms.Block> = {
   faq: { type: "faq", content: [{ question: "", answer: "" }] },
   space: { type: "space" },
   related: { type: "related", content: [""] },
+  table: { type: "table", content: { rows: [["", ""]] } },
 };
 
 export function AddNewBlock({

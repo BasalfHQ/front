@@ -135,6 +135,10 @@
       "related": {
         "name": "Pages liées",
         "description": "Un bloc utilisé pour ajouter des pages liées à la page."
+      },
+      "table": {
+        "name": "Tableau",
+        "description": "Un bloc utilisé pour ajouter un tableau à la page."
       }
     },
     "attributes": {
@@ -159,6 +163,13 @@
         "question": "Question",
         "answer": "Réponse",
         "add": "Ajouter une Question"
+      },
+      "table": {
+        "title": "Tableau",
+        "hasHeaders": "Ligne d'en-tête",
+        "addRow": "Ajouter une ligne",
+        "addColumn": "Ajouter une colonne",
+        "removeColumn": "Supprimer une colonne"
       }
     }
   },

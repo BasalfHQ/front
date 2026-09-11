@@ -78,6 +78,12 @@ Use existingPages (array of {url, title, description}) to:
   } | {
     type: "related";
     content: string[];
+  } | {
+    type: "table";
+    content: {
+      headers?: string[];
+      rows: string[][];
+    };
   })[];
   seo: {
     title: string;
@@ -121,7 +127,7 @@ Use existingPages (array of {url, title, description}) to:
 
 Only use slice types that improve the page. Do not force all types.
 
-A typical structure: description → heading → text → list → more heading/text sections → faq → related.
+A typical structure: description → heading → text → list → more heading/text sections → faq → related. Use table when the content is genuinely tabular (comparisons, pricing, specs) rather than forcing a list into table form.
 
 ### description
 
@@ -170,6 +176,12 @@ Visual separator. Use sparingly.
 URLs of topically related pages from existingPages. Only use URLs that exist. Never invent URLs.
 
 {"type": "related", "content": ["/existing-page-url"]}
+
+### table
+
+Tabular data (comparisons, specs, pricing). headers is optional (omit for a headerless grid). Every row must have the same number of cells as headers (or as the first row, if no headers). Cell text is plain text, not HTML.
+
+{"type": "table", "content": {"headers": ["Plan", "Price", "Users"], "rows": [["Basic", "$9/mo", "1"], ["Pro", "$29/mo", "5"]]}}
 
 ### Internal linking
 
