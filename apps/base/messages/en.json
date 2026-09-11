@@ -21,7 +21,8 @@
   "nav": {
     "users": "Users",
     "cms": "CMS",
-    "organizations": "Organizations"
+    "organizations": "Organizations",
+    "mcp": "MCP"
   },
   "users": {
     "title": "Users",
@@ -70,6 +71,24 @@
     "postalCode": "Postal code",
     "addressCountry": "Country",
     "isOnBookWebsite": "Display on booking website"
+  },
+  "mcp": {
+    "title": "MCP Access",
+    "description": "Connect an AI assistant to your website's content",
+    "intro": "Give an AI assistant (Claude, or any MCP-compatible agent) direct read/write access to this website's pages — it can list, search, create, edit, and delete pages on your behalf.",
+    "connectionDetails": "Your connection details",
+    "serverUrl": "Server URL",
+    "token": "Token",
+    "tokenWarning": "Keep this private — it grants full edit access to this website's pages.",
+    "tokenUnavailable": "Failed to fetch token. Make sure the current organization has a website.",
+    "claudeDesktop": "Claude Desktop",
+    "claudeDesktopInstructions": "Open Settings → Developer → Edit Config, and add:",
+    "claudeDesktopRestart": "Restart Claude Desktop.",
+    "claudeCode": "Claude Code",
+    "claudeCodeInstructions": "Run:",
+    "otherClients": "Other MCP clients",
+    "otherClientsInstructions": "Add it as a remote MCP server (Streamable HTTP transport) at the URL above, with one custom header:",
+    "otherClientsNote": "Not \"Authorization\" — just \"Token\"."
   },
   "homepage": {
     "title": "Welcome to Basalf",

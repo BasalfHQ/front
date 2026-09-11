@@ -18,6 +18,7 @@ export enum EnvVar {
   SLOT_MGT_BFF_LIB_URL = "SLOT_MGT_BFF_LIB_URL",
   BOOK_MGT_BFF_URL = "BOOK_MGT_BFF_URL",
   FILE_MGT_BFF_URL = "FILE_MGT_BFF_URL",
+  MCP_API_URL = "MCP_API_URL",
 }
 
 const STAGE = (process.env.NEXT_PUBLIC_STAGE as Stage) || Stage.DEV;
@@ -34,6 +35,12 @@ function publicFileDomain(): string | undefined {
   return STAGE === Stage.PROD
     ? process.env.NEXT_PUBLIC_BASALF_PROD_FILE_DOMAIN
     : process.env.NEXT_PUBLIC_BASALF_DEV_FILE_DOMAIN;
+}
+
+function publicMcpUrl(): string | undefined {
+  return STAGE === Stage.PROD
+    ? process.env.NEXT_PUBLIC_BASALF_PROD_MCP_URL
+    : process.env.NEXT_PUBLIC_BASALF_DEV_MCP_URL;
 }
 
 function requireEnv(name: EnvVar): string {
@@ -66,8 +73,10 @@ export const env = {
     slotMgtBffUrl: () => getEnv(EnvVar.SLOT_MGT_BFF_URL),
     bookMgtBffUrl: () => getEnv(EnvVar.BOOK_MGT_BFF_URL),
     fileMgtBffUrl: () => getEnv(EnvVar.FILE_MGT_BFF_URL),
+    mcpApiUrl: () => getEnv(EnvVar.MCP_API_URL),
   },
   fileDomain: () => publicFileDomain(),
+  mcpUrl: () => publicMcpUrl(),
 };
 
 export const baseUrl =

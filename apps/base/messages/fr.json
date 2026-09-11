@@ -21,7 +21,8 @@
   "nav": {
     "users": "Utilisateurs",
     "cms": "CMS",
-    "organizations": "Organisations"
+    "organizations": "Organisations",
+    "mcp": "MCP"
   },
   "users": {
     "title": "Utilisateurs",
@@ -70,6 +71,24 @@
     "postalCode": "Code postal",
     "addressCountry": "Pays",
     "isOnBookWebsite": "Afficher sur le site de réservation"
+  },
+  "mcp": {
+    "title": "Accès MCP",
+    "description": "Connectez un assistant IA au contenu de votre site",
+    "intro": "Donnez à un assistant IA (Claude, ou tout agent compatible MCP) un accès direct en lecture/écriture aux pages de ce site — il peut lister, rechercher, créer, modifier et supprimer des pages pour vous.",
+    "connectionDetails": "Vos informations de connexion",
+    "serverUrl": "URL du serveur",
+    "token": "Jeton",
+    "tokenWarning": "Gardez-le privé — il donne un accès complet en modification aux pages de ce site.",
+    "tokenUnavailable": "Échec de récupération du jeton. Vérifiez que l'organisation actuelle a un site.",
+    "claudeDesktop": "Claude Desktop",
+    "claudeDesktopInstructions": "Ouvrez Réglages → Développeur → Modifier la config, et ajoutez :",
+    "claudeDesktopRestart": "Redémarrez Claude Desktop.",
+    "claudeCode": "Claude Code",
+    "claudeCodeInstructions": "Exécutez :",
+    "otherClients": "Autres clients MCP",
+    "otherClientsInstructions": "Ajoutez-le comme serveur MCP distant (transport Streamable HTTP) à l'URL ci-dessus, avec un en-tête personnalisé :",
+    "otherClientsNote": "Pas \"Authorization\" — juste \"Token\"."
   },
   "homepage": {
     "title": "Bienvenue sur Basalf",
