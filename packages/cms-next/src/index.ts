@@ -6,7 +6,7 @@ export type { GetPageMetadataOptions } from "./metadata";
 
 export { getAllPages, getPageBySlug } from "./pages";
 
-export { ArticleSchema, FaqSchema } from "./schema";
+export { ArticleSchema, BreadcrumbSchema, FaqSchema } from "./schema";
 
 export type { GetHref } from "./blocks";
 

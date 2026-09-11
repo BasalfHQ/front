@@ -29,6 +29,7 @@ export async function Pages({
     Cms.getPages(session.idToken),
     Cms.getLocales(session.idToken),
   ]);
+  pages.sort((a, b) => a.url.localeCompare(b.url));
 
   return (
     <div className="flex flex-col gap-4">
