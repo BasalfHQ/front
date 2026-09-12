@@ -76,6 +76,13 @@ export function McpInstructions({ token, mcpUrl }: McpInstructionsProps) {
       </div>
 
       <div className="space-y-3">
+        <h2 className="font-medium">{t("claudeAi")}</h2>
+        <p className="text-muted-foreground text-sm">{t("claudeAiInstructions")}</p>
+        <Field label={t("claudeAiHeaderName")} value="x-token" />
+        <Field label={t("claudeAiHeaderValue")} value={token} />
+      </div>
+
+      <div className="space-y-3">
         <h2 className="font-medium">{t("claudeDesktop")}</h2>
         <p className="text-muted-foreground text-sm">
           {t("claudeDesktopInstructions")}

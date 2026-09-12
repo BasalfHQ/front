@@ -29,6 +29,8 @@
     "title": "Vos Pages",
     "noPages": "Vous n'avez pas encore créé de pages",
     "createPage": "Créer une page",
+    "search": "Rechercher une page",
+    "noResults": "Aucune page ne correspond à votre recherche",
     "LocalesModale": {
       "yourLocales": "{count, plural, =0 {Aucune langue} =1 {Votre langue} other {Vos langues}}",
       "title": "Dans quelle langue sera votre site ?",

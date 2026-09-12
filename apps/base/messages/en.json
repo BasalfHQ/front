@@ -81,6 +81,10 @@
     "token": "Token",
     "tokenWarning": "Keep this private — it grants full edit access to this website's pages.",
     "tokenUnavailable": "Failed to fetch token. Make sure the current organization has a website.",
+    "claudeAi": "Claude.ai (Connectors)",
+    "claudeAiInstructions": "In Claude.ai, go to Settings → Connectors → Add custom connector, paste the server URL above, then add this custom header:",
+    "claudeAiHeaderName": "Header name",
+    "claudeAiHeaderValue": "Header value",
     "claudeDesktop": "Claude Desktop",
     "claudeDesktopInstructions": "Open Settings → Developer → Edit Config, and add:",
     "claudeDesktopRestart": "Restart Claude Desktop.",
@@ -88,7 +92,7 @@
     "claudeCodeInstructions": "Run:",
     "otherClients": "Other MCP clients",
     "otherClientsInstructions": "Add it as a remote MCP server (Streamable HTTP transport) at the URL above, with one custom header:",
-    "otherClientsNote": "Not \"Authorization\" — just \"Token\"."
+    "otherClientsNote": "Not \"Authorization\" — use \"Token\" (or \"x-token\" if your client won't allow a custom header named \"Token\")."
   },
   "homepage": {
     "title": "Welcome to Basalf",

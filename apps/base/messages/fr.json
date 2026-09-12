@@ -81,6 +81,10 @@
     "token": "Jeton",
     "tokenWarning": "Gardez-le privé — il donne un accès complet en modification aux pages de ce site.",
     "tokenUnavailable": "Échec de récupération du jeton. Vérifiez que l'organisation actuelle a un site.",
+    "claudeAi": "Claude.ai (Connecteurs)",
+    "claudeAiInstructions": "Dans Claude.ai, allez dans Réglages → Connecteurs → Ajouter un connecteur personnalisé, collez l'URL du serveur ci-dessus, puis ajoutez cet en-tête personnalisé :",
+    "claudeAiHeaderName": "Nom de l'en-tête",
+    "claudeAiHeaderValue": "Valeur de l'en-tête",
     "claudeDesktop": "Claude Desktop",
     "claudeDesktopInstructions": "Ouvrez Réglages → Développeur → Modifier la config, et ajoutez :",
     "claudeDesktopRestart": "Redémarrez Claude Desktop.",
@@ -88,7 +92,7 @@
     "claudeCodeInstructions": "Exécutez :",
     "otherClients": "Autres clients MCP",
     "otherClientsInstructions": "Ajoutez-le comme serveur MCP distant (transport Streamable HTTP) à l'URL ci-dessus, avec un en-tête personnalisé :",
-    "otherClientsNote": "Pas \"Authorization\" — juste \"Token\"."
+    "otherClientsNote": "Pas \"Authorization\" — utilisez \"Token\" (ou \"x-token\" si votre client n'autorise pas un en-tête personnalisé nommé \"Token\")."
   },
   "homepage": {
     "title": "Bienvenue sur Basalf",
