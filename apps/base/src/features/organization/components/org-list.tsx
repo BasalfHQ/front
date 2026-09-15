@@ -25,6 +25,7 @@ import {
 } from "@repo/ui/components/select";
 import { Globe, Pencil } from "@repo/ui/icons";
 import { updateOrganization } from "../actions";
+import { AddressField } from "./address-field";
 import { LANGUAGES } from "../languages";
 import { TIMEZONES } from "../timezones";
 import { CURRENCIES } from "../currencies";
@@ -37,21 +38,19 @@ export function OrgList({ organizations }: { organizations: Base.Organization[] 
   const [timezone, setTimezone] = useState("");
   const [language, setLanguage] = useState("");
   const [currency, setCurrency] = useState("");
-  const [streetAddress, setStreetAddress] = useState("");
-  const [streetNumber, setStreetNumber] = useState("");
-  const [addressLocality, setAddressLocality] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [addressCountry, setAddressCountry] = useState("");
+  const [address, setAddress] = useState<Base.Address | undefined>();
   const [isOnBookWebsite, setIsOnBookWebsite] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const isValid =
     name.trim() &&
     email.trim() &&
-    streetAddress.trim() &&
-    addressLocality.trim() &&
-    postalCode.trim() &&
-    addressCountry.trim();
+    address?.streetAddress?.trim() &&
+    address?.addressLocality?.trim() &&
+    address?.postalCode?.trim() &&
+    address?.addressCountry?.trim() &&
+    address?.latitude != null &&
+    address?.longitude != null;
 
   const handleUpdate = async () => {
     if (!editingOrg || !isValid) return;
@@ -65,13 +64,7 @@ export function OrgList({ organizations }: { organizations: Base.Organization[] 
         isOnBookWebsite,
         ...(language && { language }),
         ...(currency && { currency }),
-        address: {
-          streetAddress: streetAddress.trim(),
-          streetNumber: streetNumber.trim() || undefined,
-          addressLocality: addressLocality.trim(),
-          postalCode: postalCode.trim(),
-          addressCountry: addressCountry.trim(),
-        },
+        address,
       });
       if (result.success) {
         setEditingOrg(null);
@@ -129,11 +122,7 @@ export function OrgList({ organizations }: { organizations: Base.Organization[] 
                   setTimezone(org.timezone);
                   setLanguage(org.language ?? "");
                   setCurrency(org.currency ?? "");
-                  setStreetAddress(org.address?.streetAddress ?? "");
-                  setStreetNumber(org.address?.streetNumber ?? "");
-                  setAddressLocality(org.address?.addressLocality ?? "");
-                  setPostalCode(org.address?.postalCode ?? "");
-                  setAddressCountry(org.address?.addressCountry ?? "");
+                  setAddress(org.address);
                   setIsOnBookWebsite(org.isOnBookWebsite);
                 }}
               >
@@ -221,61 +210,7 @@ export function OrgList({ organizations }: { organizations: Base.Organization[] 
                 </SelectContent>
               </Select>
             </div>
-            <fieldset className="space-y-3">
-              <Label className="text-base font-medium">{t("address")}</Label>
-              <div className="grid grid-cols-3 gap-3">
-                <div className="space-y-2">
-                  <Label htmlFor="edit-street-number">
-                    {t("streetNumber")}
-                  </Label>
-                  <Input
-                    id="edit-street-number"
-                    value={streetNumber}
-                    onChange={(e) => setStreetNumber(e.target.value)}
-                  />
-                </div>
-                <div className="col-span-2 space-y-2">
-                  <Label htmlFor="edit-street-address">
-                    {t("streetAddress")}
-                  </Label>
-                  <Input
-                    id="edit-street-address"
-                    value={streetAddress}
-                    onChange={(e) => setStreetAddress(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-3 gap-3">
-                <div className="space-y-2">
-                  <Label htmlFor="edit-postal-code">{t("postalCode")}</Label>
-                  <Input
-                    id="edit-postal-code"
-                    value={postalCode}
-                    onChange={(e) => setPostalCode(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="edit-city">{t("addressLocality")}</Label>
-                  <Input
-                    id="edit-city"
-                    value={addressLocality}
-                    onChange={(e) => setAddressLocality(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="edit-country">{t("addressCountry")}</Label>
-                  <Input
-                    id="edit-country"
-                    value={addressCountry}
-                    onChange={(e) => setAddressCountry(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-            </fieldset>
+            <AddressField id="edit-address" value={address} onChange={setAddress} />
             <div className="flex items-center gap-2">
               <Checkbox
                 id="edit-is-on-book-website"

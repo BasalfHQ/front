@@ -475,6 +475,8 @@ export interface components {
             addressLocality?: string;
             postalCode?: string;
             addressCountry?: string;
+            latitude?: number;
+            longitude?: number;
         };
         User: {
             organizationId: string;

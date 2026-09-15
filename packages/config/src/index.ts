@@ -77,6 +77,12 @@ export const env = {
   },
   fileDomain: () => publicFileDomain(),
   mcpUrl: () => publicMcpUrl(),
+  mapbox: {
+    // Not stage-scoped: a Mapbox token isn't per-environment infra, it's a
+    // single third-party credential restricted via URL rules in the Mapbox
+    // dashboard, so one token covers dev and prod.
+    token: () => process.env.MAPBOX_TOKEN,
+  },
 };
 
 export const baseUrl =

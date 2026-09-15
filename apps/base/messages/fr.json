@@ -65,12 +65,10 @@
     "save": "Enregistrer",
     "updateFailed": "Échec de la mise à jour de l'organisation",
     "address": "Adresse",
-    "streetAddress": "Rue",
-    "streetNumber": "Numéro",
-    "addressLocality": "Ville",
-    "postalCode": "Code postal",
-    "addressCountry": "Pays",
-    "isOnBookWebsite": "Afficher sur le site de réservation"
+    "isOnBookWebsite": "Afficher sur le site de réservation",
+    "addressSearchPlaceholder": "Rechercher une adresse...",
+    "searchingAddress": "Recherche...",
+    "noAddressResults": "Aucune adresse trouvée"
   },
   "mcp": {
     "title": "Accès MCP",

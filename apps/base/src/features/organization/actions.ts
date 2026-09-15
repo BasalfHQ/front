@@ -3,6 +3,7 @@
 import { auth, isAdmin } from "@repo/auth-ui";
 import { Base } from "@repo/apis";
 import { revalidatePath } from "next/cache";
+import { searchMapboxAddress, type AddressSuggestion } from "./mapbox";
 
 export async function getOrganizations(): Promise<Base.Organization[]> {
   const session = await auth();
@@ -65,4 +66,14 @@ export async function updateOrganization(
   }
 
   return { success: false, error: "Failed to update organization" };
+}
+
+export async function searchAddress(query: string): Promise<AddressSuggestion[]> {
+  const session = await auth();
+
+  if (!session?.idToken || !isAdmin(session.user?.email) || !query.trim()) {
+    return [];
+  }
+
+  return searchMapboxAddress(query);
 }

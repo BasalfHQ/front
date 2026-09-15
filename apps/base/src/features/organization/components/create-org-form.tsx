@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
+import { Base } from "@repo/apis";
 import { Button } from "@repo/ui/button";
 import { Checkbox } from "@repo/ui";
 import { Input } from "@repo/ui/components/input";
@@ -15,6 +16,7 @@ import {
 } from "@repo/ui/components/select";
 import { PageTitle } from "@repo/ui";
 import { createOrganization } from "../actions";
+import { AddressField } from "./address-field";
 import { LANGUAGES } from "../languages";
 import { TIMEZONES } from "../timezones";
 import { CURRENCIES } from "../currencies";
@@ -26,11 +28,7 @@ export function CreateOrgForm() {
   const [timezone, setTimezone] = useState("Europe/Paris");
   const [language, setLanguage] = useState("fr");
   const [currency, setCurrency] = useState("EUR");
-  const [streetAddress, setStreetAddress] = useState("");
-  const [streetNumber, setStreetNumber] = useState("");
-  const [addressLocality, setAddressLocality] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [addressCountry, setAddressCountry] = useState("");
+  const [address, setAddress] = useState<Base.Address | undefined>();
   const [isOnBookWebsite, setIsOnBookWebsite] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState("");
@@ -39,10 +37,12 @@ export function CreateOrgForm() {
   const isValid =
     name.trim() &&
     email.trim() &&
-    streetAddress.trim() &&
-    addressLocality.trim() &&
-    postalCode.trim() &&
-    addressCountry.trim();
+    address?.streetAddress?.trim() &&
+    address?.addressLocality?.trim() &&
+    address?.postalCode?.trim() &&
+    address?.addressCountry?.trim() &&
+    address?.latitude != null &&
+    address?.longitude != null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,13 +55,7 @@ export function CreateOrgForm() {
         timezone,
         email,
         language,
-        {
-          streetAddress: streetAddress.trim(),
-          streetNumber: streetNumber.trim() || undefined,
-          addressLocality: addressLocality.trim(),
-          postalCode: postalCode.trim(),
-          addressCountry: addressCountry.trim(),
-        },
+        address,
         isOnBookWebsite,
         currency,
       );
@@ -73,11 +67,7 @@ export function CreateOrgForm() {
         setTimezone("Europe/Paris");
         setLanguage("fr");
         setCurrency("EUR");
-        setStreetAddress("");
-        setStreetNumber("");
-        setAddressLocality("");
-        setPostalCode("");
-        setAddressCountry("");
+        setAddress(undefined);
         setIsOnBookWebsite(false);
       } else {
         setError(result.error || "Failed to create organization");
@@ -164,56 +154,8 @@ export function CreateOrgForm() {
           </div>
         </div>
 
-        <fieldset className="space-y-3" disabled={isPending}>
-          <Label className="text-base font-medium">{t("address")}</Label>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="space-y-2">
-              <Label htmlFor="street-number">{t("streetNumber")}</Label>
-              <Input
-                id="street-number"
-                value={streetNumber}
-                onChange={(e) => setStreetNumber(e.target.value)}
-              />
-            </div>
-            <div className="sm:col-span-2 space-y-2">
-              <Label htmlFor="street-address">{t("streetAddress")}</Label>
-              <Input
-                id="street-address"
-                value={streetAddress}
-                onChange={(e) => setStreetAddress(e.target.value)}
-                required
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="space-y-2">
-              <Label htmlFor="postal-code">{t("postalCode")}</Label>
-              <Input
-                id="postal-code"
-                value={postalCode}
-                onChange={(e) => setPostalCode(e.target.value)}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="city">{t("addressLocality")}</Label>
-              <Input
-                id="city"
-                value={addressLocality}
-                onChange={(e) => setAddressLocality(e.target.value)}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="country">{t("addressCountry")}</Label>
-              <Input
-                id="country"
-                value={addressCountry}
-                onChange={(e) => setAddressCountry(e.target.value)}
-                required
-              />
-            </div>
-          </div>
+        <fieldset disabled={isPending}>
+          <AddressField id="address" value={address} onChange={setAddress} disabled={isPending} />
         </fieldset>
 
         <div className="flex items-center gap-2">

@@ -65,12 +65,10 @@
     "save": "Save",
     "updateFailed": "Failed to update organization",
     "address": "Address",
-    "streetAddress": "Street",
-    "streetNumber": "Number",
-    "addressLocality": "City",
-    "postalCode": "Postal code",
-    "addressCountry": "Country",
-    "isOnBookWebsite": "Display on booking website"
+    "isOnBookWebsite": "Display on booking website",
+    "addressSearchPlaceholder": "Search for an address...",
+    "searchingAddress": "Searching...",
+    "noAddressResults": "No address found"
   },
   "mcp": {
     "title": "MCP Access",
