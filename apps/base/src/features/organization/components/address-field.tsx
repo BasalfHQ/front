@@ -14,10 +14,7 @@ import {
   CommandItem,
   CommandEmpty,
 } from "@repo/ui";
-import { searchAddress } from "../actions";
-import type { AddressSuggestion } from "../mapbox";
-
-const MIN_QUERY_LENGTH = 5;
+import { MIN_QUERY_LENGTH, type AddressSuggestion } from "../mapbox";
 
 function formatAddress(address: Base.Address | undefined) {
   if (!address) return "";
@@ -42,12 +39,19 @@ export function AddressField({
   id = "address",
   value,
   onChange,
+  onSearch,
   disabled,
+  mapPreview = true,
 }: {
   id?: string;
   value: Base.Address | undefined;
   onChange: (address: Base.Address | undefined) => void;
+  onSearch: (query: string) => Promise<AddressSuggestion[]>;
   disabled?: boolean;
+  // Renders a static-map thumbnail once an address is picked - backed by an
+  // admin-gated /api/mapbox/static-map route, so callers without a session
+  // (the public checkout funnel) must opt out rather than hit a 401.
+  mapPreview?: boolean;
 }) {
   const t = useTranslations("organization");
   const [query, setQuery] = useState(formatAddress(value));
@@ -91,7 +95,7 @@ export function AddressField({
     setIsSearching(true);
     debounceRef.current = setTimeout(async () => {
       try {
-        const results = await searchAddress(next);
+        const results = await onSearch(next);
         if (requestIdRef.current !== requestId) return;
         setSuggestions(results);
         setIsOpen(results.length > 0);
@@ -109,7 +113,7 @@ export function AddressField({
     onChange(suggestion.address);
   };
 
-  const showMap = isFocused && !isOpen && !!coordinates;
+  const showMap = mapPreview && isFocused && !isOpen && !!coordinates;
 
   return (
     <div className="space-y-2">
@@ -158,12 +162,14 @@ export function AddressField({
               </CommandList>
             </Command>
           ) : (
-            coordinates && (
+            mapPreview && coordinates && (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={`/api/mapbox/static-map?lat=${coordinates.lat}&lng=${coordinates.lng}`}
                 alt={query}
-                className="w-full rounded-md"
+                width={600}
+                height={400}
+                className="w-full h-auto rounded-md"
               />
             )
           )}

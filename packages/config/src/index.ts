@@ -12,6 +12,7 @@ export enum EnvVar {
   NEXTAUTH_URL = "NEXTAUTH_URL",
   AUTH_COOKIE_DOMAIN = "AUTH_COOKIE_DOMAIN",
   USER_MGT_BFF_URL = "USER_MGT_BFF_URL",
+  USER_MGT_BFF_PUBLIC_URL = "USER_MGT_BFF_PUBLIC_URL",
   CMS_MGT_BFF_URL = "CMS_MGT_BFF_URL",
   HOST_MGT_BFF_URL = "HOST_MGT_BFF_URL",
   SLOT_MGT_BFF_URL = "SLOT_MGT_BFF_URL",
@@ -19,6 +20,8 @@ export enum EnvVar {
   BOOK_MGT_BFF_URL = "BOOK_MGT_BFF_URL",
   FILE_MGT_BFF_URL = "FILE_MGT_BFF_URL",
   MCP_API_URL = "MCP_API_URL",
+  STRIPE_ESG_URL = "STRIPE_ESG_URL",
+  STRIPE_ESG_PUBLIC_URL = "STRIPE_ESG_PUBLIC_URL",
 }
 
 const STAGE = (process.env.NEXT_PUBLIC_STAGE as Stage) || Stage.DEV;
@@ -41,6 +44,12 @@ function publicMcpUrl(): string | undefined {
   return STAGE === Stage.PROD
     ? process.env.NEXT_PUBLIC_BASALF_PROD_MCP_URL
     : process.env.NEXT_PUBLIC_BASALF_DEV_MCP_URL;
+}
+
+function publicStripePublishableKey(): string | undefined {
+  return STAGE === Stage.PROD
+    ? process.env.NEXT_PUBLIC_BASALF_PROD_STRIPE_PUB_KEY
+    : process.env.NEXT_PUBLIC_BASALF_DEV_STRIPE_PUB_KEY;
 }
 
 function requireEnv(name: EnvVar): string {
@@ -68,15 +77,19 @@ export const env = {
   },
   api: {
     userMgtBffUrl: () => getEnv(EnvVar.USER_MGT_BFF_URL),
+    userMgtBffPublicUrl: () => getEnv(EnvVar.USER_MGT_BFF_PUBLIC_URL),
     cmsMgtBffUrl: () => getEnv(EnvVar.CMS_MGT_BFF_URL),
     hostMgtBffUrl: () => getEnv(EnvVar.HOST_MGT_BFF_URL),
     slotMgtBffUrl: () => getEnv(EnvVar.SLOT_MGT_BFF_URL),
     bookMgtBffUrl: () => getEnv(EnvVar.BOOK_MGT_BFF_URL),
     fileMgtBffUrl: () => getEnv(EnvVar.FILE_MGT_BFF_URL),
     mcpApiUrl: () => getEnv(EnvVar.MCP_API_URL),
+    stripeEsgUrl: () => getEnv(EnvVar.STRIPE_ESG_URL),
+    stripeEsgPublicUrl: () => getEnv(EnvVar.STRIPE_ESG_PUBLIC_URL),
   },
   fileDomain: () => publicFileDomain(),
   mcpUrl: () => publicMcpUrl(),
+  stripePublishableKey: () => publicStripePublishableKey(),
   mapbox: {
     // Not stage-scoped: a Mapbox token isn't per-environment infra, it's a
     // single third-party credential restricted via URL rules in the Mapbox

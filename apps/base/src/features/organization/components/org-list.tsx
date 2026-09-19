@@ -24,7 +24,7 @@ import {
   SelectValue,
 } from "@repo/ui/components/select";
 import { Globe, Pencil } from "@repo/ui/icons";
-import { updateOrganization } from "../actions";
+import { updateOrganization, searchAddress } from "../actions";
 import { AddressField } from "./address-field";
 import { LANGUAGES } from "../languages";
 import { TIMEZONES } from "../timezones";
@@ -210,7 +210,12 @@ export function OrgList({ organizations }: { organizations: Base.Organization[] 
                 </SelectContent>
               </Select>
             </div>
-            <AddressField id="edit-address" value={address} onChange={setAddress} />
+            <AddressField
+              id="edit-address"
+              value={address}
+              onChange={setAddress}
+              onSearch={searchAddress}
+            />
             <div className="flex items-center gap-2">
               <Checkbox
                 id="edit-is-on-book-website"

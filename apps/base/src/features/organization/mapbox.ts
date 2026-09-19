@@ -23,6 +23,12 @@ export type AddressSuggestion = {
   latitude: number;
 };
 
+// Shared by the client debounce (address-field.tsx) and enforced again here
+// server-side - the client check is UI-only and skippable by calling the
+// server action directly, which would otherwise let a short/empty query
+// through on every keystroke against the shared Mapbox token.
+export const MIN_QUERY_LENGTH = 5;
+
 function findContext(context: MapboxContextEntry[] | undefined, prefix: string) {
   return context?.find((entry) => entry.id.startsWith(prefix))?.text;
 }
@@ -43,7 +49,7 @@ export async function searchMapboxAddress(
   query: string,
 ): Promise<AddressSuggestion[]> {
   const token = env.mapbox.token();
-  if (!token || !query.trim()) return [];
+  if (!token || query.trim().length < MIN_QUERY_LENGTH) return [];
 
   const params = new URLSearchParams({
     access_token: token,

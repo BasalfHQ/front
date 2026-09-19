@@ -56,7 +56,7 @@
     "currency": "Devise",
     "email": "Email",
     "enterEmail": "Entrez l'email de l'organisation",
-    "creating": "Création...",
+    "creating": "Création…",
     "createOrganization": "Créer une organisation",
     "createdSuccess": "Organisation \"{name}\" créée avec succès",
     "editOrganization": "Modifier l'organisation",
@@ -91,6 +91,22 @@
     "otherClients": "Autres clients MCP",
     "otherClientsInstructions": "Ajoutez-le comme serveur MCP distant (transport Streamable HTTP) à l'URL ci-dessus, avec un en-tête personnalisé :",
     "otherClientsNote": "Pas \"Authorization\" — utilisez \"Token\" (ou \"x-token\" si votre client n'autorise pas un en-tête personnalisé nommé \"Token\")."
+  },
+  "checkout": {
+    "step1Title": "Créez votre organisation",
+    "step1Description": "Parlez-nous de votre activité pour commencer.",
+    "creatingOrganization": "Création…",
+    "continueToPayment": "Continuer vers le paiement",
+    "step2Title": "Abonnement pour {name}",
+    "backToOrganization": "← Retour à la création de l'organisation",
+    "backToOrganizationConfirm": "Si vous avez déjà réglé le paiement, ne revenez pas en arrière — vous créeriez une seconde organisation. Continuer quand même ?",
+    "loadingPayment": "Chargement du paiement…",
+    "checkoutFailed": "Une erreur est survenue lors du chargement du paiement.",
+    "checkoutConfigError": "Le paiement n'est pas configuré pour cet environnement.",
+    "retry": "Réessayer",
+    "successTitle": "C'est tout bon !",
+    "successDescription": "Votre abonnement est actif. Nous finalisons la configuration de votre organisation - cela ne prendra qu'un instant.",
+    "goToDashboard": "Aller au tableau de bord"
   },
   "homepage": {
     "title": "Bienvenue sur Basalf",

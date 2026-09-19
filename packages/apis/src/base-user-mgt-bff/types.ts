@@ -121,6 +121,7 @@ export interface paths {
                         /** @default false */
                         isOnBookWebsite?: boolean;
                         address?: components["schemas"]["Address"];
+                        draft?: boolean;
                     };
                 };
             };
@@ -468,6 +469,7 @@ export interface components {
             /** @default false */
             isOnBookWebsite: boolean;
             address?: components["schemas"]["Address"];
+            draft?: boolean;
         };
         Address: {
             streetAddress?: string;

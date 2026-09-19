@@ -206,6 +206,58 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/service-provider/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query: {
+                    occupationId: string;
+                    minLatitude?: number | null;
+                    maxLatitude?: number | null;
+                    minLongitude?: number | null;
+                    maxLongitude?: number | null;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Search service providers by occupation within a geographic bounding box */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ServiceProviderSearchResult"][];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/page/{organizationId}/{pageId}": {
         parameters: {
             query?: never;
@@ -449,6 +501,19 @@ export interface components {
             email?: string;
             description?: string;
         };
+        ServiceProviderSearchResult: components["schemas"]["ServiceProvider"] & {
+            organizationId: string;
+            address?: components["schemas"]["Address"];
+        };
+        Address: {
+            streetAddress?: string;
+            streetNumber?: string;
+            addressLocality?: string;
+            postalCode?: string;
+            addressCountry?: string;
+            latitude?: number;
+            longitude?: number;
+        };
         Page: {
             organizationId: string;
             websiteId: string;
@@ -585,13 +650,6 @@ export interface components {
             currency?: string;
             isOnBookWebsite: boolean;
             address?: components["schemas"]["Address"];
-        };
-        Address: {
-            streetAddress?: string;
-            streetNumber?: string;
-            addressLocality?: string;
-            postalCode?: string;
-            addressCountry?: string;
         };
         Slot: {
             slotId: string;

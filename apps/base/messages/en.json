@@ -56,7 +56,7 @@
     "currency": "Currency",
     "email": "Email",
     "enterEmail": "Enter organization email",
-    "creating": "Creating...",
+    "creating": "Creating…",
     "createOrganization": "Create Organization",
     "createdSuccess": "Organization \"{name}\" created successfully",
     "editOrganization": "Edit Organization",
@@ -91,6 +91,22 @@
     "otherClients": "Other MCP clients",
     "otherClientsInstructions": "Add it as a remote MCP server (Streamable HTTP transport) at the URL above, with one custom header:",
     "otherClientsNote": "Not \"Authorization\" — use \"Token\" (or \"x-token\" if your client won't allow a custom header named \"Token\")."
+  },
+  "checkout": {
+    "step1Title": "Create your organization",
+    "step1Description": "Tell us about your business to get started.",
+    "creatingOrganization": "Creating…",
+    "continueToPayment": "Continue to payment",
+    "step2Title": "Subscribe for {name}",
+    "backToOrganization": "← Back to organization creation",
+    "backToOrganizationConfirm": "If you already completed payment, don’t go back — you’d create a second organization. Continue anyway?",
+    "loadingPayment": "Loading payment form…",
+    "checkoutFailed": "Something went wrong loading the payment form.",
+    "checkoutConfigError": "Payment isn’t configured for this environment yet.",
+    "retry": "Try again",
+    "successTitle": "You're all set!",
+    "successDescription": "Your subscription is active. We're finishing setting up your organization - this only takes a moment.",
+    "goToDashboard": "Go to dashboard"
   },
   "homepage": {
     "title": "Welcome to Basalf",
