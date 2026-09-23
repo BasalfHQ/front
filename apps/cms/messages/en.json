@@ -20,7 +20,7 @@
   },
   "nav": {
     "pages": "Pages",
-    "token": "Your access keys"
+    "api": "API"
   },
   "homepage": {
     "title": "Connect to your account to access the CMS"
@@ -300,9 +300,24 @@
     "deleting": "Deleting..."
   },
   "token": {
-    "title": "Your access key",
-    "description": "Your access keys allow you to access the Basalf CMS API. These keys must be kept secret and never shared. If you lose these keys, you will no longer be able to access the Basalf CMS API. If you share them, you could expose your account to security risks. If you lose them, contact us immediately.",
-    "copy": "Copy your token",
-    "copied": "Token copied"
+    "title": "API",
+    "description": "Connect your own website to your pages and content.",
+    "connectionDetails": "Your connection details",
+    "connectionDetailsDescription": "This is what the code examples below need — pass the token when creating the client (or as BASALF_CMS_TOKEN for @basalf/cms-next), exactly like in the snippets.",
+    "apiUrl": "API URL",
+    "token": "Token",
+    "tokenWarning": "Keep this private — it grants access to your organization's website content.",
+    "cmsLibTitle": "@basalf/cms",
+    "cmsLibDescription": "A TypeScript npm package. Fetch your published pages and their content blocks from any JavaScript project.",
+    "initLabel": "Initialize the client",
+    "getPagesLabel": "List your published pages",
+    "getPageLabel": "Get a single page",
+    "cmsNextLibTitle": "@basalf/cms-next",
+    "cmsNextLibDescription": "A TypeScript npm package for Next.js (App Router) - Server Components that render a published @basalf/cms page by slug and locale, with metadata and JSON-LD included.",
+    "cmsNextEnvInstructions": "Unlike @basalf/cms, this package doesn't take the token as an argument — set it as an environment variable in your Next.js project first, server-side only (never expose it to the client bundle):",
+    "envVarLabel": "Environment variable (.env, server-only)",
+    "pageComponentLabel": "Render a page",
+    "metadataLabel": "Generate its SEO metadata",
+    "listPagesLabel": "List pages (sitemaps, generateStaticParams...)"
   }
 }

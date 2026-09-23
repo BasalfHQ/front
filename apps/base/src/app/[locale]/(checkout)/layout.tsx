@@ -16,7 +16,7 @@ export default async function CheckoutLayout({ children, params }: Props) {
   const messages = await getMessages();
 
   return (
-    <RootLayout lang={locale} className="bg-gray-50">
+    <RootLayout lang={locale}>
       <I18nProvider locale={locale} messages={messages}>
         <CheckoutHeader />
         <main className="flex-1 w-full flex flex-col">{children}</main>

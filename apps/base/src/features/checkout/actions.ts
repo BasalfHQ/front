@@ -16,16 +16,17 @@ const DRAFT_TTL_SECONDS = 10 * 24 * 60 * 60;
 
 const DEFAULT_PLAN_ID = "book" as const;
 
-type DraftOrganization = { organizationId: string; name: string };
+type DraftOrganization = { organizationId: string; name: string; email: string };
 type SignedDraftOrganization = DraftOrganization & { sig: string };
 
 // httpOnly keeps browser JS from reading/writing the cookie, but the value
 // itself is plain JSON - anyone with devtools access to their own browser
 // (or a raw request) can still edit it. Without a signature, an edited
-// organizationId or name would be trusted as-is: organizationId feeds
-// straight into opening a Stripe Checkout Session, and name is rendered
-// on the payment page. The HMAC covers both fields together so tampering
-// with either fails verification instead of being trusted.
+// organizationId, name or email would be trusted as-is: organizationId feeds
+// straight into opening a Stripe Checkout Session, name is rendered on the
+// payment page, and email prefills that Checkout Session's customer email.
+// The HMAC covers all three together so tampering with any one fails
+// verification instead of being trusted.
 //
 // Derived from NEXTAUTH_SECRET rather than using it directly - rotating the
 // auth secret (e.g. incident response) shouldn't also silently invalidate
@@ -35,13 +36,20 @@ function draftOrgSecret(): Buffer {
 }
 
 // organizationId comes from generateDisplayId (alphanumeric, no separators),
-// so it can't collide with the ":" join against an attacker-chosen name.
-function signDraftOrganization(organizationId: string, name: string): string {
-  return createHmac("sha256", draftOrgSecret()).update(`${organizationId}:${name}`).digest("hex");
+// so it can't collide with the ":" joins against attacker-chosen name/email.
+function signDraftOrganization(organizationId: string, name: string, email: string): string {
+  return createHmac("sha256", draftOrgSecret())
+    .update(`${organizationId}:${name}:${email}`)
+    .digest("hex");
 }
 
-function hasValidSignature(organizationId: string, name: string, sig: string): boolean {
-  const expected = Buffer.from(signDraftOrganization(organizationId, name), "hex");
+function hasValidSignature(
+  organizationId: string,
+  name: string,
+  email: string,
+  sig: string,
+): boolean {
+  const expected = Buffer.from(signDraftOrganization(organizationId, name, email), "hex");
   const given = Buffer.from(sig, "hex");
   return expected.length === given.length && timingSafeEqual(expected, given);
 }
@@ -55,12 +63,13 @@ export async function getDraftOrganization(): Promise<DraftOrganization | null> 
     if (
       !parsed.organizationId ||
       !parsed.name ||
+      !parsed.email ||
       !parsed.sig ||
-      !hasValidSignature(parsed.organizationId, parsed.name, parsed.sig)
+      !hasValidSignature(parsed.organizationId, parsed.name, parsed.email, parsed.sig)
     ) {
       return null;
     }
-    return { organizationId: parsed.organizationId, name: parsed.name };
+    return { organizationId: parsed.organizationId, name: parsed.name, email: parsed.email };
   } catch {
     return null;
   }
@@ -78,7 +87,7 @@ export async function createDraftOrganization(input: {
   name: string;
   timezone: string;
   language?: string;
-  email?: string;
+  email: string;
   currency?: string;
   isOnBookWebsite?: boolean;
   address?: BasePublic.Address;
@@ -96,13 +105,15 @@ export async function createDraftOrganization(input: {
     return { success: false, error: "Failed to create organization" };
   }
 
+  const email = organization.email ?? input.email;
   const store = await cookies();
   store.set(
     DRAFT_ORG_COOKIE,
     JSON.stringify({
       organizationId: organization.organizationId,
       name: organization.name,
-      sig: signDraftOrganization(organization.organizationId, organization.name),
+      email,
+      sig: signDraftOrganization(organization.organizationId, organization.name, email),
     } satisfies SignedDraftOrganization),
     {
       httpOnly: true,
@@ -149,6 +160,7 @@ export async function createSignupCheckoutSession(): Promise<
   const result = await StripePublic.createSignupCheckoutSession(
     draft.organizationId,
     DEFAULT_PLAN_ID,
+    draft.email,
   );
   if (!result) {
     return { error: "Failed to start checkout" };

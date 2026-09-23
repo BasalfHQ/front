@@ -3,7 +3,7 @@ import { getSession, isAdmin } from "@repo/auth";
 import { AuthProvider } from "@repo/auth/provider";
 import { I18nProvider } from "@repo/i18n";
 import { RootLayout as BaseRootLayout, Nav, type NavItem } from "@repo/ui";
-import { NavAuthSlot } from "./nav-client";
+import { NavAuthSlot, NavLoginModal } from "./nav-client";
 import type { AbstractIntlMessages } from "next-intl";
 
 export { type NavItem };
@@ -40,10 +40,18 @@ export async function RootLayout({
   const authSlot = (
     <NavAuthSlot isLoggedIn={!!session} organizations={organizations} />
   );
+  const mobileAuthSlot = (
+    <NavAuthSlot
+      isLoggedIn={!!session}
+      organizations={organizations}
+      className="flex-col items-stretch w-full"
+    />
+  );
 
   const content = (
     <AuthProvider>
-      <Nav navItems={filteredNavItems} authSlot={authSlot} />
+      <NavLoginModal />
+      <Nav navItems={filteredNavItems} authSlot={authSlot} mobileAuthSlot={mobileAuthSlot} />
       <main className="flex-1 w-full flex p-8 flex-col">{children}</main>
     </AuthProvider>
   );

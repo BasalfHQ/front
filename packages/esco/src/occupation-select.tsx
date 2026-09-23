@@ -95,9 +95,9 @@ export function OccupationSelect({
   }, [onChange]);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex min-w-0 flex-col gap-2">
       <Select value={categoryId} onValueChange={handleCategoryChange}>
-        <SelectTrigger className="w-full">
+        <SelectTrigger className="data-[size=default]:h-auto w-full items-start py-2 text-left whitespace-normal *:data-[slot=select-value]:line-clamp-none *:data-[slot=select-value]:whitespace-normal">
           <SelectValue placeholder="Select a category..." />
         </SelectTrigger>
         <SelectContent className="max-w-80">
@@ -115,7 +115,7 @@ export function OccupationSelect({
 
       {selectedCategory && (
         <Select value={occupationId} onValueChange={handleOccupationChange}>
-          <SelectTrigger className="w-full">
+          <SelectTrigger className="data-[size=default]:h-auto w-full items-start py-2 text-left whitespace-normal *:data-[slot=select-value]:line-clamp-none *:data-[slot=select-value]:whitespace-normal">
             <SelectValue placeholder="Select an occupation..." />
           </SelectTrigger>
           <SelectContent className="max-w-80">

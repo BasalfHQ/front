@@ -26,6 +26,7 @@ export interface paths {
                         organizationId: string;
                         /** @enum {string} */
                         planId: "book";
+                        email?: string;
                     };
                 };
             };

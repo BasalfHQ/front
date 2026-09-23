@@ -2,6 +2,7 @@ export { Button, buttonVariants } from "./components/button";
 export {
   RootLayout,
   Nav,
+  Footer,
   createMetadata,
   type RootLayoutProps,
   type NavProps,

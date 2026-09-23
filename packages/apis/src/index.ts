@@ -8,3 +8,4 @@ export * as Mcp from "./mcp-api";
 export * as Slot from "./slot-mgt-bff";
 export * as Stripe from "./stripe-esg";
 export * as StripePublic from "./stripe-esg-public";
+export { decodeApiUrl } from "./utils";

@@ -12,28 +12,22 @@ export async function Homepage() {
         <PageTitle>{t("title")}</PageTitle>
         <PageDescription>{t("description")}</PageDescription>
       </div>
-      <div className="flex flex-wrap gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
         <Card
+          className="w-full"
           href={
             isProd ? baseUrl.replace("//", "//cms.") : "http://localhost:3001/"
           }
         >
           <CardHeader>{t("cms.title")}</CardHeader>
-          <p className="text-sm text-muted-foreground">
-            {t("cms.description")}
-          </p>
+          <p className="text-sm text-muted-foreground">{t("cms.description")}</p>
         </Card>
+        {/* Hidden for now - "Host" (website domain/cert settings) reads as
+            unrelated infra next to CMS/Slot and would read to a user as some
+            other product entirely, easily confused with Book. Bring back
+            once this homepage explains the platform/product split better. */}
         <Card
-          href={
-            isProd ? baseUrl.replace("//", "//host.") : "http://localhost:3002"
-          }
-        >
-          <CardHeader>{t("host.title")}</CardHeader>
-          <p className="text-sm text-muted-foreground">
-            {t("host.description")}
-          </p>
-        </Card>
-        <Card
+          className="w-full"
           href={
             isProd ? baseUrl.replace("//", "//slot.") : "http://localhost:3003"
           }

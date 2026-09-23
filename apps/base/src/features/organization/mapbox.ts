@@ -4,6 +4,7 @@ import { env } from "@repo/config";
 type MapboxContextEntry = {
   id: string;
   text: string;
+  short_code?: string;
 };
 
 type MapboxFeature = {
@@ -18,7 +19,15 @@ type MapboxFeature = {
 export type AddressSuggestion = {
   id: string;
   placeName: string;
+  // Split for a scannable two-line suggestion row: street, then
+  // "postcode city, country" - Mapbox only gives the flat placeName.
+  line1: string;
+  line2: string;
   address: Base.Address;
+  // ISO 3166-1 alpha-2, when Mapbox provides it - frontend-only, used for
+  // region inference (checkout/regions.ts), never sent to the backend
+  // (Address has no country-code field, only the display name).
+  countryCode?: string;
   longitude: number;
   latitude: number;
 };
@@ -30,16 +39,16 @@ export type AddressSuggestion = {
 export const MIN_QUERY_LENGTH = 5;
 
 function findContext(context: MapboxContextEntry[] | undefined, prefix: string) {
-  return context?.find((entry) => entry.id.startsWith(prefix))?.text;
+  return context?.find((entry) => entry.id.startsWith(prefix));
 }
 
 function featureToAddress(feature: MapboxFeature): Base.Address {
   return {
     streetNumber: feature.address,
     streetAddress: feature.text,
-    postalCode: findContext(feature.context, "postcode"),
-    addressLocality: findContext(feature.context, "place"),
-    addressCountry: findContext(feature.context, "country"),
+    postalCode: findContext(feature.context, "postcode")?.text,
+    addressLocality: findContext(feature.context, "place")?.text,
+    addressCountry: findContext(feature.context, "country")?.text,
     longitude: feature.center[0],
     latitude: feature.center[1],
   };
@@ -67,13 +76,22 @@ export async function searchMapboxAddress(
 
     const data: { features: MapboxFeature[] } = await response.json();
 
-    return data.features.map((feature) => ({
-      id: feature.id,
-      placeName: feature.place_name,
-      address: featureToAddress(feature),
-      longitude: feature.center[0],
-      latitude: feature.center[1],
-    }));
+    return data.features.map((feature) => {
+      const postcode = findContext(feature.context, "postcode")?.text;
+      const place = findContext(feature.context, "place")?.text;
+      const country = findContext(feature.context, "country")?.text;
+
+      return {
+        id: feature.id,
+        placeName: feature.place_name,
+        line1: [feature.address, feature.text].filter(Boolean).join(" "),
+        line2: [[postcode, place].filter(Boolean).join(" "), country].filter(Boolean).join(", "),
+        address: featureToAddress(feature),
+        countryCode: findContext(feature.context, "country")?.short_code?.toUpperCase(),
+        longitude: feature.center[0],
+        latitude: feature.center[1],
+      };
+    });
   } catch (error) {
     console.error("Error searching address:", error);
     return [];

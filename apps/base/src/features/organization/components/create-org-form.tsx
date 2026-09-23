@@ -6,7 +6,7 @@ import { Button } from "@repo/ui/button";
 import { PageTitle } from "@repo/ui";
 import { createOrganization, searchAddress } from "../actions";
 import {
-  OrganizationFields,
+  AdminOrganizationFields,
   isOrganizationFieldsValid,
   initialOrganizationFieldsValue,
   type OrganizationFieldsValue,
@@ -51,7 +51,7 @@ export function CreateOrgForm() {
       <PageTitle className="mb-6">{t("title")}</PageTitle>
 
       <form onSubmit={handleSubmit} className="space-y-4 mb-8 max-w-2xl">
-        <OrganizationFields
+        <AdminOrganizationFields
           value={value}
           onChange={(key, next) => setValue((prev) => ({ ...prev, [key]: next }))}
           onSearchAddress={searchAddress}

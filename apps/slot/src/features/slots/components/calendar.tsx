@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -9,7 +9,7 @@ import type { DateClickArg } from "@fullcalendar/interaction";
 import type { DatesSetArg, EventClickArg } from "@fullcalendar/core";
 import { useLocale } from "@repo/i18n";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { addWeeks, subWeeks } from "date-fns";
+import { addWeeks, subWeeks, startOfWeek, startOfDay } from "date-fns";
 import "./calendar.css";
 import { CreateSlots, CreateSlotsDialogState } from "./create-slots";
 import { EditSlot, EditSlotDialogState } from "./edit-slot";
@@ -67,6 +67,7 @@ export function SlotCalendar({
   const isMobile = useIsMobile();
   const queryClient = useQueryClient();
   const hasMultipleServices = services.length > 1;
+  const calendarRef = useRef<FullCalendar>(null);
 
   const [selectedServiceIds, setSelectedServiceIds] = useState<Set<string>>(
     () => new Set(services.map((s) => s.serviceId)),
@@ -105,6 +106,19 @@ export function SlotCalendar({
   );
 
   function handleDatesSet(arg: DatesSetArg) {
+    // validRange used to block this outright, but that also made past days
+    // within the current (partially past) week/day view unclickable - which
+    // hid CreateSlots' own "date is in the past" message from ever showing.
+    // Clamping navigation here instead keeps past weeks unreachable while
+    // leaving the currently visible past days clickable.
+    const boundary = isMobile
+      ? startOfDay(new Date())
+      : startOfWeek(new Date(), { weekStartsOn: 1 });
+    if (arg.start < boundary) {
+      calendarRef.current?.getApi().gotoDate(boundary);
+      return;
+    }
+
     const start = arg.start.toISOString();
     const end = arg.end.toISOString();
 
@@ -170,6 +184,7 @@ export function SlotCalendar({
         />
       )}
       <FullCalendar
+        ref={calendarRef}
         key={isMobile ? "day" : "week"}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView={isMobile ? "timeGridDay" : "timeGridWeek"}
@@ -188,7 +203,6 @@ export function SlotCalendar({
         height="75vh"
         allDaySlot={false}
         nowIndicator={true}
-        validRange={{ start: new Date() }}
       />
       <CreateSlots
         state={createSlotState}

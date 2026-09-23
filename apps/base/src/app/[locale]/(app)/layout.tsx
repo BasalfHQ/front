@@ -19,6 +19,7 @@ export default async function AppLayout({ children, params }: Props) {
       navItems={[
         { label: t("users"), href: "/users", authOnly: true },
         { label: t("organizations"), href: "/organization", adminOnly: true },
+        { label: t("billing"), href: "/billing", authOnly: true },
         { label: t("mcp"), href: "/mcp", adminOnly: true },
       ]}
     >

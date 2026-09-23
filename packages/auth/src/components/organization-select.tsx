@@ -10,15 +10,18 @@ import {
   SelectContent,
   SelectItem,
 } from "@repo/ui";
+import { cn } from "@repo/ui/lib/utils";
 
 export interface OrganizationSelectProps {
   organizations: Organization[];
   onOrganizationChange: (organizationId: string) => Promise<void>;
+  className?: string;
 }
 
 export function OrganizationSelect({
   organizations,
   onOrganizationChange,
+  className,
 }: OrganizationSelectProps) {
   const { data: session } = useSession();
   const [isChanging, setIsChanging] = useState(false);
@@ -42,7 +45,7 @@ export function OrganizationSelect({
       onValueChange={handleChange}
       disabled={isChanging}
     >
-      <SelectTrigger className="min-w-[150px]">
+      <SelectTrigger className={cn("min-w-[150px]", className)}>
         <SelectValue placeholder="Select organization" />
       </SelectTrigger>
       <SelectContent>

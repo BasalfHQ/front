@@ -1,14 +1,11 @@
 import { NextResponse } from "next/server";
-import { auth, isAdmin } from "@repo/auth-ui";
 import { fetchMapboxStaticMap } from "@/features/organization/mapbox";
 
+// Public - both the admin org form and the public checkout funnel use this
+// to show a "does this pin look right" confirmation for a resolved address.
+// Coordinates are caller-supplied either way (nothing session-scoped to
+// protect here); it just proxies a static map image for a lat/lng pair.
 export async function GET(request: Request) {
-  const session = await auth();
-
-  if (!session?.idToken || !isAdmin(session.user?.email)) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   const { searchParams } = new URL(request.url);
   const latParam = searchParams.get("lat");
   const lngParam = searchParams.get("lng");
@@ -28,7 +25,7 @@ export async function GET(request: Request) {
   return new NextResponse(image.body, {
     headers: {
       "Content-Type": image.headers.get("Content-Type") ?? "image/png",
-      "Cache-Control": "private, max-age=3600",
+      "Cache-Control": "public, max-age=3600",
     },
   });
 }

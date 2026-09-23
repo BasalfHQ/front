@@ -3,10 +3,11 @@ import { client, PublicPlanId } from "./index";
 export async function createSignupCheckoutSession(
   organizationId: string,
   planId: PublicPlanId,
+  email?: string,
 ): Promise<{ clientSecret: string | null } | { error: string } | null> {
   try {
     const response = await client.POST("/checkout-session", {
-      body: { organizationId, planId },
+      body: { organizationId, planId, email },
     });
     if (response.response.status === 403) {
       const errorData = response.error as { message?: string } | undefined;

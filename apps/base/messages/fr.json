@@ -22,6 +22,7 @@
     "users": "Utilisateurs",
     "cms": "CMS",
     "organizations": "Organisations",
+    "billing": "Abonnement",
     "mcp": "MCP"
   },
   "users": {
@@ -67,8 +68,12 @@
     "address": "Adresse",
     "isOnBookWebsite": "Afficher sur le site de réservation",
     "addressSearchPlaceholder": "Rechercher une adresse...",
-    "searchingAddress": "Recherche...",
-    "noAddressResults": "Aucune adresse trouvée"
+    "searchingAddress": "Recherche…",
+    "noAddressResults": "Aucune adresse trouvée pour « {query} »",
+    "addressResultsCount": "{count, plural, =0 {Aucun résultat} one {# résultat} other {# résultats}}",
+    "addressChange": "Modifier",
+    "addressMapConfirm": "Est-ce le bon emplacement ?",
+    "addressMapAlt": "Carte montrant l'adresse sélectionnée"
   },
   "mcp": {
     "title": "Accès MCP",
@@ -93,10 +98,34 @@
     "otherClientsNote": "Pas \"Authorization\" — utilisez \"Token\" (ou \"x-token\" si votre client n'autorise pas un en-tête personnalisé nommé \"Token\")."
   },
   "checkout": {
-    "step1Title": "Créez votre organisation",
-    "step1Description": "Parlez-nous de votre activité pour commencer.",
+    "orgHeading": "Configurez votre organisation",
+    "orgLede": "C'est l'établissement que vos clients verront au moment de réserver. Tout reste modifiable ensuite dans les réglages.",
+    "stepIndicator": "Étape 1 sur 2",
+    "whatNextTitle": "Et ensuite",
+    "whatNextItem1": "Nous configurons automatiquement votre page de réservation et un premier service.",
+    "whatNextItem2": "Ensuite, vous choisissez une formule et réglez le paiement — rien n'est débité avant confirmation.",
+    "groupBusinessTitle": "Votre établissement",
+    "groupBusinessNote": "Affiché sur votre page de réservation, vos factures et vos rappels.",
+    "nameLabel": "Nom de l'établissement",
+    "namePlaceholder": "ex. Salon Riverside",
+    "emailLabel": "Email administrateur",
+    "emailPlaceholder": "vous@votre-etablissement.com",
+    "emailHelp": "Les notifications de réservation et les emails de compte y sont envoyés.",
+    "groupLocationTitle": "Où vous exercez",
+    "groupLocationNote": "Détermine l'emplacement de votre page de réservation, ainsi que la devise et le fuseau horaire par défaut.",
+    "regionalSummary": "Vos clients paieront en {currency}, à l'heure de {city}.",
+    "regionalSummaryUnknown": "Choisissez votre devise et votre fuseau horaire :",
+    "adjust": "Ajuster",
+    "done": "Terminé",
+    "languageSummary": "Les emails de réservation seront envoyés en {language}.",
+    "languageAdjust": "Modifier",
+    "languageLabel": "Langue des emails",
     "creatingOrganization": "Création…",
     "continueToPayment": "Continuer vers le paiement",
+    "submitNote": "Vous choisirez ensuite une formule et verrez le total. Aucun débit avant confirmation.",
+    "errorNameRequired": "Indiquez le nom de votre établissement.",
+    "errorEmailRequired": "Indiquez un email administrateur.",
+    "errorAddressRequired": "Recherchez l'adresse de votre établissement et sélectionnez un résultat.",
     "step2Title": "Abonnement pour {name}",
     "backToOrganization": "← Retour à la création de l'organisation",
     "backToOrganizationConfirm": "Si vous avez déjà réglé le paiement, ne revenez pas en arrière — vous créeriez une seconde organisation. Continuer quand même ?",
@@ -106,22 +135,67 @@
     "retry": "Réessayer",
     "successTitle": "C'est tout bon !",
     "successDescription": "Votre abonnement est actif. Nous finalisons la configuration de votre organisation - cela ne prendra qu'un instant.",
+    "successNextStepsTitle": "Prochaines étapes",
+    "successNextStepsEmail": "Vérifiez vos emails — nous vous avons envoyé une invitation pour créer votre compte.",
+    "successNextStepsSlot": "Une fois connecté, invitez votre équipe, configurez votre profil de prestataire et vos créneaux réservables par les clients :",
+    "successNextStepsSlotCta": "Aller sur Slot",
+    "successNextStepsCms": "Envie d'expliquer le fonctionnement de votre établissement ou de partager des actualités avec vos clients ? Vous pouvez créer un blog à tout moment :",
+    "successNextStepsCmsCta": "Aller sur CMS",
     "goToDashboard": "Aller au tableau de bord"
+  },
+  "billing": {
+    "title": "Abonnement",
+    "description": "Consultez votre abonnement et gérez le paiement.",
+    "noSubscription": "Aucun abonnement pour cette organisation.",
+    "renewsOn": "Renouvellement le {date}",
+    "endsOn": "Se termine le {date}",
+    "managePayment": "Gérer le moyen de paiement",
+    "restart": "Annuler la résiliation",
+    "restarting": "Annulation...",
+    "cancel": "Résilier l'abonnement",
+    "canceling": "Résiliation...",
+    "cancelConfirmTitle": "Résilier votre abonnement ?",
+    "cancelConfirmDescription": "Votre abonnement reste actif jusqu'au {date}, puis ne sera pas renouvelé.",
+    "cancelConfirmDismiss": "Garder l'abonnement",
+    "cancelConfirmAction": "Résilier l'abonnement",
+    "cancelSuccess": "L'abonnement prendra fin à la fin de la période en cours.",
+    "cancelFailed": "Échec de la résiliation de l'abonnement",
+    "cancelPendingTimeout": "Toujours en cours de traitement — actualisez dans un instant pour voir la mise à jour.",
+    "restartSuccess": "L'abonnement continuera à se renouveler.",
+    "restartFailed": "Échec de l'annulation de la résiliation",
+    "restartPendingTimeout": "Toujours en cours de traitement — actualisez dans un instant pour voir la mise à jour.",
+    "confirming": "Confirmation...",
+    "portalFailed": "Échec de l'ouverture du portail de facturation",
+    "confirmingTitle": "Confirmation de votre paiement...",
+    "confirmingDescription": "Cela ne prend qu'un instant.",
+    "confirmTimeoutTitle": "Toujours en cours de traitement",
+    "confirmTimeoutDescription": "Votre paiement est passé, mais la confirmation prend plus de temps que d'habitude ici. Revenez dans une minute.",
+    "subscribeStepTitle": "S'abonner pour continuer",
+    "subscribeStepDescription": "Vous serez débité pour un abonnement afin de continuer à utiliser Basalf. Entrez vos informations de paiement ci-dessous — rien d'autre ne change avant confirmation.",
+    "subscribeLede": "Abonnez-vous pour retrouver l'accès.",
+    "subscribe": "S'abonner",
+    "loadingPayment": "Chargement du paiement…",
+    "checkoutFailed": "Une erreur est survenue lors du chargement du paiement.",
+    "checkoutConfigError": "Le paiement n'est pas configuré pour cet environnement.",
+    "retry": "Réessayer",
+    "subscribeSuccessTitle": "C'est tout bon !",
+    "subscribeSuccessDescription": "Votre abonnement est actif. Cela peut prendre un instant avant d'apparaître ici.",
+    "backToBilling": "Retour à l'abonnement"
   },
   "homepage": {
     "title": "Bienvenue sur Basalf",
     "description": "Gérez vos projets et organisations",
     "cms": {
       "title": "CMS",
-      "description": "Notre système de gestion de contenu"
+      "description": "Gérez les pages et le blog de votre site."
     },
     "host": {
       "title": "Hébergement",
       "description": "Notre plateforme de hébergement web"
     },
     "slot": {
-      "title": "Créneaux",
-      "description": "Notre plateforme de gestion de créneaux et de réservations"
+      "title": "Slot",
+      "description": "Configurez votre profil de prestataire et gérez les créneaux réservables par vos clients."
     }
   }
 }

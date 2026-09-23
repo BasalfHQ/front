@@ -11,7 +11,11 @@ export async function getSubscription(
     if (response.response.status === 404) {
       return null;
     }
-    return response.data ?? null;
+    if (!response.data) {
+      console.error("Error fetching subscription:", response.error);
+      return null;
+    }
+    return response.data;
   } catch (error) {
     console.error("Error fetching subscription:", error);
     return null;
@@ -23,7 +27,11 @@ export async function cancelSubscription(idToken: string): Promise<boolean> {
     const response = await client.POST("/subscription/cancel", {
       headers: headers({ idToken }),
     });
-    return response.data?.ok === true;
+    if (response.data?.ok !== true) {
+      console.error("Error canceling subscription:", response.error);
+      return false;
+    }
+    return true;
   } catch (error) {
     console.error("Error canceling subscription:", error);
     return false;
@@ -35,7 +43,11 @@ export async function restartSubscription(idToken: string): Promise<boolean> {
     const response = await client.POST("/subscription/restart", {
       headers: headers({ idToken }),
     });
-    return response.data?.ok === true;
+    if (response.data?.ok !== true) {
+      console.error("Error restarting subscription:", response.error);
+      return false;
+    }
+    return true;
   } catch (error) {
     console.error("Error restarting subscription:", error);
     return false;
@@ -49,7 +61,11 @@ export async function createPortalSession(
     const response = await client.POST("/portal-session", {
       headers: headers({ idToken }),
     });
-    return response.data?.url ?? null;
+    if (!response.data?.url) {
+      console.error("Error creating portal session:", response.error);
+      return null;
+    }
+    return response.data.url;
   } catch (error) {
     console.error("Error creating portal session:", error);
     return null;
@@ -65,7 +81,11 @@ export async function createCheckoutSession(
       body: { planId },
       headers: headers({ idToken }),
     });
-    return response.data?.clientSecret ?? null;
+    if (!response.data?.clientSecret) {
+      console.error("Error creating checkout session:", response.error);
+      return null;
+    }
+    return response.data.clientSecret;
   } catch (error) {
     console.error("Error creating checkout session:", error);
     return null;

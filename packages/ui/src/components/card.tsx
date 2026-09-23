@@ -2,7 +2,7 @@ import Link from "next/link";
 import { cn } from "../lib/utils";
 import React from "react";
 
-type CardVariant = "default" | "success" | "destructive";
+type CardVariant = "default" | "success" | "destructive" | "warning";
 
 export function Card({
   children,
@@ -19,11 +19,13 @@ export function Card({
     default: "bg-accent/50",
     success: "bg-success/15",
     destructive: "bg-destructive/15",
+    warning: "bg-warning/15",
   };
   const borderColor = {
     default: "border-accent",
     success: "border-transparent",
     destructive: "border-transparent",
+    warning: "border-transparent",
   };
   const content = (
     <div

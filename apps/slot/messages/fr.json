@@ -20,10 +20,19 @@
   },
   "homepage": {
     "title": "Slot",
-    "description": "Ce module permet de gérer les slots et réservations de votre site.",
+    "description": "Configurez votre profil de prestataire, gérez vos services et les créneaux réservables par vos clients.",
     "loginRequired": "Connectez-vous pour gérer vos services et créneaux.",
     "login": "Se connecter",
     "calendarSubscription": "Synchroniser les réservations avec votre calendrier",
+    "bookPage": {
+      "liveTitle": "Votre page de réservation est en ligne",
+      "liveDescription": "Voici ce que vos clients voient en la visitant.",
+      "openBookingPage": "Ouvrir la page de réservation",
+      "previewTitle": "Aperçu de la page de réservation",
+      "notLiveTitle": "Votre page de réservation n'est pas encore en ligne",
+      "notLiveDescription": "Terminez ces étapes pour la publier :",
+      "missingServiceProvider": "Configurez votre profil de prestataire"
+    },
     "serviceProvider": {
       "title": "Profil du prestataire",
       "description": "C'est ce que vos clients verront lorsqu'ils réservent. Votre nom, métier et coordonnées inspirent confiance et permettent aux clients de savoir avec qui ils ont rendez-vous.",
@@ -75,11 +84,13 @@
     "reservations": "Réservations",
     "home": "Accueil",
     "calendar": "Calendrier",
-    "token": "Vos clés d'accès"
+    "api": "API"
   },
   "slots": {
     "title": "Créneaux",
     "description": "Gérez les créneaux de votre site. Cliquez sur un créneau pour le modifier ou le supprimer. Cliquez sur le calendrier pour créer un nouveau créneau.",
+    "noSlotsYetTitle": "Aucun créneau pour l'instant",
+    "noSlotsYetDescription": "Vos clients ne peuvent rien réserver tant que vous n'avez pas ajouté de disponibilités — cliquez sur le calendrier ci-dessous pour créer votre premier créneau.",
     "selectAll": "Tout sélectionner",
     "unselectAll": "Tout désélectionner",
     "CreateSlots": {
@@ -206,9 +217,19 @@
     }
   },
   "token": {
-    "title": "Votre clé d'accès",
-    "description": "Vos clés d'accès vous permettent d'accéder à l'API de Basalf SLOT. Ces clés doivent absolument rester secrètes et ne jamais être partagées. Si vous perdez ces clés, vous ne pourrez plus accéder à l'API de Basalf SLOT. Si vous les partagez, vous pourriez exposer votre compte à des risques de sécurité. Si vous les perdez, contactez nous immediatement.",
-    "copy": "Copier votre token",
-    "copied": "Token copié"
+    "title": "API",
+    "description": "Connectez votre propre site à vos services et créneaux.",
+    "connectionDetails": "Vos informations de connexion",
+    "connectionDetailsDescription": "C'est ce dont les exemples de code ci-dessous ont besoin — passez le token lors de la création du client, exactement comme dans les extraits.",
+    "apiUrl": "URL de l'API",
+    "token": "Token",
+    "tokenWarning": "Gardez-le privé — il donne accès aux données de créneaux de votre organisation.",
+    "libTitle": "@basalf/slot",
+    "libDescription": "Un package npm TypeScript. Affichez vos services et créneaux disponibles, et laissez vos clients réserver directement, sur n'importe quel site que vous construisez.",
+    "initLabel": "Initialiser le client",
+    "getServicesLabel": "Lister vos services",
+    "getSlotsLabel": "Lister les créneaux disponibles sur une période",
+    "getSlotLabel": "Récupérer un créneau",
+    "createBookingLabel": "Créer une réservation"
   }
 }

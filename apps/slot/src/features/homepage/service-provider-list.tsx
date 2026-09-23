@@ -104,7 +104,10 @@ export function ServiceProviderProfile({
   const t = useTranslations("homepage.serviceProvider");
   const tPicture = useTranslations("homepage.serviceProviderPicture");
   const router = useRouter();
-  const [dialogOpen, setDialogOpen] = useState(false);
+  // Opens by default when there's no profile yet - closing it without
+  // saving just leaves provider null, so it won't force itself back open
+  // until the next full page load.
+  const [dialogOpen, setDialogOpen] = useState(!provider);
   const [form, setForm] = useState<ProviderForm>(emptyForm);
   const [loading, setLoading] = useState(false);
   // Shown right after a successful upload, ahead of the server confirming
@@ -204,7 +207,7 @@ export function ServiceProviderProfile({
       )}
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent>
+        <DialogContent className="max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
               {isEditing ? t("editTitle") : t("setupTitle")}
@@ -212,13 +215,13 @@ export function ServiceProviderProfile({
             <DialogDescription>{t("dialogDescription")}</DialogDescription>
           </DialogHeader>
           {provider && (
-            <div className="flex items-center gap-3">
+            <div className="flex min-w-0 flex-wrap items-center gap-3">
               <ProviderAvatar
                 picture={displayPicture}
                 initials={initialsOf(provider.firstName, provider.lastName)}
                 size={56}
               />
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <UploadFileButton
                   variant="outline"
                   size="sm"
@@ -297,9 +300,9 @@ function ProviderFormFields({
   const t = useTranslations("homepage.serviceProvider");
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-2 gap-4">
-        <div className="flex flex-col gap-2">
+    <div className="flex min-w-0 flex-col gap-4">
+      <div className="grid min-w-0 grid-cols-2 gap-4">
+        <div className="flex min-w-0 flex-col gap-2">
           <Label htmlFor="provider-first-name">{t("firstName")}</Label>
           <Input
             id="provider-first-name"
@@ -325,7 +328,7 @@ function ProviderFormFields({
           onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex min-w-0 flex-col gap-2">
         <Label>{t("occupation")}</Label>
         <OccupationSelect
           categories={categories}
@@ -341,7 +344,7 @@ function ProviderFormFields({
         <Tiptap
           content={form.description}
           onUpdate={(html) => setForm({ ...form, description: html })}
-          className="w-full h-fit min-h-[60px] prose prose-sm"
+          className="w-full min-h-[60px] max-h-[140px] sm:max-h-[240px] prose prose-sm"
         />
       </div>
     </div>

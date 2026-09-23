@@ -18,9 +18,11 @@ import { TIMEZONES } from "../timezones";
 import { CURRENCIES } from "../currencies";
 import type { AddressSuggestion } from "../mapbox";
 
-// Shared by the admin CreateOrgForm and the public checkout DraftOrgForm -
-// same fields, same validation, different submit targets and chrome around
-// them.
+// Shape + validation are shared by the admin CreateOrgForm and the public
+// checkout DraftOrgForm. The JSX isn't: an admin CRUD form and a pre-payment
+// conversion form want different things, so each gets its own layout -
+// AdminOrganizationFields here (unchanged grid), CheckoutOrganizationFields
+// in features/checkout.
 export type OrganizationFieldsValue = {
   name: string;
   email: string;
@@ -42,25 +44,27 @@ export const initialOrganizationFieldsValue: OrganizationFieldsValue = {
 };
 
 export function isOrganizationFieldsValid(value: OrganizationFieldsValue): boolean {
+  // Coordinates are required - orgs need a real, geocoded address (used for
+  // slot-mgt-bff's service-provider location, the booking page map pin, and
+  // SEO structured data), so the address can only come from picking a
+  // Mapbox suggestion, never free text. postalCode/addressLocality stay
+  // optional: Mapbox sometimes omits that context for an otherwise-valid,
+  // geocoded result, and that gap shouldn't make the form unsubmittable.
   return !!(
     value.name.trim() &&
     value.email.trim() &&
     value.address?.streetAddress?.trim() &&
-    value.address?.addressLocality?.trim() &&
-    value.address?.postalCode?.trim() &&
     value.address?.addressCountry?.trim() &&
     value.address?.latitude != null &&
     value.address?.longitude != null
   );
 }
 
-export function OrganizationFields({
+export function AdminOrganizationFields({
   value,
   onChange,
   onSearchAddress,
   disabled,
-  mapPreview = true,
-  showIsOnBookWebsite = true,
 }: {
   value: OrganizationFieldsValue;
   onChange: <K extends keyof OrganizationFieldsValue>(
@@ -69,8 +73,6 @@ export function OrganizationFields({
   ) => void;
   onSearchAddress: (query: string) => Promise<AddressSuggestion[]>;
   disabled?: boolean;
-  mapPreview?: boolean;
-  showIsOnBookWebsite?: boolean;
 }) {
   const t = useTranslations("organization");
 
@@ -171,21 +173,18 @@ export function OrganizationFields({
           onChange={(address) => onChange("address", address)}
           onSearch={onSearchAddress}
           disabled={disabled}
-          mapPreview={mapPreview}
         />
       </fieldset>
 
-      {showIsOnBookWebsite && (
-        <div className="flex items-center gap-2">
-          <Checkbox
-            id="is-on-book-website"
-            checked={value.isOnBookWebsite}
-            onCheckedChange={(checked) => onChange("isOnBookWebsite", checked === true)}
-            disabled={disabled}
-          />
-          <Label htmlFor="is-on-book-website">{t("isOnBookWebsite")}</Label>
-        </div>
-      )}
+      <div className="flex items-center gap-2">
+        <Checkbox
+          id="is-on-book-website"
+          checked={value.isOnBookWebsite}
+          onCheckedChange={(checked) => onChange("isOnBookWebsite", checked === true)}
+          disabled={disabled}
+        />
+        <Label htmlFor="is-on-book-website">{t("isOnBookWebsite")}</Label>
+      </div>
     </>
   );
 }

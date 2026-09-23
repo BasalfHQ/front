@@ -20,10 +20,19 @@
   },
   "homepage": {
     "title": "Slot",
-    "description": "This module allows you to manage slots and reservations on your site.",
+    "description": "Set up your service provider profile, manage your services, and configure the slots customers can book.",
     "loginRequired": "Sign in to manage your services and slots.",
     "login": "Sign in",
     "calendarSubscription": "Sync bookings with your calendar",
+    "bookPage": {
+      "liveTitle": "Your booking page is live",
+      "liveDescription": "Here's what customers see when they visit it.",
+      "openBookingPage": "Open booking page",
+      "previewTitle": "Booking page preview",
+      "notLiveTitle": "Your booking page isn't live yet",
+      "notLiveDescription": "Finish these steps to publish it:",
+      "missingServiceProvider": "Set up your service provider profile"
+    },
     "serviceProvider": {
       "title": "Service provider profile",
       "description": "This is who your clients will see when they book. Your name, occupation and contact info help build trust and let clients know who they'll be meeting with.",
@@ -75,11 +84,13 @@
     "reservations": "Reservations",
     "home": "Home",
     "calendar": "Calendar",
-    "token": "Your access keys"
+    "api": "API"
   },
   "slots": {
     "title": "Slots",
     "description": "Manage your slots. Click on a slot to edit or delete it. Click on the calendar to create a new slot.",
+    "noSlotsYetTitle": "No slots yet",
+    "noSlotsYetDescription": "Customers can't book anything until you add availability - click on the calendar below to create your first slot.",
     "back": "Back to homepage",
     "selectAll": "Select all",
     "unselectAll": "Unselect all",
@@ -208,9 +219,19 @@
     }
   },
   "token": {
-    "title": "Your access key",
-    "description": "Your access keys allow you to access the Basalf SLOT API. These keys must be kept secret and never shared. If you lose these keys, you will no longer be able to access the Basalf SLOT API. If you share them, you could expose your account to security risks. If you lose them, contact us immediately.",
-    "copy": "Copy your token",
-    "copied": "Token copied"
+    "title": "API",
+    "description": "Connect your own website to your services and slots.",
+    "connectionDetails": "Your connection details",
+    "connectionDetailsDescription": "This is what the code examples below need — pass the token when creating the client, exactly like in the snippets.",
+    "apiUrl": "API URL",
+    "token": "Token",
+    "tokenWarning": "Keep this private — it grants access to your organization's slot data.",
+    "libTitle": "@basalf/slot",
+    "libDescription": "A TypeScript npm package. Show your services and available slots, and let customers book directly, on any website you build.",
+    "initLabel": "Initialize the client",
+    "getServicesLabel": "List your services",
+    "getSlotsLabel": "List available slots in a date range",
+    "getSlotLabel": "Get a single slot",
+    "createBookingLabel": "Create a booking"
   }
 }

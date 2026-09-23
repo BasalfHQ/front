@@ -22,6 +22,7 @@
     "users": "Users",
     "cms": "CMS",
     "organizations": "Organizations",
+    "billing": "Billing",
     "mcp": "MCP"
   },
   "users": {
@@ -67,8 +68,12 @@
     "address": "Address",
     "isOnBookWebsite": "Display on booking website",
     "addressSearchPlaceholder": "Search for an address...",
-    "searchingAddress": "Searching...",
-    "noAddressResults": "No address found"
+    "searchingAddress": "Searching…",
+    "noAddressResults": "No addresses found for “{query}”",
+    "addressResultsCount": "{count, plural, =0 {No results} one {# result} other {# results}}",
+    "addressChange": "Change",
+    "addressMapConfirm": "Is this the right spot?",
+    "addressMapAlt": "Map showing the selected address"
   },
   "mcp": {
     "title": "MCP Access",
@@ -93,10 +98,34 @@
     "otherClientsNote": "Not \"Authorization\" — use \"Token\" (or \"x-token\" if your client won't allow a custom header named \"Token\")."
   },
   "checkout": {
-    "step1Title": "Create your organization",
-    "step1Description": "Tell us about your business to get started.",
+    "orgHeading": "Set up your organization",
+    "orgLede": "This is the business your clients will see when they book. You can change any of it later in Settings.",
+    "stepIndicator": "Step 1 of 2",
+    "whatNextTitle": "What happens next",
+    "whatNextItem1": "We'll set up your booking page and a first service for you automatically.",
+    "whatNextItem2": "Then you'll pick a plan and enter payment — nothing is charged until you confirm.",
+    "groupBusinessTitle": "Your business",
+    "groupBusinessNote": "Shown on your booking page, invoices and reminders.",
+    "nameLabel": "Business name",
+    "namePlaceholder": "e.g. Riverside Salon",
+    "emailLabel": "Admin email",
+    "emailPlaceholder": "you@yourbusiness.com",
+    "emailHelp": "Booking notifications and account emails go here.",
+    "groupLocationTitle": "Where you operate",
+    "groupLocationNote": "Sets your booking page location, and regional defaults like currency and time zone.",
+    "regionalSummary": "Customers will pay in {currency}, at {city} time.",
+    "regionalSummaryUnknown": "Choose your currency and time zone:",
+    "adjust": "Adjust",
+    "done": "Done",
+    "languageSummary": "Booking emails will be sent in {language}.",
+    "languageAdjust": "Change",
+    "languageLabel": "Email language",
     "creatingOrganization": "Creating…",
     "continueToPayment": "Continue to payment",
+    "submitNote": "Next you'll pick a plan and see the total. No charge until you confirm.",
+    "errorNameRequired": "Enter your business name.",
+    "errorEmailRequired": "Enter an admin email.",
+    "errorAddressRequired": "Search for your business address and pick a result.",
     "step2Title": "Subscribe for {name}",
     "backToOrganization": "← Back to organization creation",
     "backToOrganizationConfirm": "If you already completed payment, don’t go back — you’d create a second organization. Continue anyway?",
@@ -106,22 +135,67 @@
     "retry": "Try again",
     "successTitle": "You're all set!",
     "successDescription": "Your subscription is active. We're finishing setting up your organization - this only takes a moment.",
+    "successNextStepsTitle": "Next steps",
+    "successNextStepsEmail": "Check your email — we've sent you an invite to create your account.",
+    "successNextStepsSlot": "Once you're connected, invite your team, set up your service provider profile, and configure the slots customers can book:",
+    "successNextStepsSlotCta": "Go to Slot",
+    "successNextStepsCms": "Want to explain how your business works, or share updates with customers? You can create a blog anytime:",
+    "successNextStepsCmsCta": "Go to CMS",
     "goToDashboard": "Go to dashboard"
+  },
+  "billing": {
+    "title": "Billing",
+    "description": "View your subscription and manage payment.",
+    "noSubscription": "No subscription for this organization.",
+    "renewsOn": "Renews on {date}",
+    "endsOn": "Ends on {date}",
+    "managePayment": "Manage payment method",
+    "restart": "Undo cancellation",
+    "restarting": "Undoing...",
+    "cancel": "Cancel subscription",
+    "canceling": "Canceling...",
+    "cancelConfirmTitle": "Cancel your subscription?",
+    "cancelConfirmDescription": "Your subscription will stay active until {date}, then it will not renew.",
+    "cancelConfirmDismiss": "Keep subscription",
+    "cancelConfirmAction": "Cancel subscription",
+    "cancelSuccess": "Subscription will end at the current billing period.",
+    "cancelFailed": "Failed to cancel subscription",
+    "cancelPendingTimeout": "Still processing — refresh in a moment to see the update.",
+    "restartSuccess": "Subscription will continue to renew.",
+    "restartFailed": "Failed to undo cancellation",
+    "restartPendingTimeout": "Still processing — refresh in a moment to see the update.",
+    "confirming": "Confirming...",
+    "portalFailed": "Failed to open billing portal",
+    "confirmingTitle": "Confirming your payment...",
+    "confirmingDescription": "This only takes a moment.",
+    "confirmTimeoutTitle": "Still processing",
+    "confirmTimeoutDescription": "Your payment went through, but it's taking longer than usual to confirm here. Check back in a minute.",
+    "subscribeStepTitle": "Subscribe to continue",
+    "subscribeStepDescription": "You'll be charged for a subscription to keep using Basalf. Enter your payment details below — nothing else changes until you confirm.",
+    "subscribeLede": "Subscribe to get access again.",
+    "subscribe": "Subscribe",
+    "loadingPayment": "Loading payment form…",
+    "checkoutFailed": "Something went wrong loading the payment form.",
+    "checkoutConfigError": "Payment isn’t configured for this environment yet.",
+    "retry": "Try again",
+    "subscribeSuccessTitle": "You're all set!",
+    "subscribeSuccessDescription": "Your subscription is active. It can take a moment to show up here.",
+    "backToBilling": "Back to billing"
   },
   "homepage": {
     "title": "Welcome to Basalf",
     "description": "Manage your projects and organizations",
     "cms": {
       "title": "CMS",
-      "description": "Our content management system"
+      "description": "Manage your website's pages and blog."
     },
     "host": {
       "title": "Host",
       "description": "Our website hosting platform"
     },
     "slot": {
-      "title": "Slots",
-      "description": "Our slot management and reservation platform"
+      "title": "Slot",
+      "description": "Set up your service provider profile and manage the slots customers can book."
     }
   }
 }

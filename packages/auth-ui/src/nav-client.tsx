@@ -5,15 +5,27 @@ import { LoginModal, OrganizationSelect } from "@repo/auth/components";
 import { useTranslations } from "next-intl";
 import { LocaleSwitcher } from "./locale-switcher";
 import { Button } from "@repo/ui/button";
+import { cn } from "@repo/ui/lib/utils";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+
+// Query-param driven (?login=true), so it must only ever mount once - unlike
+// NavAuthSlot below, this can't be rendered in both the desktop bar and the
+// mobile drawer, or two Dialogs would fight over the same open state.
+export function NavLoginModal() {
+  return <LoginModal />;
+}
 
 interface NavAuthSlotProps {
   isLoggedIn: boolean;
   organizations: Organization[];
+  className?: string;
 }
 
-export function NavAuthSlot({ isLoggedIn, organizations }: NavAuthSlotProps) {
+// Safe to render more than once (e.g. once in the desktop bar, once in the
+// mobile drawer) - none of this reads state that two mounts would fight
+// over, unlike NavLoginModal.
+export function NavAuthSlot({ isLoggedIn, organizations, className }: NavAuthSlotProps) {
   const t = useTranslations("nav");
   const router = useRouter();
   const pathname = usePathname();
@@ -42,8 +54,7 @@ export function NavAuthSlot({ isLoggedIn, organizations }: NavAuthSlotProps) {
 
   if (!isLoggedIn) {
     return (
-      <div className="flex items-center gap-2">
-        <LoginModal />
+      <div className={cn("flex items-center gap-2", className)}>
         <LocaleSwitcher />
         <Button variant="outline" onClick={openLoginModal}>
           {t("login")}
@@ -53,18 +64,20 @@ export function NavAuthSlot({ isLoggedIn, organizations }: NavAuthSlotProps) {
   }
 
   return (
-    <>
-      <LoginModal />
-      <div className="flex items-center gap-2">
-        <OrganizationSelect
-          organizations={organizations}
-          onOrganizationChange={handleOrganizationChange}
-        />
-        <LocaleSwitcher />
-        <Button variant="outline" onClick={() => signOut({ callbackUrl: "/" })}>
-          {t("logout")}
-        </Button>
-      </div>
-    </>
+    <div className={cn("flex items-center gap-2", className)}>
+      <OrganizationSelect
+        organizations={organizations}
+        onOrganizationChange={handleOrganizationChange}
+        className={className ? "w-full" : undefined}
+      />
+      <LocaleSwitcher className={className ? "w-full" : undefined} />
+      <Button
+        variant="outline"
+        onClick={() => signOut({ callbackUrl: "/" })}
+        className={className ? "w-full" : undefined}
+      >
+        {t("logout")}
+      </Button>
+    </div>
   );
 }

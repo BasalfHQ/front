@@ -20,7 +20,7 @@
   },
   "nav": {
     "pages": "Pages",
-    "token": "Vos clés d'accès"
+    "api": "API"
   },
   "homepage": {
     "title": "Connectez-vous à votre compte pour accéder au CMS"
@@ -300,9 +300,24 @@
     "deleting": "Suppression..."
   },
   "token": {
-    "title": "Votre clé d'accès",
-    "description": "Vos clés d'accès vous permettent d'accéder à l'API de Basalf CMS. Ces clés doivent absolument rester secrètes et ne jamais être partagées. Si vous perdez ces clés, vous ne pourrez plus accéder à l'API de Basalf CMS. Si vous les partagez, vous pourriez exposer votre compte à des risques de sécurité. Si vous les perdez, contactez nous immediatement.",
-    "copy": "Copier votre token",
-    "copied": "Token copié"
+    "title": "API",
+    "description": "Connectez votre propre site à vos pages et contenu.",
+    "connectionDetails": "Vos informations de connexion",
+    "connectionDetailsDescription": "C'est ce dont les exemples de code ci-dessous ont besoin — passez le token lors de la création du client (ou en tant que BASALF_CMS_TOKEN pour @basalf/cms-next), exactement comme dans les extraits.",
+    "apiUrl": "URL de l'API",
+    "token": "Token",
+    "tokenWarning": "Gardez-le privé — il donne accès au contenu du site de votre organisation.",
+    "cmsLibTitle": "@basalf/cms",
+    "cmsLibDescription": "Un package npm TypeScript. Récupérez vos pages publiées et leurs blocs de contenu depuis n'importe quel projet JavaScript.",
+    "initLabel": "Initialiser le client",
+    "getPagesLabel": "Lister vos pages publiées",
+    "getPageLabel": "Récupérer une page",
+    "cmsNextLibTitle": "@basalf/cms-next",
+    "cmsNextLibDescription": "Un package npm TypeScript pour Next.js (App Router) - des Server Components qui affichent une page @basalf/cms publiée par slug et langue, avec métadonnées et JSON-LD inclus.",
+    "cmsNextEnvInstructions": "Contrairement à @basalf/cms, ce package ne prend pas le token en argument — définissez-le d'abord comme variable d'environnement dans votre projet Next.js, côté serveur uniquement (ne l'exposez jamais au bundle client) :",
+    "envVarLabel": "Variable d'environnement (.env, serveur uniquement)",
+    "pageComponentLabel": "Afficher une page",
+    "metadataLabel": "Générer ses métadonnées SEO",
+    "listPagesLabel": "Lister les pages (sitemaps, generateStaticParams...)"
   }
 }
