@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { Book } from "@repo/apis";
 import { getBaseUrl } from "@/lib/seo";
+import { getAllOccupationSlugs } from "@/lib/occupation-slug";
 
 export const dynamic = "force-dynamic";
 
@@ -11,12 +12,32 @@ function getLocalePath(locale: string): string {
   return locale === "en" ? "" : `/${locale}`;
 }
 
+function getOccupationPages(): MetadataRoute.Sitemap {
+  return getAllOccupationSlugs().flatMap(({ slugs }) => {
+    const languages = Object.fromEntries(
+      Object.entries(slugs).map(([locale, slug]) => [
+        locale,
+        `${BASE_URL}${getLocalePath(locale)}/for/${slug}`,
+      ]),
+    );
+    return Object.values(languages).map((url) => ({
+      url,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+      alternates: { languages },
+    }));
+  });
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const occupationPages = getOccupationPages();
+
   let organizations: Book.Organization[] = [];
   try {
     organizations = await Book.getOrganizations();
   } catch {
-    return [];
+    return occupationPages;
   }
 
   const availableOrgs = organizations.filter((org) => org.isOnBookWebsite);
@@ -64,5 +85,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ),
   );
 
-  return [...serviceProviderPages, ...blogIndexPages, ...blogArticlePages];
+  return [
+    ...occupationPages,
+    ...serviceProviderPages,
+    ...blogIndexPages,
+    ...blogArticlePages,
+  ];
 }
