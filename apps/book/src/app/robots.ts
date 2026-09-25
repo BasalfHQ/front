@@ -1,0 +1,10 @@
+import type { MetadataRoute } from "next";
+import { getBaseUrl } from "@/lib/seo";
+
+// Every crawler, search and AI alike, may index the public pages.
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: { userAgent: "*", allow: "/", disallow: "/api/" },
+    sitemap: `${getBaseUrl()}/sitemap.xml`,
+  };
+}

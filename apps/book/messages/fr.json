@@ -52,5 +52,136 @@
     "practitioner": "Praticien",
     "selectedSlotLegend": "Créneau sélectionné",
     "timezone": "Fuseau horaire"
+  },
+  "b2b": {
+    "cta": "Commencer pour {price}/mois",
+    "nav": {
+      "trades": "Tous les métiers"
+    },
+    "breadcrumb": {
+      "label": "Fil d'Ariane",
+      "for": "Métiers"
+    },
+    "hero": {
+      "title": "Réservation en ligne pour les {occupations}",
+      "perMonth": "/mois",
+      "included": "Tout compris.",
+      "noCommission": "Sans commission, sans piège.",
+      "reassurance": "Sans engagement. En ligne dès ce soir."
+    },
+    "mock": {
+      "label": "Aperçu de votre page de réservation sur Book",
+      "photo": "Votre photo",
+      "name": "Votre nom",
+      "book": "Réserver",
+      "nextSlots": "Prochains créneaux disponibles"
+    },
+    "selling": {
+      "title": "Pensé pour les {occupations} qui ont mieux à faire",
+      "simpleTitle": "Vraiment simple.",
+      "simpleText": "Ajoutez vos prestations. Ouvrez vos créneaux. Partagez votre lien. C'est tout — sans formation, sans rendez-vous commercial.",
+      "priceTitle": "{price} par mois. Point.",
+      "priceText": "Une seule offre, tout compris. Aucune commission sur vos réservations, quel que soit leur nombre.",
+      "servicesTitle": "Toutes vos prestations.",
+      "servicesText": "{services}. Chacune avec son prix et sa durée.",
+      "servicesFallback": "Ajoutez toutes les prestations que vous proposez. Chacune avec son prix et sa durée."
+    },
+    "profile": {
+      "title": "Votre propre page de réservation",
+      "text": "Votre nom, votre adresse, vos prestations. Vos clients voient le prix avant de réserver.",
+      "p1": "Chaque prestation avec son prix et sa durée",
+      "p2": "Les prochains créneaux libres, directement sur la page",
+      "p3": "Fonctionne sur tous les téléphones. Aucune application à installer.",
+      "shot": "Votre page de réservation publique"
+    },
+    "bookings": {
+      "title": "Toutes vos réservations dans une liste",
+      "text": "Qui, quelle prestation, à quelle heure. Ouvrez-en une pour la déplacer ou l'annuler.",
+      "p1": "Déplacez ou annulez en deux clics",
+      "p2": "Ajoutez vous-même les clients de passage et les réservations par téléphone",
+      "p3": "Synchronisé avec Google Agenda, iPhone et Mac",
+      "shot": "La liste de vos réservations"
+    },
+    "slots": {
+      "title": "Réglez vos horaires une fois",
+      "text": "Touchez le calendrier pour ouvrir un créneau. Répétez-le chaque jour travaillé. Votre mois est prêt.",
+      "p1": "Répétez vos créneaux par jour de la semaine",
+      "p2": "Une couleur par prestation",
+      "p3": "Un jour de repos ? Supprimez les créneaux. C'est tout.",
+      "shot": "Votre calendrier de disponibilités"
+    },
+    "screenshot": {
+      "desktop": "sur ordinateur",
+      "phone": "sur téléphone",
+      "placeholder": "Capture d'écran à venir"
+    },
+    "how": {
+      "title": "Prêt dès ce soir",
+      "s1Title": "Inscrivez-vous et payez {price}.",
+      "s1Text": "E-mail, mot de passe, carte bancaire. Deux minutes.",
+      "s2Title": "Ajoutez vos prestations et vos horaires.",
+      "s2Text": "{services} — chacune avec un prix et une durée. Ouvrez ensuite vos créneaux.",
+      "s2Fallback": "Chaque prestation avec un prix et une durée. Ouvrez ensuite vos créneaux.",
+      "s3Title": "Partagez votre lien.",
+      "s3Text": "Sur Instagram, Google Maps, votre vitrine. Les réservations arrivent."
+    },
+    "pricing": {
+      "title": "Un seul prix. Tout compris.",
+      "terms1": "Sans commission. Sans engagement.",
+      "terms2": "Un prix juste dès le premier jour.",
+      "i1": "Votre propre page de réservation",
+      "i2": "Réservations illimitées",
+      "i3": "Prestations illimitées",
+      "i4": "Synchronisation d'agenda — Google, iPhone, Mac",
+      "i5": "E-mail de confirmation pour chaque client"
+    },
+    "faq": {
+      "title": "Les questions des {occupations}"
+    },
+    "alsoFor": {
+      "title": "Aussi pour les {audience}"
+    },
+    "hub": {
+      "metaTitle": "Logiciel de réservation en ligne pour tous les métiers — {price}/mois",
+      "metaDescription": "Book, la page de réservation en ligne des indépendants : vos prestations, vos horaires, des réservations en quelques clics. {price}/mois, tout compris.",
+      "title": "Réservation en ligne pour tous les métiers",
+      "intro": "Coiffeurs, coachs, thérapeutes, artisans… Choisissez votre métier pour voir comment Book fonctionne pour vous. {price}/mois, tout compris.",
+      "empty": "Les pages par métier arrivent bientôt.",
+      "seeCategory": "Tous les métiers — {category}"
+    },
+    "category": {
+      "tradesTitle": "Trouvez votre métier",
+      "otherTitle": "Book pour d'autres métiers"
+    },
+    "services": {
+      "title": "Exemples de prestations pour les {occupations}",
+      "name": "Prestation",
+      "duration": "Durée",
+      "price": "Prix",
+      "note": "À titre d'exemple — vous fixez vous-même vos prestations, durées et prix."
+    },
+    "articles": {
+      "listTitle": "Conseils pour les {occupations}",
+      "readingTime": "{minutes} min de lecture",
+      "ctaText": "Votre propre page de réservation, vos prestations et vos horaires. Vraiment simple, {price}/mois, tout compris.",
+      "backToLanding": "Réservation en ligne pour les {occupations}"
+    },
+    "audience": {
+      "health-medical": "professionnels de santé",
+      "beauty-wellness": "professionnels de la beauté et du bien-être",
+      "fitness-sport": "coachs sportifs",
+      "education-tutoring": "professeurs particuliers",
+      "legal-financial": "professionnels du droit et de la finance",
+      "home-services": "professionnels des services à domicile",
+      "consulting-coaching": "consultants et coachs",
+      "pet-services": "professionnels des animaux",
+      "automotive": "professionnels de l'automobile",
+      "real-estate": "agents immobiliers",
+      "creative-media": "créatifs",
+      "events-entertainment": "professionnels de l'événementiel",
+      "food-hospitality": "professionnels de la restauration",
+      "technology-it": "professionnels de l'informatique",
+      "other-services": "indépendants"
+    }
   }
 }

@@ -20,7 +20,7 @@ function Space() {
   return <div className="h-6" aria-hidden="true" />;
 }
 
-function SliceRenderer({ slice }: { slice: Block }) {
+export function SliceRenderer({ slice }: { slice: Block }) {
   switch (slice.type) {
     case "description":
       return <Description content={slice.content} />;

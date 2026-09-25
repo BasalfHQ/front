@@ -52,5 +52,136 @@
     "practitioner": "Practitioner",
     "selectedSlotLegend": "Selected slot",
     "timezone": "Timezone"
+  },
+  "b2b": {
+    "cta": "Start for {price}/month",
+    "nav": {
+      "trades": "All trades"
+    },
+    "breadcrumb": {
+      "label": "Breadcrumb",
+      "for": "Trades"
+    },
+    "hero": {
+      "title": "Online booking for {occupations}",
+      "perMonth": "/month",
+      "included": "Everything included.",
+      "noCommission": "No commission, no catch.",
+      "reassurance": "Cancel anytime. Live tonight."
+    },
+    "mock": {
+      "label": "Preview of your booking page on Book",
+      "photo": "Your photo",
+      "name": "Your name",
+      "book": "Book",
+      "nextSlots": "Next available slots"
+    },
+    "selling": {
+      "title": "Made for {occupations} who'd rather be working",
+      "simpleTitle": "Really simple.",
+      "simpleText": "Add your services. Open your hours. Share your link. That's the whole setup — no training, no sales call.",
+      "priceTitle": "{price} a month. Full stop.",
+      "priceText": "One plan, everything in it. No commission on your bookings, however many you get.",
+      "servicesTitle": "All your services.",
+      "servicesText": "{services}. Each one gets its own price and duration.",
+      "servicesFallback": "Add every service you offer. Each one gets its own price and duration."
+    },
+    "profile": {
+      "title": "Your own booking page",
+      "text": "Your name, your address, your services. Clients see the price before they book.",
+      "p1": "Every service with its price and duration",
+      "p2": "Next free slots, right on the page",
+      "p3": "Works on any phone. No app to install.",
+      "shot": "Your public booking page"
+    },
+    "bookings": {
+      "title": "Every booking in one list",
+      "text": "Who, which service, what time. Open one to move it or cancel it.",
+      "p1": "Reschedule or cancel in two taps",
+      "p2": "Add walk-ins and phone bookings yourself",
+      "p3": "Syncs with Google Calendar, iPhone and Mac",
+      "shot": "The list of your bookings"
+    },
+    "slots": {
+      "title": "Set your hours once",
+      "text": "Tap the calendar to open a slot. Repeat it every day you work. Done for the month.",
+      "p1": "Repeat slots by day of the week",
+      "p2": "One colour per service",
+      "p3": "Day off? Delete the slots. That's it.",
+      "shot": "Your availability calendar"
+    },
+    "screenshot": {
+      "desktop": "on a computer",
+      "phone": "on a phone",
+      "placeholder": "Screenshot coming soon"
+    },
+    "how": {
+      "title": "Up and running tonight",
+      "s1Title": "Sign up and pay {price}.",
+      "s1Text": "Email, password, card. Two minutes.",
+      "s2Title": "Add your services and hours.",
+      "s2Text": "{services} — each with a price and a duration. Then open your slots.",
+      "s2Fallback": "Each service with a price and a duration. Then open your slots.",
+      "s3Title": "Share your link.",
+      "s3Text": "On Instagram, Google Maps, your shop window. Bookings start coming in."
+    },
+    "pricing": {
+      "title": "One price. Everything in it.",
+      "terms1": "No commission. No contract.",
+      "terms2": "Just a fair price from day one.",
+      "i1": "Your own booking page",
+      "i2": "Unlimited bookings",
+      "i3": "Unlimited services",
+      "i4": "Calendar sync — Google, iPhone, Mac",
+      "i5": "Confirmation email for every client"
+    },
+    "faq": {
+      "title": "Questions {occupations} ask"
+    },
+    "alsoFor": {
+      "title": "Also for {audience}"
+    },
+    "hub": {
+      "metaTitle": "Online booking software for every trade — {price}/month",
+      "metaDescription": "Book is the online booking page for independent professionals: your services, your hours, bookings in a few clicks. {price}/month, everything included.",
+      "title": "Online booking for every trade",
+      "intro": "Hairdressers, coaches, therapists, tradespeople… Pick your trade to see how Book works for you. {price}/month, everything included.",
+      "empty": "Pages for each trade are on their way.",
+      "seeCategory": "All {categoryLower} trades"
+    },
+    "category": {
+      "tradesTitle": "Find your trade",
+      "otherTitle": "Book for other trades"
+    },
+    "services": {
+      "title": "Example services for {occupations}",
+      "name": "Service",
+      "duration": "Duration",
+      "price": "Price",
+      "note": "Examples only — you set your own services, durations and prices."
+    },
+    "articles": {
+      "listTitle": "Guides for {occupations}",
+      "readingTime": "{minutes} min read",
+      "ctaText": "Your own booking page, your services and hours. Really simple, {price}/month, everything included.",
+      "backToLanding": "Online booking for {occupations}"
+    },
+    "audience": {
+      "health-medical": "health professionals",
+      "beauty-wellness": "beauty & wellness pros",
+      "fitness-sport": "fitness & sport coaches",
+      "education-tutoring": "tutors and teachers",
+      "legal-financial": "legal & financial advisers",
+      "home-services": "home service pros",
+      "consulting-coaching": "consultants and coaches",
+      "pet-services": "pet care pros",
+      "automotive": "automotive pros",
+      "real-estate": "real estate agents",
+      "creative-media": "creative pros",
+      "events-entertainment": "event pros",
+      "food-hospitality": "food & hospitality pros",
+      "technology-it": "IT pros",
+      "other-services": "independent pros"
+    }
   }
 }

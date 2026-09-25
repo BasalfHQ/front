@@ -9,6 +9,9 @@ const fileDomainHostname = env.fileDomain()
   : undefined;
 
 const nextConfig: NextConfig = {
+  experimental: {
+    globalNotFound: true,
+  },
   transpilePackages: ["@repo/ui", "@repo/i18n", "@repo/esco"],
   images: {
     remotePatterns: fileDomainHostname

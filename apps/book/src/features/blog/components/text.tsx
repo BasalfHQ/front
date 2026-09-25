@@ -1,7 +1,7 @@
 export function Description({ content }: { content: string }) {
   return (
     <div
-      className="text-lg text-muted-foreground leading-relaxed [&>p]:mb-3 last:[&>p]:mb-0"
+      className="text-base text-muted-foreground leading-relaxed [&>p]:mb-3 last:[&>p]:mb-0"
       dangerouslySetInnerHTML={{ __html: content }}
     />
   );
