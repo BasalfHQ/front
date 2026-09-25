@@ -4,7 +4,12 @@ const apps = [
   { label: "CMS", href: "https://cms.basalf.com" },
 ];
 
-export function Footer() {
+// `links`: app-specific links shown before the app list.
+export function Footer({
+  links = [],
+}: {
+  links?: { label: string; href: string }[];
+}) {
   return (
     <footer className="mt-auto w-full bg-neutral-900 text-neutral-300">
       <div className="flex flex-wrap items-center justify-between gap-4 px-4 py-6 max-w-6xl mx-auto">
@@ -15,7 +20,7 @@ export function Footer() {
           </a>
         </p>
         <div className="flex items-center gap-4 text-sm">
-          {apps.map((app) => (
+          {[...links, ...apps].map((app) => (
             <a key={app.href} href={app.href} className="hover:text-white hover:underline">
               {app.label}
             </a>

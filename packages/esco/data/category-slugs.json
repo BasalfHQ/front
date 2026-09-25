@@ -1,0 +1,36 @@
+{
+  "en": {
+    "health-medical": "health-medical",
+    "beauty-wellness": "beauty-wellness",
+    "fitness-sport": "fitness-sport",
+    "education-tutoring": "education-tutoring",
+    "legal-financial": "legal-financial",
+    "home-services": "home-services",
+    "consulting-coaching": "consulting-coaching",
+    "pet-services": "pet-services",
+    "automotive": "automotive",
+    "real-estate": "real-estate",
+    "creative-media": "creative-media",
+    "events-entertainment": "events-entertainment",
+    "food-hospitality": "food-hospitality",
+    "technology-it": "technology-it",
+    "other-services": "other-services"
+  },
+  "fr": {
+    "sante-medical": "health-medical",
+    "beaute-bien-etre": "beauty-wellness",
+    "fitness-sport": "fitness-sport",
+    "education-cours": "education-tutoring",
+    "juridique-finance": "legal-financial",
+    "services-a-domicile": "home-services",
+    "conseil-coaching": "consulting-coaching",
+    "services-pour-animaux": "pet-services",
+    "automobile": "automotive",
+    "immobilier": "real-estate",
+    "creatif-medias": "creative-media",
+    "evenements-divertissement": "events-entertainment",
+    "alimentation-restauration": "food-hospitality",
+    "technologie-it": "technology-it",
+    "autres-services": "other-services"
+  }
+}

@@ -17,7 +17,6 @@ export async function getOrganizations(): Promise<Organization[]> {
     console.error(response.error);
     throw new Error("Failed to get organizations");
   }
-  console.log(response.data);
   return response.data ?? [];
 }
 

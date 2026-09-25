@@ -1,0 +1,1582 @@
+{
+  "en": {
+    "2dcb5dad-1902-4051-9023-d725485479a7": {
+      "one": "acupuncturist",
+      "other": "acupuncturists"
+    },
+    "d1b8c046-3867-423a-84fd-41f7be3a6d29": {
+      "one": "assistant clinical psychologist",
+      "other": "assistant clinical psychologists"
+    },
+    "c4d6d07a-ae90-40ce-bc5a-c952805a9bf3": {
+      "one": "audiologist",
+      "other": "audiologists"
+    },
+    "49e4e358-8ba3-4a05-8ef9-abb73156f5f7": {
+      "one": "chiropractor",
+      "other": "chiropractors"
+    },
+    "c3c8c56c-b3ab-4425-a38a-abcace020d22": {
+      "one": "clinical psychologist",
+      "other": "clinical psychologists"
+    },
+    "d18deca3-3063-4970-9ddc-e3c70404a28c": {
+      "one": "dental hygienist",
+      "other": "dental hygienists"
+    },
+    "8a53f8d3-d995-4c7b-a70d-d79f76bdcb3f": {
+      "one": "dietitian",
+      "other": "dietitians"
+    },
+    "71f09c8b-a172-408c-b9e7-32e580e39ff6": {
+      "one": "general practitioner",
+      "other": "general practitioners"
+    },
+    "61704d4b-f54b-43e5-a7de-bfd7a76f2f0d": {
+      "one": "homeopath",
+      "other": "homeopaths"
+    },
+    "11a6d0f6-e692-4774-aa5f-193b67d31022": {
+      "one": "kinesiologist",
+      "other": "kinesiologists"
+    },
+    "95cda6a9-a70a-4a93-9442-11d573cb4a02": {
+      "one": "midwife",
+      "other": "midwives"
+    },
+    "8d3e8aaa-791b-4c75-a465-f3f827028f50": {
+      "one": "nurse responsible for general care",
+      "other": "nurses responsible for general care"
+    },
+    "33da5532-8c4e-4d1b-b52e-c201ee1bc7ab": {
+      "one": "occupational therapist",
+      "other": "occupational therapists"
+    },
+    "6e0e068b-cd5c-4400-8899-54056087fa14": {
+      "one": "optician",
+      "other": "opticians"
+    },
+    "bffbe18a-cb8b-4f90-bd87-7505cd3b16f5": {
+      "one": "optometrist",
+      "other": "optometrists"
+    },
+    "771244bf-b204-4e7f-8b25-ee523ae7b791": {
+      "one": "orthoptist",
+      "other": "orthoptists"
+    },
+    "a7198837-139d-49c7-8fd0-eb8d8c1ee844": {
+      "one": "osteopath",
+      "other": "osteopaths"
+    },
+    "7c132147-428b-4ea3-87e1-70f7abb691ce": {
+      "one": "pharmacist",
+      "other": "pharmacists"
+    },
+    "5ee264b2-9bc5-40f6-9db3-c87143af6b2d": {
+      "one": "phlebotomist",
+      "other": "phlebotomists"
+    },
+    "006cc1f9-2841-41c3-991a-dc3f2f3bd533": {
+      "one": "physiotherapist",
+      "other": "physiotherapists"
+    },
+    "f88124d7-ee7e-4d21-9036-0658b496c119": {
+      "one": "physiotherapy assistant",
+      "other": "physiotherapy assistants"
+    },
+    "cf9b6da9-3a59-4780-bec9-500b148b8878": {
+      "one": "podiatrist",
+      "other": "podiatrists"
+    },
+    "4f08cd74-71c6-43aa-88d4-841e5bb677f7": {
+      "one": "podiatry assistant",
+      "other": "podiatry assistants"
+    },
+    "929b5c9d-2fbf-44f2-980d-2ac6c0dc212f": {
+      "one": "prosthetist-orthotist",
+      "other": "prosthetist-orthotists"
+    },
+    "52ded7d7-11df-42e3-b90a-d7f4b70fb4b9": {
+      "one": "psychologist",
+      "other": "psychologists"
+    },
+    "af69484e-b43f-4685-b22d-f3418df45c4d": {
+      "one": "psychotherapist",
+      "other": "psychotherapists"
+    },
+    "e139b0a3-3bc5-4c33-bfbf-51ac20ac12fa": {
+      "one": "radiation therapist",
+      "other": "radiation therapists"
+    },
+    "7639a601-6db0-41ed-9fb0-813d9b8beb05": {
+      "one": "radiographer",
+      "other": "radiographers"
+    },
+    "f9395e4d-d66f-49ce-a8f5-721991139e79": {
+      "one": "recreational therapist",
+      "other": "recreational therapists"
+    },
+    "dc69f2ed-ebe9-43da-bf9d-31aac874d4c2": {
+      "one": "rehabilitation support worker",
+      "other": "rehabilitation support workers"
+    },
+    "ceda6443-e1dd-4890-b018-42318e3abac2": {
+      "one": "sophrologist",
+      "other": "sophrologists"
+    },
+    "9b889f07-c39c-464d-b9d9-b2daa650f9ac": {
+      "one": "specialised doctor",
+      "other": "specialised doctors"
+    },
+    "be235deb-6181-43ca-8127-7010a689643a": {
+      "one": "specialist chiropractor",
+      "other": "specialist chiropractors"
+    },
+    "a580e79a-b752-49c1-b033-b5ab2b34bfba": {
+      "one": "specialist dentist",
+      "other": "specialist dentists"
+    },
+    "18e14e61-495b-44cc-a7c6-df4c625934ba": {
+      "one": "specialist nurse",
+      "other": "specialist nurses"
+    },
+    "8021f3a2-e3de-43c0-b366-075da74dc5b7": {
+      "one": "speech and language therapist",
+      "other": "speech and language therapists"
+    },
+    "394bdd9b-3ee8-43a9-b943-442ce146bb21": {
+      "one": "sport therapist",
+      "other": "sport therapists"
+    },
+    "80a2aba7-ef7d-46ef-a8ec-15ff6131c0f1": {
+      "one": "traditional chinese medicine therapist",
+      "other": "traditional chinese medicine therapists"
+    },
+    "754c349d-67d5-48e5-81c1-e84d2fab59d0": {
+      "one": "aromatherapist",
+      "other": "aromatherapists"
+    },
+    "4e0c14d6-b170-40f1-bcdc-703c0b92109b": {
+      "one": "barber",
+      "other": "barbers"
+    },
+    "d3fd0898-51f7-42a3-8f44-09408fc796f6": {
+      "one": "beauty salon attendant",
+      "other": "beauty salon attendants"
+    },
+    "33e3a746-f209-4a1a-96df-301505531cb2": {
+      "one": "beauty salon manager",
+      "other": "beauty salon managers"
+    },
+    "40da2fc6-8cb4-4cd3-8fe3-899715905070": {
+      "one": "body artist",
+      "other": "body artists"
+    },
+    "099c6bb0-22d3-4c5d-8bf5-70910af381ef": {
+      "one": "hairdresser",
+      "other": "hairdressers"
+    },
+    "55f6380c-7511-4c33-8fc4-c74f10f524fa": {
+      "one": "hairdresser assistant",
+      "other": "hairdresser assistants"
+    },
+    "49713da4-4e97-4f82-bd1c-16ce7f9179b7": {
+      "one": "make-up artist",
+      "other": "make-up artists"
+    },
+    "bced9b86-d4e7-42f8-bb47-acb2001b9bd0": {
+      "one": "manicurist",
+      "other": "manicurists"
+    },
+    "9487f835-b5a9-4742-8ecf-35520911e28c": {
+      "one": "massage therapist",
+      "other": "massage therapists"
+    },
+    "489b9a38-89a2-425c-95b9-79cec66379e1": {
+      "one": "pedicurist",
+      "other": "pedicurists"
+    },
+    "f60dc59b-7681-45d4-8114-b3a646e02ab2": {
+      "one": "performance hairdresser",
+      "other": "performance hairdressers"
+    },
+    "d5ce0c23-6f8a-459f-9bf9-a7cb9768740a": {
+      "one": "personal stylist",
+      "other": "personal stylists"
+    },
+    "b01affdd-c8a9-4121-bc50-a5be17f014eb": {
+      "one": "shiatsu practitioner",
+      "other": "shiatsu practitioners"
+    },
+    "2d5a50c6-0bf4-45c3-805c-44d1bf1e3d12": {
+      "one": "spa attendant",
+      "other": "spa attendants"
+    },
+    "080fc550-b7ca-4576-aaf5-06fffbede994": {
+      "one": "spa manager",
+      "other": "spa managers"
+    },
+    "be375e11-9a70-47cb-8091-711c94ed0c13": {
+      "one": "tanning consultant",
+      "other": "tanning consultants"
+    },
+    "bd206ee9-61d6-45de-a369-0c71b8429efa": {
+      "one": "wig and hairpiece maker",
+      "other": "wig and hairpiece makers"
+    },
+    "0af6fc82-8e5e-46c6-a4ca-a672ecf7704c": {
+      "one": "boxing instructor",
+      "other": "boxing instructors"
+    },
+    "3b43dafb-8c6b-4906-9fe5-bc218aacad55": {
+      "one": "football coach",
+      "other": "football coaches"
+    },
+    "09c2b506-cefa-4ba3-b868-a9c2bc4fc6f1": {
+      "one": "golf instructor",
+      "other": "golf instructors"
+    },
+    "0c3672ed-450b-4fcd-a3d0-579a10004486": {
+      "one": "horse riding instructor",
+      "other": "horse riding instructors"
+    },
+    "29df0797-c66d-4e54-a5e1-45b18cecf052": {
+      "one": "ice-skating coach",
+      "other": "ice-skating coaches"
+    },
+    "55af6be8-039a-419c-b278-55b3f7d9ef92": {
+      "one": "outdoor activities instructor",
+      "other": "outdoor activities instructors"
+    },
+    "f7177f79-63e7-4944-8896-044056b62523": {
+      "one": "personal trainer",
+      "other": "personal trainers"
+    },
+    "3e6488b6-3ca5-46b9-b380-5cd251d24824": {
+      "one": "pilates teacher",
+      "other": "pilates teachers"
+    },
+    "812276dd-95ea-428b-b05e-a61c4089063c": {
+      "one": "ski instructor",
+      "other": "ski instructors"
+    },
+    "776837b1-6f6b-4014-8330-d56918303e93": {
+      "one": "snowboard instructor",
+      "other": "snowboard instructors"
+    },
+    "a1b32703-a2e5-4e0a-910f-7cdd0293b52d": {
+      "one": "specialised outdoor animator",
+      "other": "specialised outdoor animators"
+    },
+    "3e9c1262-4fe2-4eb1-bf94-4fe64498393a": {
+      "one": "sports coach",
+      "other": "sports coaches"
+    },
+    "11695786-9fb7-4895-b161-0480419107e4": {
+      "one": "sports instructor",
+      "other": "sports instructors"
+    },
+    "52a769ab-c899-4e8c-b31d-e5c2a01f32e3": {
+      "one": "survival instructor",
+      "other": "survival instructors"
+    },
+    "62975936-0853-4a5d-9f59-bf943aca3cc6": {
+      "one": "swimming teacher",
+      "other": "swimming teachers"
+    },
+    "b3086ad2-1f3c-4a60-9bdb-8b4746989d4b": {
+      "one": "tennis coach",
+      "other": "tennis coaches"
+    },
+    "eb48ccbd-75f2-4799-81be-443034858473": {
+      "one": "art therapist",
+      "other": "art therapists"
+    },
+    "834aab9b-2246-4c3e-ab4a-cf3de1267e1a": {
+      "one": "car driving instructor",
+      "other": "car driving instructors"
+    },
+    "bca2528a-5a87-4576-a3b5-1edbbce40a9f": {
+      "one": "driving instructor",
+      "other": "driving instructors"
+    },
+    "3d616092-b4fd-4c14-b0e9-a9119bbbd171": {
+      "one": "music therapist",
+      "other": "music therapists"
+    },
+    "78ed3811-f421-45e5-9574-31364c76af67": {
+      "one": "performing arts school dance instructor",
+      "other": "performing arts school dance instructors"
+    },
+    "00747307-6341-4266-a061-25416f7c6a96": {
+      "one": "performing arts theatre instructor",
+      "other": "performing arts theatre instructors"
+    },
+    "46db7e2e-d44d-412a-9a80-02d43111aca8": {
+      "one": "photography teacher",
+      "other": "photography teachers"
+    },
+    "59c724f9-0cfe-4d51-8a7f-9ee182d9e2c2": {
+      "one": "sign language teacher",
+      "other": "sign language teachers"
+    },
+    "c29f1a42-25cb-4192-9bc1-cc7560c00590": {
+      "one": "truck driving instructor",
+      "other": "truck driving instructors"
+    },
+    "59bce29f-5c8b-47cf-bfd4-6ec003f5323a": {
+      "one": "tutor",
+      "other": "tutors"
+    },
+    "eda0d957-3c3c-4139-b89a-a18bc9e18897": {
+      "one": "accountant",
+      "other": "accountants"
+    },
+    "1a87e487-6761-4374-b6db-100ac5a9ad5a": {
+      "one": "credit adviser",
+      "other": "credit advisers"
+    },
+    "1ad59946-d13e-441e-9b36-56e1df055e21": {
+      "one": "financial auditor",
+      "other": "financial auditors"
+    },
+    "21de0f3b-a71a-4263-a9ba-90c5f3721b4d": {
+      "one": "financial planner",
+      "other": "financial planners"
+    },
+    "e19fe26f-0759-4bb1-af71-5bbecf3df69f": {
+      "one": "immigration adviser",
+      "other": "immigration advisers"
+    },
+    "a198de8c-24b1-4002-982f-a57ae6d6c19c": {
+      "one": "insurance broker",
+      "other": "insurance brokers"
+    },
+    "38d9c76b-1a7b-4d65-879b-733ae7e9364e": {
+      "one": "investment adviser",
+      "other": "investment advisers"
+    },
+    "974d4eab-fbee-4c52-b16e-73bdd8c25b53": {
+      "one": "lawyer",
+      "other": "lawyers"
+    },
+    "403be630-8d1e-43b7-9f07-098aca5bb689": {
+      "one": "mediator",
+      "other": "mediators"
+    },
+    "d21890a3-cbe9-49df-9a19-a4120d866548": {
+      "one": "notary",
+      "other": "notaries"
+    },
+    "59c22779-4d89-4bc9-ba8b-d64bea236723": {
+      "one": "tax advisor",
+      "other": "tax advisors"
+    },
+    "05f321f8-055b-407d-bf19-e0ddabda56b7": {
+      "one": "bricklayer",
+      "other": "bricklayers"
+    },
+    "2a22ff9e-de3b-408d-b312-5034896cc4f4": {
+      "one": "carpenter",
+      "other": "carpenters"
+    },
+    "a2dee758-72f5-4f1c-b760-f2b8e9d81911": {
+      "one": "chimney sweep",
+      "other": "chimney sweeps"
+    },
+    "15620506-fb5d-49cd-87a2-1c9047fb406a": {
+      "one": "construction painter",
+      "other": "construction painters"
+    },
+    "6d50f735-dca9-4a02-96dc-e4310ed98ae2": {
+      "one": "domestic housekeeper",
+      "other": "domestic housekeepers"
+    },
+    "4910419f-b4af-4f59-b544-9dbebc8a74f0": {
+      "one": "electrician",
+      "other": "electricians"
+    },
+    "4f1bb8b4-3fff-4e68-b427-8c892534a181": {
+      "one": "hardwood floor layer",
+      "other": "hardwood floor layers"
+    },
+    "e7970c7a-7769-4002-87d3-0a8ea94fdd6f": {
+      "one": "landscape gardener",
+      "other": "landscape gardeners"
+    },
+    "aaa485d0-6787-45c0-8596-b266c0b687fd": {
+      "one": "locksmith",
+      "other": "locksmiths"
+    },
+    "a2abd144-2a36-45ea-919c-1fcc6ebc5d45": {
+      "one": "paperhanger",
+      "other": "paperhangers"
+    },
+    "21cba86a-68c5-456c-aec2-cc04840b3c0e": {
+      "one": "pest management worker",
+      "other": "pest management workers"
+    },
+    "f4a22809-c00c-4dd0-8b09-c7251f8dcd1c": {
+      "one": "plasterer",
+      "other": "plasterers"
+    },
+    "5f9e0588-e819-42f7-9975-f53198666c07": {
+      "one": "plate glass installer",
+      "other": "plate glass installers"
+    },
+    "ed3cf43d-c2c1-4c46-82fc-1375e27e0290": {
+      "one": "plumber",
+      "other": "plumbers"
+    },
+    "8234eee9-1647-460d-8d62-7fe02cb884b0": {
+      "one": "refrigeration air condition and heat pump technician",
+      "other": "refrigeration air condition and heat pump technicians"
+    },
+    "0663d464-f139-4554-ae87-97aa6c4dad77": {
+      "one": "resilient floor layer",
+      "other": "resilient floor layers"
+    },
+    "b4c6d1b0-929e-48be-9f67-47bd8c30658b": {
+      "one": "roofer",
+      "other": "roofers"
+    },
+    "15a7e87c-f7d5-4a60-bab7-9636b76143fe": {
+      "one": "smart home installer",
+      "other": "smart home installers"
+    },
+    "02ff199e-38b3-45fd-b659-68846cfeeb92": {
+      "one": "sprinkler fitter",
+      "other": "sprinkler fitters"
+    },
+    "f3fc11ca-9a72-40da-bf0f-b2aab7e33079": {
+      "one": "stonemason",
+      "other": "stonemasons"
+    },
+    "02447817-ea01-4d8b-b09c-8bc128e447e6": {
+      "one": "tile fitter",
+      "other": "tile fitters"
+    },
+    "fa30c1cb-dbc5-409c-8124-7284592b123c": {
+      "one": "tree surgeon",
+      "other": "tree surgeons"
+    },
+    "95a89206-4dc8-4753-a5d9-bc14a0e5f7ca": {
+      "one": "upholsterer",
+      "other": "upholsterers"
+    },
+    "92cba6b4-8fca-49bb-b68c-45c5096fedc9": {
+      "one": "window cleaner",
+      "other": "window cleaners"
+    },
+    "353a22a7-1c55-410c-a7a7-c531692b5e50": {
+      "one": "window installer",
+      "other": "window installers"
+    },
+    "5d0cc30d-068a-424c-8463-f42872a7149e": {
+      "one": "career guidance advisor",
+      "other": "career guidance advisors"
+    },
+    "fc85156e-4f0b-46c4-ba66-a3b17318d932": {
+      "one": "life coach",
+      "other": "life coaches"
+    },
+    "21f4eb29-f6e5-4623-acb9-f3ff9c2f525d": {
+      "one": "public speaking coach",
+      "other": "public speaking coaches"
+    },
+    "114e1eff-215e-47df-8e10-45a5b72f8197": {
+      "one": "renewable energy consultant",
+      "other": "renewable energy consultants"
+    },
+    "c66b4569-09aa-4d8d-93d9-ac9b9176655d": {
+      "one": "security consultant",
+      "other": "security consultants"
+    },
+    "8d463763-5d38-4f47-903c-1c4df32141c1": {
+      "one": "smart city consultant",
+      "other": "smart city consultants"
+    },
+    "763f82c2-81e3-48d2-9cdf-f532b5016a1f": {
+      "one": "weight loss consultant",
+      "other": "weight loss consultants"
+    },
+    "5a940ae0-3fa4-40f9-8ca4-17bf792da243": {
+      "one": "animal groomer",
+      "other": "animal groomers"
+    },
+    "0abed785-00f8-4692-9f5f-f2b56efdb829": {
+      "one": "animal massage therapist",
+      "other": "animal massage therapists"
+    },
+    "e81269d8-f301-4c82-9235-ba33ec9b0434": {
+      "one": "animal osteopath",
+      "other": "animal osteopaths"
+    },
+    "0b2d3242-22a3-4de5-bd29-efd39cdf2c31": {
+      "one": "animal therapist",
+      "other": "animal therapists"
+    },
+    "2662ed6c-a705-4895-8e9d-0a85c08ad908": {
+      "one": "dog trainer",
+      "other": "dog trainers"
+    },
+    "84cdc2ef-ee7c-42b1-be19-5e1c6b537f8f": {
+      "one": "pet sitter",
+      "other": "pet sitters"
+    },
+    "08984bec-31d8-4bb0-aa2f-d557761ff029": {
+      "one": "specialised veterinarian",
+      "other": "specialised veterinarians"
+    },
+    "24f1eb3a-e99c-4c38-9bda-ba2ba6bf9fa4": {
+      "one": "veterinary nurse",
+      "other": "veterinary nurses"
+    },
+    "24d378d8-1e16-4667-bdb4-1f4a0f2c6379": {
+      "one": "diesel engine mechanic",
+      "other": "diesel engine mechanics"
+    },
+    "c0749528-ee2a-41bd-a1f6-c13825b5e569": {
+      "one": "roadside vehicle technician",
+      "other": "roadside vehicle technicians"
+    },
+    "1d70e660-1114-41c6-926a-053541460d88": {
+      "one": "sports equipment repair technician",
+      "other": "sports equipment repair technicians"
+    },
+    "98c429ad-128e-467e-803a-9a6dc1ceed72": {
+      "one": "tyre fitter",
+      "other": "tyre fitters"
+    },
+    "ecdc43f5-3b32-4f94-abf8-cd46480c8cb8": {
+      "one": "vehicle electronics installer",
+      "other": "vehicle electronics installers"
+    },
+    "211716b7-2857-40c8-a078-da983c78c70a": {
+      "one": "vehicle glazier",
+      "other": "vehicle glaziers"
+    },
+    "3b4eb248-6b40-42fe-9d10-cba8ccfe6613": {
+      "one": "vehicle maintenance attendant",
+      "other": "vehicle maintenance attendants"
+    },
+    "158965f1-bd83-441c-bca8-1975b74dedc5": {
+      "one": "vehicle restoration technician",
+      "other": "vehicle restoration technicians"
+    },
+    "4ad4024e-d1d3-4dea-b6d1-2c7948111dce": {
+      "one": "vehicle technician",
+      "other": "vehicle technicians"
+    },
+    "e93b3b49-12e1-4b47-991c-dd4b0aec17d8": {
+      "one": "personal property appraiser",
+      "other": "personal property appraisers"
+    },
+    "afc5a0f4-42e5-4bfb-910c-2b54b44f99c5": {
+      "one": "property appraiser",
+      "other": "property appraisers"
+    },
+    "c5c1c40f-d2b7-437f-b3e8-b9da48f6d728": {
+      "one": "property assistant",
+      "other": "property assistants"
+    },
+    "8ec8df02-e9dd-43b7-b416-5846ae0414ab": {
+      "one": "real estate agent",
+      "other": "real estate agents"
+    },
+    "ec0e64c9-6d9b-4a9f-a022-a418f3b381fe": {
+      "one": "ceramicist",
+      "other": "ceramicists"
+    },
+    "5589e8e0-48d9-4193-8c85-86ba9f17e0e9": {
+      "one": "dressmaker",
+      "other": "dressmakers"
+    },
+    "77bfd6e7-5598-4818-84cb-31e2651eb046": {
+      "one": "fashion designer",
+      "other": "fashion designers"
+    },
+    "c0768628-46ad-4077-aee0-66ab6d7711df": {
+      "one": "flower and garden specialised seller",
+      "other": "flower and garden specialised sellers"
+    },
+    "69bcbb0a-8d80-4ecd-b0a4-9adea2a40de2": {
+      "one": "graphic designer",
+      "other": "graphic designers"
+    },
+    "1b949bae-882f-40ff-9fe7-3c8ede5e38b5": {
+      "one": "illustrator",
+      "other": "illustrators"
+    },
+    "73e776fb-4d99-4031-bad4-7716f121155d": {
+      "one": "interior designer",
+      "other": "interior designers"
+    },
+    "34c57104-ff9b-4003-809e-56eece3cb4d5": {
+      "one": "jewellery designer",
+      "other": "jewellery designers"
+    },
+    "f6803a58-91d9-4251-9a07-09fc387cec16": {
+      "one": "musician",
+      "other": "musicians"
+    },
+    "66542dd6-05a6-4d9e-97ff-3f4858c31ff9": {
+      "one": "photographer",
+      "other": "photographers"
+    },
+    "94d94bd0-9ac3-4bd8-81c0-c3fdf551aa16": {
+      "one": "sculptor",
+      "other": "sculptors"
+    },
+    "6581aa0d-c807-4091-84cc-bc041f962ab1": {
+      "one": "singer",
+      "other": "singers"
+    },
+    "978ae3a2-0831-415a-8396-b84dde656fc5": {
+      "one": "tailor",
+      "other": "tailors"
+    },
+    "30ed83ba-cc89-4d9f-a59d-5c783c1da56e": {
+      "one": "web designer",
+      "other": "web designers"
+    },
+    "1d4a4baf-4073-43bd-ac72-ff7d443273ff": {
+      "one": "disc jockey",
+      "other": "disc jockeys"
+    },
+    "84931290-ad27-45ad-b611-9556c5facbdb": {
+      "one": "event assistant",
+      "other": "event assistants"
+    },
+    "1b38a27d-ef98-4d9f-b1b2-8c109bf47e79": {
+      "one": "event manager",
+      "other": "event managers"
+    },
+    "4887c8a5-35d3-44c3-be69-346027e485f0": {
+      "one": "hospitality entertainment manager",
+      "other": "hospitality entertainment managers"
+    },
+    "a655aff1-e5e9-4c64-bc85-b902568a3dfb": {
+      "one": "performance artist",
+      "other": "performance artists"
+    },
+    "bd2c868c-371b-4958-83b4-012c52bc7faf": {
+      "one": "stand-up comedian",
+      "other": "stand-up comedians"
+    },
+    "61e278a3-2c27-4c18-a827-11e2326b33ae": {
+      "one": "street performer",
+      "other": "street performers"
+    },
+    "6662e56e-bc3d-4d9b-bed2-79d510d7c4ff": {
+      "one": "wedding planner",
+      "other": "wedding planners"
+    },
+    "1aadb308-432a-4d01-b54b-b4f7f76dd419": {
+      "one": "baker",
+      "other": "bakers"
+    },
+    "2f5e38a0-6578-4665-bdbd-e2ab505be140": {
+      "one": "bartender",
+      "other": "bartenders"
+    },
+    "985400a7-362f-4f91-941a-2e149d94ac2a": {
+      "one": "beer sommelier",
+      "other": "beer sommeliers"
+    },
+    "37c7880e-cfee-4c41-a41b-061682fefde3": {
+      "one": "butcher",
+      "other": "butchers"
+    },
+    "1009be17-7efd-45f1-a033-566bf179c588": {
+      "one": "chef",
+      "other": "chefs"
+    },
+    "e20816a9-51d0-410b-b2c6-cbc22c1c4256": {
+      "one": "cocktail bartender",
+      "other": "cocktail bartenders"
+    },
+    "01484951-15e6-4b88-a20f-1201868d36a0": {
+      "one": "head chef",
+      "other": "head chefs"
+    },
+    "b10dc548-10e1-4447-8406-5101ff170bbf": {
+      "one": "head pastry chef",
+      "other": "head pastry chefs"
+    },
+    "8f10ea9b-bfdf-4a4c-9fa7-b6e02daa93e5": {
+      "one": "pastry chef",
+      "other": "pastry chefs"
+    },
+    "a02a1117-212f-4a49-b21a-d3b971e00e48": {
+      "one": "pizzaiolo",
+      "other": "pizzaiolos"
+    },
+    "a256838b-0843-4ad2-a2fb-4531f94e63d8": {
+      "one": "private chef",
+      "other": "private chefs"
+    },
+    "499f80e3-860c-48ef-8286-be929a93e254": {
+      "one": "sommelier",
+      "other": "sommeliers"
+    },
+    "2d92f7f5-d2b1-4223-92c4-23c33f8604fc": {
+      "one": "wine sommelier",
+      "other": "wine sommeliers"
+    },
+    "8c57af09-719c-42b3-be40-6ed4946236cc": {
+      "one": "database administrator",
+      "other": "database administrators"
+    },
+    "aaeec9a7-dc57-4485-890c-86b3eef735f9": {
+      "one": "ICT help desk agent",
+      "other": "ICT help desk agents"
+    },
+    "f2b15a0e-e65a-438a-affb-29b9d50b77d1": {
+      "one": "software developer",
+      "other": "software developers"
+    },
+    "c40a2919-48a9-40ea-b506-1f34f693496d": {
+      "one": "web developer",
+      "other": "web developers"
+    },
+    "6b0ad7c0-a37f-45c6-a486-ee943a11429e": {
+      "one": "astrologer",
+      "other": "astrologers"
+    },
+    "a1d0eb6b-20ac-4a2c-a7c1-9b016ea92b24": {
+      "one": "fortune teller",
+      "other": "fortune tellers"
+    },
+    "5a551d36-0e14-40ab-84a2-7aa9b37dc528": {
+      "one": "furniture restorer",
+      "other": "furniture restorers"
+    },
+    "23e692a9-a242-4d4f-988f-ed562f757864": {
+      "one": "interpreter",
+      "other": "interpreters"
+    },
+    "31d0e6b8-64ae-4b04-b988-dbee03a4aaa9": {
+      "one": "medium",
+      "other": "mediums"
+    },
+    "f8da6546-0c8a-4bd0-a952-6f3c253c9aba": {
+      "one": "personal shopper",
+      "other": "personal shoppers"
+    },
+    "771a47c9-9cf4-4368-9752-2a1ea5a783d7": {
+      "one": "private detective",
+      "other": "private detectives"
+    },
+    "fd8b68c0-7341-44bb-855d-9b1254eade33": {
+      "one": "psychic",
+      "other": "psychics"
+    },
+    "dc9b98da-c389-4caf-a21a-c6f8c530c0bf": {
+      "one": "shoe repairer",
+      "other": "shoe repairers"
+    },
+    "9a2147aa-a72f-4f83-8653-c3f50d4e1e73": {
+      "one": "sign language interpreter",
+      "other": "sign language interpreters"
+    },
+    "1a07bd7d-2e1d-4930-a84a-1a442b8f2a44": {
+      "one": "translator",
+      "other": "translators"
+    },
+    "1a953e5a-f53f-461d-818b-6b2e655a751f": {
+      "one": "watch and clock repairer",
+      "other": "watch and clock repairers"
+    }
+  },
+  "fr": {
+    "2dcb5dad-1902-4051-9023-d725485479a7": {
+      "one": "acupuncteur",
+      "other": "acupuncteurs"
+    },
+    "d1b8c046-3867-423a-84fd-41f7be3a6d29": {
+      "one": "assistant en psychologie clinique",
+      "other": "assistants en psychologie clinique"
+    },
+    "c4d6d07a-ae90-40ce-bc5a-c952805a9bf3": {
+      "one": "audiologiste",
+      "other": "audiologistes"
+    },
+    "49e4e358-8ba3-4a05-8ef9-abb73156f5f7": {
+      "one": "chiropracteur",
+      "other": "chiropracteurs"
+    },
+    "c3c8c56c-b3ab-4425-a38a-abcace020d22": {
+      "one": "psychologue clinicien",
+      "other": "psychologues cliniciens"
+    },
+    "d18deca3-3063-4970-9ddc-e3c70404a28c": {
+      "one": "hygiéniste dentaire",
+      "other": "hygiénistes dentaires"
+    },
+    "8a53f8d3-d995-4c7b-a70d-d79f76bdcb3f": {
+      "one": "diététicien",
+      "other": "diététiciens"
+    },
+    "71f09c8b-a172-408c-b9e7-32e580e39ff6": {
+      "one": "médecin généraliste",
+      "other": "médecins généralistes"
+    },
+    "61704d4b-f54b-43e5-a7de-bfd7a76f2f0d": {
+      "one": "homéopathe",
+      "other": "homéopathes"
+    },
+    "11a6d0f6-e692-4774-aa5f-193b67d31022": {
+      "one": "kinésiologue",
+      "other": "kinésiologues"
+    },
+    "95cda6a9-a70a-4a93-9442-11d573cb4a02": {
+      "one": "maïeuticien",
+      "other": "sages-femmes"
+    },
+    "8d3e8aaa-791b-4c75-a465-f3f827028f50": {
+      "one": "infirmier de soins généraux",
+      "other": "infirmiers de soins généraux"
+    },
+    "33da5532-8c4e-4d1b-b52e-c201ee1bc7ab": {
+      "one": "ergothérapeute",
+      "other": "ergothérapeutes"
+    },
+    "6e0e068b-cd5c-4400-8899-54056087fa14": {
+      "one": "opticien",
+      "other": "opticiens"
+    },
+    "bffbe18a-cb8b-4f90-bd87-7505cd3b16f5": {
+      "one": "optométriste",
+      "other": "optométristes"
+    },
+    "771244bf-b204-4e7f-8b25-ee523ae7b791": {
+      "one": "orthoptiste",
+      "other": "orthoptistes"
+    },
+    "a7198837-139d-49c7-8fd0-eb8d8c1ee844": {
+      "one": "ostéopathe",
+      "other": "ostéopathes"
+    },
+    "7c132147-428b-4ea3-87e1-70f7abb691ce": {
+      "one": "pharmacien",
+      "other": "pharmaciens"
+    },
+    "5ee264b2-9bc5-40f6-9db3-c87143af6b2d": {
+      "one": "infirmier préleveur",
+      "other": "infirmiers préleveurs"
+    },
+    "006cc1f9-2841-41c3-991a-dc3f2f3bd533": {
+      "one": "physiothérapeute",
+      "other": "physiothérapeutes"
+    },
+    "f88124d7-ee7e-4d21-9036-0658b496c119": {
+      "one": "assistant de kinésithérapie",
+      "other": "assistants de kinésithérapie"
+    },
+    "cf9b6da9-3a59-4780-bec9-500b148b8878": {
+      "one": "podologue",
+      "other": "podologues"
+    },
+    "4f08cd74-71c6-43aa-88d4-841e5bb677f7": {
+      "one": "assistant podologue",
+      "other": "assistants podologues"
+    },
+    "929b5c9d-2fbf-44f2-980d-2ac6c0dc212f": {
+      "one": "orthoprothésiste",
+      "other": "orthoprothésistes"
+    },
+    "52ded7d7-11df-42e3-b90a-d7f4b70fb4b9": {
+      "one": "psychologue",
+      "other": "psychologues"
+    },
+    "af69484e-b43f-4685-b22d-f3418df45c4d": {
+      "one": "psychothérapeute",
+      "other": "psychothérapeutes"
+    },
+    "e139b0a3-3bc5-4c33-bfbf-51ac20ac12fa": {
+      "one": "radiothérapeute",
+      "other": "radiothérapeutes"
+    },
+    "7639a601-6db0-41ed-9fb0-813d9b8beb05": {
+      "one": "technicien en imagerie médicale et radiologie thérapeutique",
+      "other": "techniciens en imagerie médicale et radiologie thérapeutique"
+    },
+    "f9395e4d-d66f-49ce-a8f5-721991139e79": {
+      "one": "ludothérapeute",
+      "other": "ludothérapeutes"
+    },
+    "dc69f2ed-ebe9-43da-bf9d-31aac874d4c2": {
+      "one": "conseiller en insertion professionnelle pour personnes handicapées",
+      "other": "conseillers en insertion professionnelle pour personnes handicapées"
+    },
+    "ceda6443-e1dd-4890-b018-42318e3abac2": {
+      "one": "sophrologue",
+      "other": "sophrologues"
+    },
+    "9b889f07-c39c-464d-b9d9-b2daa650f9ac": {
+      "one": "médecin spécialiste",
+      "other": "médecins spécialistes"
+    },
+    "be235deb-6181-43ca-8127-7010a689643a": {
+      "one": "chiropracteur spécialiste",
+      "other": "chiropracteurs spécialistes"
+    },
+    "a580e79a-b752-49c1-b033-b5ab2b34bfba": {
+      "one": "dentiste spécialiste",
+      "other": "dentistes spécialistes"
+    },
+    "18e14e61-495b-44cc-a7c6-df4c625934ba": {
+      "one": "infirmier spécialiste",
+      "other": "infirmiers spécialistes"
+    },
+    "8021f3a2-e3de-43c0-b366-075da74dc5b7": {
+      "one": "orthophoniste",
+      "other": "orthophonistes"
+    },
+    "394bdd9b-3ee8-43a9-b943-442ce146bb21": {
+      "one": "conseiller en thérapie par l’exercice physique",
+      "other": "conseillers en thérapie par l’exercice physique"
+    },
+    "80a2aba7-ef7d-46ef-a8ec-15ff6131c0f1": {
+      "one": "intervenant en médecine chinoise",
+      "other": "intervenants en médecine chinoise"
+    },
+    "754c349d-67d5-48e5-81c1-e84d2fab59d0": {
+      "one": "conseiller en aromathérapie",
+      "other": "conseillers en aromathérapie"
+    },
+    "4e0c14d6-b170-40f1-bcdc-703c0b92109b": {
+      "one": "barbier",
+      "other": "barbiers"
+    },
+    "d3fd0898-51f7-42a3-8f44-09408fc796f6": {
+      "one": "employé d’institut de beauté",
+      "other": "employés d’institut de beauté"
+    },
+    "33e3a746-f209-4a1a-96df-301505531cb2": {
+      "one": "responsable d'institut de beauté",
+      "other": "responsables d'institut de beauté"
+    },
+    "40da2fc6-8cb4-4cd3-8fe3-899715905070": {
+      "one": "tatoueur",
+      "other": "tatoueurs"
+    },
+    "099c6bb0-22d3-4c5d-8bf5-70910af381ef": {
+      "one": "coiffeur",
+      "other": "coiffeurs"
+    },
+    "55f6380c-7511-4c33-8fc4-c74f10f524fa": {
+      "one": "assistant coiffeur",
+      "other": "assistants coiffeurs"
+    },
+    "49713da4-4e97-4f82-bd1c-16ce7f9179b7": {
+      "one": "maquilleur",
+      "other": "maquilleurs"
+    },
+    "bced9b86-d4e7-42f8-bb47-acb2001b9bd0": {
+      "one": "manucure",
+      "other": "manucures"
+    },
+    "9487f835-b5a9-4742-8ecf-35520911e28c": {
+      "one": "masseur kinésithérapeute",
+      "other": "masseurs kinésithérapeutes"
+    },
+    "489b9a38-89a2-425c-95b9-79cec66379e1": {
+      "one": "pédicure",
+      "other": "pédicures"
+    },
+    "f60dc59b-7681-45d4-8114-b3a646e02ab2": {
+      "one": "coiffeur spectacle",
+      "other": "coiffeurs de spectacle"
+    },
+    "d5ce0c23-6f8a-459f-9bf9-a7cb9768740a": {
+      "one": "styliste personnel",
+      "other": "stylistes personnels"
+    },
+    "b01affdd-c8a9-4121-bc50-a5be17f014eb": {
+      "one": "praticien en shiatsu",
+      "other": "praticiens en shiatsu"
+    },
+    "2d5a50c6-0bf4-45c3-805c-44d1bf1e3d12": {
+      "one": "employé d’un centre d’hydrothérapie",
+      "other": "employés d’un centre d’hydrothérapie"
+    },
+    "080fc550-b7ca-4576-aaf5-06fffbede994": {
+      "one": "directeur d'établissement thermal",
+      "other": "directeurs d'établissement thermal"
+    },
+    "be375e11-9a70-47cb-8091-711c94ed0c13": {
+      "one": "conseiller en bronzage",
+      "other": "conseillers en bronzage"
+    },
+    "bd206ee9-61d6-45de-a369-0c71b8429efa": {
+      "one": "perruquier",
+      "other": "perruquiers"
+    },
+    "0af6fc82-8e5e-46c6-a4ca-a672ecf7704c": {
+      "one": "entraîneur de boxe",
+      "other": "entraîneurs de boxe"
+    },
+    "3b43dafb-8c6b-4906-9fe5-bc218aacad55": {
+      "one": "entraîneur d’équipe de football",
+      "other": "entraîneurs d’équipe de football"
+    },
+    "09c2b506-cefa-4ba3-b868-a9c2bc4fc6f1": {
+      "one": "professeur de golf",
+      "other": "professeurs de golf"
+    },
+    "0c3672ed-450b-4fcd-a3d0-579a10004486": {
+      "one": "moniteur d’activités équestres",
+      "other": "moniteurs d’activités équestres"
+    },
+    "29df0797-c66d-4e54-a5e1-45b18cecf052": {
+      "one": "entraîneur de patinage sur glace",
+      "other": "entraîneurs de patinage sur glace"
+    },
+    "55af6be8-039a-419c-b278-55b3f7d9ef92": {
+      "one": "moniteur d’activités de plein air",
+      "other": "moniteurs d’activités de plein air"
+    },
+    "f7177f79-63e7-4944-8896-044056b62523": {
+      "one": "entraîneur personnel",
+      "other": "entraîneurs personnels"
+    },
+    "3e6488b6-3ca5-46b9-b380-5cd251d24824": {
+      "one": "moniteur de Pilates",
+      "other": "moniteurs de Pilates"
+    },
+    "812276dd-95ea-428b-b05e-a61c4089063c": {
+      "one": "moniteur de ski",
+      "other": "moniteurs de ski"
+    },
+    "776837b1-6f6b-4014-8330-d56918303e93": {
+      "one": "moniteur de surf des neiges",
+      "other": "moniteurs de surf des neiges"
+    },
+    "a1b32703-a2e5-4e0a-910f-7cdd0293b52d": {
+      "one": "animateur spécialisé - activités de plein air",
+      "other": "animateurs spécialisés - activités de plein air"
+    },
+    "3e9c1262-4fe2-4eb1-bf94-4fe64498393a": {
+      "one": "coach sportif",
+      "other": "coachs sportifs"
+    },
+    "11695786-9fb7-4895-b161-0480419107e4": {
+      "one": "instructeur sportif",
+      "other": "instructeurs sportifs"
+    },
+    "52a769ab-c899-4e8c-b31d-e5c2a01f32e3": {
+      "one": "moniteur de survie",
+      "other": "moniteurs de survie"
+    },
+    "62975936-0853-4a5d-9f59-bf943aca3cc6": {
+      "one": "éducateur sportif des activités aquatiques et de la natation",
+      "other": "éducateurs sportifs des activités aquatiques et de la natation"
+    },
+    "b3086ad2-1f3c-4a60-9bdb-8b4746989d4b": {
+      "one": "professeur de tennis",
+      "other": "professeurs de tennis"
+    },
+    "eb48ccbd-75f2-4799-81be-443034858473": {
+      "one": "art thérapeute",
+      "other": "art-thérapeutes"
+    },
+    "834aab9b-2246-4c3e-ab4a-cf3de1267e1a": {
+      "one": "moniteur automobile",
+      "other": "moniteurs automobile"
+    },
+    "bca2528a-5a87-4576-a3b5-1edbbce40a9f": {
+      "one": "moniteur de conduite",
+      "other": "moniteurs de conduite"
+    },
+    "3d616092-b4fd-4c14-b0e9-a9119bbbd171": {
+      "one": "musicothérapeute",
+      "other": "musicothérapeutes"
+    },
+    "78ed3811-f421-45e5-9574-31364c76af67": {
+      "one": "professeur de danse",
+      "other": "professeurs de danse"
+    },
+    "00747307-6341-4266-a061-25416f7c6a96": {
+      "one": "professeur de théâtre",
+      "other": "professeurs de théâtre"
+    },
+    "46db7e2e-d44d-412a-9a80-02d43111aca8": {
+      "one": "formateur en photographie",
+      "other": "formateurs en photographie"
+    },
+    "59c724f9-0cfe-4d51-8a7f-9ee182d9e2c2": {
+      "one": "professeur en langue des signes",
+      "other": "professeurs en langue des signes"
+    },
+    "c29f1a42-25cb-4192-9bc1-cc7560c00590": {
+      "one": "moniteur poids lourds",
+      "other": "moniteurs poids lourds"
+    },
+    "59bce29f-5c8b-47cf-bfd4-6ec003f5323a": {
+      "one": "répétiteur",
+      "other": "répétiteurs"
+    },
+    "eda0d957-3c3c-4139-b89a-a18bc9e18897": {
+      "one": "comptable",
+      "other": "comptables"
+    },
+    "1a87e487-6761-4374-b6db-100ac5a9ad5a": {
+      "one": "conseiller crédits",
+      "other": "conseillers crédits"
+    },
+    "1ad59946-d13e-441e-9b36-56e1df055e21": {
+      "one": "auditeur comptable et financier",
+      "other": "auditeurs comptables et financiers"
+    },
+    "21de0f3b-a71a-4263-a9ba-90c5f3721b4d": {
+      "one": "planificateur financier",
+      "other": "planificateurs financiers"
+    },
+    "e19fe26f-0759-4bb1-af71-5bbecf3df69f": {
+      "one": "conseiller en immigration",
+      "other": "conseillers en immigration"
+    },
+    "a198de8c-24b1-4002-982f-a57ae6d6c19c": {
+      "one": "courtier en assurances",
+      "other": "courtiers en assurances"
+    },
+    "38d9c76b-1a7b-4d65-879b-733ae7e9364e": {
+      "one": "conseiller en investissements",
+      "other": "conseillers en investissements"
+    },
+    "974d4eab-fbee-4c52-b16e-73bdd8c25b53": {
+      "one": "avocat",
+      "other": "avocats"
+    },
+    "403be630-8d1e-43b7-9f07-098aca5bb689": {
+      "one": "médiateur de justice",
+      "other": "médiateurs de justice"
+    },
+    "d21890a3-cbe9-49df-9a19-a4120d866548": {
+      "one": "notaire",
+      "other": "notaires"
+    },
+    "59c22779-4d89-4bc9-ba8b-d64bea236723": {
+      "one": "fiscaliste",
+      "other": "fiscalistes"
+    },
+    "05f321f8-055b-407d-bf19-e0ddabda56b7": {
+      "one": "maçon",
+      "other": "maçons"
+    },
+    "2a22ff9e-de3b-408d-b312-5034896cc4f4": {
+      "one": "charpentier",
+      "other": "charpentiers"
+    },
+    "a2dee758-72f5-4f1c-b760-f2b8e9d81911": {
+      "one": "ramoneur",
+      "other": "ramoneurs"
+    },
+    "15620506-fb5d-49cd-87a2-1c9047fb406a": {
+      "one": "peintre en bâtiment",
+      "other": "peintres en bâtiment"
+    },
+    "6d50f735-dca9-4a02-96dc-e4310ed98ae2": {
+      "one": "gouvernante à domicile",
+      "other": "gouvernantes et intendants à domicile"
+    },
+    "4910419f-b4af-4f59-b544-9dbebc8a74f0": {
+      "one": "électricien",
+      "other": "électriciens"
+    },
+    "4f1bb8b4-3fff-4e68-b427-8c892534a181": {
+      "one": "parqueteur",
+      "other": "parqueteurs"
+    },
+    "e7970c7a-7769-4002-87d3-0a8ea94fdd6f": {
+      "one": "jardinier paysagiste",
+      "other": "jardiniers paysagistes"
+    },
+    "aaa485d0-6787-45c0-8596-b266c0b687fd": {
+      "one": "serrurier",
+      "other": "serruriers"
+    },
+    "a2abd144-2a36-45ea-919c-1fcc6ebc5d45": {
+      "one": "poseur de papiers peints",
+      "other": "poseurs de papiers peints"
+    },
+    "21cba86a-68c5-456c-aec2-cc04840b3c0e": {
+      "one": "technicien hygiéniste",
+      "other": "techniciens hygiénistes"
+    },
+    "f4a22809-c00c-4dd0-8b09-c7251f8dcd1c": {
+      "one": "plâtrier",
+      "other": "plâtriers"
+    },
+    "5f9e0588-e819-42f7-9975-f53198666c07": {
+      "one": "monteur techniverrier",
+      "other": "monteurs techniverriers"
+    },
+    "ed3cf43d-c2c1-4c46-82fc-1375e27e0290": {
+      "one": "plombier",
+      "other": "plombiers"
+    },
+    "8234eee9-1647-460d-8d62-7fe02cb884b0": {
+      "one": "technicien en réfrigération, climatisation et pompe à chaleur",
+      "other": "techniciens en réfrigération, climatisation et pompe à chaleur"
+    },
+    "0663d464-f139-4554-ae87-97aa6c4dad77": {
+      "one": "poseur de revêtements souples de sols",
+      "other": "poseurs de revêtements souples de sols"
+    },
+    "b4c6d1b0-929e-48be-9f67-47bd8c30658b": {
+      "one": "couvreur",
+      "other": "couvreurs"
+    },
+    "15a7e87c-f7d5-4a60-bab7-9636b76143fe": {
+      "one": "installateur en domotique",
+      "other": "installateurs en domotique"
+    },
+    "02ff199e-38b3-45fd-b659-68846cfeeb92": {
+      "one": "installateur de systèmes d’extinction automatique à eau",
+      "other": "installateurs de systèmes d’extinction automatique à eau"
+    },
+    "f3fc11ca-9a72-40da-bf0f-b2aab7e33079": {
+      "one": "maçon pierre",
+      "other": "maçons pierres"
+    },
+    "02447817-ea01-4d8b-b09c-8bc128e447e6": {
+      "one": "carreleur",
+      "other": "carreleurs"
+    },
+    "fa30c1cb-dbc5-409c-8124-7284592b123c": {
+      "one": "élagueur",
+      "other": "élagueurs"
+    },
+    "95a89206-4dc8-4753-a5d9-bc14a0e5f7ca": {
+      "one": "garnisseur",
+      "other": "garnisseurs"
+    },
+    "92cba6b4-8fca-49bb-b68c-45c5096fedc9": {
+      "one": "laveur de vitres",
+      "other": "laveurs de vitres"
+    },
+    "353a22a7-1c55-410c-a7a7-c531692b5e50": {
+      "one": "installateur de fenêtres",
+      "other": "installateurs de fenêtres"
+    },
+    "5d0cc30d-068a-424c-8463-f42872a7149e": {
+      "one": "conseiller d’orientation",
+      "other": "conseillers d’orientation"
+    },
+    "fc85156e-4f0b-46c4-ba66-a3b17318d932": {
+      "one": "conseiller en développement personnel",
+      "other": "conseillers en développement personnel"
+    },
+    "21f4eb29-f6e5-4623-acb9-f3ff9c2f525d": {
+      "one": "coach prise de parole en public",
+      "other": "coachs en prise de parole en public"
+    },
+    "114e1eff-215e-47df-8e10-45a5b72f8197": {
+      "one": "conseiller en énergies renouvelables",
+      "other": "conseillers en énergies renouvelables"
+    },
+    "c66b4569-09aa-4d8d-93d9-ac9b9176655d": {
+      "one": "conseiller en sécurité",
+      "other": "conseillers en sécurité"
+    },
+    "8d463763-5d38-4f47-903c-1c4df32141c1": {
+      "one": "consultant en villes intelligentes",
+      "other": "consultants en villes intelligentes"
+    },
+    "763f82c2-81e3-48d2-9cdf-f532b5016a1f": {
+      "one": "conseiller en amincissement",
+      "other": "conseillers en amincissement"
+    },
+    "5a940ae0-3fa4-40f9-8ca4-17bf792da243": {
+      "one": "toiletteur",
+      "other": "toiletteurs"
+    },
+    "0abed785-00f8-4692-9f5f-f2b56efdb829": {
+      "one": "massothérapeute animalier",
+      "other": "massothérapeutes animaliers"
+    },
+    "e81269d8-f301-4c82-9235-ba33ec9b0434": {
+      "one": "ostéopathe animalier",
+      "other": "ostéopathes animaliers"
+    },
+    "0b2d3242-22a3-4de5-bd29-efd39cdf2c31": {
+      "one": "thérapeute animalier",
+      "other": "thérapeutes animaliers"
+    },
+    "2662ed6c-a705-4895-8e9d-0a85c08ad908": {
+      "one": "dresseur de chiens",
+      "other": "dresseurs de chiens"
+    },
+    "84cdc2ef-ee7c-42b1-be19-5e1c6b537f8f": {
+      "one": "gardien d’animaux de compagnie",
+      "other": "gardiens d’animaux de compagnie"
+    },
+    "08984bec-31d8-4bb0-aa2f-d557761ff029": {
+      "one": "vétérinaire spécialisé",
+      "other": "vétérinaires spécialisés"
+    },
+    "24f1eb3a-e99c-4c38-9bda-ba2ba6bf9fa4": {
+      "one": "infirmier vétérinaire",
+      "other": "infirmiers vétérinaires"
+    },
+    "24d378d8-1e16-4667-bdb4-1f4a0f2c6379": {
+      "one": "mécanicien diéséliste",
+      "other": "mécaniciens diésélistes"
+    },
+    "c0749528-ee2a-41bd-a1f6-c13825b5e569": {
+      "one": "dépanneur de véhicules",
+      "other": "dépanneurs de véhicules"
+    },
+    "1d70e660-1114-41c6-926a-053541460d88": {
+      "one": "technicien en réparation d’articles de sport",
+      "other": "techniciens en réparation d’articles de sport"
+    },
+    "98c429ad-128e-467e-803a-9a6dc1ceed72": {
+      "one": "monteur en pneumatique",
+      "other": "monteurs en pneumatique"
+    },
+    "ecdc43f5-3b32-4f94-abf8-cd46480c8cb8": {
+      "one": "technicien en électronique automobile",
+      "other": "techniciens en électronique automobile"
+    },
+    "211716b7-2857-40c8-a078-da983c78c70a": {
+      "one": "vitrier automobile",
+      "other": "vitriers automobile"
+    },
+    "3b4eb248-6b40-42fe-9d10-cba8ccfe6613": {
+      "one": "mécanicien d’entretien en automobile",
+      "other": "mécaniciens d’entretien en automobile"
+    },
+    "158965f1-bd83-441c-bca8-1975b74dedc5": {
+      "one": "technicien en restauration de véhicules",
+      "other": "techniciens en restauration de véhicules"
+    },
+    "4ad4024e-d1d3-4dea-b6d1-2c7948111dce": {
+      "one": "technicien de véhicules",
+      "other": "techniciens de véhicules"
+    },
+    "e93b3b49-12e1-4b47-991c-dd4b0aec17d8": {
+      "one": "estimateur de biens mobiliers",
+      "other": "estimateurs de biens mobiliers"
+    },
+    "afc5a0f4-42e5-4bfb-910c-2b54b44f99c5": {
+      "one": "estimateur de biens immobiliers",
+      "other": "estimateurs de biens immobiliers"
+    },
+    "c5c1c40f-d2b7-437f-b3e8-b9da48f6d728": {
+      "one": "assistant de gestion immobilière",
+      "other": "assistants de gestion immobilière"
+    },
+    "8ec8df02-e9dd-43b7-b416-5846ae0414ab": {
+      "one": "agent immobilier",
+      "other": "agents immobiliers"
+    },
+    "ec0e64c9-6d9b-4a9f-a022-a418f3b381fe": {
+      "one": "céramiste",
+      "other": "céramistes"
+    },
+    "5589e8e0-48d9-4193-8c85-86ba9f17e0e9": {
+      "one": "couturier",
+      "other": "couturiers"
+    },
+    "77bfd6e7-5598-4818-84cb-31e2651eb046": {
+      "one": "créateur de mode",
+      "other": "créateurs de mode"
+    },
+    "c0768628-46ad-4077-aee0-66ab6d7711df": {
+      "one": "vendeur en jardinerie",
+      "other": "vendeurs en jardinerie"
+    },
+    "69bcbb0a-8d80-4ecd-b0a4-9adea2a40de2": {
+      "one": "graphiste",
+      "other": "graphistes"
+    },
+    "1b949bae-882f-40ff-9fe7-3c8ede5e38b5": {
+      "one": "illustrateur",
+      "other": "illustrateurs"
+    },
+    "73e776fb-4d99-4031-bad4-7716f121155d": {
+      "one": "décorateur d’intérieur",
+      "other": "décorateurs d’intérieur"
+    },
+    "34c57104-ff9b-4003-809e-56eece3cb4d5": {
+      "one": "designer en bijouterie",
+      "other": "designers en bijouterie"
+    },
+    "f6803a58-91d9-4251-9a07-09fc387cec16": {
+      "one": "musicien",
+      "other": "musiciens"
+    },
+    "66542dd6-05a6-4d9e-97ff-3f4858c31ff9": {
+      "one": "photographe",
+      "other": "photographes"
+    },
+    "94d94bd0-9ac3-4bd8-81c0-c3fdf551aa16": {
+      "one": "sculpteur",
+      "other": "sculpteurs"
+    },
+    "6581aa0d-c807-4091-84cc-bc041f962ab1": {
+      "one": "chanteur",
+      "other": "chanteurs"
+    },
+    "978ae3a2-0831-415a-8396-b84dde656fc5": {
+      "one": "tailleur",
+      "other": "tailleurs"
+    },
+    "30ed83ba-cc89-4d9f-a59d-5c783c1da56e": {
+      "one": "concepteur de sites web",
+      "other": "concepteurs de sites web"
+    },
+    "1d4a4baf-4073-43bd-ac72-ff7d443273ff": {
+      "one": "disc-jockey",
+      "other": "disc-jockeys"
+    },
+    "84931290-ad27-45ad-b611-9556c5facbdb": {
+      "one": "assistant en organisation d’évènements",
+      "other": "assistants en organisation d’évènements"
+    },
+    "1b38a27d-ef98-4d9f-b1b2-8c109bf47e79": {
+      "one": "responsable évènement",
+      "other": "responsables évènementiels"
+    },
+    "4887c8a5-35d3-44c3-be69-346027e485f0": {
+      "one": "responsable des loisirs",
+      "other": "responsables des loisirs"
+    },
+    "a655aff1-e5e9-4c64-bc85-b902568a3dfb": {
+      "one": "artiste d’art-performance",
+      "other": "artistes d’art-performance"
+    },
+    "bd2c868c-371b-4958-83b4-012c52bc7faf": {
+      "one": "humoriste",
+      "other": "humoristes"
+    },
+    "61e278a3-2c27-4c18-a827-11e2326b33ae": {
+      "one": "artiste de rue",
+      "other": "artistes de rue"
+    },
+    "6662e56e-bc3d-4d9b-bed2-79d510d7c4ff": {
+      "one": "wedding planner",
+      "other": "wedding planners"
+    },
+    "1aadb308-432a-4d01-b54b-b4f7f76dd419": {
+      "one": "boulanger",
+      "other": "boulangers"
+    },
+    "2f5e38a0-6578-4665-bdbd-e2ab505be140": {
+      "one": "barman",
+      "other": "barmans"
+    },
+    "985400a7-362f-4f91-941a-2e149d94ac2a": {
+      "one": "sommelier en bière",
+      "other": "sommeliers en bière"
+    },
+    "37c7880e-cfee-4c41-a41b-061682fefde3": {
+      "one": "boucher",
+      "other": "bouchers"
+    },
+    "1009be17-7efd-45f1-a033-566bf179c588": {
+      "one": "chef de cuisine",
+      "other": "chefs de cuisine"
+    },
+    "e20816a9-51d0-410b-b2c6-cbc22c1c4256": {
+      "one": "barman spécialisé en cocktails",
+      "other": "barmans spécialisés en cocktails"
+    },
+    "01484951-15e6-4b88-a20f-1201868d36a0": {
+      "one": "chef cuisinier",
+      "other": "chefs cuisiniers"
+    },
+    "b10dc548-10e1-4447-8406-5101ff170bbf": {
+      "one": "maître pâtissier",
+      "other": "maîtres pâtissiers"
+    },
+    "8f10ea9b-bfdf-4a4c-9fa7-b6e02daa93e5": {
+      "one": "chef de partie pâtisserie",
+      "other": "chefs de partie pâtisserie"
+    },
+    "a02a1117-212f-4a49-b21a-d3b971e00e48": {
+      "one": "pizzaiolo",
+      "other": "pizzaiolos"
+    },
+    "a256838b-0843-4ad2-a2fb-4531f94e63d8": {
+      "one": "chef privé",
+      "other": "chefs privés"
+    },
+    "499f80e3-860c-48ef-8286-be929a93e254": {
+      "one": "sommelier",
+      "other": "sommeliers"
+    },
+    "2d92f7f5-d2b1-4223-92c4-23c33f8604fc": {
+      "one": "sommelier en vin",
+      "other": "sommeliers en vin"
+    },
+    "8c57af09-719c-42b3-be40-6ed4946236cc": {
+      "one": "administrateur de base de données",
+      "other": "administrateurs de base de données"
+    },
+    "aaeec9a7-dc57-4485-890c-86b3eef735f9": {
+      "one": "agent de service d’assistance informatique",
+      "other": "agents de service d’assistance informatique"
+    },
+    "f2b15a0e-e65a-438a-affb-29b9d50b77d1": {
+      "one": "développeur de logiciels",
+      "other": "développeurs de logiciels"
+    },
+    "c40a2919-48a9-40ea-b506-1f34f693496d": {
+      "one": "développeur web",
+      "other": "développeurs web"
+    },
+    "6b0ad7c0-a37f-45c6-a486-ee943a11429e": {
+      "one": "astrologue",
+      "other": "astrologues"
+    },
+    "a1d0eb6b-20ac-4a2c-a7c1-9b016ea92b24": {
+      "one": "voyant",
+      "other": "voyants"
+    },
+    "5a551d36-0e14-40ab-84a2-7aa9b37dc528": {
+      "one": "restaurateur de meubles",
+      "other": "restaurateurs de meubles"
+    },
+    "23e692a9-a242-4d4f-988f-ed562f757864": {
+      "one": "interprète",
+      "other": "interprètes"
+    },
+    "31d0e6b8-64ae-4b04-b988-dbee03a4aaa9": {
+      "one": "médium",
+      "other": "médiums"
+    },
+    "f8da6546-0c8a-4bd0-a952-6f3c253c9aba": {
+      "one": "acheteur personnel",
+      "other": "acheteurs personnels"
+    },
+    "771a47c9-9cf4-4368-9752-2a1ea5a783d7": {
+      "one": "détective privé",
+      "other": "détectives privés"
+    },
+    "fd8b68c0-7341-44bb-855d-9b1254eade33": {
+      "one": "télépathe",
+      "other": "télépathes"
+    },
+    "dc9b98da-c389-4caf-a21a-c6f8c530c0bf": {
+      "one": "réparateur en chaussures",
+      "other": "réparateurs en chaussures"
+    },
+    "9a2147aa-a72f-4f83-8653-c3f50d4e1e73": {
+      "one": "interprète en langue des signes",
+      "other": "interprètes en langue des signes"
+    },
+    "1a07bd7d-2e1d-4930-a84a-1a442b8f2a44": {
+      "one": "traducteur",
+      "other": "traducteurs"
+    },
+    "1a953e5a-f53f-461d-818b-6b2e655a751f": {
+      "one": "réparateur de systèmes horlogers",
+      "other": "réparateurs de systèmes horlogers"
+    }
+  }
+}

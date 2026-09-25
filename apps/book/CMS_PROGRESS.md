@@ -2,10 +2,10 @@
 
 ## Status
 
-- Last updated: 2026-09-25 10:34
-- Phase: 1 (landings)
-- Next: `/investment-adviser` fr
-- Pages created: 267
+- Last updated: 2026-09-25 15:16
+- Phase: 2 (articles)
+- Next: done
+- Pages created: 392
 - Notes: prompt = `front/apps/book/CMS_CONTENT_PROMPT.md`. en price format `€5/month` / table `€25`; fr `5 €/mois` / `25 €`. Public /for routes not deployed yet (404) — not a content issue.
 
 ## Product facts (verified in code, user decisions 2026-09-24)
@@ -13,7 +13,7 @@
 - A Service has only name + price. Duration comes from its slots: each slot belongs to ONE service, with its own start/end. Say "open slots for each service at the length it takes; clients pick a service, then one of its free slots". Never "service duration filters slots".
 - Walk-ins / phone bookings: the pro books the slot themselves from the calendar; that slot is then no longer offered online. NEVER promise "no double bookings" / "nothing overlaps": slots of different services can overlap and aren't blocked.
 - Slots sit within ONE day (date picker sets start+end same day). Multi-day courses: slot on first day + description. Never claim multi-day slots.
-- Slots have a capacity: one slot can take several clients, each booking 1 place (public form = 1 person per booking). OK for group classes/workshops. NOT a group booking by one client.
+- Slots have a capacity: one slot can take several clients, each booking 1 place (public form = 1 person per booking). OK for group classes/workshops. NOT a group booking by one client. Pro booking from calendar CAN set number of persons (edit-slot.tsx numberOfPerson) — so restaurant/tasting: client books online 1 place + party size in note, or pro books the group by phone.
 - Services have name, optional description (shown on public page) and price. Bookings list: reschedule / cancel. Confirmation email. Calendar sync Google/iPhone/Mac. Repeat slots by weekday.
 - One booking page per business (org). NO per-employee calendars/staff assignment (ServiceProvider not linked to services/slots). Teams: honest workaround = one service per person. Never claim multi-staff features.
 - Public booking form (verified booking-form.tsx): first name, last name, email, phone all required + optional "Additional information" free-text note.
@@ -33,11 +33,11 @@
 
 ## Cleanup sweep before phase 2
 
-- Remove unsourced trend claims ("more and more", "growing share"): `/sophrologist` en ("more and more sessions take place by video"); `/speech-and-language-therapist` en description "Most of your patients are children" → "Many"; `/specialist-dentist` en FAQ1 "Most practices open" → "A common approach is to open"; `/sport-therapist` en "most clients train during the day and want evening" → "many clients work during the day and want evening"; `/specialist-nurse` en "a growing number of roles exist in the community" → "some work in the community"; `/prosthetist-orthotist` en "Many practitioners open assessments" → "One option is to open assessments"; `/personal-trainer` en "Most clients come once or twice a week" → "Many clients come"; `/life-coach` en description "often do it late at night" → soften ("may look for one in the evening"); `/public-speaking-coach` en FAQ "Do you handle video calls?" → "Does Book handle video calls?".; `/tutor` en "Most students come every week" → "Many students"; grep all pages for "places left"/"places restantes"/"how many places" claims (not shown publicly); grep for claims that clients move/reschedule/cancel bookings themselves (only the pro can); grep for implied cancellation/reschedule notifications to clients; `/photography-teacher` fr "une sortie photo à trop nombreux devient une foule" → "une sortie photo avec trop de participants tourne à la foule"; `/sign-language-teacher` en "Most start with a beginner course" → "Many start"; grep for repeat claims beyond weekly-by-weekday (every N weeks, monthly, "cycle"); grep for "service with its price and length"/"service ... duration" (services have no length; slots do). Known: `/driving-instructor` en+fr FAQ "Create a service for each length", `/tile-fitter`? check; `/lawyer` fr "votre assistante" → "votre secrétariat" (generic masculine rule)
+- Remove unsourced trend claims ("more and more", "growing share"): `/sophrologist` en ("more and more sessions take place by video"); `/speech-and-language-therapist` en description "Most of your patients are children" → "Many"; `/specialist-dentist` en FAQ1 "Most practices open" → "A common approach is to open"; `/sport-therapist` en "most clients train during the day and want evening" → "many clients work during the day and want evening"; `/specialist-nurse` en "a growing number of roles exist in the community" → "some work in the community"; `/prosthetist-orthotist` en "Many practitioners open assessments" → "One option is to open assessments"; `/personal-trainer` en "Most clients come once or twice a week" → "Many clients come"; `/life-coach` en description "often do it late at night" → soften ("may look for one in the evening"); `/public-speaking-coach` en FAQ "Do you handle video calls?" → "Does Book handle video calls?".; `/tutor` en "Most students come every week" → "Many students"; grep all pages for "places left"/"places restantes"/"how many places" claims (not shown publicly); grep for claims that clients move/reschedule/cancel bookings themselves (only the pro can); grep for implied cancellation/reschedule notifications to clients; `/photography-teacher` fr "une sortie photo à trop nombreux devient une foule" → "une sortie photo avec trop de participants tourne à la foule"; `/sign-language-teacher` en "Most start with a beginner course" → "Many start"; grep for repeat claims beyond weekly-by-weekday (every N weeks, monthly, "cycle"); grep for "service with its price and length"/"service ... duration" (services have no length; slots do). Known: `/driving-instructor` en+fr FAQ "Create a service for each length", `/tile-fitter`? check; `/lawyer` fr "votre assistante" → "votre secrétariat" (generic masculine rule); `/creative-media` en table "€0 (included)" → "Included"; `/web-designer` en description "Half your enquiries" → "So many enquiries" (invented stat); `/ceramicist` en SEO desc "all included" → "everything included" (recheck length); `/wedding-planner` en "most planning meetings happen" → "many"; spot-check guide word counts (≥300) on later en trade pages (e.g. `/vehicle-technician`, `/bricklayer`, `/plasterer`); `/vehicle-electronics-installer` en description "so your bay isn't double-promised" → remove (no-overlap promise); `/psychic` en "A large share of readings" → "Many readings"; `/personal-property-appraiser` fr: "Les journées d'expertise font la queue" → "Aux journées d'expertise, la file s'allonge"; `/wine-sommelier` en: drop "Many of the bookings come in the last few days" (unsourced); `/pizzaiolo` en: "many places don't take reservations" → "some"
 
 ## Pages to revisit when multi-staff ships (user: planned soon)
 
-- `/beauty-salon-manager` en fr, `/spa-manager` en fr, `/pharmacist` en fr, `/specialised-veterinarian` en fr, `/truck-driving-instructor` en fr, `/legal-financial` en fr, `/accountant` en fr, `/notary` en fr
+- `/beauty-salon-manager` en fr, `/spa-manager` en fr, `/pharmacist` en fr, `/specialised-veterinarian` en fr, `/truck-driving-instructor` en fr, `/legal-financial` en fr, `/accountant` en fr, `/notary` en fr, `/real-estate` en fr, `/real-estate-agent` en fr, `/property-assistant` en fr
 
 ## Phase 1 — landings
 
@@ -219,114 +219,114 @@
 | `/insurance-broker` | [x] | [x] | /for/legal-financial/insurance-broker | /fr/for/juridique-finance/courtier-en-assurances |
 | `/credit-adviser` | [x] | [x] | /for/legal-financial/credit-adviser | /fr/for/juridique-finance/conseiller-credits |
 | `/immigration-adviser` | [x] | [x] | /for/legal-financial/immigration-adviser | /fr/for/juridique-finance/conseiller-en-immigration |
-| `/investment-adviser` | [x] | [ ] | /for/legal-financial/investment-adviser | /fr/for/juridique-finance/conseiller-en-investissements |
-| `/financial-auditor` | [ ] | [ ] | /for/legal-financial/financial-auditor | /fr/for/juridique-finance/auditeur-comptable-et-financier |
+| `/investment-adviser` | [x] | [x] | /for/legal-financial/investment-adviser | /fr/for/juridique-finance/conseiller-en-investissements |
+| `/financial-auditor` | [!] | [!] | /for/legal-financial/financial-auditor | /fr/for/juridique-finance/auditeur-comptable-et-financier — multi-day audit engagements inside firms; no bookable appointments — missions d'audit sur plusieurs jours en cabinet; pas de rendez-vous réservables |
 
 ### Creative & Media (14)
 
 | CMS url | en | fr | public en | public fr |
 |---|---|---|---|---|
-| `/creative-media` | [ ] | [ ] | /for/creative-media | /fr/for/creatif-medias |
-| `/photographer` | [ ] | [ ] | /for/creative-media/photographer | /fr/for/creatif-medias/photographe |
-| `/tailor` | [ ] | [ ] | /for/creative-media/tailor | /fr/for/creatif-medias/tailleur |
-| `/dressmaker` | [ ] | [ ] | /for/creative-media/dressmaker | /fr/for/creatif-medias/couturier |
-| `/interior-designer` | [ ] | [ ] | /for/creative-media/interior-designer | /fr/for/creatif-medias/decorateur-d-interieur |
-| `/graphic-designer` | [ ] | [ ] | /for/creative-media/graphic-designer | /fr/for/creatif-medias/graphiste |
-| `/musician` | [ ] | [ ] | /for/creative-media/musician | /fr/for/creatif-medias/musicien |
-| `/web-designer` | [ ] | [ ] | /for/creative-media/web-designer | /fr/for/creatif-medias/concepteur-de-sites-web |
-| `/ceramicist` | [ ] | [ ] | /for/creative-media/ceramicist | /fr/for/creatif-medias/ceramiste |
-| `/illustrator` | [ ] | [ ] | /for/creative-media/illustrator | /fr/for/creatif-medias/illustrateur |
-| `/jewellery-designer` | [ ] | [ ] | /for/creative-media/jewellery-designer | /fr/for/creatif-medias/designer-en-bijouterie |
-| `/singer` | [ ] | [ ] | /for/creative-media/singer | /fr/for/creatif-medias/chanteur |
-| `/fashion-designer` | [ ] | [ ] | /for/creative-media/fashion-designer | /fr/for/creatif-medias/createur-de-mode |
-| `/sculptor` | [ ] | [ ] | /for/creative-media/sculptor | /fr/for/creatif-medias/sculpteur |
-| `/flower-and-garden-specialised-seller` | [ ] | [ ] | /for/creative-media/flower-and-garden-specialised-seller | /fr/for/creatif-medias/vendeur-en-jardinerie |
+| `/creative-media` | [x] | [x] | /for/creative-media | /fr/for/creatif-medias |
+| `/photographer` | [x] | [x] | /for/creative-media/photographer | /fr/for/creatif-medias/photographe |
+| `/tailor` | [x] | [x] | /for/creative-media/tailor | /fr/for/creatif-medias/tailleur |
+| `/dressmaker` | [x] | [x] | /for/creative-media/dressmaker | /fr/for/creatif-medias/couturier |
+| `/interior-designer` | [x] | [x] | /for/creative-media/interior-designer | /fr/for/creatif-medias/decorateur-d-interieur |
+| `/graphic-designer` | [x] | [x] | /for/creative-media/graphic-designer | /fr/for/creatif-medias/graphiste |
+| `/musician` | [x] | [x] | /for/creative-media/musician | /fr/for/creatif-medias/musicien |
+| `/web-designer` | [x] | [x] | /for/creative-media/web-designer | /fr/for/creatif-medias/concepteur-de-sites-web |
+| `/ceramicist` | [x] | [x] | /for/creative-media/ceramicist | /fr/for/creatif-medias/ceramiste |
+| `/illustrator` | [x] | [x] | /for/creative-media/illustrator | /fr/for/creatif-medias/illustrateur |
+| `/jewellery-designer` | [x] | [x] | /for/creative-media/jewellery-designer | /fr/for/creatif-medias/designer-en-bijouterie |
+| `/singer` | [x] | [x] | /for/creative-media/singer | /fr/for/creatif-medias/chanteur |
+| `/fashion-designer` | [x] | [x] | /for/creative-media/fashion-designer | /fr/for/creatif-medias/createur-de-mode |
+| `/sculptor` | [x] | [x] | /for/creative-media/sculptor | /fr/for/creatif-medias/sculpteur |
+| `/flower-and-garden-specialised-seller` | [!] | [!] | /for/creative-media/flower-and-garden-specialised-seller | /fr/for/creatif-medias/vendeur-en-jardinerie — retail sales role in a garden centre/shop; walk-in, no appointments — vente en jardinerie, clientèle de passage; pas de rendez-vous |
 
 ### Events & Entertainment (8)
 
 | CMS url | en | fr | public en | public fr |
 |---|---|---|---|---|
-| `/events-entertainment` | [ ] | [ ] | /for/events-entertainment | /fr/for/evenements-divertissement |
-| `/wedding-planner` | [ ] | [ ] | /for/events-entertainment/wedding-planner | /fr/for/evenements-divertissement/wedding-planner |
-| `/disc-jockey` | [ ] | [ ] | /for/events-entertainment/disc-jockey | /fr/for/evenements-divertissement/disc-jockey |
-| `/event-manager` | [ ] | [ ] | /for/events-entertainment/event-manager | /fr/for/evenements-divertissement/responsable-evenement |
-| `/performance-artist` | [ ] | [ ] | /for/events-entertainment/performance-artist | /fr/for/evenements-divertissement/artiste-d-art-performance |
-| `/stand-up-comedian` | [ ] | [ ] | /for/events-entertainment/stand-up-comedian | /fr/for/evenements-divertissement/humoriste |
-| `/street-performer` | [ ] | [ ] | /for/events-entertainment/street-performer | /fr/for/evenements-divertissement/artiste-de-rue |
-| `/event-assistant` | [ ] | [ ] | /for/events-entertainment/event-assistant | /fr/for/evenements-divertissement/assistant-en-organisation-d-evenements |
-| `/hospitality-entertainment-manager` | [ ] | [ ] | /for/events-entertainment/hospitality-entertainment-manager | /fr/for/evenements-divertissement/responsable-des-loisirs |
+| `/events-entertainment` | [x] | [x] | /for/events-entertainment | /fr/for/evenements-divertissement |
+| `/wedding-planner` | [x] | [x] | /for/events-entertainment/wedding-planner | /fr/for/evenements-divertissement/wedding-planner |
+| `/disc-jockey` | [x] | [x] | /for/events-entertainment/disc-jockey | /fr/for/evenements-divertissement/disc-jockey |
+| `/event-manager` | [x] | [x] | /for/events-entertainment/event-manager | /fr/for/evenements-divertissement/responsable-evenement |
+| `/performance-artist` | [!] | [!] | /for/events-entertainment/performance-artist | /fr/for/evenements-divertissement/artiste-d-art-performance — work shown via galleries/festivals/commissions; no bookable appointment angle without inventing — diffusion via galeries/festivals; pas d'angle rendez-vous honnête |
+| `/stand-up-comedian` | [x] | [x] | /for/events-entertainment/stand-up-comedian | /fr/for/evenements-divertissement/humoriste |
+| `/street-performer` | [x] | [x] | /for/events-entertainment/street-performer | /fr/for/evenements-divertissement/artiste-de-rue |
+| `/event-assistant` | [!] | [!] | /for/events-entertainment/event-assistant | /fr/for/evenements-divertissement/assistant-en-organisation-d-evenements — employed/staffed by agencies; no own client bookings — salarié ou missionné par agence; pas de clientèle propre |
+| `/hospitality-entertainment-manager` | [!] | [!] | /for/events-entertainment/hospitality-entertainment-manager | /fr/for/evenements-divertissement/responsable-des-loisirs — employed at hotels/campsites/resorts; guests book the venue, not the manager — salarié d'hôtel/camping/club; pas de clientèle propre |
 
 ### Automotive (9)
 
 | CMS url | en | fr | public en | public fr |
 |---|---|---|---|---|
-| `/automotive` | [ ] | [ ] | /for/automotive | /fr/for/automobile |
-| `/vehicle-technician` | [ ] | [ ] | /for/automotive/vehicle-technician | /fr/for/automobile/technicien-de-vehicules |
-| `/tyre-fitter` | [ ] | [ ] | /for/automotive/tyre-fitter | /fr/for/automobile/monteur-en-pneumatique |
-| `/vehicle-maintenance-attendant` | [ ] | [ ] | /for/automotive/vehicle-maintenance-attendant | /fr/for/automobile/mecanicien-d-entretien-en-automobile |
-| `/vehicle-glazier` | [ ] | [ ] | /for/automotive/vehicle-glazier | /fr/for/automobile/vitrier-automobile |
-| `/vehicle-electronics-installer` | [ ] | [ ] | /for/automotive/vehicle-electronics-installer | /fr/for/automobile/technicien-en-electronique-automobile |
-| `/diesel-engine-mechanic` | [ ] | [ ] | /for/automotive/diesel-engine-mechanic | /fr/for/automobile/mecanicien-dieseliste |
-| `/vehicle-restoration-technician` | [ ] | [ ] | /for/automotive/vehicle-restoration-technician | /fr/for/automobile/technicien-en-restauration-de-vehicules |
-| `/roadside-vehicle-technician` | [ ] | [ ] | /for/automotive/roadside-vehicle-technician | /fr/for/automobile/depanneur-de-vehicules |
-| `/sports-equipment-repair-technician` | [ ] | [ ] | /for/automotive/sports-equipment-repair-technician | /fr/for/automobile/technicien-en-reparation-d-articles-de-sport |
+| `/automotive` | [x] | [x] | /for/automotive | /fr/for/automobile |
+| `/vehicle-technician` | [x] | [x] | /for/automotive/vehicle-technician | /fr/for/automobile/technicien-de-vehicules |
+| `/tyre-fitter` | [x] | [x] | /for/automotive/tyre-fitter | /fr/for/automobile/monteur-en-pneumatique |
+| `/vehicle-maintenance-attendant` | [x] | [x] | /for/automotive/vehicle-maintenance-attendant | /fr/for/automobile/mecanicien-d-entretien-en-automobile — angle: quick maintenance + valeting (ESCO routine maintenance incl. cleaning) — angle : entretien courant + nettoyage |
+| `/vehicle-glazier` | [x] | [x] | /for/automotive/vehicle-glazier | /fr/for/automobile/vitrier-automobile |
+| `/vehicle-electronics-installer` | [x] | [x] | /for/automotive/vehicle-electronics-installer | /fr/for/automobile/technicien-en-electronique-automobile |
+| `/diesel-engine-mechanic` | [x] | [x] | /for/automotive/diesel-engine-mechanic | /fr/for/automobile/mecanicien-dieseliste |
+| `/vehicle-restoration-technician` | [x] | [x] | /for/automotive/vehicle-restoration-technician | /fr/for/automobile/technicien-en-restauration-de-vehicules |
+| `/roadside-vehicle-technician` | [!] | [!] | /for/automotive/roadside-vehicle-technician | /fr/for/automobile/depanneur-de-vehicules — breakdown callouts are urgent by nature; no planned-booking angle — dépannage = urgence; pas d'angle rendez-vous planifié |
+| `/sports-equipment-repair-technician` | [x] | [x] | /for/automotive/sports-equipment-repair-technician | /fr/for/automobile/technicien-en-reparation-d-articles-de-sport |
 
 ### Other Services (12)
 
 | CMS url | en | fr | public en | public fr |
 |---|---|---|---|---|
-| `/other-services` | [ ] | [ ] | /for/other-services | /fr/for/autres-services |
-| `/astrologer` | [ ] | [ ] | /for/other-services/astrologer | /fr/for/autres-services/astrologue |
-| `/psychic` | [ ] | [ ] | /for/other-services/psychic | /fr/for/autres-services/telepathe |
-| `/medium` | [ ] | [ ] | /for/other-services/medium | /fr/for/autres-services/medium |
-| `/fortune-teller` | [ ] | [ ] | /for/other-services/fortune-teller | /fr/for/autres-services/voyant |
-| `/translator` | [ ] | [ ] | /for/other-services/translator | /fr/for/autres-services/traducteur |
-| `/interpreter` | [ ] | [ ] | /for/other-services/interpreter | /fr/for/autres-services/interprete |
-| `/sign-language-interpreter` | [ ] | [ ] | /for/other-services/sign-language-interpreter | /fr/for/autres-services/interprete-en-langue-des-signes |
-| `/personal-shopper` | [ ] | [ ] | /for/other-services/personal-shopper | /fr/for/autres-services/acheteur-personnel |
-| `/shoe-repairer` | [ ] | [ ] | /for/other-services/shoe-repairer | /fr/for/autres-services/reparateur-en-chaussures |
-| `/watch-and-clock-repairer` | [ ] | [ ] | /for/other-services/watch-and-clock-repairer | /fr/for/autres-services/reparateur-de-systemes-horlogers |
-| `/furniture-restorer` | [ ] | [ ] | /for/other-services/furniture-restorer | /fr/for/autres-services/restaurateur-de-meubles |
-| `/private-detective` | [ ] | [ ] | /for/other-services/private-detective | /fr/for/autres-services/detective-prive |
+| `/other-services` | [x] | [x] | /for/other-services | /fr/for/autres-services |
+| `/astrologer` | [x] | [x] | /for/other-services/astrologer | /fr/for/autres-services/astrologue |
+| `/psychic` | [x] | [x] | /for/other-services/psychic | /fr/for/autres-services/telepathe |
+| `/medium` | [x] | [x] | /for/other-services/medium | /fr/for/autres-services/medium |
+| `/fortune-teller` | [x] | [x] | /for/other-services/fortune-teller | /fr/for/autres-services/voyant |
+| `/translator` | [x] | [x] | /for/other-services/translator | /fr/for/autres-services/traducteur |
+| `/interpreter` | [x] | [x] | /for/other-services/interpreter | /fr/for/autres-services/interprete |
+| `/sign-language-interpreter` | [x] | [x] | /for/other-services/sign-language-interpreter | /fr/for/autres-services/interprete-en-langue-des-signes |
+| `/personal-shopper` | [x] | [x] | /for/other-services/personal-shopper | /fr/for/autres-services/acheteur-personnel |
+| `/shoe-repairer` | [x] | [x] | /for/other-services/shoe-repairer | /fr/for/autres-services/reparateur-en-chaussures |
+| `/watch-and-clock-repairer` | [x] | [x] | /for/other-services/watch-and-clock-repairer | /fr/for/autres-services/reparateur-de-systemes-horlogers |
+| `/furniture-restorer` | [x] | [x] | /for/other-services/furniture-restorer | /fr/for/autres-services/restaurateur-de-meubles |
+| `/private-detective` | [x] | [x] | /for/other-services/private-detective | /fr/for/autres-services/detective-prive |
 
 ### Real Estate (4)
 
 | CMS url | en | fr | public en | public fr |
 |---|---|---|---|---|
-| `/real-estate` | [ ] | [ ] | /for/real-estate | /fr/for/immobilier |
-| `/real-estate-agent` | [ ] | [ ] | /for/real-estate/real-estate-agent | /fr/for/immobilier/agent-immobilier |
-| `/property-appraiser` | [ ] | [ ] | /for/real-estate/property-appraiser | /fr/for/immobilier/estimateur-de-biens-immobiliers |
-| `/personal-property-appraiser` | [ ] | [ ] | /for/real-estate/personal-property-appraiser | /fr/for/immobilier/estimateur-de-biens-mobiliers |
-| `/property-assistant` | [ ] | [ ] | /for/real-estate/property-assistant | /fr/for/immobilier/assistant-de-gestion-immobiliere |
+| `/real-estate` | [x] | [x] | /for/real-estate | /fr/for/immobilier |
+| `/real-estate-agent` | [x] | [x] | /for/real-estate/real-estate-agent | /fr/for/immobilier/agent-immobilier |
+| `/property-appraiser` | [x] | [x] | /for/real-estate/property-appraiser | /fr/for/immobilier/estimateur-de-biens-immobiliers |
+| `/personal-property-appraiser` | [x] | [x] | /for/real-estate/personal-property-appraiser | /fr/for/immobilier/estimateur-de-biens-mobiliers |
+| `/property-assistant` | [x] | [x] | /for/real-estate/property-assistant | /fr/for/immobilier/assistant-de-gestion-immobiliere |
 
 ### Food & Hospitality (13)
 
 | CMS url | en | fr | public en | public fr |
 |---|---|---|---|---|
-| `/food-hospitality` | [ ] | [ ] | /for/food-hospitality | /fr/for/alimentation-restauration |
-| `/private-chef` | [ ] | [ ] | /for/food-hospitality/private-chef | /fr/for/alimentation-restauration/chef-prive |
-| `/pastry-chef` | [ ] | [ ] | /for/food-hospitality/pastry-chef | /fr/for/alimentation-restauration/chef-de-partie-patisserie |
-| `/baker` | [ ] | [ ] | /for/food-hospitality/baker | /fr/for/alimentation-restauration/boulanger |
-| `/sommelier` | [ ] | [ ] | /for/food-hospitality/sommelier | /fr/for/alimentation-restauration/sommelier |
-| `/wine-sommelier` | [ ] | [ ] | /for/food-hospitality/wine-sommelier | /fr/for/alimentation-restauration/sommelier-en-vin |
-| `/beer-sommelier` | [ ] | [ ] | /for/food-hospitality/beer-sommelier | /fr/for/alimentation-restauration/sommelier-en-biere |
-| `/cocktail-bartender` | [ ] | [ ] | /for/food-hospitality/cocktail-bartender | /fr/for/alimentation-restauration/barman-specialise-en-cocktails |
-| `/pizzaiolo` | [ ] | [ ] | /for/food-hospitality/pizzaiolo | /fr/for/alimentation-restauration/pizzaiolo |
-| `/chef` | [ ] | [ ] | /for/food-hospitality/chef | /fr/for/alimentation-restauration/chef-de-cuisine |
-| `/head-chef` | [ ] | [ ] | /for/food-hospitality/head-chef | /fr/for/alimentation-restauration/chef-cuisinier |
-| `/head-pastry-chef` | [ ] | [ ] | /for/food-hospitality/head-pastry-chef | /fr/for/alimentation-restauration/maitre-patissier |
-| `/bartender` | [ ] | [ ] | /for/food-hospitality/bartender | /fr/for/alimentation-restauration/barman |
-| `/butcher` | [ ] | [ ] | /for/food-hospitality/butcher | /fr/for/alimentation-restauration/boucher |
+| `/food-hospitality` | [x] | [x] | /for/food-hospitality | /fr/for/alimentation-restauration |
+| `/private-chef` | [x] | [x] | /for/food-hospitality/private-chef | /fr/for/alimentation-restauration/chef-prive |
+| `/pastry-chef` | [x] | [x] | /for/food-hospitality/pastry-chef | /fr/for/alimentation-restauration/chef-de-partie-patisserie |
+| `/baker` | [x] | [x] | /for/food-hospitality/baker | /fr/for/alimentation-restauration/boulanger |
+| `/sommelier` | [x] | [x] | /for/food-hospitality/sommelier | /fr/for/alimentation-restauration/sommelier |
+| `/wine-sommelier` | [x] | [x] | /for/food-hospitality/wine-sommelier | /fr/for/alimentation-restauration/sommelier-en-vin |
+| `/beer-sommelier` | [x] | [x] | /for/food-hospitality/beer-sommelier | /fr/for/alimentation-restauration/sommelier-en-biere |
+| `/cocktail-bartender` | [x] | [x] | /for/food-hospitality/cocktail-bartender | /fr/for/alimentation-restauration/barman-specialise-en-cocktails |
+| `/pizzaiolo` | [x] | [x] | /for/food-hospitality/pizzaiolo | /fr/for/alimentation-restauration/pizzaiolo |
+| `/chef` | [x] | [x] | /for/food-hospitality/chef | /fr/for/alimentation-restauration/chef-de-cuisine |
+| `/head-chef` | [!] | [!] | /for/food-hospitality/head-chef | /fr/for/alimentation-restauration/chef-cuisinier — employed brigade role; own-name bookings (supper club/classes) already covered by /chef — avoid duplicate thin page — poste salarié en brigade ; angle supper club/cours déjà couvert par /chef |
+| `/head-pastry-chef` | [!] | [!] | /for/food-hospitality/head-pastry-chef | /fr/for/alimentation-restauration/maitre-patissier — overlaps /pastry-chef (classes, tastings, collections); no distinct angle — recouvre /pastry-chef ; pas d'angle distinct |
+| `/bartender` | [!] | [!] | /for/food-hospitality/bartender | /fr/for/alimentation-restauration/barman — employed bar role; freelance angle (masterclasses, mobile bar) covered by /cocktail-bartender — salarié du bar ; angle indépendant couvert par /cocktail-bartender |
+| `/butcher` | [x] | [x] | /for/food-hospitality/butcher | /fr/for/alimentation-restauration/boucher |
 
 ### Technology & IT (4)
 
 | CMS url | en | fr | public en | public fr |
 |---|---|---|---|---|
-| `/technology-it` | [ ] | [ ] | /for/technology-it | /fr/for/technologie-it |
-| `/web-developer` | [ ] | [ ] | /for/technology-it/web-developer | /fr/for/technologie-it/developpeur-web |
-| `/software-developer` | [ ] | [ ] | /for/technology-it/software-developer | /fr/for/technologie-it/developpeur-de-logiciels |
-| `/ict-help-desk-agent` | [ ] | [ ] | /for/technology-it/ict-help-desk-agent | /fr/for/technologie-it/agent-de-service-d-assistance-informatique |
-| `/database-administrator` | [ ] | [ ] | /for/technology-it/database-administrator | /fr/for/technologie-it/administrateur-de-base-de-donnees |
+| `/technology-it` | [x] | [x] | /for/technology-it | /fr/for/technologie-it |
+| `/web-developer` | [x] | [x] | /for/technology-it/web-developer | /fr/for/technologie-it/developpeur-web |
+| `/software-developer` | [x] | [x] | /for/technology-it/software-developer | /fr/for/technologie-it/developpeur-de-logiciels |
+| `/ict-help-desk-agent` | [x] | [x] | /for/technology-it/ict-help-desk-agent | /fr/for/technologie-it/agent-de-service-d-assistance-informatique — angle: independent IT support (company help desks use ticketing) |
+| `/database-administrator` | [!] | [!] | /for/technology-it/database-administrator | /fr/for/technologie-it/administrateur-de-base-de-donnees — employed role; freelance DBA consulting = occasional calls, covered by /software-developer consulting angle — poste salarié ; conseil ponctuel couvert par /software-developer |
 
 ## Phase 2 — articles
 

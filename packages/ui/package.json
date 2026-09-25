@@ -52,6 +52,10 @@
       "types": "./src/components/expandable-text.tsx",
       "default": "./src/components/expandable-text.tsx"
     },
+    "./components/footer": {
+      "types": "./src/components/footer.tsx",
+      "default": "./src/components/footer.tsx"
+    },
     "./globals.css": "./src/globals.css",
     "./tailwind.config": {
       "types": "./tailwind.config.ts",

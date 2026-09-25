@@ -22,6 +22,7 @@ export enum EnvVar {
   MCP_API_URL = "MCP_API_URL",
   STRIPE_ESG_URL = "STRIPE_ESG_URL",
   STRIPE_ESG_PUBLIC_URL = "STRIPE_ESG_PUBLIC_URL",
+  BOOK_CMS_TOKEN = "BOOK_CMS_TOKEN",
 }
 
 const STAGE = (process.env.NEXT_PUBLIC_STAGE as Stage) || Stage.DEV;
@@ -87,6 +88,8 @@ export const env = {
     stripeEsgUrl: () => getEnv(EnvVar.STRIPE_ESG_URL),
     stripeEsgPublicUrl: () => getEnv(EnvVar.STRIPE_ESG_PUBLIC_URL),
   },
+  // Server-only: CMS token of the Book website (B2B pages of the book app)
+  bookCmsToken: () => getEnv(EnvVar.BOOK_CMS_TOKEN),
   fileDomain: () => publicFileDomain(),
   mcpUrl: () => publicMcpUrl(),
   stripePublishableKey: () => publicStripePublishableKey(),
