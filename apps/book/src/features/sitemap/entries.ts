@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { Book } from "@repo/apis";
 import { getBaseUrl } from "@/lib/seo";
+import { isBlockedOrg } from "@/lib/blocked-orgs";
 import {
   absoluteUrl,
   articlePath,
@@ -135,7 +136,9 @@ export async function getSitemapEntries(): Promise<MetadataRoute.Sitemap> {
     return b2bPages;
   }
 
-  const availableOrgs = organizations.filter((org) => org.isOnBookWebsite);
+  const availableOrgs = organizations.filter(
+    (org) => org.isOnBookWebsite && !isBlockedOrg(org.organizationId),
+  );
 
   const serviceProviderPages = availableOrgs.flatMap((org) =>
     LOCALES.map((locale) => ({
