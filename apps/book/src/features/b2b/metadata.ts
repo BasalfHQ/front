@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import type { CmsPage } from "@basalf/cms-next";
 import { routing } from "@repo/i18n";
 import { getB2bTranslations } from "./pricing";
 import {
@@ -7,21 +6,13 @@ import {
   getOccupationIdBySlug,
 } from "@/lib/occupation-slug";
 import {
-  getCategoryArticle,
-  getCategoryContent,
-  getLiveLocales,
-  getOccupationArticle,
-  getOccupationContent,
+  getFolderArticleSummary,
+  getFolderContent,
+  getLiveFolderLocales,
   isCategoryArticleSlug,
 } from "./content";
-import {
-  absoluteUrl,
-  articlePath,
-  categoryArticlePath,
-  categoryPath,
-  forHubPath,
-  occupationPath,
-} from "./paths";
+import { folderArticlePath, folderPath, type Folder } from "./folder";
+import { absoluteUrl, forHubPath } from "./paths";
 
 // Canonical + hreflang alternates from the path of the page in each locale
 // where it is live (slugs differ per locale).
@@ -66,24 +57,21 @@ function eachLocale(path: (locale: string) => string | null) {
   );
 }
 
-async function getOccupationMetadata(
+// Landing page of a folder (occupation or category).
+async function getFolderMetadata(
   locale: string,
-  occupationId: string,
+  folder: Folder,
 ): Promise<Metadata> {
-  const content = await getOccupationContent(locale, occupationId);
+  const content = await getFolderContent(locale, folder);
   if (!content) return {};
 
-  const liveLocales = await getLiveLocales(
-    "occupation",
-    occupationId,
-    routing.locales,
-  );
+  const liveLocales = await getLiveFolderLocales(folder, routing.locales);
   return pageMetadata({
     locale,
     title: content.seo.title,
     description: content.seo.description,
     paths: Object.fromEntries(
-      liveLocales.map((l) => [l, occupationPath(l, occupationId) ?? undefined]),
+      liveLocales.map((l) => [l, folderPath(l, folder) ?? undefined]),
     ),
   });
 }
@@ -94,24 +82,9 @@ export async function getCategoryMetadata(
   slug: string,
 ): Promise<Metadata> {
   const categoryId = getCategoryIdBySlug(locale, slug);
-  const content = categoryId
-    ? await getCategoryContent(locale, categoryId)
-    : null;
-  if (!categoryId || !content) return {};
-
-  const liveLocales = await getLiveLocales(
-    "category",
-    categoryId,
-    routing.locales,
-  );
-  return pageMetadata({
-    locale,
-    title: content.seo.title,
-    description: content.seo.description,
-    paths: Object.fromEntries(
-      liveLocales.map((l) => [l, categoryPath(l, categoryId) ?? undefined]),
-    ),
-  });
+  return categoryId
+    ? getFolderMetadata(locale, { kind: "category", id: categoryId })
+    : {};
 }
 
 // /for/{category}/{slug}: occupation first, else category article (same
@@ -122,15 +95,13 @@ export async function getCategoryChildMetadata(
   slug: string,
 ): Promise<Metadata> {
   const occupationId = getOccupationIdBySlug(locale, slug);
-  if (occupationId) return getOccupationMetadata(locale, occupationId);
+  if (occupationId) {
+    return getFolderMetadata(locale, { kind: "occupation", id: occupationId });
+  }
 
   const categoryId = getCategoryIdBySlug(locale, category);
   if (!categoryId || !isCategoryArticleSlug(slug)) return {};
-  return articleMetadata(locale, (l) =>
-    getCategoryArticle(l, categoryId, slug).then((page) =>
-      page ? { page, path: categoryArticlePath(l, categoryId, slug) } : null,
-    ),
-  );
+  return articleMetadata(locale, { kind: "category", id: categoryId }, slug);
 }
 
 // /for/{category}/{occupation}/{article}
@@ -140,12 +111,9 @@ export async function getOccupationArticleMetadata(
   articleSlug: string,
 ): Promise<Metadata> {
   const occupationId = getOccupationIdBySlug(locale, slug);
-  if (!occupationId) return {};
-  return articleMetadata(locale, (l) =>
-    getOccupationArticle(l, occupationId, articleSlug).then((page) =>
-      page ? { page, path: articlePath(l, occupationId, articleSlug) } : null,
-    ),
-  );
+  return occupationId
+    ? articleMetadata(locale, { kind: "occupation", id: occupationId }, articleSlug)
+    : {};
 }
 
 export async function getForHubMetadata(locale: string): Promise<Metadata> {
@@ -158,27 +126,35 @@ export async function getForHubMetadata(locale: string): Promise<Metadata> {
   });
 }
 
-// `find`: the article and its path in a locale, null where it isn't live.
+// Article of a folder. Summaries only: no full page fetched in any locale.
 async function articleMetadata(
   locale: string,
-  find: (locale: string) => Promise<{ page: CmsPage; path: string | null } | null>,
+  folder: Folder,
+  articleSlug: string,
 ): Promise<Metadata> {
-  const translations = await Promise.all(routing.locales.map(find));
-  const page = translations[routing.locales.indexOf(locale as never)]?.page;
-  if (!page) return {};
+  const translations = await Promise.all(
+    routing.locales.map(async (l) => {
+      const summary = await getFolderArticleSummary(l, folder, articleSlug);
+      return summary
+        ? { summary, path: folderArticlePath(l, folder, articleSlug) }
+        : null;
+    }),
+  );
+  const current = translations[routing.locales.indexOf(locale as never)];
+  if (!current) return {};
 
-  const schema = page.seo.schemas.find((s) => s.type === "article");
+  const schema = current.summary.seo.schemas.find((s) => s.type === "article");
   const metadata = pageMetadata({
     locale,
-    title: page.seo.title,
-    description: page.seo.description,
+    title: current.summary.seo.title,
+    description: current.summary.seo.description,
     paths: Object.fromEntries(
       routing.locales.map((l, i) => [l, translations[i]?.path ?? undefined]),
     ),
   });
   return {
     ...metadata,
-    keywords: page.seo.keywords,
+    keywords: current.summary.seo.keywords,
     openGraph: {
       ...metadata.openGraph,
       type: "article",

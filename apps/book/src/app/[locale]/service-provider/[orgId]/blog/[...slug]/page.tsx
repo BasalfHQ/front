@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Book } from "@repo/apis";
-import { Blog, getAllArticles, type PageSummary } from "@/features/blog";
-import { getArticle } from "@/features/blog/articles";
+import { Blog, getAllPosts } from "@/features/blog";
+import { getPost } from "@/features/blog/posts";
 import { getBaseUrl } from "@/lib/seo";
 
 export const revalidate = 0;
@@ -14,7 +14,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, orgId, slug } = await params;
   const slugPath = slug.join("/");
-  const page = await getArticle(orgId, slugPath, locale);
+  const page = await getPost(orgId, slugPath, locale);
 
   if (!page) return {};
 
@@ -55,9 +55,10 @@ export async function generateStaticParams({
 }: {
   params: { locale: string; orgId: string };
 }) {
-  const { orgId } = params;
+  const { locale, orgId } = params;
   try {
-    const pages = await getAllArticles(orgId);
+    // Only this locale's posts can render (strict-locale getPost).
+    const pages = await getAllPosts(orgId, locale);
     return pages.map((page) => ({
       slug: page.url.replace(/^\//, "").split("/"),
     }));

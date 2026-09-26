@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Book } from "@repo/apis";
-import { getAllArticlesWithFallback } from "@/features/blog";
+import { getAllPostsWithFallback } from "@/features/blog";
 import { getBaseUrl } from "@/lib/seo";
 import { getTranslations } from "@repo/i18n";
 import { MoveLeft } from "@repo/ui/icons";
@@ -55,7 +55,7 @@ export default async function BlogIndex({ params }: Props) {
   const [org, sps, articles, t] = await Promise.all([
     Book.getOrganization(orgId),
     Book.getServiceProviders(orgId),
-    getAllArticlesWithFallback(orgId, locale),
+    getAllPostsWithFallback(orgId, locale),
     getTranslations("homepage"),
   ]);
 

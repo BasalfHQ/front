@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getB2bTranslations } from "../pricing";
 import type { ExampleService } from "../content";
 
@@ -27,8 +28,14 @@ export async function PhoneProfileMock({
         >
           <div className="flex min-h-[760px] flex-col items-center gap-10 bg-background px-5 pb-24 pt-8">
             <div className="flex flex-col items-center gap-4">
-              <div className="flex h-60 w-48 items-center justify-center rounded-lg border border-border bg-[repeating-linear-gradient(135deg,hsl(var(--muted))_0_8px,hsl(var(--secondary))_8px_16px)] font-mono text-[11px] text-muted-foreground">
-                {t("photo")}
+              <div className="relative h-60 w-48 overflow-hidden rounded-lg">
+                <Image
+                  src="/b2b/lina-moreau.png"
+                  alt={t("photo")}
+                  fill
+                  sizes="192px"
+                  className="object-cover"
+                />
               </div>
               <div className="flex flex-col items-center gap-1 text-center">
                 <p className="m-0 text-[26px] font-bold leading-tight tracking-[-0.02em]">

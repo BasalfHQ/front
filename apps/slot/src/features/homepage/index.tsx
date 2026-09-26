@@ -61,7 +61,14 @@ export async function Homepage() {
               </Button>
             </div>
           </div>
-          {orgId && <BookPageStatus live={provider !== null} locale={locale} orgId={orgId} />}
+          {orgId && (
+            <BookPageStatus
+              live={provider !== null}
+              locale={locale}
+              orgId={orgId}
+              version={JSON.stringify([provider, services, picture?.fileId])}
+            />
+          )}
         </div>
       )}
     </div>

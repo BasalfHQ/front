@@ -5,12 +5,8 @@ import {
   getOccupationLabels,
 } from "@/lib/occupation-slug";
 import { getLiveCategoryIds } from "./content";
-import {
-  capitalize,
-  categoryPath,
-  forHubPath,
-  occupationPath,
-} from "./paths";
+import { folderPath, type Folder } from "./folder";
+import { capitalize, categoryPath, forHubPath } from "./paths";
 import type { Crumb } from "./components/breadcrumbs";
 
 // Trades › {Category} › {Occupation} (no Home: the home page isn't part of
@@ -18,18 +14,16 @@ import type { Crumb } from "./components/breadcrumbs";
 // page is live: never link to a 404.
 export async function getLandingCrumbs(
   locale: string,
-  target: { categoryId: string } | { occupationId: string },
+  folder: Folder,
 ): Promise<Crumb[]> {
   const t = await getB2bTranslations(locale, "b2b.breadcrumb");
-  const crumbs: Crumb[] = [
-    { label: t("for"), href: forHubPath(locale) },
-  ];
+  const crumbs: Crumb[] = [{ label: t("for"), href: forHubPath(locale) }];
 
-  const occupationId = "occupationId" in target ? target.occupationId : null;
+  const occupationId = folder.kind === "occupation" ? folder.id : null;
   const categoryId =
-    "categoryId" in target
-      ? target.categoryId
-      : getOccupationCategory(target.occupationId)?.id;
+    folder.kind === "category"
+      ? folder.id
+      : getOccupationCategory(folder.id)?.id;
 
   const categoryHref = categoryId && categoryPath(locale, categoryId);
   if (
@@ -44,7 +38,8 @@ export async function getLandingCrumbs(
   }
 
   const labels = occupationId && getOccupationLabels(locale, occupationId);
-  const occupationHref = occupationId && occupationPath(locale, occupationId);
+  const occupationHref =
+    occupationId && folderPath(locale, { kind: "occupation", id: occupationId });
   if (labels && occupationHref) {
     crumbs.push({ label: capitalize(labels.one, locale), href: occupationHref });
   }

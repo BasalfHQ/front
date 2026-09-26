@@ -1,7 +1,4 @@
-import { Heading, Text } from "@/features/blog/components/text";
-import { List } from "@/features/blog/components/list";
-import { Image } from "@/features/blog/components/image";
-import { Table } from "@/features/blog/components/table";
+import { Heading, Image, List, Table, Text } from "@/features/cms-slices";
 import type { GuideSlice } from "../content";
 import { Section, SectionTitle } from "./section";
 

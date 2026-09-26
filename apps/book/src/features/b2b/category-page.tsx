@@ -6,17 +6,18 @@ import {
   getOccupationLabels,
 } from "@/lib/occupation-slug";
 import {
-  getCategoryArticles,
-  getCategoryContent,
+  getFolderArticles,
+  getFolderContent,
   getLiveCategoryIds,
   getLiveOccupationIds,
 } from "./content";
 import { getCategoryAudience } from "./audience";
 import { getLandingCrumbs } from "./crumbs";
+import { folderArticlePath } from "./folder";
 import { LandingPage } from "./landing-page";
 import { OccupationPage } from "./occupation-page";
 import { CategoryArticlePage } from "./article-page";
-import { capitalize, categoryArticlePath, categoryPath, occupationPath } from "./paths";
+import { capitalize, categoryPath, occupationPath } from "./paths";
 import { matchOccupationId, resolveCategoryId } from "./resolve";
 import {
   OccupationChips,
@@ -72,7 +73,8 @@ export async function CategoryPage({
   slug: string;
 }) {
   const categoryId = resolveCategoryId(locale, slug);
-  const content = await getCategoryContent(locale, categoryId);
+  const folder = { kind: "category" as const, id: categoryId };
+  const content = await getFolderContent(locale, folder);
   // Live only once its CMS page exists in this locale.
   if (!content) notFound();
 
@@ -87,11 +89,11 @@ export async function CategoryPage({
     <LandingPage
       locale={locale}
       content={content}
-      crumbs={await getLandingCrumbs(locale, { categoryId })}
+      crumbs={await getLandingCrumbs(locale, folder)}
       audience={await getCategoryAudience(locale, categoryId)}
       mockLabel={getCategoryLabel(locale, categoryId)}
-      articles={await getCategoryArticles(locale, categoryId)}
-      articleHref={(s) => categoryArticlePath(locale, categoryId, s) ?? ""}
+      articles={await getFolderArticles(locale, folder)}
+      articleHref={(s) => folderArticlePath(locale, folder, s) ?? ""}
       afterHero={
         <Section className="gap-4 lg:gap-5">
           {liveTrades.length > 0 && <JsonLd data={itemListSchema(liveTrades)} />}

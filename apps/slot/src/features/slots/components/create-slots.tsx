@@ -22,7 +22,7 @@ import {
   toast,
 } from "@repo/ui";
 import { Slot } from "@repo/apis";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { isPast, addMonths, addYears } from "date-fns";
 import { useLocale } from "@repo/i18n";
 import { createSlot, createSlots } from "../actions";
@@ -205,7 +205,9 @@ export function CreateSlots({
     );
   };
 
-  const content = useMemo(() => {
+  // Not memoized: the handlers below must read the current state (a memo
+  // keyed on the dates alone kept a stale copy and reset the service).
+  const content = (() => {
     if (isPastDate) {
       return (
         <Card variant="destructive" className="p-4 w-full">
@@ -289,7 +291,7 @@ export function CreateSlots({
         </div>
       </div>
     );
-  }, [state.slot.startDate, state.slot.endDate]);
+  })();
 
   return (
     <Dialog

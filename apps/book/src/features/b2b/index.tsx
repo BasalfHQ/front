@@ -9,15 +9,13 @@ export {
   getOccupationArticleMetadata,
 } from "./metadata";
 export {
-  getCategoryArticles,
+  getFolderArticles,
   getLiveCategoryIds,
   getLiveOccupationIds,
-  getOccupationArticles,
 } from "./content";
+export { folderArticlePath, type Folder } from "./folder";
 export {
   absoluteUrl,
-  articlePath,
-  categoryArticlePath,
   categoryPath,
   forHubPath,
   occupationPath,

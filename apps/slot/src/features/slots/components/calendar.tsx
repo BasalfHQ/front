@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useCallback, useRef } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -19,19 +19,7 @@ import { Slot } from "@repo/apis";
 import { SlotEvent } from "./event";
 import { ServiceFilter } from "./service-filter";
 import type { ServiceColorMap } from "../service-colors";
-
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  return isMobile;
-}
+import { useIsMobile } from "@/hooks/use-is-mobile";
 
 function slotsToEvents(
   slots: Slot.Slot[] | undefined,
@@ -189,7 +177,7 @@ export function SlotCalendar({
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView={isMobile ? "timeGridDay" : "timeGridWeek"}
         headerToolbar={{
-          left: "prev,next today",
+          left: isMobile ? "prev,next" : "prev,next today",
           center: "title",
           right: "",
         }}
@@ -199,7 +187,7 @@ export function SlotCalendar({
         eventClick={handleEventClick}
         datesSet={handleDatesSet}
         events={slotsToEvents(filteredSlots, serviceColorMap)}
-        eventContent={(arg) => <SlotEvent arg={arg} />}
+        eventContent={(arg) => <SlotEvent arg={arg} isMobile={isMobile} />}
         height="75vh"
         allDaySlot={false}
         nowIndicator={true}

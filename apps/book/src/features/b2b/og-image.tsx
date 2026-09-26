@@ -6,7 +6,7 @@ import {
   getOccupationLabels,
 } from "@/lib/occupation-slug";
 import { getCategoryAudience } from "./audience";
-import { getCategoryArticle } from "./content";
+import { getFolderArticle } from "./content";
 
 export const ogImageSize = { width: 1200, height: 630 };
 
@@ -105,7 +105,7 @@ export async function getCategoryChildOgTitle(
 
   const categoryId = getCategoryIdBySlug(locale, category);
   const article = categoryId
-    ? await getCategoryArticle(locale, categoryId, slug)
+    ? await getFolderArticle(locale, { kind: "category", id: categoryId }, slug)
     : null;
   return article?.seo.title ?? t("hub.title");
 }

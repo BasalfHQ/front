@@ -1,6 +1,9 @@
 import { Book } from "@repo/apis";
 
-export async function getArticle(
+// Org blog posts (service-provider pages), fetched through book-mgt-bff.
+// Strict locale: a post is served only in the locale it was written in —
+// never another translation under a localized URL.
+export async function getPost(
   organizationId: string,
   slug: string,
   locale: string,
@@ -9,20 +12,12 @@ export async function getArticle(
   if (!pages) return undefined;
 
   const urlToMatch = slug.startsWith("/") ? slug : `/${slug}`;
-
-  // Try to find in requested locale first
-  let match = pages.find((p) => p.url === urlToMatch && p.locale === locale);
-
-  // Fallback to any locale if not found
-  if (!match) {
-    match = pages.find((p) => p.url === urlToMatch);
-  }
-
+  const match = pages.find((p) => p.url === urlToMatch && p.locale === locale);
   if (!match) return undefined;
   return Book.getPage(organizationId, match.pageId);
 }
 
-export async function getAllArticles(
+export async function getAllPosts(
   organizationId: string,
   locale?: string,
 ): Promise<Book.AllPages> {
@@ -32,7 +27,9 @@ export async function getAllArticles(
   return pages.filter((p) => p.locale === locale);
 }
 
-export async function getAllArticlesWithFallback(
+// Blog index: one entry per url, preferring the requested locale; posts only
+// written in another locale are listed too, flagged isOtherLocale.
+export async function getAllPostsWithFallback(
   organizationId: string,
   preferredLocale: string,
 ): Promise<Array<Book.AllPages[number] & { isOtherLocale: boolean }>> {

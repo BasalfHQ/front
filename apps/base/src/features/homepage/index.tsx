@@ -16,6 +16,17 @@ export async function Homepage() {
         <Card
           className="w-full"
           href={
+            isProd ? baseUrl.replace("//", "//slot.") : "http://localhost:3003"
+          }
+        >
+          <CardHeader>{t("slot.title")}</CardHeader>
+          <p className="text-sm text-muted-foreground">
+            {t("slot.description")}
+          </p>
+        </Card>
+        <Card
+          className="w-full"
+          href={
             isProd ? baseUrl.replace("//", "//cms.") : "http://localhost:3001/"
           }
         >
@@ -26,17 +37,6 @@ export async function Homepage() {
             unrelated infra next to CMS/Slot and would read to a user as some
             other product entirely, easily confused with Book. Bring back
             once this homepage explains the platform/product split better. */}
-        <Card
-          className="w-full"
-          href={
-            isProd ? baseUrl.replace("//", "//slot.") : "http://localhost:3003"
-          }
-        >
-          <CardHeader>{t("slot.title")}</CardHeader>
-          <p className="text-sm text-muted-foreground">
-            {t("slot.description")}
-          </p>
-        </Card>
       </div>
     </div>
   );

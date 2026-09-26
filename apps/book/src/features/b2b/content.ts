@@ -10,6 +10,7 @@ import {
   getOccupationSlugLocale,
 } from "@/lib/occupation-slug";
 import { devOccupationPages } from "./dev-fixtures";
+import { folderArticlePath, folderPath, toFolder, type Folder } from "./folder";
 
 // Content of a B2B landing page (occupation or category), from its CMS page.
 export type ExampleService = { name: string; duration: string; price: string };
@@ -43,13 +44,11 @@ const GUIDE_TYPES = new Set(["heading", "text", "list", "image", "table"]);
 //   "/{categoryEnSlug}/{articleSlug}"   articles of that category — never an
 //                                       occupation slug: occupations own
 //                                       /for/{category}/{slug}
-export function getOccupationCmsUrl(occupationId: string): string | null {
-  const enSlug = getOccupationSlug("en", occupationId);
-  return enSlug ? `/${enSlug}` : null;
-}
-
-export function getCategoryCmsUrl(categoryId: string): string | null {
-  const enSlug = getCategorySlug("en", categoryId);
+function folderCmsUrl(folder: Folder): string | null {
+  const enSlug =
+    folder.kind === "occupation"
+      ? getOccupationSlug("en", folder.id)
+      : getCategorySlug("en", folder.id);
   return enSlug ? `/${enSlug}` : null;
 }
 
@@ -59,6 +58,12 @@ export const ARTICLE_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 // any occupation slug (any locale) is reserved for the occupation.
 export function isCategoryArticleSlug(slug: string): boolean {
   return ARTICLE_SLUG.test(slug) && !getOccupationSlugLocale(slug);
+}
+
+function folderIsArticleSlug(folder: Folder, slug: string): boolean {
+  return folder.kind === "occupation"
+    ? ARTICLE_SLUG.test(slug)
+    : isCategoryArticleSlug(slug);
 }
 
 export type ArticleSummary = {
@@ -86,7 +91,7 @@ function getClient(): CMS {
   return client;
 }
 
-const useFixtures = () => !env.bookCmsToken() && env.stage === "dev";
+const shouldUseFixtures = () => !env.bookCmsToken() && env.stage === "dev";
 
 // The CMS only lists every page of every locale at once: fetch that list once
 // and share it (all locales, the sitemap, the pages) for a minute. React
@@ -116,7 +121,7 @@ function getSnapshot(): Snapshot["byLocale"] {
     return snapshot.byLocale;
   }
   const byLocale = indexByLocale(
-    useFixtures()
+    shouldUseFixtures()
       ? Promise.resolve(devOccupationPages)
       : getClient().getPages(),
   );
@@ -142,7 +147,7 @@ const getCmsPage = cache(
   async (locale: string, url: string): Promise<CmsPage | null> => {
     const summary = (await getSummariesByUrl(locale)).get(url);
     if (!summary) return null;
-    const page = useFixtures()
+    const page = shouldUseFixtures()
       ? devOccupationPages.find((p) => p.pageId === summary.pageId)
       : await getClient().getPage(summary.pageId);
     return page?.locale === locale ? page : null;
@@ -151,65 +156,72 @@ const getCmsPage = cache(
 
 // ── Landing pages ──
 
-// Null when the occupation has no CMS page in this locale: the page isn't live.
-export async function getOccupationContent(
+// Null when the folder has no CMS page in this locale: the page isn't live.
+export async function getFolderContent(
   locale: string,
-  occupationId: string,
+  folder: Folder,
 ): Promise<LandingContent | null> {
-  const url = getOccupationCmsUrl(occupationId);
+  const url = folderCmsUrl(folder);
   const page = url ? await getCmsPage(locale, url) : null;
   return page ? toLandingContent(page) : null;
 }
 
-// Null when the category has no CMS page in this locale: the page isn't live.
-export async function getCategoryContent(
+// Landing page summary in this locale, null when not live.
+async function getFolderSummary(
   locale: string,
-  categoryId: string,
-): Promise<LandingContent | null> {
-  const url = getCategoryCmsUrl(categoryId);
-  const page = url ? await getCmsPage(locale, url) : null;
-  return page ? toLandingContent(page) : null;
+  folder: Folder,
+): Promise<PageSummary | null> {
+  const url = folderCmsUrl(folder);
+  if (!url) return null;
+  return (await getSummariesByUrl(locale)).get(url) ?? null;
 }
 
-// Occupations with a live page in this locale.
-export async function getLiveOccupationIds(
+// Ids (occupations or categories) with a live page in this locale.
+async function getLiveFolderIds(
   locale: string,
+  folders: Folder[],
 ): Promise<Set<string>> {
   const pages = await getSummariesByUrl(locale);
   return new Set(
-    getAllOccupationSlugs()
-      .filter(({ slugs }) => pages.has(`/${slugs.en}`))
-      .map(({ occupationId }) => occupationId),
+    folders
+      .map((folder) => ({ folder, url: folderCmsUrl(folder) }))
+      .filter(({ url }) => url !== null && pages.has(url))
+      .map(({ folder }) => folder.id),
+  );
+}
+
+// Occupations with a live page in this locale.
+export function getLiveOccupationIds(
+  locale: string,
+): Promise<Set<string>> {
+  return getLiveFolderIds(
+    locale,
+    getAllOccupationSlugs().map(({ occupationId }): Folder => ({
+      kind: "occupation",
+      id: occupationId,
+    })),
   );
 }
 
 // Categories with a live page in this locale.
-export async function getLiveCategoryIds(
+export function getLiveCategoryIds(
   locale: string,
 ): Promise<Set<string>> {
-  const pages = await getSummariesByUrl(locale);
-  return new Set(
-    getCategories()
-      .map((c) => c.id)
-      .filter((id) => {
-        const url = getCategoryCmsUrl(id);
-        return url !== null && pages.has(url);
-      }),
+  return getLiveFolderIds(
+    locale,
+    getCategories().map((c): Folder => ({ kind: "category", id: c.id })),
   );
 }
 
-// Locales in which a page is live — for hreflang alternates.
-export async function getLiveLocales(
-  kind: "occupation" | "category",
-  id: string,
+// Locales in which a folder's landing page is live — for hreflang alternates.
+export async function getLiveFolderLocales(
+  folder: Folder,
   locales: readonly string[],
 ): Promise<string[]> {
-  const getLive =
-    kind === "occupation" ? getLiveOccupationIds : getLiveCategoryIds;
   const live = await Promise.all(
-    locales.map(async (locale) => (await getLive(locale)).has(id)),
+    locales.map((locale) => getFolderSummary(locale, folder)),
   );
-  return locales.filter((_, i) => live[i]);
+  return locales.filter((_, i) => live[i] !== null);
 }
 
 function toLandingContent(page: CmsPage): LandingContent {
@@ -247,12 +259,26 @@ function articleDate(page: PageSummary): string | null {
   return schema?.type === "article" ? schema.date : null;
 }
 
-// Articles of the folder at `url`, newest first.
-async function getFolderArticles(
+// Article summary in this locale, null when the article or its folder isn't
+// live here. Cheap: summaries only, no full page fetch.
+export async function getFolderArticleSummary(
   locale: string,
-  url: string | null,
-  isSlug: (slug: string) => boolean,
+  folder: Folder,
+  articleSlug: string,
+): Promise<PageSummary | null> {
+  const url = folderCmsUrl(folder);
+  if (!url || !folderIsArticleSlug(folder, articleSlug)) return null;
+  const pages = await getSummariesByUrl(locale);
+  if (!pages.has(url)) return null;
+  return pages.get(`${url}/${articleSlug}`) ?? null;
+}
+
+// Articles of a folder, newest first.
+export async function getFolderArticles(
+  locale: string,
+  folder: Folder,
 ): Promise<ArticleSummary[]> {
+  const url = folderCmsUrl(folder);
   const pages = await getSummariesByUrl(locale);
   if (!url || !pages.has(url)) return [];
 
@@ -261,7 +287,7 @@ async function getFolderArticles(
       const slug = page.url.startsWith(`${url}/`)
         ? page.url.slice(url.length + 1)
         : null;
-      return slug && isSlug(slug)
+      return slug && folderIsArticleSlug(folder, slug)
         ? [
             {
               slug,
@@ -275,56 +301,35 @@ async function getFolderArticles(
     .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
 }
 
-async function getFolderArticle(
+// Full article page, only in this exact locale.
+export async function getFolderArticle(
   locale: string,
-  url: string | null,
+  folder: Folder,
   articleSlug: string,
 ): Promise<CmsPage | null> {
-  if (!url) return null;
-  if (!(await getSummariesByUrl(locale)).has(url)) return null;
-  return getCmsPage(locale, `${url}/${articleSlug}`);
+  if (!(await getFolderArticleSummary(locale, folder, articleSlug))) {
+    return null;
+  }
+  return getCmsPage(locale, `${folderCmsUrl(folder)!}/${articleSlug}`);
 }
 
-export async function getOccupationArticles(
+// CMS url ("/barber", "/barber/reduce-no-shows", "/beauty-wellness",
+// "/beauty-wellness/some-article") -> public path in `locale`, only when that
+// page is live. For "related" slices.
+export async function resolveCmsUrl(
   locale: string,
-  occupationId: string,
-): Promise<ArticleSummary[]> {
-  return getFolderArticles(
-    locale,
-    getOccupationCmsUrl(occupationId),
-    (slug) => ARTICLE_SLUG.test(slug),
-  );
-}
+  cmsUrl: string,
+): Promise<{ href: string; label: string } | null> {
+  const [enSlug, articleSlug, ...extra] = cmsUrl.replace(/^\//, "").split("/");
+  if (!enSlug || extra.length) return null;
+  const folder = toFolder(enSlug);
+  if (!folder) return null;
 
-export async function getOccupationArticle(
-  locale: string,
-  occupationId: string,
-  articleSlug: string,
-): Promise<CmsPage | null> {
-  if (!ARTICLE_SLUG.test(articleSlug)) return null;
-  return getFolderArticle(
-    locale,
-    getOccupationCmsUrl(occupationId),
-    articleSlug,
-  );
-}
-
-export async function getCategoryArticles(
-  locale: string,
-  categoryId: string,
-): Promise<ArticleSummary[]> {
-  return getFolderArticles(
-    locale,
-    getCategoryCmsUrl(categoryId),
-    isCategoryArticleSlug,
-  );
-}
-
-export async function getCategoryArticle(
-  locale: string,
-  categoryId: string,
-  articleSlug: string,
-): Promise<CmsPage | null> {
-  if (!isCategoryArticleSlug(articleSlug)) return null;
-  return getFolderArticle(locale, getCategoryCmsUrl(categoryId), articleSlug);
+  const [summary, href] = articleSlug
+    ? [
+        await getFolderArticleSummary(locale, folder, articleSlug),
+        folderArticlePath(locale, folder, articleSlug),
+      ]
+    : [await getFolderSummary(locale, folder), folderPath(locale, folder)];
+  return summary && href ? { href, label: summary.seo.title } : null;
 }

@@ -8,15 +8,16 @@ import {
   getSiblingOccupationIds,
 } from "@/lib/occupation-slug";
 import {
+  getFolderArticles,
+  getFolderContent,
   getLiveCategoryIds,
   getLiveOccupationIds,
-  getOccupationArticles,
-  getOccupationContent,
 } from "./content";
 import { getCategoryAudience } from "./audience";
 import { getLandingCrumbs } from "./crumbs";
+import { folderArticlePath } from "./folder";
 import { LandingPage } from "./landing-page";
-import { articlePath, capitalize, categoryPath, occupationPath } from "./paths";
+import { capitalize, categoryPath, occupationPath } from "./paths";
 import { categoryParams } from "./hub-pages";
 import { OccupationChips } from "./components/occupation-chips";
 import { Section, SectionTitle } from "./components/section";
@@ -50,7 +51,8 @@ export async function OccupationPage({
   locale: string;
   occupationId: string;
 }) {
-  const content = await getOccupationContent(locale, occupationId);
+  const folder = { kind: "occupation" as const, id: occupationId };
+  const content = await getFolderContent(locale, folder);
   const labels = getOccupationLabels(locale, occupationId);
   // Live only once its CMS page exists in this locale.
   if (!content || !labels) notFound();
@@ -68,11 +70,11 @@ export async function OccupationPage({
     <LandingPage
       locale={locale}
       content={content}
-      crumbs={await getLandingCrumbs(locale, { occupationId })}
+      crumbs={await getLandingCrumbs(locale, folder)}
       audience={labels.other}
       mockLabel={capitalize(labels.one, locale)}
-      articles={await getOccupationArticles(locale, occupationId)}
-      articleHref={(s) => articlePath(locale, occupationId, s) ?? ""}
+      articles={await getFolderArticles(locale, folder)}
+      articleHref={(s) => folderArticlePath(locale, folder, s) ?? ""}
     >
       {category && (siblings.length > 0 || categoryHref) && (
         <Section className="gap-4 pb-14 lg:gap-5 lg:pb-[88px]">

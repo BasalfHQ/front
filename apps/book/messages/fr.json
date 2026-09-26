@@ -71,8 +71,8 @@
     },
     "mock": {
       "label": "Aperçu de votre page de réservation sur Book",
-      "photo": "Votre photo",
-      "name": "Votre nom",
+      "photo": "Photo de profil de Lina Moreau, coiffeuse",
+      "name": "Lina Moreau",
       "book": "Réserver",
       "nextSlots": "Prochains créneaux disponibles"
     },

@@ -10,7 +10,7 @@ import { getTranslations, getLocale, I18nClientProvider } from "@repo/i18n";
 import bookingData from "@repo/esco/data/booking-occupations.json";
 import { MapPin } from "@repo/ui/icons";
 import { ExpandableText } from "@repo/ui/components/expandable-text";
-import { getAllArticlesWithFallback } from "@/features/blog";
+import { getAllPostsWithFallback } from "@/features/blog";
 import { formatAddress, getOccupationLabel } from "@/lib/seo";
 import {
   combinePill,
@@ -47,7 +47,7 @@ export default async function Home({
     Book.getServiceProviders(orgId),
     Book.getSlots(orgId, now.toISOString(), inTwoMonths.toISOString()),
     Book.getServices(orgId),
-    getAllArticlesWithFallback(orgId, currentLocale).catch(() => []),
+    getAllPostsWithFallback(orgId, currentLocale).catch(() => []),
   ]);
   const locale = currentLocale;
   if (!org || !sps || sps.length === 0) {

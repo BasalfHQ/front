@@ -4,7 +4,8 @@ import Image from "next/image";
 import { getB2bTranslations } from "../pricing";
 
 // Screenshots of the app, supplied as static files:
-//   public/b2b/{name}-desktop.png (1080×744) and public/b2b/{name}-phone.png (568×1200).
+//   public/b2b/{name}-desktop.png (1080×696) and public/b2b/{name}-phone.png (568×1200),
+//   2× their displayed size; cropped from the top if the ratio differs.
 // A marked placeholder is shown for each file that isn't there yet.
 export type ScreenshotName = "profile" | "bookings" | "slots";
 
@@ -37,7 +38,7 @@ export async function DeviceShots({
           src={screenshotSrc(name, "desktop")}
           alt={`${alt} ${t("desktop")}`}
           placeholder={t("placeholder")}
-          className="aspect-[540/348]"
+          className="aspect-[1498/869]"
           sizes="(min-width: 1024px) 540px, 350px"
         />
       </div>

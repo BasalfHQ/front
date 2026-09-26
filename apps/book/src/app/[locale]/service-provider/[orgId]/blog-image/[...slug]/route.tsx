@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { Book } from "@repo/apis";
-import { getArticle } from "@/features/blog/articles";
+import { getPost } from "@/features/blog/posts";
 
 export const runtime = "edge";
 
@@ -20,7 +20,7 @@ export async function GET(_request: Request, { params }: Props) {
 
   try {
     const [page, sps] = await Promise.all([
-      getArticle(orgId, slugPath, locale),
+      getPost(orgId, slugPath, locale),
       Book.getServiceProviders(orgId),
     ]);
 

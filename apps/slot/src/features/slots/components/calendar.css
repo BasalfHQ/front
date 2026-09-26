@@ -80,3 +80,17 @@
 .fc-event-main {
   background: hsl(var(--accent));
 }
+
+.slot-event-short {
+  container-type: inline-size;
+}
+
+.slot-event-short .slot-event-short-time {
+  display: none;
+}
+
+@container (min-width: 120px) {
+  .slot-event-short .slot-event-short-time {
+    display: block;
+  }
+}

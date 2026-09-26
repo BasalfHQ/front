@@ -1,4 +1,5 @@
-import type { Page, Block } from "../types";
+import type { Page } from "../types";
+import type { Block } from "@/features/cms-slices";
 
 type FaqBlock = Extract<Block, { type: "faq" }>;
 

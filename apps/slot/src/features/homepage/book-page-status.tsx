@@ -14,10 +14,13 @@ export async function BookPageStatus({
   live,
   locale,
   orgId,
+  version,
 }: {
   live: boolean;
   locale: string;
   orgId: string;
+  // Changes whenever what the booking page shows changes
+  version: string;
 }) {
   const t = await getTranslations("homepage.bookPage");
   const bookUrl = `${getBookBaseUrl()}/${locale}/service-provider/${orgId}`;
@@ -52,7 +55,10 @@ export async function BookPageStatus({
           fixed height at the post-scale size - the iframe itself is sized at
           its pre-scale (1/0.6) dimensions so it still fills that box. */}
       <div className="mt-2 h-64 overflow-hidden rounded-md border">
+        {/* Keyed on the page's data: after a save (revalidatePath) the key
+            changes, the iframe remounts and the preview reloads. */}
         <iframe
+          key={version}
           src={bookUrl}
           title={t("previewTitle")}
           className="origin-top-left scale-[0.6] border-0"

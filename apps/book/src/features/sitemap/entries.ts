@@ -4,15 +4,14 @@ import { getBaseUrl } from "@/lib/seo";
 import { isBlockedOrg } from "@/lib/blocked-orgs";
 import {
   absoluteUrl,
-  articlePath,
-  categoryArticlePath,
   categoryPath,
+  folderArticlePath,
   forHubPath,
-  getCategoryArticles,
+  getFolderArticles,
   getLiveCategoryIds,
   getLiveOccupationIds,
-  getOccupationArticles,
   occupationPath,
+  type Folder,
 } from "@/features/b2b";
 
 const BASE_URL = getBaseUrl();
@@ -71,27 +70,27 @@ async function getB2bPages(): Promise<MetadataRoute.Sitemap> {
   );
 
   // Articles per locale, keyed "{kind}/{folderId}/{articleSlug}".
-  type Article = { path: (locale: string) => string | null };
+  type Article = { folder: Folder; slug: string; locales: Set<string> };
   const articles = new Map<string, Article>();
-  const articleLocales: Record<string, Set<string>> = {};
   for (const locale of LOCALES) {
-    articleLocales[locale] = new Set();
-    const add = (key: string, article: Article) => {
-      articles.set(key, article);
-      articleLocales[locale].add(key);
-    };
-    for (const occupationId of live[locale].occupations) {
-      for (const { slug } of await getOccupationArticles(locale, occupationId)) {
-        add(`occupation/${occupationId}/${slug}`, {
-          path: (l) => articlePath(l, occupationId, slug),
-        });
-      }
-    }
-    for (const categoryId of live[locale].categories) {
-      for (const { slug } of await getCategoryArticles(locale, categoryId)) {
-        add(`category/${categoryId}/${slug}`, {
-          path: (l) => categoryArticlePath(l, categoryId, slug),
-        });
+    const folders: Folder[] = [
+      ...[...live[locale].occupations].map(
+        (id): Folder => ({ kind: "occupation", id }),
+      ),
+      ...[...live[locale].categories].map(
+        (id): Folder => ({ kind: "category", id }),
+      ),
+    ];
+    for (const folder of folders) {
+      for (const { slug } of await getFolderArticles(locale, folder)) {
+        const key = `${folder.kind}/${folder.id}/${slug}`;
+        const article = articles.get(key) ?? {
+          folder,
+          slug,
+          locales: new Set<string>(),
+        };
+        article.locales.add(locale);
+        articles.set(key, article);
       }
     }
   }
@@ -114,10 +113,10 @@ async function getB2bPages(): Promise<MetadataRoute.Sitemap> {
         0.9,
       ),
     ),
-    ...[...articles].flatMap(([key, { path }]) =>
+    ...[...articles.values()].flatMap(({ folder, slug, locales }) =>
       withAlternates(
         perLocale((locale) =>
-          articleLocales[locale].has(key) ? path(locale) : null,
+          locales.has(locale) ? folderArticlePath(locale, folder, slug) : null,
         ),
         0.7,
       ),
@@ -173,14 +172,14 @@ export async function getSitemapEntries(): Promise<MetadataRoute.Sitemap> {
     );
 
   const blogArticlePages = blogData.flatMap((data) =>
-    data.pages.flatMap((page) =>
-      LOCALES.map((locale) => ({
-        url: `${BASE_URL}${getLocalePath(locale)}/service-provider/${data.orgId}/blog${page.url}`,
-        lastModified: new Date(),
-        changeFrequency: "monthly" as const,
-        priority: 0.6,
-      })),
-    ),
+    // Posts are served strictly in the locale they were written in: only
+    // that locale's URL is indexable.
+    data.pages.map((page) => ({
+      url: `${BASE_URL}${getLocalePath(page.locale)}/service-provider/${data.orgId}/blog${page.url}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
   );
 
   return [

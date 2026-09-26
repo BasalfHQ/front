@@ -2,46 +2,14 @@ import Link from "next/link";
 import { MoveLeft } from "@repo/ui/icons";
 import { notFound } from "next/navigation";
 import { getBaseUrl } from "@/lib/seo";
-import { getArticle, getAllArticles } from "./articles";
-import { Description, Text, Heading } from "./components/text";
-import { List } from "./components/list";
-import { Image } from "./components/image";
-import { Faq } from "./components/faq";
+import { SliceRenderer, type Block } from "@/features/cms-slices";
+import { getPost, getAllPosts } from "./posts";
 import { Related } from "./components/related";
-import { Table } from "./components/table";
 import {
   ArticleSchema,
   FaqSchema,
   BreadcrumbSchema,
 } from "./components/schema";
-import type { Block } from "./types";
-
-function Space() {
-  return <div className="h-6" aria-hidden="true" />;
-}
-
-export function SliceRenderer({ slice }: { slice: Block }) {
-  switch (slice.type) {
-    case "description":
-      return <Description content={slice.content} />;
-    case "text":
-      return <Text content={slice.content} />;
-    case "heading":
-      return <Heading level={slice.level}>{slice.content}</Heading>;
-    case "list":
-      return <List list={slice.content} />;
-    case "image":
-      return <Image image={slice.content} />;
-    case "faq":
-      return <Faq items={slice.content} />;
-    case "space":
-      return <Space />;
-    case "related":
-      return null;
-    case "table":
-      return <Table table={slice.content} />;
-  }
-}
 
 type BlogProps = {
   orgId: string;
@@ -51,7 +19,7 @@ type BlogProps = {
 };
 
 export async function Blog({ orgId, locale, slug, providerName }: BlogProps) {
-  const page = await getArticle(orgId, slug, locale);
+  const page = await getPost(orgId, slug, locale);
   if (!page) return notFound();
 
   const { slices, seo } = page;
@@ -60,7 +28,7 @@ export async function Blog({ orgId, locale, slug, providerName }: BlogProps) {
   const relatedSlice = slices.find(
     (s): s is Extract<Block, { type: "related" }> => s.type === "related",
   );
-  const allPages = relatedSlice ? await getAllArticles(orgId, locale) : [];
+  const allPages = relatedSlice ? await getAllPosts(orgId, locale) : [];
 
   const faqItems = slices
     .filter((s): s is Extract<Block, { type: "faq" }> => s.type === "faq")
@@ -151,5 +119,5 @@ export async function Blog({ orgId, locale, slug, providerName }: BlogProps) {
   );
 }
 
-export { getAllArticles, getAllArticlesWithFallback } from "./articles";
+export { getAllPosts, getAllPostsWithFallback } from "./posts";
 export type { PageSummary } from "./types";

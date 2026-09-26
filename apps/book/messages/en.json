@@ -71,8 +71,8 @@
     },
     "mock": {
       "label": "Preview of your booking page on Book",
-      "photo": "Your photo",
-      "name": "Your name",
+      "photo": "Profile photo of Lina Moreau, hairdresser",
+      "name": "Lina Moreau",
       "book": "Book",
       "nextSlots": "Next available slots"
     },

@@ -20,7 +20,8 @@ import {
 import { Loader2 } from "@repo/ui/icons";
 import { useLocale, useTranslations } from "next-intl";
 import { isPast } from "date-fns";
-import { Link } from "@repo/i18n";
+import { Link, useRouter } from "@repo/i18n";
+import { useIsMobile } from "@/hooks/use-is-mobile";
 
 export function BookingList({
   initialBookings,
@@ -66,6 +67,8 @@ export function BookingList({
 function List({ bookings, serviceMap }: { bookings: Slot.Booking[]; serviceMap?: Record<string, string> }) {
   const locale = useLocale();
   const t = useTranslations("reservations");
+  const isMobile = useIsMobile();
+  const router = useRouter();
 
   return (
     <Table>
@@ -75,7 +78,7 @@ function List({ bookings, serviceMap }: { bookings: Slot.Booking[]; serviceMap?:
           {serviceMap && <TableHead>{t("service")}</TableHead>}
           <TableHead>{t("date")}</TableHead>
           <TableHead>{t("status")}</TableHead>
-          <TableHead>{t("actions")}</TableHead>
+          {!isMobile && <TableHead>{t("actions")}</TableHead>}
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -100,20 +103,24 @@ function List({ bookings, serviceMap }: { bookings: Slot.Booking[]; serviceMap?:
               }
             })();
             return (
-              <TableRow key={booking.bookingId} className="cursor-pointer">
-                <TableCell>
+              <TableRow
+                key={booking.bookingId}
+                className="cursor-pointer"
+                onClick={isMobile ? () => router.push(`/reservations/${booking.bookingId}`) : undefined}
+              >
+                <TableCell className={isMobile ? "py-1 px-2" : ""}>
                   {booking.firstName} {booking.lastName}
                 </TableCell>
                 {serviceMap && (
-                  <TableCell>
+                  <TableCell className={isMobile ? "py-1 px-2" : ""}>
                     {serviceMap[booking.serviceId] ?? booking.serviceId}
                   </TableCell>
                 )}
-                <TableCell>
+                <TableCell className={isMobile ? "py-1 px-2" : ""}>
                   {formatDay(booking.startDate, locale, booking.timezone)} -{" "}
                   {formatHour(booking.startDate, locale, booking.timezone)}
                 </TableCell>
-                <TableCell>
+                <TableCell className={isMobile ? "py-1 px-2" : ""}>
                   <Badge
                     variant={variant}
                     className="w-[80px] flex justify-center text-center"
@@ -121,7 +128,13 @@ function List({ bookings, serviceMap }: { bookings: Slot.Booking[]; serviceMap?:
                     {t(status)}
                   </Badge>
                 </TableCell>
-                <TableCell> <Link href={`/reservations/${booking.bookingId}`}><Button variant="info">{t("view")}</Button></Link></TableCell>
+                {!isMobile && (
+                  <TableCell>
+                    <Link href={`/reservations/${booking.bookingId}`}>
+                      <Button variant="info">{t("view")}</Button>
+                    </Link>
+                  </TableCell>
+                )}
               </TableRow>
             );
           })}
