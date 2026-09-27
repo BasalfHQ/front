@@ -22,7 +22,7 @@
     "users": "Users",
     "cms": "CMS",
     "organizations": "Organizations",
-    "billing": "Billing",
+    "settings": "Settings",
     "mcp": "MCP"
   },
   "users": {
@@ -96,6 +96,28 @@
     "otherClients": "Other MCP clients",
     "otherClientsInstructions": "Add it as a remote MCP server (Streamable HTTP transport) at the URL above, with one custom header:",
     "otherClientsNote": "Not \"Authorization\" — use \"Token\" (or \"x-token\" if your client won't allow a custom header named \"Token\")."
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage your language, subscription and password.",
+    "languageTitle": "Language",
+    "languageDescription": "Language used across the Basalf apps.",
+    "passwordTitle": "Password",
+    "passwordDescription": "Change the password you use to log in.",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm new password",
+    "changePassword": "Change password",
+    "passwordChanged": "Password changed.",
+    "errors": {
+      "notAuthenticated": "Your session has expired, please log in again.",
+      "allFieldsRequired": "All fields are required.",
+      "passwordMismatch": "The new passwords do not match.",
+      "wrongCurrentPassword": "Current password is incorrect.",
+      "invalidNewPassword": "The new password does not meet the password requirements.",
+      "tooManyAttempts": "Too many attempts, please try again later.",
+      "changeFailed": "Failed to change password."
+    }
   },
   "checkout": {
     "orgHeading": "Set up your organization",

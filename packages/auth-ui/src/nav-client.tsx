@@ -3,7 +3,6 @@
 import type { Organization } from "@repo/auth";
 import { LoginModal, OrganizationSelect } from "@repo/auth/components";
 import { useTranslations } from "next-intl";
-import { LocaleSwitcher } from "./locale-switcher";
 import { Button } from "@repo/ui/button";
 import { cn } from "@repo/ui/lib/utils";
 import { signOut, useSession } from "next-auth/react";
@@ -55,7 +54,6 @@ export function NavAuthSlot({ isLoggedIn, organizations, className }: NavAuthSlo
   if (!isLoggedIn) {
     return (
       <div className={cn("flex items-center gap-2", className)}>
-        <LocaleSwitcher />
         <Button variant="outline" onClick={openLoginModal}>
           {t("login")}
         </Button>
@@ -70,7 +68,6 @@ export function NavAuthSlot({ isLoggedIn, organizations, className }: NavAuthSlo
         onOrganizationChange={handleOrganizationChange}
         className={className ? "w-full" : undefined}
       />
-      <LocaleSwitcher className={className ? "w-full" : undefined} />
       <Button
         variant="outline"
         onClick={() => signOut({ callbackUrl: "/" })}

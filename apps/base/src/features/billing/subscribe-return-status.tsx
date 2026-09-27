@@ -39,7 +39,7 @@ export function SubscribeReturnStatus() {
         {confirmed ? t("subscribeSuccessDescription") : t("confirmTimeoutDescription")}
       </PageDescription>
       <Button asChild>
-        <Link href="/billing">{t("backToBilling")}</Link>
+        <Link href="/settings">{t("backToBilling")}</Link>
       </Button>
     </>
   );

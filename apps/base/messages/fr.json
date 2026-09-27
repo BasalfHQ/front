@@ -22,7 +22,7 @@
     "users": "Utilisateurs",
     "cms": "CMS",
     "organizations": "Organisations",
-    "billing": "Abonnement",
+    "settings": "Paramètres",
     "mcp": "MCP"
   },
   "users": {
@@ -96,6 +96,28 @@
     "otherClients": "Autres clients MCP",
     "otherClientsInstructions": "Ajoutez-le comme serveur MCP distant (transport Streamable HTTP) à l'URL ci-dessus, avec un en-tête personnalisé :",
     "otherClientsNote": "Pas \"Authorization\" — utilisez \"Token\" (ou \"x-token\" si votre client n'autorise pas un en-tête personnalisé nommé \"Token\")."
+  },
+  "settings": {
+    "title": "Paramètres",
+    "description": "Gérez votre langue, votre abonnement et votre mot de passe.",
+    "languageTitle": "Langue",
+    "languageDescription": "Langue utilisée dans les applications Basalf.",
+    "passwordTitle": "Mot de passe",
+    "passwordDescription": "Modifiez le mot de passe utilisé pour vous connecter.",
+    "currentPassword": "Mot de passe actuel",
+    "newPassword": "Nouveau mot de passe",
+    "confirmPassword": "Confirmer le nouveau mot de passe",
+    "changePassword": "Modifier le mot de passe",
+    "passwordChanged": "Mot de passe modifié.",
+    "errors": {
+      "notAuthenticated": "Votre session a expiré, veuillez vous reconnecter.",
+      "allFieldsRequired": "Tous les champs sont obligatoires.",
+      "passwordMismatch": "Les nouveaux mots de passe ne correspondent pas.",
+      "wrongCurrentPassword": "Le mot de passe actuel est incorrect.",
+      "invalidNewPassword": "Le nouveau mot de passe ne respecte pas les règles de mot de passe.",
+      "tooManyAttempts": "Trop de tentatives, veuillez réessayer plus tard.",
+      "changeFailed": "Échec de la modification du mot de passe."
+    }
   },
   "checkout": {
     "orgHeading": "Configurez votre organisation",

@@ -17,18 +17,89 @@
 ## Remaining work (priority order)
 
 1. ~~17 formerly-skipped occupations~~ — DONE 2026-09-26 (all en+fr, honest angles: private practice / freelance / practice sessions / B2B; see row notes).
-2. **13 category articles** (1 per category; beauty-wellness & health-medical already have one): automotive, consulting-coaching, creative-media, education-tutoring, events-entertainment, fitness-sport, food-hospitality, home-services, legal-financial, other-services, pet-services, real-estate, technology-it.
+2. ~~13 category articles~~ — DONE 2026-09-26 (en+fr; rows marked "category article:" in Phase 2). Every category now has 1 category article (beauty-wellness & health-medical from before).
 3. **Occupation articles:** 2 per occupation (plumber needs 1 more; ~157 occupations have none). Pick by SEO value: trades that book appointments all day first (beauty, health, fitness, coaching, pets, tutoring, home services), then the rest.
 4. Nice-to-have: 3rd article for high-value trades; 2nd category article.
 
 
+## Helper scripts (recreate in your scratchpad; local drafting/checking only, never call the CMS API)
+
+Workflow per article: write draft JSON `{locale,url,seo,slices}` → `python3 chk.py x.json` (title ≤60, desc 140–160, words 800–1500, no <a> in text, no flags except "how many") → publish with `mcp__basalf-cms__create_page` → `python3 tick.py <url> <en|fr> "[x]"`.
+
+`chk.py`:
+```python
+# usage: chk.py page.json... -> seo lengths, total words, guide words (heading/text/list after table)
+import json,re,sys
+bad=re.compile(r'\b(most|many|often|la plupart|souvent|beaucoup de clients)\b',re.I)
+def txt(s):
+  c=s.get('content')
+  if s['type'] in('text','heading','description'): return c
+  if s['type']=='list': return ' '.join(i['text'] for i in c['items'])
+  if s['type']=='table': return ' '.join(' '.join(r) for r in c['rows'])
+  if s['type']=='faq': return ' '.join(q['question']+' '+q['answer'] for q in c)
+  return ''
+for f in sys.argv[1:]:
+  p=json.load(open(f)); t,d=p['seo']['title'],p['seo']['description']
+  sl=p['slices']; all_=' '.join(txt(s) for s in sl)
+  guide=' '.join(txt(s) for s in sl if s['type'] in('heading','text','list'))
+  w=lambda x:len(re.sub('<[^>]+>',' ',x).split())
+  hrefs='<a ' in all_
+  print(f, f"title {len(t)}{'' if len(t)<=60 else ' TOO LONG'} desc {len(d)}{'' if 140<=len(d)<=160 else ' OUT'} words {w(all_)}{'' if 800<=w(all_)<=1500 else ' OUT'} guide {w(guide)} flags {bad.findall(re.sub('<[^>]+>',' ',all_))}{' HREF!' if hrefs else ''} first={sl[0]['type']} last={sl[-1]['type']}")
+```
+
+`tick.py`:
+```python
+# usage: tick.py <cmsurl> <en|fr> [mark] [note]
+import sys,re,datetime
+P='/Users/alfredgauthier/basalf/front/apps/book/CMS_PROGRESS.md'
+url,loc=sys.argv[1],sys.argv[2]; mark=sys.argv[3] if len(sys.argv)>3 else '[x]'; note=sys.argv[4] if len(sys.argv)>4 else ''
+L=open(P).read().split('\n'); col=1 if loc=='en' else 2; hit=False
+for i,l in enumerate(L):
+  if l.startswith(f'| `{url}` |'):
+    c=l.split(' | '); c[col]=mark
+    if note: c[-1]=c[-1].rstrip(' |')+f' — {note} |'
+    L[i]=' | '.join(c); hit=True
+if not hit: sys.exit('row not found')
+txt='\n'.join(L)
+rows=[l for l in L if re.match(r'^\| `/',l)]
+n=sum(l.count('[x]') for l in rows)
+nxt=None
+for l in rows:
+  if '[ ]' in l:
+    c=l.split(' | '); u=c[0][3:-1]; nxt=f"`{u}` {'en' if c[1]=='[ ]' else 'fr'}"; break
+p1=txt.split('## Phase 1')[1].split('## Phase 2')[0]
+ph='1 (landings)' if any(re.match(r'^\| `/',l) and '[ ]' in l for l in p1.split('\n')) else '2 (articles)'
+now=datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+head,sep,rest=txt.partition('\n## Session log\n')
+head=re.sub(r'(?m)^- Last updated: .*$',f'- Last updated: {now}',head)
+head=re.sub(r'(?m)^- Phase: .*$',f'- Phase: {ph}',head)
+head=re.sub(r'(?m)^- Next: .*$',f'- Next: {nxt}',head)
+head=re.sub(r'(?m)^- Pages created: .*$',f'- Pages created: {n}',head)
+open(P,'w').write(head+sep+rest); print('ok',url,loc,mark,'| total',n,'| next',nxt)
+```
+
+`len.py`:
+```python
+# usage: len.py "title" "description" -> flags out-of-range
+import sys
+t,d=sys.argv[1],sys.argv[2]
+print(f"title {len(t)} {'OK' if len(t)<=60 else 'TOO LONG'} | desc {len(d)} {'OK' if 140<=len(d)<=160 else 'OUT OF RANGE'}")
+```
+
 ## Status
 
-- Last updated: 2026-09-26 12:01
+- Last updated: 2026-09-26 20:46
 - Phase: 2 (articles)
-- Next: `/consulting-coaching/how-many-client-sessions-per-week` en
-- Pages created: 521
+- Next: add batch 8 rows (8 occupations without articles), then write them
+- Pages created: 656
 - Notes: prompt = `front/apps/book/CMS_CONTENT_PROMPT.md`. en price format `€5/month` / table `€25`; fr `5 €/mois` / `25 €`. Public /for routes not deployed yet (404) — not a content issue.
+
+## Session log
+
+- 2026-09-26 (afternoon): 17 [!] landings written en+fr (radiographer, financial-auditor, veterinary-nurse, hospitality-entertainment-manager, sprinkler-fitter, roadside-vehicle-technician, event-assistant, flower-and-garden-specialised-seller, performance-artist, database-administrator, assistant-clinical-psychologist, physiotherapy-assistant, podiatry-assistant, radiation-therapist, head-chef, head-pastry-chef, bartender). radiation-therapist fixed: repeat is weekly only (no monthly). 13 category articles en+fr done. Batch 4 DONE (lawyer, accountant, landscape-gardener, wedding-planner: 2 articles each, en+fr). Batch 5 DONE (psychotherapist, sophrologist, podiatrist, pedicurist, shiatsu-practitioner, swimming-teacher, tennis-coach, pet-sitter: 2 each, en+fr). Batch 6 DONE (dental-hygienist, optician, audiologist, clinical-psychologist, horse-riding-instructor, golf-instructor, tax-advisor, vehicle-technician: 2 each, en+fr). Batch 7 DONE (car-driving-instructor, general-practitioner, specialist-dentist, midwife, occupational-therapist, orthoptist, ski-instructor, traditional-chinese-medicine-therapist: 2 each, en+fr). Next: pick batch 8 (8 occupations without articles, all-day appointment trades first), add rows 'batch 8:' BEFORE writing. After batch 8, pick further occupations by SEO value (see 'Remaining work' 3), add rows BEFORE writing. Known nit: en seo.description of accountant tax-season article overclaims. Verified 2026-09-26: slot capacity editable (edit-slot.tsx); price 0 renders '€0.00' and empty price is hidden (lib/price.ts) — never claim Book shows 'Free'. Helper scripts in this file were repaired (tick.py regexes had rewritten their own source). Scratch drafts in session scratchpad (c-*.json, law*.json) — not needed to continue.
+- Checker used: word count 800–1500 (text/heading/list/table rows/faq), title ≤60, desc 140–160, flag most/many/often/souvent/la plupart ("how many" is OK).
+- Private recurring appointments (no hidden services in Book): advise "create the slots, then book the client into them straight away"; with 1 place a booked slot is full and hidden from the public page. Pro-created bookings email the client only if the pro enters the client's email (email optional in pro form).
+- Internal links: do NOT put <a href> in text slices (no existing page does; front does not rewrite CMS urls) — use the related slice only.
 
 ## Product facts (verified in code, user decisions 2026-09-24)
 
@@ -39,6 +110,8 @@
 - Slots have a capacity: one slot can take several clients, each booking 1 place (public form = 1 person per booking). OK for group classes/workshops. NOT a group booking by one client. Pro booking from calendar CAN set number of persons (edit-slot.tsx numberOfPerson) — so restaurant/tasting: client books online 1 place + party size in note, or pro books the group by phone.
 - Services have name, optional description (shown on public page) and price. Bookings list: reschedule / cancel. Confirmation email. Calendar sync Google/iPhone/Mac. Repeat slots by weekday.
 - One booking page per business (org). NO per-employee calendars/staff assignment (ServiceProvider not linked to services/slots). Teams: honest workaround = one service per person. Never claim multi-staff features.
+- Pro booking from calendar (verified slot app edit-slot.tsx 2026-09-26): first/last name required, email & phone optional, additionalInfo note, numberOfPerson. So the pro can write a note (e.g. "hold until...") on bookings they create.
+- Booking emails (verified back/apps/email-esg booking-emails.ts + functions/trigger.ts 2026-09-26): PRO email body shows client name/email/phone/service/date/persons + the note ("Notes"). CLIENT email body does NOT show the note, but the client email has an .ics calendar attachment whose DESCRIPTION contains persons + the note.
 - Public booking form (verified booking-form.tsx): first name, last name, email, phone all required + optional "Additional information" free-text note.
 - Public page does NOT show remaining places; full slots (usedCapacity>=maxCapacity) are just hidden. Never say "shows places left".
 - Booking emails (user, 2026-09-26): on EVERY booking creation (public form or pro from calendar), both client and pro get an email — no filter. Still no email on reschedule/cancel.
@@ -408,23 +481,71 @@ Article checks: 800-1500 words (check with word counter before ticking); no "mos
 | `/life-coach/discovery-calls` | [x] | [x] | free intro call before a package |
 | `/life-coach/coaching-programme-sessions` | [x] | [x] | fortnightly sessions over months (pro books) |
 | `/automotive/schedule-car-drop-offs` | [x] | [x] | category article: drop-off slots vs job length |
-| `/consulting-coaching/how-many-client-sessions-per-week` | [ ] | [ ] | category article: weekly capacity, protect deep work |
-| `/creative-media/rent-out-studio-time` | [ ] | [ ] | category article: studio hire by the hour |
-| `/education-tutoring/online-and-in-person-lessons` | [ ] | [ ] | category article: mixing formats, time zones |
-| `/events-entertainment/avoid-double-booking-event-dates` | [ ] | [ ] | category article: one date one client, holds |
-| `/fitness-sport/build-a-weekly-class-timetable` | [ ] | [ ] | category article: timetable design |
-| `/food-hospitality/take-bookings-for-classes-and-tastings` | [ ] | [ ] | category article: seats, dietary notes, no payments |
-| `/home-services/arrival-time-windows` | [ ] | [ ] | category article: morning/afternoon windows |
-| `/legal-financial/what-to-ask-when-clients-book` | [ ] | [ ] | category article: booking note vs confidential info |
-| `/other-services/set-up-your-first-booking-page` | [ ] | [ ] | category article: first page in an hour |
-| `/pet-services/meet-and-greet-visits` | [ ] | [ ] | category article: first visit with a new pet |
-| `/real-estate/schedule-property-viewings` | [ ] | [ ] | category article: viewing slots, open viewings |
-| `/technology-it/client-office-hours` | [ ] | [ ] | category article: support office hours |
-| `/lawyer/first-consultation-booking` | [ ] | [ ] | paid first consultation, documents |
-| `/lawyer/video-or-office-consultations` | [ ] | [ ] | remote vs office |
-| `/accountant/client-meetings-in-tax-season` | [ ] | [ ] | peak season planning |
-| `/accountant/onboarding-new-clients` | [ ] | [ ] | first meeting, documents |
-| `/landscape-gardener/seasonal-maintenance-rounds` | [ ] | [ ] | recurring visits by area/season |
-| `/landscape-gardener/garden-design-visits` | [ ] | [ ] | design consultation vs work days |
-| `/wedding-planner/first-meetings-with-couples` | [ ] | [ ] | discovery meeting, weekend/evening |
-| `/wedding-planner/planning-meetings-timeline` | [ ] | [ ] | meeting cadence to the wedding day |
+| `/consulting-coaching/how-many-client-sessions-per-week` | [x] | [x] | category article: weekly capacity, protect deep work |
+| `/creative-media/rent-out-studio-time` | [x] | [x] | category article: studio hire by the hour |
+| `/education-tutoring/online-and-in-person-lessons` | [x] | [x] | category article: mixing formats, time zones |
+| `/events-entertainment/avoid-double-booking-event-dates` | [x] | [x] | category article: one date one client, holds |
+| `/fitness-sport/build-a-weekly-class-timetable` | [x] | [x] | category article: timetable design |
+| `/food-hospitality/take-bookings-for-classes-and-tastings` | [x] | [x] | category article: seats, dietary notes, no payments |
+| `/home-services/arrival-time-windows` | [x] | [x] | category article: morning/afternoon windows |
+| `/legal-financial/what-to-ask-when-clients-book` | [x] | [x] | category article: booking note vs confidential info |
+| `/other-services/set-up-your-first-booking-page` | [x] | [x] | category article: first page in an hour |
+| `/pet-services/meet-and-greet-visits` | [x] | [x] | category article: first visit with a new pet |
+| `/real-estate/schedule-property-viewings` | [x] | [x] | category article: viewing slots, open viewings |
+| `/technology-it/client-office-hours` | [x] | [x] | category article: support office hours |
+| `/lawyer/first-consultation-booking` | [x] | [x] | paid first consultation, documents |
+| `/lawyer/video-or-office-consultations` | [x] | [x] | remote vs office |
+| `/accountant/client-meetings-in-tax-season` | [x] | [x] | peak season planning — en seo.description says 'every client wants a meeting at once' (overclaim; update_page can't change seo) |
+| `/accountant/onboarding-new-clients` | [x] | [x] | first meeting, documents |
+| `/landscape-gardener/seasonal-maintenance-rounds` | [x] | [x] | recurring visits by area/season |
+| `/landscape-gardener/garden-design-visits` | [x] | [x] | design consultation vs work days |
+| `/wedding-planner/first-meetings-with-couples` | [x] | [x] | discovery meeting, weekend/evening |
+| `/wedding-planner/planning-meetings-timeline` | [x] | [x] | meeting cadence to the wedding day |
+| `/psychotherapist/long-term-therapy-scheduling` | [x] | [x] | batch 5: fixed weekly slot, breaks, holidays |
+| `/psychotherapist/couples-and-family-sessions` | [x] | [x] | batch 5: sessions with 2+ people, longer slots |
+| `/sophrologist/group-relaxation-sessions` | [x] | [x] | batch 5: groups with places |
+| `/sophrologist/session-cycles-for-exams-and-birth` | [x] | [x] | batch 5: short cycles before an exam/birth |
+| `/podiatrist/custom-insole-appointments` | [x] | [x] | batch 5: assessment, casting, fitting, collection |
+| `/podiatrist/sports-podiatry-assessments` | [x] | [x] | batch 5: runners/gait, bring shoes |
+| `/pedicurist/pedicure-menu-and-timing` | [x] | [x] | batch 5: cosmetic pedicure durations (fr cosmetic) |
+| `/pedicurist/manicure-and-pedicure-combos` | [x] | [x] | batch 5: combined services |
+| `/shiatsu-practitioner/home-or-studio-sessions` | [x] | [x] | batch 5: travel vs studio |
+| `/shiatsu-practitioner/corporate-shiatsu-days` | [x] | [x] | batch 5: on-site days at companies |
+| `/swimming-teacher/lesson-terms-and-levels` | [x] | [x] | batch 5: terms, levels, capacity |
+| `/swimming-teacher/adults-afraid-of-water` | [x] | [x] | batch 5: private adult lessons |
+| `/tennis-coach/courts-and-lesson-slots` | [x] | [x] | batch 5: court availability + lessons |
+| `/tennis-coach/group-clinics-by-level` | [x] | [x] | batch 5: clinics with places |
+| `/pet-sitter/holiday-pet-sitting-visits` | [x] | [x] | batch 5: daily visits during holidays |
+| `/pet-sitter/daily-dog-walks-schedule` | [x] | [x] | batch 5: walks, group walks capacity |
+| `/dental-hygienist/cleaning-appointment-lengths` | [x] | [x] | batch 6: scale/polish vs deep clean durations, first visit |
+| `/dental-hygienist/recall-visits-planning` | [x] | [x] | batch 6: book next visit at end (no reminders), 3/6-month rhythm |
+| `/optician/eye-test-and-fitting-appointments` | [x] | [x] | batch 6: eye test, frame choice, contact lens fitting |
+| `/optician/collection-and-adjustment-slots` | [x] | [x] | batch 6: short collection/adjustment slots |
+| `/audiologist/hearing-test-appointments` | [x] | [x] | batch 6: first hearing test, bring a companion (numberOfPerson no, note) |
+| `/audiologist/hearing-aid-fitting-and-follow-ups` | [x] | [x] | batch 6: fitting + follow-up series (no reimbursement talk) |
+| `/clinical-psychologist/psychological-assessment-sessions` | [x] | [x] | batch 6: multi-session assessments, feedback session |
+| `/clinical-psychologist/child-assessment-with-parents` | [x] | [x] | batch 6: parent interview + child sessions |
+| `/horse-riding-instructor/riding-lessons-by-level` | [x] | [x] | batch 6: group lessons, horses = places, private lessons |
+| `/horse-riding-instructor/pony-camps-and-holiday-courses` | [x] | [x] | batch 6: daily slots across a holiday week |
+| `/golf-instructor/golf-lessons-and-range-time` | [x] | [x] | batch 6: private lessons, packs, range/course |
+| `/golf-instructor/beginner-group-clinics` | [x] | [x] | batch 6: small groups with places, weather |
+| `/tax-advisor/tax-return-appointments` | [x] | [x] | batch 6: tax season peak, docs to bring |
+| `/tax-advisor/first-consultation-checklist` | [x] | [x] | batch 6: first meeting, online vs office |
+| `/vehicle-technician/servicing-slots-by-job-length` | [x] | [x] | batch 6: service/repair durations, one bay |
+| `/vehicle-technician/drop-off-and-collection-times` | [x] | [x] | batch 6: morning drop-off, courtesy info |
+| `/car-driving-instructor/lesson-blocks-and-pickup-points` | [x] | [x] | batch 7: 1h/2h lessons, pickup address in note, one car |
+| `/car-driving-instructor/test-day-and-mock-test-bookings` | [x] | [x] | batch 7: mock tests, test-day slot booked by pro |
+| `/general-practitioner/same-day-and-planned-appointments` | [x] | [x] | batch 7: keep same-day slots, open mornings, no triage claims |
+| `/general-practitioner/longer-appointments-for-complex-visits` | [x] | [x] | batch 7: double slots, check-ups, forms |
+| `/specialist-dentist/treatment-plans-over-several-visits` | [x] | [x] | batch 7: book series from calendar, note per visit |
+| `/specialist-dentist/consultation-before-treatment` | [x] | [x] | batch 7: first consultation service, what to bring |
+| `/midwife/antenatal-classes-with-places` | [x] | [x] | batch 7: group classes capacity, partner comes along (no extra place) |
+| `/midwife/home-visits-after-birth` | [x] | [x] | batch 7: postnatal home visits by area/day, address in note |
+| `/occupational-therapist/home-assessment-visits` | [x] | [x] | batch 7: home visits, travel time between slots |
+| `/occupational-therapist/weekly-sessions-for-children` | [x] | [x] | batch 7: after-school weekly slots, parent books |
+| `/orthoptist/child-eye-assessments` | [x] | [x] | batch 7: first assessment for children, parent books, length |
+| `/orthoptist/eye-exercise-follow-up-sessions` | [x] | [x] | batch 7: series of sessions booked by pro, no reminders |
+| `/ski-instructor/private-lessons-in-peak-weeks` | [x] | [x] | batch 7: holiday weeks, half/full day slots, meeting point |
+| `/ski-instructor/group-ski-lessons-by-level` | [x] | [x] | batch 7: levels as services, places, week-long courses = first-day slot |
+| `/traditional-chinese-medicine-therapist/first-consultation-and-follow-ups` | [x] | [x] | batch 7: long first session, follow-up rhythm |
+| `/traditional-chinese-medicine-therapist/session-types-and-lengths` | [x] | [x] | batch 7: acupuncture, tuina, cupping lengths |

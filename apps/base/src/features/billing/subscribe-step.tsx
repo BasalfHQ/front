@@ -21,7 +21,7 @@ export async function SubscribeStep() {
         {t("subscribeStepDescription")}
       </PageDescription>
       <div className="mb-8">
-        <Link href="/billing" className="text-sm text-gray-500 hover:underline">
+        <Link href="/settings" className="text-sm text-gray-500 hover:underline">
           {t("backToBilling")}
         </Link>
       </div>

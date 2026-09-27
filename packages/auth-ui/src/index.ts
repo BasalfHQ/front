@@ -1,4 +1,5 @@
 export { RootLayout, type RootLayoutProps, type NavItem } from "./root-layout";
+export { LocaleSwitcher } from "./locale-switcher";
 
 // Re-export from @repo/ui
 export { createMetadata, type SiteConfig, Button, buttonVariants } from "@repo/ui";

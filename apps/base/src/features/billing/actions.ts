@@ -28,7 +28,7 @@ export async function cancelSubscription(): Promise<{ success: boolean; error?: 
 
   const ok = await Stripe.cancelSubscription(session.idToken);
   if (ok) {
-    revalidatePath("/billing");
+    revalidatePath("/settings");
     return { success: true };
   }
   return { success: false, error: "Failed to cancel subscription" };
@@ -43,7 +43,7 @@ export async function restartSubscription(): Promise<{ success: boolean; error?:
 
   const ok = await Stripe.restartSubscription(session.idToken);
   if (ok) {
-    revalidatePath("/billing");
+    revalidatePath("/settings");
     return { success: true };
   }
   return { success: false, error: "Failed to restart subscription" };
