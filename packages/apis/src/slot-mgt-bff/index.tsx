@@ -20,6 +20,7 @@ export {
   updateService,
   deleteService,
   getSlots,
+  getUpcomingSlotCount,
   getSlot,
   createSlot,
   createSlots,

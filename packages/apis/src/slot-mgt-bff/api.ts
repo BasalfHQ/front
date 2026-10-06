@@ -384,3 +384,21 @@ export async function deleteServiceProvider(
   }
   return response.data;
 }
+
+// TODO: replace with a dedicated count endpoint on slot-mgt-bff - this pulls
+// every slot in the window just to count them. The window matches what the
+// book app's public page lists (now → +2 months), so 0 here means clients
+// can't book anything there. Returns null when the call fails.
+export async function getUpcomingSlotCount(idToken: string): Promise<number | null> {
+  const now = new Date();
+  const inTwoMonths = new Date(now);
+  inTwoMonths.setMonth(inTwoMonths.getMonth() + 2);
+
+  try {
+    const slots = await getSlots(idToken, now.toISOString(), inTwoMonths.toISOString());
+    return slots?.length ?? 0;
+  } catch (error) {
+    console.error("Error counting slots:", error);
+    return null;
+  }
+}

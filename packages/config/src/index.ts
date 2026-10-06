@@ -105,3 +105,20 @@ export const baseUrl =
   process.env.NEXT_PUBLIC_STAGE === "prod"
     ? "https://basalf.com/"
     : "http://localhost:3000/";
+
+// Dev ports mirror each app's `next dev --port` in its package.json.
+const APP_DEV_PORTS = {
+  cms: 3001,
+  host: 3002,
+  slot: 3003,
+  book: 3100,
+} as const;
+
+export type AppName = keyof typeof APP_DEV_PORTS;
+
+// Prod apps live on a subdomain of baseUrl (https://slot.basalf.com/).
+export function appUrl(name: AppName): string {
+  return process.env.NEXT_PUBLIC_STAGE === "prod"
+    ? baseUrl.replace("//", `//${name}.`)
+    : `http://localhost:${APP_DEV_PORTS[name]}/`;
+}

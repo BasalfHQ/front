@@ -205,8 +205,6 @@
     "backToBilling": "Back to billing"
   },
   "homepage": {
-    "title": "Welcome to Basalf",
-    "description": "Manage your projects and organizations",
     "cms": {
       "title": "CMS",
       "description": "Manage your website's pages and blog."
@@ -218,6 +216,46 @@
     "slot": {
       "title": "Slot",
       "description": "Set up your service provider profile and manage the slots customers can book."
+    },
+    "book": {
+      "title": "Book",
+      "description": "Your public booking page, where clients find you and book online."
+    },
+    "public": {
+      "title": "Let clients book you online",
+      "subtitle": "One place for your booking page, your availability and your website content.",
+      "getStarted": "Get started",
+      "login": "Login",
+      "noCharge": "No charge until you confirm your plan.",
+      "includedTitle": "What's included",
+      "howTitle": "How it works",
+      "step1Title": "Set up your organization",
+      "step1Description": "We'll set up your booking page and a first service for you automatically.",
+      "step2Title": "Pick a plan",
+      "step2Description": "Choose a plan and enter payment — nothing is charged until you confirm.",
+      "step3Title": "Set up your service provider profile",
+      "step3Description": "Add your name, occupation and a short description clients will see on your booking page.",
+      "step4Title": "Open your slots",
+      "step4Description": "Add the times you're available so clients can start booking."
+    },
+    "dashboard": {
+      "title": "Welcome back, {firstName}",
+      "titleNoName": "Welcome back",
+      "description": "You're managing {orgName}",
+      "setupTitle": "Clients can't book you yet",
+      "setupDescription": "Your booking page has no open slots. Add your availability so clients can book you.",
+      "setupAction": "Set up slots",
+      "appsTitle": "Your apps",
+      "accountTitle": "Account",
+      "users": "Users",
+      "settings": "Settings",
+      "billing": "Billing",
+      "renewsOn": "{plan} · renews on {date}",
+      "endsOn": "{plan} · ends on {date}",
+      "noPlan": "No active plan",
+      "bookPage": "Your Book page",
+      "bookPageLive": "Live — clients can find you on Book and book online.",
+      "bookPageNotLive": "Not live yet — your page isn't listed on Book."
     }
   }
 }

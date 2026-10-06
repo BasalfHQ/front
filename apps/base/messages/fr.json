@@ -205,8 +205,6 @@
     "backToBilling": "Retour à l'abonnement"
   },
   "homepage": {
-    "title": "Bienvenue sur Basalf",
-    "description": "Gérez vos projets et organisations",
     "cms": {
       "title": "CMS",
       "description": "Gérez les pages et le blog de votre site."
@@ -218,6 +216,46 @@
     "slot": {
       "title": "Slot",
       "description": "Configurez votre profil de prestataire et gérez les créneaux réservables par vos clients."
+    },
+    "book": {
+      "title": "Book",
+      "description": "Votre page de réservation publique, où vos clients vous trouvent et réservent en ligne."
+    },
+    "public": {
+      "title": "Laissez vos clients réserver en ligne",
+      "subtitle": "Un seul endroit pour votre page de réservation, vos disponibilités et le contenu de votre site.",
+      "getStarted": "Commencer",
+      "login": "Connexion",
+      "noCharge": "Aucun débit avant la confirmation de votre formule.",
+      "includedTitle": "Ce qui est inclus",
+      "howTitle": "Comment ça marche",
+      "step1Title": "Configurez votre organisation",
+      "step1Description": "Nous configurons automatiquement votre page de réservation et un premier service.",
+      "step2Title": "Choisissez une formule",
+      "step2Description": "Choisissez une formule et réglez le paiement — rien n'est débité avant confirmation.",
+      "step3Title": "Configurez votre profil de prestataire",
+      "step3Description": "Ajoutez votre nom, votre métier et une courte description visibles par vos clients sur votre page de réservation.",
+      "step4Title": "Ouvrez vos créneaux",
+      "step4Description": "Ajoutez vos disponibilités pour que vos clients puissent commencer à réserver."
+    },
+    "dashboard": {
+      "title": "Bon retour, {firstName}",
+      "titleNoName": "Bon retour",
+      "description": "Vous gérez {orgName}",
+      "setupTitle": "Vos clients ne peuvent pas encore réserver",
+      "setupDescription": "Votre page de réservation n'a aucun créneau ouvert. Ajoutez vos disponibilités pour que vos clients puissent réserver.",
+      "setupAction": "Configurer les créneaux",
+      "appsTitle": "Vos applications",
+      "accountTitle": "Compte",
+      "users": "Utilisateurs",
+      "settings": "Paramètres",
+      "billing": "Facturation",
+      "renewsOn": "{plan} · renouvellement le {date}",
+      "endsOn": "{plan} · se termine le {date}",
+      "noPlan": "Aucune formule active",
+      "bookPage": "Votre page Book",
+      "bookPageLive": "En ligne — vos clients vous trouvent sur Book et réservent en ligne.",
+      "bookPageNotLive": "Pas encore en ligne — votre page n'est pas référencée sur Book."
     }
   }
 }

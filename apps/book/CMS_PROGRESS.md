@@ -18,7 +18,7 @@
 
 1. ~~17 formerly-skipped occupations~~ — DONE 2026-09-26 (all en+fr, honest angles: private practice / freelance / practice sessions / B2B; see row notes).
 2. ~~13 category articles~~ — DONE 2026-09-26 (en+fr; rows marked "category article:" in Phase 2). Every category now has 1 category article (beauty-wellness & health-medical from before).
-3. **Occupation articles:** 2 per occupation (plumber needs 1 more; ~157 occupations have none). Pick by SEO value: trades that book appointments all day first (beauty, health, fitness, coaching, pets, tutoring, home services), then the rest.
+3. **Occupation articles:** 2 per occupation. As of 2026-09-28 night ~140 occupations still have none (batches 8-13 done). Get the list: parse Phase 1 rows vs Phase 2 url prefixes (occupations with <2 articles). Pick by SEO value: trades that book appointments all day first (beauty, health, fitness, coaching, pets, tutoring, home services), then the rest.
 4. Nice-to-have: 3rd article for high-value trades; 2nd category article.
 
 
@@ -88,14 +88,28 @@ print(f"title {len(t)} {'OK' if len(t)<=60 else 'TOO LONG'} | desc {len(d)} {'OK
 
 ## Status
 
-- Last updated: 2026-09-26 20:46
+- Last updated: 2026-10-05 17:46
 - Phase: 2 (articles)
-- Next: add batch 8 rows (8 occupations without articles), then write them
-- Pages created: 656
+- Next: `/roadside-vehicle-technician/battery-replacement-visits` fr
+- Pages created: 1093
 - Notes: prompt = `front/apps/book/CMS_CONTENT_PROMPT.md`. en price format `€5/month` / table `€25`; fr `5 €/mois` / `25 €`. Public /for routes not deployed yet (404) — not a content issue.
 
 ## Session log
 
+- 2026-10-05 (latest): Batch 19 DONE (event-manager supplier fr confirmed [x]). Batch 20 DONE: 16/16 pages (chef, stand-up-comedian, truck-driving-instructor, vehicle-electronics-installer, plate-glass-installer, renewable-energy-consultant, sports-equipment-repair-technician). Total 1070. update_page needs `pageId` + `oplock` (from create_page result). Note: don't tell pros to 'put your number in the page description' — say 'in the service description' (public page shows no contact details). Next: batch 21 from remaining under-covered landings.
+- 2026-10-05 (end of run): Batch 19 nearly DONE: 31/32 pages (window-installer, paperhanger, resilient-floor-layer, investment-adviser, diesel-engine-mechanic, vehicle-restoration-technician, survival-instructor, event-manager). Angles changed vs plan: investment-adviser = risk-profile-meetings + client-meetings-after-market-falls; survival = kit-list-and-safety-briefing. ONLY `/event-manager/supplier-site-visits` fr left (en draft in scratchpad em-2-en.json is lost after session; write fr natively from the en page via get_page). Then pick batch 20 from the remaining under-covered landings (script in session log 2026-10-05 above: parse '\n## Phase 1 — landings' / '\n## Phase 2 — articles').
+- 2026-10-05 (later): Batch 18 DONE (prosthetist-orthotist, plasterer, bricklayer, hardwood-floor-layer, stonemason, refrigeration/heat-pump tech, smart-home-installer, immigration-adviser: 2 each en+fr = 32 pages, all chk.py-clean). Stonemason angles swapped to dry stone wall + fireplace surround (landing has no memorials; fr label maçon de la pierre). Rule used: drafts land ~750-800 words -> add an h3 before publishing; 'Free/Gratuit' and '€0' used only in example tables. Batch 19 rows added.
+- 2026-10-05: Batch 17 DONE (optometrist, specialist-nurse, fashion-designer, butcher, pizzaiolo, beer-sommelier, illustrator, sculptor: 2 each en+fr; this run finished the last 10 pages, all chk.py-clean). sculptor/portrait-sculpture-sittings fr: create_page timed out (930s) but the page was saved — always search_pages before retrying. Batch 18 rows added (prosthetist-orthotist, plasterer, bricklayer, hardwood-floor-layer, stonemason, refrigeration/heat-pump tech, smart-home-installer, immigration-adviser). Rest of the 81 under-covered landings are mostly employee/hospital/IT roles + category 2nd articles.
+- 2026-09-29 (later): Batch 16 DONE (wig-and-hairpiece-maker, performance-hairdresser, weight-loss-consultant, animal-therapist, specialised-doctor, roofer, notary, sports-instructor: 2 each en+fr = 32 pages, all chk.py-clean). Notary tables use Service+Slot only (no price column, regulated fees). Batch 17 rows added.
+- 2026-09-29: Batch 15 DONE (jewellery-designer, vehicle-glazier, property-appraiser, sign-language-interpreter, private-detective, cocktail-bartender, web-designer, singer: 2 each en+fr, this run finished the last 14 pages, all chk.py-clean). Rules applied: monthly/quarterly meetings = pro books the next one from calendar (repeat is weekly only); pro-created booking without email = no client email; note is in the .ics. Batch 16 rows added (wig maker, performance-hairdresser, weight-loss, animal-therapist, specialised-doctor, roofer, notary, sports-instructor).
+- 2026-09-28 (late night): Batch 14 DONE (wine-sommelier, personal-shopper, furniture-restorer, performing-arts-theatre-instructor, outdoor-activities-instructor, carpenter, credit-adviser, insurance-broker: 2 each en+fr = 32 pages, all chk.py-clean). personal-shopper angles swapped (stylist already had wardrobe+shopping). Group bookings pattern used: pro creates slot with capacity = group size and books with numberOfPerson (edit-slot.tsx). Table prices always plain amounts (carpenter fitting fixed from 'As quoted'). Next: pick batch 15, add rows BEFORE writing.
+- 2026-09-28 (night): Batch 13 DONE (musician x2, upholsterer x2, tree-surgeon x2, financial-planner x2, graphic-designer x2, shoe-repairer x2, watch-and-clock-repairer x2, translator x2: 32 pages en+fr, all through chk.py: 800-1500 words, title<=60, desc 140-160). Rule used: articles often land ~720 words on first draft -> add one h3 section before publishing. Verified again: slots deletable (edit-slot.tsx) -> advice 'delete free slots when full' OK. Next: pick batch 14 from occupations with 0 articles (list via script in 'Remaining work'), add rows BEFORE writing.
+- 2026-09-28 (later): Batch 12 DONE (ceramicist firing fr; disc-jockey x2, mediator x2 en+fr). ceramicist/firing en padded to 817 words via update_page (new 'Getting the studio ready' h3). Verified: pro can add bookings to a slot while usedCapacity<maxCapacity (edit-slot.tsx) -> mediator joint sessions = pro books each party into a 2-place slot; slots deletable. Batch 13 rows added (musician 2nd angle changed to accompanist rehearsals: tutor already has weekly-lessons). musician/trial-lesson done en+fr. Drafts: scratchpad *.json + chk.py/tick.py re-extracted from this file.
+- 2026-09-28: Batch 11 DONE (snowboard 2nd fr + freestyle, football-coach, locksmith, tile-fitter, interpreter, real-estate-agent, baker, pastry-chef: 31 pages en+fr). Post-publish fixes: locksmith en contact-details claim, real-estate valuation en 'many agencies', baker workshops en 'often/popular', tile-fitter fr related self-link. Verified: reschedule crosses services; public page has no contact details; .ics times are UTC (Z). Batch 12 rows added.
+
+- 2026-09-27 (evening): Batch 10 DONE (career-guidance-advisor, public-speaking-coach, ice-skating-coach, animal-massage-therapist, tailor, interior-designer, private-chef, astrologer: 2 each en+fr = 32 pages). Word counts estimated only; rows noted 'possibly <800 words' need a check. Batch 11 rows added.
+- 2026-09-27 (later): Batch 9 DONE (music-therapist, art-therapist, dance instructor, photography-teacher, window-cleaner, tanning-consultant, domestic-housekeeper, sign-language-teacher: 2 each en+fr = 32 pages). Found + fixed: booking note is read-only after booking (see Product facts). Post-publish fixes via update_page for several 'often/many/usually' slips, a non-price table row, 'service length' wording, 'extend the repeat' (unverified). Batch 10 rows added. Skipped optometrist/specialist-chiropractor/weight-loss for now (angles too close to optician/orthoptist/osteopath/dietitian articles).
+- 2026-09-27: Batch 8 DONE (kinesiologist, homeopath, aromatherapist, personal-stylist, sport-therapist [fr = enseignant APA], animal-osteopath, sports-coach, boxing-instructor: 2 each, + plumber 2nd article annual-servicing; 34 pages en+fr). Only the 2 kinesiologist pages went through chk.py; the rest were written straight into create_page (title/desc checked with len.py, words estimated ~850-1100) — spot-check word counts if needed. Fixed after publish via update_page: homeopath follow-up (open slots are public, can't hold for callers), stylist 'many clients', equine 'often', sports-coach 'often'/'most', boxing pads sync wording (sync = export to Google/iPhone/Mac), plumber '€0 or your fee' → '€40' + behaviour claim, sport-therapist fr typo + 'souvent'. Known nits left: animal-osteopath fr 'souvent plus calme' (animals); aromatherapist en 'A few days is a common gap'; stylist en 'video sessions are often shorter'; boxing en/fr 'it's what worries beginners'; sports-coach fr h3 'Où vous entraînez'.
 - 2026-09-26 (afternoon): 17 [!] landings written en+fr (radiographer, financial-auditor, veterinary-nurse, hospitality-entertainment-manager, sprinkler-fitter, roadside-vehicle-technician, event-assistant, flower-and-garden-specialised-seller, performance-artist, database-administrator, assistant-clinical-psychologist, physiotherapy-assistant, podiatry-assistant, radiation-therapist, head-chef, head-pastry-chef, bartender). radiation-therapist fixed: repeat is weekly only (no monthly). 13 category articles en+fr done. Batch 4 DONE (lawyer, accountant, landscape-gardener, wedding-planner: 2 articles each, en+fr). Batch 5 DONE (psychotherapist, sophrologist, podiatrist, pedicurist, shiatsu-practitioner, swimming-teacher, tennis-coach, pet-sitter: 2 each, en+fr). Batch 6 DONE (dental-hygienist, optician, audiologist, clinical-psychologist, horse-riding-instructor, golf-instructor, tax-advisor, vehicle-technician: 2 each, en+fr). Batch 7 DONE (car-driving-instructor, general-practitioner, specialist-dentist, midwife, occupational-therapist, orthoptist, ski-instructor, traditional-chinese-medicine-therapist: 2 each, en+fr). Next: pick batch 8 (8 occupations without articles, all-day appointment trades first), add rows 'batch 8:' BEFORE writing. After batch 8, pick further occupations by SEO value (see 'Remaining work' 3), add rows BEFORE writing. Known nit: en seo.description of accountant tax-season article overclaims. Verified 2026-09-26: slot capacity editable (edit-slot.tsx); price 0 renders '€0.00' and empty price is hidden (lib/price.ts) — never claim Book shows 'Free'. Helper scripts in this file were repaired (tick.py regexes had rewritten their own source). Scratch drafts in session scratchpad (c-*.json, law*.json) — not needed to continue.
 - Checker used: word count 800–1500 (text/heading/list/table rows/faq), title ≤60, desc 140–160, flag most/many/often/souvent/la plupart ("how many" is OK).
 - Private recurring appointments (no hidden services in Book): advise "create the slots, then book the client into them straight away"; with 1 place a booked slot is full and hidden from the public page. Pro-created bookings email the client only if the pro enters the client's email (email optional in pro form).
@@ -110,6 +124,7 @@ print(f"title {len(t)} {'OK' if len(t)<=60 else 'TOO LONG'} | desc {len(d)} {'OK
 - Slots have a capacity: one slot can take several clients, each booking 1 place (public form = 1 person per booking). OK for group classes/workshops. NOT a group booking by one client. Pro booking from calendar CAN set number of persons (edit-slot.tsx numberOfPerson) — so restaurant/tasting: client books online 1 place + party size in note, or pro books the group by phone.
 - Services have name, optional description (shown on public page) and price. Bookings list: reschedule / cancel. Confirmation email. Calendar sync Google/iPhone/Mac. Repeat slots by weekday.
 - One booking page per business (org). NO per-employee calendars/staff assignment (ServiceProvider not linked to services/slots). Teams: honest workaround = one service per person. Never claim multi-staff features.
+- Booking note is READ-ONLY once the booking exists (verified 2026-09-27 booking-detail.tsx: displays additionalInfo, only Cancel/Reschedule buttons). Never say 'update/edit the note' or 'write "absent"/"moved" in the note' after booking. Fixed 2026-09-27 on kinesiologist/spacing (en fr), music-therapist/weekly (en fr), music-therapist/small-group (en). Older batches (1-7) NOT swept for this yet.
 - Pro booking from calendar (verified slot app edit-slot.tsx 2026-09-26): first/last name required, email & phone optional, additionalInfo note, numberOfPerson. So the pro can write a note (e.g. "hold until...") on bookings they create.
 - Booking emails (verified back/apps/email-esg booking-emails.ts + functions/trigger.ts 2026-09-26): PRO email body shows client name/email/phone/service/date/persons + the note ("Notes"). CLIENT email body does NOT show the note, but the client email has an .ics calendar attachment whose DESCRIPTION contains persons + the note.
 - Public booking form (verified booking-form.tsx): first name, last name, email, phone all required + optional "Additional information" free-text note.
@@ -117,6 +132,8 @@ print(f"title {len(t)} {'OK' if len(t)<=60 else 'TOO LONG'} | desc {len(d)} {'OK
 - Booking emails (user, 2026-09-26): on EVERY booking creation (public form or pro from calendar), both client and pro get an email — no filter. Still no email on reschedule/cancel.
 - NO cancellation/reschedule email to the client (only confirmation + new-booking-to-pro). Say the pro must tell the client.
 - Slot repeat (verified create-slots.tsx): weekly on chosen weekdays (or all days) until a 'repeat until' date. NO every-N-weeks / monthly / yearly cycle.
+- Reschedule (verified reschedule-booking-button.tsx 2026-09-28): the pro picks any slot with enough free places, across ALL services (getSlots not filtered by service) — moving a booking to another service's slot is OK.
+- Public booking page shows NO contact details/phone (verified 2026-09-28 apps/book): never say "your page's contact details"; tell pros to write their phone in the service description.
 - Public page shows slot times in the org's timezone and displays the timezone name (verified slot-selector.tsx).
 - Emails (verified email-esg): client gets a booking confirmation; the pro gets a "new booking" email. Book does NOT do billing, payment, deposits, reminders (SMS/email), carte Vitale.
 - No invented numbers (stats, 'series of 10 sessions', waiting times). Prices in tables = typical market example prices, ALWAYS a plain amount (or Free/Gratuit). No regulated-fee labels or fee-regulation/insurance/reimbursement talk (user 2026-09-26).
@@ -136,7 +153,7 @@ print(f"title {len(t)} {'OK' if len(t)<=60 else 'TOO LONG'} | desc {len(d)} {'OK
 
 ## Pages to revisit when multi-staff ships (user: planned soon)
 
-- `/beauty-salon-manager` en fr, `/spa-manager` en fr, `/pharmacist` en fr, `/specialised-veterinarian` en fr, `/truck-driving-instructor` en fr, `/legal-financial` en fr, `/accountant` en fr, `/notary` en fr, `/real-estate` en fr, `/real-estate-agent` en fr, `/property-assistant` en fr
+- `/beauty-salon-manager` en fr, `/spa-manager` en fr, `/pharmacist` en fr, `/specialised-veterinarian` en fr, `/truck-driving-instructor` en fr, `/legal-financial` en fr, `/accountant` en fr, `/notary` en fr, `/real-estate` en fr, `/real-estate-agent` en fr, `/property-assistant` en fr, `/real-estate-agent/seller-valuation-appointments` en fr (service-per-agent workaround)
 
 ## Phase 1 — landings
 
@@ -549,3 +566,226 @@ Article checks: 800-1500 words (check with word counter before ticking); no "mos
 | `/ski-instructor/group-ski-lessons-by-level` | [x] | [x] | batch 7: levels as services, places, week-long courses = first-day slot |
 | `/traditional-chinese-medicine-therapist/first-consultation-and-follow-ups` | [x] | [x] | batch 7: long first session, follow-up rhythm |
 | `/traditional-chinese-medicine-therapist/session-types-and-lengths` | [x] | [x] | batch 7: acupuncture, tuina, cupping lengths |
+| `/kinesiologist/explain-sessions-to-first-time-clients` | [x] | [x] | batch 8: describe sessions for newcomers, what to wear, first slot |
+| `/kinesiologist/spacing-sessions-between-visits` | [x] | [x] | batch 8: gap between sessions, pro books next one |
+| `/homeopath/consultations-for-children` | [x] | [x] | batch 8: parent books, child name in note, lengths |
+| `/homeopath/short-follow-up-slots` | [x] | [x] | batch 8: keep short follow-up slots beside long consultations |
+| `/aromatherapist/essential-oil-workshops` | [x] | [x] | batch 8: group workshops with places, materials |
+| `/aromatherapist/consultation-and-blend-collection` | [x] | [x] | batch 8: consultation, then short collection slot for the blend |
+| `/personal-stylist/first-style-consultation` | [x] | [x] | batch 8: first consultation, what to bring, note |
+| `/personal-stylist/wardrobe-and-shopping-sessions` | [x] | [x] | batch 8: wardrobe at home vs shopping in town, half-day slots |
+| `/sport-therapist/initial-assessment-and-programme` | [x] | [x] | batch 8: assessment then series (fr = enseignant APA: bilan + séances) |
+| `/sport-therapist/group-exercise-classes` | [x] | [x] | batch 8: group classes with places (fr APA collectif) |
+| `/animal-osteopath/equine-visits-at-the-yard` | [x] | [x] | batch 8: yard visits, several horses, travel |
+| `/animal-osteopath/dog-and-cat-sessions` | [x] | [x] | batch 8: practice vs home, owner note, calm animals |
+| `/sports-coach/outdoor-group-sessions` | [x] | [x] | batch 8: park sessions, meeting point, weather, places |
+| `/sports-coach/first-assessment-session` | [x] | [x] | batch 8: first session/assessment before a plan |
+| `/boxing-instructor/beginner-boxing-classes` | [x] | [x] | batch 8: beginner classes by level, gear, places |
+| `/boxing-instructor/private-pad-sessions` | [x] | [x] | batch 8: 1-to-1 pads, lengths, peak hours |
+| `/plumber/annual-servicing-visits` | [x] | [x] | batch 8: water heater/boiler servicing season, grouped rounds |
+| `/music-therapist/weekly-sessions-and-parent-meetings` | [x] | [x] | batch 9: weekly slot, parent review meetings |
+| `/music-therapist/small-group-sessions` | [x] | [x] | batch 9: closed small groups, places, instruments |
+| `/art-therapist/individual-sessions-and-materials` | [x] | [x] | batch 9: session length incl. setup/cleanup, artwork kept |
+| `/art-therapist/closed-group-cycles` | [x] | [x] | batch 9: closed group over several weeks, pro books all sessions |
+| `/performing-arts-school-dance-instructor/wedding-first-dance-lessons` | [x] | [x] | batch 9: couples, lesson plan to the date |
+| `/performing-arts-school-dance-instructor/partner-classes-leaders-and-followers` | [x] | [x] | batch 9: two services on same time to balance roles |
+| `/photography-teacher/photo-walks-and-light` | [x] | [x] | batch 9: golden hour times, meeting point, weather |
+| `/photography-teacher/one-to-one-camera-lessons` | [x] | [x] | batch 9: bring own camera, home/online, lengths |
+| `/window-cleaner/regular-rounds-by-area` | [x] | [x] | batch 9: area days, 4-8 week cycles by hand (weekly repeat only) |
+| `/window-cleaner/shopfronts-and-commercial-slots` | [x] | [x] | batch 9: early morning shopfronts, access, recurring |
+| `/tanning-consultant/spray-tan-timing-before-events` | [x] | [x] | batch 9: book days before event, prep, note — nit: 'fill first' / 'far better' soft claims |
+| `/tanning-consultant/mobile-tans-and-group-bookings` | [x] | [x] | batch 9: home visits, hen parties back-to-back slots |
+| `/domestic-housekeeper/regular-cleaning-visits` | [x] | [x] | batch 9: same weekday slot, pro books, keys |
+| `/domestic-housekeeper/first-visit-and-deep-clean` | [x] | [x] | batch 9: first longer visit, what to prepare |
+| `/sign-language-teacher/beginner-course-cycles` | [x] | [x] | batch 9: level cycles, places, pro books series |
+| `/sign-language-teacher/lessons-for-families` | [x] | [x] | batch 9: family lessons at home, several people one booking |
+| `/career-guidance-advisor/assessment-and-feedback-sessions` | [x] | [x] | batch 10: tests then feedback session, gap between |
+| `/career-guidance-advisor/sessions-for-students-and-parents` | [x] | [x] | batch 10: exam/orientation season, parent attends — nit: soft claims 'usually books', 'when families want help' |
+| `/public-speaking-coach/coaching-before-a-big-talk` | [x] | [x] | batch 10: countdown to talk date, rehearsal |
+| `/public-speaking-coach/group-speaking-workshops` | [x] | [x] | batch 10: small groups, everyone speaks, places |
+| `/ice-skating-coach/rink-ice-time-and-lessons` | [x] | [x] | batch 10: lessons fit rink ice sessions |
+| `/ice-skating-coach/competition-season-planning` | [x] | [x] | batch 10: extra lessons before competitions |
+| `/animal-massage-therapist/sessions-for-older-pets` | [x] | [x] | batch 10: gentle short sessions, home, owner |
+| `/animal-massage-therapist/dog-sport-event-sessions` | [x] | [x] | batch 10: before/after agility/canicross events |
+| `/tailor/alteration-fittings-and-collection` | [x] | [x] | batch 10: fitting, work time, collection slot |
+| `/tailor/made-to-measure-fittings` | [x] | [x] | batch 10: measurements, 2-3 fittings, timeline to date — word count may be <800, check |
+| `/interior-designer/first-home-consultation` | [x] | [x] | batch 10: home visit, what to prepare, fee |
+| `/interior-designer/project-meetings-timeline` | [x] | [x] | batch 10: concept, presentation, site visits — possibly <800 words |
+| `/private-chef/menu-meeting-and-event-dates` | [x] | [x] | batch 10: tasting/menu call, one date one client |
+| `/private-chef/weekly-meal-prep-visits` | [x] | [x] | batch 10: regular home cooking visits, groceries — possibly <800 words |
+| `/astrologer/birth-chart-reading-preparation` | [x] | [x] | batch 10: birth date/time/place in note |
+| `/astrologer/video-readings-across-time-zones` | [x] | [x] | batch 10: time zone display, video link |
+| `/snowboard-instructor/first-day-lessons-for-beginners` | [x] | [x] | batch 11: first day, gear, meeting point, half-day |
+| `/snowboard-instructor/freestyle-park-sessions` | [x] | [x] | batch 11: park sessions, levels, small groups |
+| `/football-coach/individual-technical-sessions` | [x] | [x] | batch 11: 1-to-1 technique for kids, parent books |
+| `/football-coach/holiday-football-camps` | [x] | [x] | batch 11: daily slots over a holiday week, places |
+| `/locksmith/booked-jobs-vs-emergency-calls` | [x] | [x] | batch 11: planned jobs online, emergencies by phone |
+| `/locksmith/lock-changes-for-landlords` | [x] | [x] | batch 11: between tenants, key handover, access — nit en: 'Many letting agents manage several properties' |
+| `/tile-fitter/multi-day-tiling-jobs` | [x] | [x] | batch 11: one slot per day, same client, quote first — fr related fixed |
+| `/tile-fitter/small-repair-visits` | [x] | [x] | batch 11: short repair slots grouped |
+| `/interpreter/half-day-and-full-day-assignments` | [x] | [x] | batch 11: slot = assignment, travel, prep docs |
+| `/interpreter/remote-interpreting-sessions` | [x] | [x] | batch 11: video/phone interpreting, time zones — nit en: 'which is common practice with new clients abroad' |
+| `/real-estate-agent/seller-valuation-appointments` | [x] | [x] | batch 11: valuation visits, what to prepare — en 'many agencies' claim fixed |
+| `/real-estate-agent/first-meeting-with-buyers` | [x] | [x] | batch 11: buyer brief meeting before viewings — nit en: 'never appear' (visible briefly between slot creation and booking) |
+| `/baker/bread-making-workshops` | [x] | [x] | batch 11: early morning/weekend workshops, places |
+| `/baker/special-order-collection-slots` | [x] | [x] | batch 11: order then collection slot |
+| `/pastry-chef/custom-cake-tastings` | [x] | [x] | batch 11: tasting appointment, event date — nit en: 'often for a day that matters' |
+| `/pastry-chef/pastry-classes` | [x] | [x] | batch 11: group classes, places, materials |
+| `/chimney-sweep/booking-sweeps-before-the-heating-season` | [x] | [x] | batch 12: autumn rush, rounds by area, certificate |
+| `/chimney-sweep/preparing-the-home-for-a-sweep` | [x] | [x] | batch 12: what customer prepares, access, appliance type in note — word count near 800, check |
+| `/pest-management-worker/summer-wasp-nest-callouts` | [x] | [x] | batch 12: seasonal peak, same-day by phone vs next-day online |
+| `/pest-management-worker/follow-up-visits-after-treatment` | [x] | [x] | batch 12: multi-visit treatments (bedbugs, rodents), pro books follow-ups |
+| `/construction-painter/quote-visits-and-colour-choices` | [x] | [x] | batch 12: quote visit, samples, colour decisions before job — nit en: 'often for the first time'; ~800 words |
+| `/construction-painter/painting-occupied-homes` | [x] | [x] | batch 12: room by room, days per room, furniture, drying |
+| `/tyre-fitter/seasonal-tyre-changeover-rush` | [x] | [x] | batch 12: winter/summer swap peaks, places per bay slot — nit en: table price '€60 fitting' not plain amount; 'all think of it at the same time' |
+| `/tyre-fitter/mobile-tyre-fitting-visits` | [x] | [x] | batch 12: at home/work, area days, tyre size in note |
+| `/dressmaker/bridesmaid-and-group-fittings` | [x] | [x] | batch 12: several people same event, fitting days, each books own fitting (tailor has made-to-measure angle) — nit en: 'who is often the one chasing the group' |
+| `/dressmaker/sewing-lessons-for-beginners` | [x] | [x] | batch 12: small group sewing classes, machines, places |
+| `/ceramicist/pottery-wheel-taster-sessions` | [x] | [x] | batch 12: taster classes, places per wheel, clay |
+| `/ceramicist/firing-and-collecting-pieces` | [x] | [x] | batch 12: drying/firing weeks later, glazing session, collection slot — en padded to 817 words 2026-09-28 |
+| `/disc-jockey/wedding-dj-planning-meetings` | [x] | [x] | batch 12: planning call, playlist, timeline, one date one client |
+| `/disc-jockey/venue-visits-and-setup-times` | [x] | [x] | batch 12: venue recce, load-in time, sound limits |
+| `/mediator/first-information-meeting` | [x] | [x] | batch 12: info meeting, separate sessions per party |
+| `/mediator/scheduling-joint-sessions` | [x] | [x] | batch 12: both parties' availability, pro books joint slots |
+| `/musician/trial-lesson-for-new-students` | [x] | [x] | batch 13: first lesson, level, instrument, then weekly |
+| `/musician/accompanist-rehearsal-sessions` | [x] | [x] | batch 13: singers/instrumentalists book rehearsal with accompanist before exams/auditions; tutor has weekly-lessons angle |
+| `/upholsterer/quote-visits-and-fabric-choice` | [x] | [x] | batch 13: home visit to see the piece, measurements, fabric samples |
+| `/upholsterer/workshop-drop-off-appointments` | [x] | [x] | batch 13: bringing chairs in, van access, one client per slot |
+| `/tree-surgeon/quote-visits-for-tree-work` | [x] | [x] | batch 13: site visit, access, neighbours, quote |
+| `/tree-surgeon/planning-work-around-the-seasons` | [x] | [x] | batch 13: dormant season pruning, wildlife checks, weather days |
+| `/financial-planner/first-discovery-meeting` | [x] | [x] | batch 13: what to bring, fees explained, video or office |
+| `/financial-planner/annual-review-meetings` | [x] | [x] | batch 13: yearly review booked by pro (no yearly repeat), prep |
+| `/graphic-designer/briefing-calls-with-new-clients` | [x] | [x] | batch 13: brief questions, scope, deadlines |
+| `/graphic-designer/feedback-and-revision-meetings` | [x] | [x] | batch 13: review calls per round, limit revisions |
+| `/shoe-repairer/while-you-wait-repairs` | [x] | [x] | batch 13: quick heel/tip repairs booked vs walk-ins |
+| `/shoe-repairer/resoling-boots-before-winter` | [x] | [x] | batch 13: seasonal peak, drop-off slots, lead time |
+| `/watch-and-clock-repairer/battery-and-strap-appointments` | [x] | [x] | batch 13: short slots, water resistance test |
+| `/watch-and-clock-repairer/home-visits-for-longcase-clocks` | [x] | [x] | batch 13: can't move clock, visit slot with travel |
+| `/translator/quote-calls-for-large-projects` | [x] | [x] | batch 13: scope call, glossary, deadlines |
+| `/translator/meeting-clients-to-hand-over-documents` | [x] | [x] | batch 13: originals, in-person handover slots |
+| `/wine-sommelier/private-tasting-evenings` | [x] | [x] | batch 14: group tastings at home/venue, places, bottles per head |
+| `/wine-sommelier/cellar-advice-visits` | [x] | [x] | batch 14: home cellar audit, inventory, buying plan |
+| `/personal-shopper/gift-shopping-before-the-holidays` | [x] | [x] | batch 14: December gift briefs, budget per person, one trip for a list (stylist already has wardrobe+shopping) |
+| `/personal-shopper/video-briefs-for-busy-clients` | [x] | [x] | batch 14: video brief call, shopper buys alone, try-on/returns appointment |
+| `/furniture-restorer/assessment-visits-for-antique-furniture` | [x] | [x] | batch 14: condition, restoration vs conservation, quote |
+| `/furniture-restorer/french-polishing-and-finishing-workshops` | [x] | [x] | batch 14: small group classes, places, tools |
+| `/performing-arts-theatre-instructor/audition-preparation-coaching` | [x] | [x] | batch 14: monologue coaching before drama school auditions |
+| `/performing-arts-theatre-instructor/weekly-drama-classes-for-children` | [x] | [x] | batch 14: term groups by age, places, show at end |
+| `/outdoor-activities-instructor/weather-dependent-sessions` | [x] | [x] | batch 14: cancellations for weather, backup dates, reschedule |
+| `/outdoor-activities-instructor/group-bookings-for-families` | [x] | [x] | batch 14: family places, ages, meeting point |
+| `/carpenter/site-visits-for-fitted-furniture` | [x] | [x] | batch 14: measuring alcoves, wardrobes, quote |
+| `/carpenter/fitting-days-and-client-availability` | [x] | [x] | batch 14: fitting day slots, access, multi-day = slot per day |
+| `/credit-adviser/first-mortgage-appointment` | [x] | [x] | batch 14: documents to bring, borrowing capacity talk, no figures |
+| `/credit-adviser/follow-up-meetings-during-an-application` | [x] | [x] | batch 14: offer received, signing, bank meeting prep |
+| `/insurance-broker/policy-review-appointments` | [x] | [x] | batch 14: annual review of cover, documents |
+| `/insurance-broker/claim-support-meetings` | [x] | [x] | batch 14: help filling claim, photos, deadlines — no legal promises |
+| `/jewellery-designer/bespoke-ring-consultations` | [x] | [x] | batch 15: engagement/wedding ring design meeting, sketches, budget, sizing |
+| `/jewellery-designer/ring-sizing-and-collection-appointments` | [x] | [x] | batch 15: sizing check, final fitting, collection with care advice |
+| `/vehicle-glazier/windscreen-replacement-at-home-or-work` | [x] | [x] | batch 15: mobile replacement slots, weather, curing time before driving |
+| `/vehicle-glazier/chip-repair-quick-appointments` | [x] | [x] | batch 15: short chip repair slots, repair vs replace |
+| `/property-appraiser/valuation-visit-preparation` | [x] | [x] | batch 15: documents, access, what the appraiser checks |
+| `/property-appraiser/report-handover-meetings` | [x] | [x] | batch 15: explain the report to the owner, questions |
+| `/sign-language-interpreter/booking-interpreters-for-appointments` | [x] | [x] | batch 15: medical/admin appointments, prep info, duration buffers |
+| `/sign-language-interpreter/preparation-for-conferences-and-events` | [x] | [x] | batch 15: prep call with organisers, materials, team of two |
+| `/private-detective/confidential-first-consultation` | [x] | [x] | batch 15: discreet booking, what to bring, legal limits generic |
+| `/private-detective/progress-report-meetings` | [x] | [x] | batch 15: reporting findings, next steps |
+| `/cocktail-bartender/cocktail-masterclasses-for-groups` | [x] | [x] | batch 15: private masterclass, places, ingredients per head |
+| `/cocktail-bartender/menu-tasting-before-private-events` | [x] | [x] | batch 15: tasting meeting to choose event menu |
+| `/web-designer/website-training-sessions-for-clients` | [x] | [x] | batch 15: CMS handover training after launch |
+| `/web-designer/maintenance-check-in-calls` | [x] | [x] | batch 15: periodic check-ins, updates, small changes |
+| `/singer/vocal-coaching-for-beginners` | [x] | [x] | batch 15: first lesson, warm-ups, repertoire (musician has trial lesson for instruments) |
+| `/singer/singing-at-weddings-and-ceremonies` | [x] | [x] | batch 15: ceremony music meeting, song choices, rehearsal |
+| `/wig-and-hairpiece-maker/first-wig-consultation` | [x] | [x] | batch 16: private first consultation, measurements, hair type, time to make — no medical/reimbursement talk |
+| `/wig-and-hairpiece-maker/wig-maintenance-appointments` | [x] | [x] | batch 16: cleaning, restyling, repairs, drop-off and collection slots |
+| `/performance-hairdresser/shoot-day-bookings-for-photographers` | [x] | [x] | batch 16: call times, looks per day, crew, half/full day slots (make-up-artist has bridal trials) |
+| `/performance-hairdresser/hair-styling-workshops` | [x] | [x] | batch 16: small group styling classes, places, heads/tools |
+| `/weight-loss-consultant/first-assessment-appointment` | [x] | [x] | batch 16: goals, habits, realistic plan, no medical claims (dietitian has follow-up+video) |
+| `/weight-loss-consultant/small-group-support-sessions` | [x] | [x] | batch 16: weekly group meetings, places, themes |
+| `/animal-therapist/post-surgery-rehab-programme` | [x] | [x] | batch 16: vet referral, programme over weeks, booking the series |
+| `/animal-therapist/preparing-a-dog-for-hydrotherapy` | [x] | [x] | batch 16: first session, towels, fasting per therapist advice, slot length |
+| `/specialised-doctor/first-specialist-consultation` | [x] | [x] | batch 16: referral letter, previous results, questions — no fees/insurance |
+| `/specialised-doctor/results-follow-up-appointments` | [x] | [x] | batch 16: booking the follow-up after tests, timing, what to bring |
+| `/roofer/roof-inspection-visits` | [x] | [x] | batch 16: inspection slots, access, photos, quote |
+| `/roofer/scheduling-roof-work-around-the-weather` | [x] | [x] | batch 16: dry days, rescheduling, one slot per day |
+| `/notary/property-sale-signing-appointments` | [x] | [x] | batch 16: signing day, who attends, documents, IDs — no fee talk |
+| `/notary/first-meeting-for-a-will` | [x] | [x] | batch 16: preparing a will meeting, family situation, documents |
+| `/sports-instructor/multi-sport-classes-by-age-group` | [x] | [x] | batch 16: weekly kids classes by age, places, term |
+| `/sports-instructor/sports-birthday-parties` | [x] | [x] | batch 16: party booking by parent, group size, programme |
+| `/optometrist/contact-lens-fitting-and-aftercare` | [x] | [x] | batch 17: first fitting, trial lenses, handling lesson, follow-up check (optician has glasses eye test) |
+| `/optometrist/dry-eye-assessment-appointments` | [x] | [x] | batch 17: longer slot, questionnaire, screen habits, follow-up |
+| `/specialist-nurse/home-visit-scheduling` | [x] | [x] | batch 17: rounds by area, time windows, access, private practice — no reimbursement talk |
+| `/specialist-nurse/wound-care-follow-up-appointments` | [x] | [x] | batch 17: dressing change rhythm, booking the series, photos with consent |
+| `/fashion-designer/bespoke-design-consultations` | [x] | [x] | batch 17: brief, sketches, fabrics, timeline (tailor/dressmaker have fittings) |
+| `/fashion-designer/private-viewings-of-a-collection` | [x] | [x] | batch 17: appointment-only showroom, places per slot, orders |
+| `/butcher/holiday-order-collection-slots` | [x] | [x] | batch 17: Christmas/Easter orders, pickup slots with capacity to spread the queue |
+| `/butcher/butchery-classes` | [x] | [x] | batch 17: small group classes, knives, safety, take-home meat |
+| `/pizzaiolo/pizza-making-classes` | [x] | [x] | batch 17: dough, stretching, oven, places, kids/adults |
+| `/pizzaiolo/pizza-catering-for-private-parties` | [x] | [x] | batch 17: mobile oven at home/events, headcount, setup |
+| `/beer-sommelier/beer-and-food-pairing-dinners` | [x] | [x] | batch 17: pairing evenings with a restaurant, places, courses |
+| `/beer-sommelier/beer-tasting-workshops-for-teams` | [x] | [x] | batch 17: company tastings, group booked by pro, alcohol-free option |
+| `/illustrator/commission-briefing-calls` | [x] | [x] | batch 17: brief, references, usage rights, rounds (graphic-designer has briefing: keep illustration-specific) |
+| `/illustrator/live-illustration-at-events` | [x] | [x] | batch 17: live sketching at weddings/corporate, hours, setup |
+| `/sculptor/portrait-sculpture-sittings` | [x] | [x] | batch 17: series of sittings, photos, duration per sitting — fr create timed out but page saved |
+| `/sculptor/studio-visits-for-collectors` | [x] | [x] | batch 17: appointment studio visits, commissions talk |
+| `/prosthetist-orthotist/casting-and-fitting-appointments` | [x] | [x] | batch 18: assessment, cast/scan, test socket/fitting, what to wear, series of visits |
+| `/prosthetist-orthotist/adjustment-and-review-appointments` | [x] | [x] | batch 18: when to come back, skin checks, growth for children, wear and repairs |
+| `/plasterer/site-visits-for-plastering-quotes` | [x] | [x] | batch 18: measuring, wall condition, skim vs replaster, access, quote |
+| `/plasterer/drying-time-and-booking-the-decorator` | [x] | [x] | batch 18: drying before paint, mist coat, sequencing trades, client planning |
+| `/bricklayer/quote-visits-for-garden-walls-and-extensions` | [x] | [x] | batch 18: footings, materials, access, brick matching, quote |
+| `/bricklayer/repointing-assessment-visits` | [x] | [x] | batch 18: mortar type, lime vs cement, damage, scaffolding, small jobs |
+| `/hardwood-floor-layer/floor-survey-and-moisture-check` | [x] | [x] | batch 18: subfloor, moisture readings, acclimatising boards, room clearing |
+| `/hardwood-floor-layer/sanding-and-refinishing-days` | [x] | [x] | batch 18: emptying rooms, dust, finish curing, stay-off times, pets |
+| `/stonemason/dry-stone-wall-repair-visits` | [x] | [x] | batch 18: collapse causes, reusing stone, batter, through-stones, seasons (landing = walls/lime/dry stone/fireplaces; memorial angle dropped) |
+| `/stonemason/stone-fireplace-surround-consultations` | [x] | [x] | batch 18: stone choice, measurements, hearth, flue/installer coordination, fitting day |
+| `/refrigeration-air-condition-and-heat-pump-technician/heat-pump-installation-survey` | [x] | [x] | batch 18: heat loss, outdoor unit location, noise, electrics, quote (plumber has boiler servicing) |
+| `/refrigeration-air-condition-and-heat-pump-technician/pre-season-air-conditioning-checks` | [x] | [x] | batch 18: spring rush, filters, refrigerant checks by certified tech, booking ahead |
+| `/smart-home-installer/home-survey-before-installation` | [x] | [x] | batch 18: wifi coverage, wiring, existing devices, goals, quote |
+| `/smart-home-installer/handover-and-training-session` | [x] | [x] | batch 18: app setup, routines, household members, follow-up call |
+| `/immigration-adviser/first-consultation-what-to-bring` | [x] | [x] | batch 18: documents, timeline, questions, interpreter, no legal promises |
+| `/immigration-adviser/preparing-for-an-application-appointment` | [x] | [x] | batch 18: checklist session, deadlines, copies/translations, follow-up |
+| `/window-installer/window-survey-and-measuring-visits` | [x] | [x] | batch 19: measuring openings, frame condition, opening style, lead time, fitting day |
+| `/window-installer/fitting-day-preparation` | [x] | [x] | batch 19: clearing sills, curtains, dust, making good, how long per window |
+| `/paperhanger/wallpaper-consultation-and-quantities` | [x] | [x] | batch 19: pattern repeat, rolls, batch numbers, wall prep, quote |
+| `/paperhanger/preparing-walls-for-wallpaper` | [x] | [x] | batch 19: stripping, lining paper, drying, sockets, scheduling |
+| `/resilient-floor-layer/vinyl-and-lino-survey-visits` | [x] | [x] | batch 19: subfloor, levelling, moisture, room use, samples |
+| `/resilient-floor-layer/commercial-floor-installations-out-of-hours` | [x] | [x] | batch 19: shops/offices, nights/weekends, curing, phasing |
+| `/investment-adviser/risk-profile-meetings` | [x] | [x] | batch 19: risk questionnaire, capacity for loss, horizon, explaining volatility, no return promises (financial-planner has discovery+annual review) |
+| `/investment-adviser/client-meetings-after-market-falls` | [x] | [x] | batch 19: proactive calls/meetings when markets drop, what to say, no predictions |
+| `/diesel-engine-mechanic/fleet-servicing-schedules` | [x] | [x] | batch 19: vans/trucks/agri, downtime, early drop-off, batching |
+| `/diesel-engine-mechanic/diagnostic-appointments` | [x] | [x] | batch 19: symptoms, warning lights, test drive, quote before repair |
+| `/vehicle-restoration-technician/restoration-project-assessment` | [x] | [x] | batch 19: inspection, rust, parts, stages, budget, photos |
+| `/vehicle-restoration-technician/progress-visits-to-the-workshop` | [x] | [x] | batch 19: owner visits at milestones, decisions, safety |
+| `/survival-instructor/one-day-bushcraft-courses` | [x] | [x] | batch 19: group size, kit list, weather, safety, places per slot |
+| `/survival-instructor/kit-list-and-safety-briefing` | [x] | [x] | batch 19: what participants bring, medical info, fires/knives rules, consent for minors (outdoor-instructor has family groups) |
+| `/event-manager/first-event-planning-meeting` | [x] | [x] | batch 19: corporate brief (objectives, audience, budget, decision makers) — not weddings (wedding-planner has first meetings) |
+| `/event-manager/supplier-site-visits` | [x] | [x] | batch 19: venue walk-through, caterer tasting, AV checks, scheduling |
+| `/chef/running-a-supper-club` | [x] | [x] | batch 20: theme, seats per evening, menu, dietary needs, venue, selling seats (private-chef has menu meeting/meal prep) |
+| `/chef/cooking-class-formats` | [x] | [x] | batch 20: hands-on vs demo, group size, kitchen setup, allergens, take-home |
+| `/stand-up-comedian/corporate-event-sets` | [x] | [x] | batch 20: brief, audience, content limits, set length, tech rider, timing in the programme |
+| `/stand-up-comedian/comedy-writing-workshops` | [x] | [x] | batch 20: group size, exercises, open-mic goal, multi-week course booking |
+| `/truck-driving-instructor/assessment-drive-before-training` | [x] | [x] | batch 20: level check, licence/medical prerequisites, training plan length (car-driving has blocks/test day) |
+| `/truck-driving-instructor/manoeuvring-sessions-on-the-yard` | [x] | [x] | batch 20: reversing, coupling, yard slots, pairs, safety |
+| `/vehicle-electronics-installer/dashcam-installation-appointments` | [x] | [x] | batch 20: hardwire vs plug, parking mode, battery, cable routing, time per car |
+| `/vehicle-electronics-installer/car-audio-upgrade-consultations` | [x] | [x] | batch 20: listening session, budget, compatibility, sound deadening, install day |
+| `/plate-glass-installer/shower-screen-measuring-visits` | [x] | [x] | batch 20: tiles finished first, walls plumb, glass type, lead time, fitting |
+| `/plate-glass-installer/broken-pane-replacement-visits` | [x] | [x] | batch 20: make safe, measure, glass type, temporary boarding, return to fit |
+| `/renewable-energy-consultant/solar-feasibility-home-visits` | [x] | [x] | batch 20: roof, orientation, shading, consumption, honest no-promise outcome |
+| `/renewable-energy-consultant/advice-calls-before-a-renovation` | [x] | [x] | batch 20: prioritising works, insulation first, bills, plan, no subsidy claims |
+| `/sports-equipment-repair-technician/spring-bike-service-rush` | [x] | [x] | batch 20: drop-off slots, capacity per day, parts, collection, early booking |
+| `/sports-equipment-repair-technician/ski-servicing-before-the-season` | [x] | [x] | batch 20: wax, edges, bindings check (DIN by qualified), drop-off, peak weeks |
+| `/sommelier/wine-list-consultations-for-restaurants` | [x] | [x] | batch 21: menu, price ladder, by-the-glass, suppliers, staff briefing (not cellar/tasting = wine-sommelier) |
+| `/sommelier/wine-pairing-for-private-events` | [x] | [x] | batch 21: wedding/dinner pairing, quantities per guest, tasting with hosts, service on the day |
+| `/specialised-veterinarian/preparing-a-referral-consultation` | [x] | [x] | batch 21: referral letter, records, imaging, fasting, longer slot, owner questions |
+| `/specialised-veterinarian/rechecks-after-a-specialist-diagnosis` | [x] | [x] | batch 21: recheck rhythm, tests, sharing with referring vet, remote vs in person |
+| `/veterinary-nurse/weight-management-clinics` | [x] | [x] | batch 21: weigh-ins, body condition, diet plan, rhythm, families |
+| `/veterinary-nurse/post-operative-check-appointments` | [x] | [x] | batch 21: wound check, suture removal timing, cone, when to escalate to vet |
+| `/street-performer/walkabout-acts-at-weddings-and-events` | [x] | [x] | batch 21: sets, timing with organiser, space, weather, booking call |
+| `/street-performer/circus-skills-workshops-for-groups` | [x] | [x] | batch 21: juggling/balance, group size, ages, space, safety, schools/companies |
+| `/vehicle-maintenance-attendant/valeting-slot-lengths` | [x] | [x] | batch 21: interior/exterior levels, car size, condition, drying, buffer |
+| `/vehicle-maintenance-attendant/winter-check-appointments` | [x] | [x] | batch 21: battery, wipers, bulbs, screenwash, antifreeze, tyres look |
+| `/roadside-vehicle-technician/planned-vehicle-transport-bookings` | [x] | [x] | batch 21: non-runner, purchase collection, garage moves, access, keys, docs |
+| `/roadside-vehicle-technician/battery-replacement-visits` | [x] | [ ] | batch 21: battery type, start-stop, coding, location, old battery, test |
+| `/personal-property-appraiser/valuation-days` | [ ] | [ ] | batch 21: short slots per object, venue, categories, photos first, follow-up |
+| `/personal-property-appraiser/inheritance-inventory-home-visits` | [ ] | [ ] | batch 21: heirs present, room by room, length, report, sensitivity |
+| `/sprinkler-fitter/inspection-visits-by-area` | [ ] | [ ] | batch 21: periodic inspections, site access, area days, reports, follow-up repairs |
+| `/sprinkler-fitter/site-surveys-before-installation` | [ ] | [ ] | batch 21: building use, water supply, plans, ceilings, quote, standards via official |
