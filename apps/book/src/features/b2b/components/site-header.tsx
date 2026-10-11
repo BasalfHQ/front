@@ -11,7 +11,7 @@ export async function SiteHeader({ locale }: { locale: string }) {
   return (
     <nav className="flex items-center justify-between gap-2 border-b border-border px-4 py-2">
       <Link href={forHubPath(locale)} aria-label={t("nav.trades")} className="block">
-        <Image src="/logo.png" alt="Basalf" width={60} height={60} priority />
+        <Image src="/book-logo.webp" alt="Basalf Book" width={60} height={60} priority />
       </Link>
       <CtaLink locale={locale} label={t("cta")} size="sm" />
     </nav>

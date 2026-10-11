@@ -1,4 +1,5 @@
 export { Button, buttonVariants } from "./components/button";
+export { BasalfLogo } from "./components/basalf-logo";
 export {
   RootLayout,
   Nav,

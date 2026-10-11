@@ -46,6 +46,26 @@ export function createMetadata(
       description: site.description,
       ...(site.twitterHandle && { creator: site.twitterHandle }),
     },
+    // Favicon follows the OS color scheme (same files as BasalfLogo, 96px:
+    // Google wants a multiple of 48). Each app serves them from public/.
+    icons: {
+      icon: [
+        {
+          url: "/basalf-icon-light-mode.png",
+          type: "image/png",
+          sizes: "96x96",
+          media: "(prefers-color-scheme: light)",
+        },
+        {
+          url: "/basalf-icon-dark-mode.png",
+          type: "image/png",
+          sizes: "96x96",
+          media: "(prefers-color-scheme: dark)",
+        },
+      ],
+      // Here and not as app/apple-icon.png: icons above drop the file one.
+      apple: { url: "/basalf-apple-icon.png", sizes: "180x180" },
+    },
     ...pageMetadata,
   };
 }

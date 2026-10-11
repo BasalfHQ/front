@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { BasalfLogo } from "@repo/ui";
 import { Link } from "@repo/i18n";
 import { getDraftOrganization } from "../actions";
 
@@ -18,7 +18,7 @@ export async function CheckoutHeader() {
             : "http://localhost:3000"
         }
       >
-        <Image src="/logo.png" alt="Basalf" width={60} height={60} />
+        <BasalfLogo />
       </Link>
       {draft && (
         <span className="text-sm text-gray-500 truncate max-w-[50%]">{draft.name}</span>

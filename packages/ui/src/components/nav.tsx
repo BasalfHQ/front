@@ -3,9 +3,9 @@
 import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Menu, X } from "lucide-react";
-import Image from "next/image";
 import { Link } from "@repo/i18n";
 import { cn } from "../lib/utils";
+import { BasalfLogo } from "./basalf-logo";
 
 export type NavItem = {
   label: string;
@@ -69,7 +69,7 @@ export function Nav({ navItems, authSlot, mobileAuthSlot }: NavProps) {
     <nav className="flex flex-wrap items-center justify-between gap-2 px-4 py-2 border-b w-full">
       <div className="flex items-center gap-4 md:gap-10">
         <Link href={logoHref}>
-          <Image src="/logo.png" alt="Basalf" width={60} height={60} />
+          <BasalfLogo />
         </Link>
         {/* Links row only shows once there's room next to the logo - below
             that width they'd overflow the bar instead of wrapping cleanly,

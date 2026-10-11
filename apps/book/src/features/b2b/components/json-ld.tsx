@@ -6,7 +6,7 @@ const BASALF = {
   "@type": "Organization",
   name: "Basalf",
   url: "https://basalf.com",
-  logo: absoluteUrl("/logo.png"),
+  logo: absoluteUrl("/basalf-light-mode.webp"),
 };
 
 export function JsonLd({ data }: { data: object }) {
