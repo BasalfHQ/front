@@ -54,6 +54,36 @@ const BOOK_IMAGES = ["bookings", "slots", "profile"].map((name) =>
   absoluteUrl(`/b2b/${name}-desktop.png`),
 );
 
+// The page itself, pointing Google at the image to use as its thumbnail in
+// results (the og:image text card is only a hint, Google prefers real visuals).
+export function webPageSchema({
+  locale,
+  title,
+  description,
+  url,
+}: {
+  locale: string;
+  title: string;
+  description: string;
+  url: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    description,
+    url,
+    inLanguage: locale,
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: BOOK_IMAGES[0],
+      width: 1080,
+      height: 696,
+    },
+    publisher: BASALF,
+  };
+}
+
 // Book as a product for sale, pitched to one audience (e.g. "barbers").
 // Also typed Product: Google shows the price of a Product offer in results
 // (product snippet), a SoftwareApplication alone needs ratings we don't have.

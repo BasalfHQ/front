@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, routing, setRequestLocale } from "@repo/i18n";
-import { getBaseUrl } from "@/lib/seo";
+import { getBaseUrl, SITE_NAME } from "@/lib/seo";
 import "../globals.css";
 
 // Root layout: under [locale] so <html lang> matches the page language.
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseUrl()),
-  title: "Book",
+  title: SITE_NAME,
+  applicationName: SITE_NAME,
+  openGraph: { siteName: SITE_NAME },
+  // Lets Google show large image thumbnails in results and Discover.
+  robots: { googleBot: { "max-image-preview": "large" } },
   description: "Book your appointment",
   verification: { google: "04sp6e87avP2LDhrjVzY6xmJMEgOEtJNGqtTnWgviWQ" },
 };

@@ -12,6 +12,7 @@ import {
   getSchemaType,
   formatAddress,
   generateJsonLd,
+  SITE_NAME,
 } from "@/lib/seo";
 
 type Props = {
@@ -60,7 +61,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       url,
-      siteName: "Basalf Book",
+      siteName: SITE_NAME,
       locale,
       type: "website",
     },

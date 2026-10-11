@@ -18,6 +18,7 @@ import {
   breadcrumbListSchema,
   faqPageSchema,
   softwareApplicationSchema,
+  webPageSchema,
 } from "./components/json-ld";
 
 // Sales page shared by occupations and categories: the template is the same,
@@ -68,6 +69,14 @@ export async function LandingPage({
           features: (["i1", "i2", "i3", "i4", "i5"] as const).map((key) =>
             t(`pricing.${key}`),
           ),
+        })}
+      />
+      <JsonLd
+        data={webPageSchema({
+          locale,
+          title: content.seo.title,
+          description: content.seo.description,
+          url: absoluteUrl(path),
         })}
       />
       <JsonLd data={breadcrumbListSchema(crumbs)} />

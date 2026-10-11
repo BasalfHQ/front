@@ -12,6 +12,7 @@ import {
   isCategoryArticleSlug,
 } from "./content";
 import { folderArticlePath, folderPath, type Folder } from "./folder";
+import { SITE_NAME } from "@/lib/seo";
 import { absoluteUrl, forHubPath } from "./paths";
 
 // Canonical + hreflang alternates from the path of the page in each locale
@@ -45,7 +46,7 @@ function pageMetadata({
       url,
       locale,
       type: "website",
-      siteName: "Book",
+      siteName: SITE_NAME,
     },
     twitter: { card: "summary_large_image", title, description },
   };

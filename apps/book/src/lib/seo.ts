@@ -8,6 +8,20 @@ export function getBaseUrl(): string {
   return "https://book.basalf.com";
 }
 
+// Site name Google shows above results (from the WebSite schema of the home
+// page, then og:site_name); without it Google falls back to "basalf.com".
+export const SITE_NAME = "Basalf Book";
+
+export function webSiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    alternateName: ["Book", "Book by Basalf"],
+    url: `${getBaseUrl()}/`,
+  };
+}
+
 export type SchemaOrgType =
   | "MedicalBusiness"
   | "HealthAndBeautyBusiness"
