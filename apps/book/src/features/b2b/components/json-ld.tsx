@@ -48,6 +48,12 @@ export function itemListSchema(links: { label: string; href: string }[]) {
   };
 }
 
+// Screenshots of the app (see device-shots.tsx): Google requires an image on
+// a Product with an offer.
+const BOOK_IMAGES = ["bookings", "slots", "profile"].map((name) =>
+  absoluteUrl(`/b2b/${name}-desktop.png`),
+);
+
 // Book as a product for sale, pitched to one audience (e.g. "barbers").
 // Also typed Product: Google shows the price of a Product offer in results
 // (product snippet), a SoftwareApplication alone needs ratings we don't have.
@@ -68,6 +74,7 @@ export function softwareApplicationSchema({
     "@context": "https://schema.org",
     "@type": ["SoftwareApplication", "Product"],
     name: "Book",
+    image: BOOK_IMAGES,
     brand: { "@type": "Brand", name: "Basalf" },
     applicationCategory: "BusinessApplication",
     applicationSubCategory: "Online booking",
