@@ -32,6 +32,7 @@ export async function CheckoutOrganizationStep() {
           <ol className="mt-2 space-y-1.5 text-sm text-gray-500 list-decimal list-inside">
             <li>{t("whatNextItem1")}</li>
             <li>{t("whatNextItem2")}</li>
+            <li>{t("whatNextItem3")}</li>
           </ol>
         </div>
       </aside>
